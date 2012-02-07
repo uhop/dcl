@@ -329,6 +329,56 @@ var tests = [
 	function(){
 		if(dcl.advise){
 			var A = dcl(null, {
+				constructor: dcl.advise({
+					around: function(sup){
+						return function(){
+							if(!this.a){ this.a = []; }
+							this.a.push("A");
+						};
+					},
+					after: function(){
+						this.postscript();
+					}
+				}),
+				postscript: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("P");
+				}
+			});
+
+			var B = dcl(null, {
+				constructor: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("B");
+				}
+			});
+
+			var C = dcl(null, {
+				constructor: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("C");
+				}
+			});
+
+			var x = new (dcl(A, {}));
+			submit("AP", eqArrays(x.a, ["A", "P"]));
+
+			var y = new (dcl([A, B], {}));
+			submit("ABP", eqArrays(y.a, ["A", "B", "P"]));
+
+			var z = new (dcl([A, B, C], {}));
+			submit("ABCP", eqArrays(z.a, ["A", "B", "C", "P"]));
+
+			var m = new (dcl([B, A], {}));
+			submit("BAP", eqArrays(m.a, ["B", "A", "P"]));
+
+			var n = new (dcl([C, A, B], {}));
+			submit("CABP", eqArrays(n.a, ["C", "A", "B", "P"]));
+		}
+	},
+	function(){
+		if(dcl.advise){
+			var A = dcl(null, {
 				m1: dcl.advise({
 					after: function(){
 						if(!this.a){ this.a = []; }
