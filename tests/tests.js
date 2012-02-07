@@ -42,6 +42,7 @@ function getNames(ctor){
 // tests
 
 var tests = [
+	// dcl-mini tests
 	function(){
 		var A = dcl(null, {});
 		submit(A.prototype.declaredClass, A.prototype.declaredClass.match(/uniqName_\d+/));
@@ -200,7 +201,200 @@ var tests = [
 
 		submit("ABC3 triangle", eqArrays(getNames(ABC3), ["ABC3", "BC", "ABC", "C", "B", "A"]));
 		submit("ABC4 triangle", eqArrays(getNames(ABC4), ["ABC4", "ABC", "BC", "C", "B", "A"]));
+	},
+	// dcl tests
+	function(){
+		if(dcl.chainBefore && dcl.chainAfter){
+			var A = dcl(null, {});
+			dcl.chainBefore(A, "m1");
+			dcl.chainAfter(A, "m2");
+
+			var B = dcl(null, {
+				m1: function(){
+					if(!this.b){ this.b = []; }
+					this.b.push("B");
+				},
+				m2: function(){
+					if(!this.c){ this.c = []; }
+					this.c.push("B");
+				}
+			});
+
+			var C = dcl(null, {
+				m1: function(){
+					if(!this.b){ this.b = []; }
+					this.b.push("C");
+				},
+				m2: function(){
+					if(!this.c){ this.c = []; }
+					this.c.push("C");
+				}
+			});
+
+			var D = dcl(null, {
+				m1: function(){
+					if(!this.b){ this.b = []; }
+					this.b.push("D");
+				},
+				m2: function(){
+					if(!this.c){ this.c = []; }
+					this.c.push("D");
+				}
+			});
+
+			var ABCD = dcl([A, B, C, D], {});
+			var x = new ABCD;
+			x.m1();
+			x.m2();
+
+			submit("Chained before", eqArrays(x.b, ["D", "C", "B"]));
+			submit("Chained after", eqArrays(x.c, ["B", "C", "D"]));
+		}
+	},
+	function(){
+		if(dcl.isInstanceOf){
+			var A = dcl(null, {});
+			var B = dcl(null, {});
+			var C = dcl(null, {});
+			var D = dcl(null, {});
+
+			var AC = dcl([A, C], {});
+			var BD = dcl([B, D], {});
+
+			var x = new AC, y = new BD;
+
+			submit("x is A", dcl.isInstanceOf(x, A));
+			submit("x is not B", !dcl.isInstanceOf(x, B));
+			submit("x is C", dcl.isInstanceOf(x, C));
+			submit("x is not D", !dcl.isInstanceOf(x, D));
+
+			submit("y is not A", !dcl.isInstanceOf(y, A));
+			submit("y is B", dcl.isInstanceOf(y, B));
+			submit("y is not C", !dcl.isInstanceOf(y, C));
+			submit("y is D", dcl.isInstanceOf(y, D));
+		}
+	},
+	function(){
+		if(dcl.advise){
+			var A = dcl(null, {
+				constructor: dcl.advise({
+					around: function(sup){
+						return function(){
+							if(!this.a){ this.a = []; }
+							this.a.push("A");
+						};
+					},
+					after: function(){
+						this.postscript();
+					}
+				}),
+				postscript: function(){
+					this.b = "A";
+				}
+			});
+
+			var B = dcl(null, {
+				constructor: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("B");
+				},
+				postscript: function(){
+					this.b = "B";
+				}
+			});
+
+			var C = dcl(null, {
+				constructor: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("C");
+				},
+				postscript: function(){
+					this.b = "C";
+				}
+			});
+
+			var x = new (dcl(A, {}));
+			submit("x ctor", eqArrays(x.a, ["A"]));
+			submit("x post", x.b === "A");
+
+			var y = new (dcl([A, B], {}));
+			submit("y ctor", eqArrays(y.a, ["A", "B"]));
+			submit("y post", y.b === "B");
+
+			var z = new (dcl([A, B, C], {}));
+			submit("z ctor", eqArrays(z.a, ["A", "B", "C"]));
+			submit("z post", z.b === "C");
+		}
+	},
+	function(){
+		if(dcl.advise){
+			var A = dcl(null, {
+				m1: dcl.advise({
+					after: function(){
+						if(!this.a){ this.a = []; }
+						this.a.push("Aa");
+					}
+				})
+			});
+			var B = dcl(null, {
+				m1: dcl.advise({
+					before: function(){
+						if(!this.a){ this.a = []; }
+						this.a.push("Bb");
+					}
+				})
+			});
+			var C = dcl(null, {
+				m1: dcl.superCall(function(sup){
+					return function(){
+						if(!this.a){ this.a = []; }
+						this.a.push("Cfb");
+						if(sup){
+							sup.apply(this, arguments);
+						}
+						this.a.push("Cfa");
+					};
+				})
+			});
+			var D = dcl(null, {
+				m1: dcl.advise({
+					before: function(){
+						if(!this.a){ this.a = []; }
+						this.a.push("Db");
+					},
+					around: function(sup){
+						return function(){
+							if(!this.a){ this.a = []; }
+							this.a.push("Dfb");
+							if(sup){
+								sup.apply(this, arguments);
+							}
+							this.a.push("Dfa");
+						};
+					},
+					after: function(){
+						if(!this.a){ this.a = []; }
+						this.a.push("Da");
+					}
+				})
+			});
+			var E = dcl(null, {
+				m1: function(){
+					if(!this.a){ this.a = []; }
+					this.a.push("E");
+				}
+			});
+
+			var x = new (dcl([E, A, B, C, D], {}));
+			x.m1();
+			submit("EABCD", eqArrays(x.a, ["Db", "Bb", "Dfb", "Cfb", "E", "Cfa", "Dfa", "Aa", "Da"]));
+
+			var y = new (dcl([A, B, C, D, E], {}));
+			y.m1();
+			submit("ABCDE", eqArrays(y.a, ["Db", "Bb", "E", "Aa", "Da"]));
+		}
 	}
+	// aop tests
 ];
 
 function runTests(){

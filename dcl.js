@@ -21,19 +21,21 @@
 			constructor: function(){
 				this.nb = this.pb = this.na = this.pa = this.nf = this.pf = this;
 			},
-			add: function(advice){
-				var a = new AdviceNode;
-				a.b = advice.before;
-				a.a = advice.after;
-				a.f = advice.around;
-				this._add("b", a);
-				this._add("a", a);
-				this._add("f", a);
-				return a;
+			add: function(b, a, o, f){
+				var t = new AdviceNode;
+				t.p = this;
+				t.b = b;
+				t.a = a;
+				t.o = o;
+				t.f = f;
+				this._add("b", t);
+				this._add("a", t);
+				this._add("f", t, o);
+				if(o){ t.f = o(t.pf.f); }
+				return t;
 			},
-			_add: function(topic, adviceNode){
-				var f = adviceNode[topic];
-				if(f){
+			_add: function(topic, adviceNode, flag){
+				if(adviceNode[topic] || flag){
 					var n = "n" + topic, p = "p" + topic;
 					(adviceNode[p] = this[p])[n] = (adviceNode[n] = this)[p] = adviceNode;
 				}
@@ -47,9 +49,6 @@
 				var n = "n" + topic, p = "p" + topic;
 				adviceNode[n][p] = adviceNode[p];
 				adviceNode[p][n] = adviceNode[n];
-			},
-			destroy: function(){
-				this.remove(this);
 			}
 		});
 
@@ -68,16 +67,24 @@
 				case 2: f = dcl._stubAfterChain(dcl._chain(bases, name)); break;
 				default: f = dcl._stubSuper(bases, name); break;
 			}
-			if(f){ a.add({around: f}); }
+			if(f){ a.add(0, 0, 0, f); }
 			for(; i >= 0; --i){
 				f = bases[i];
-				if(f.b || f.a){ a.add({before: f.b, after: f.a}); }
+				if(f._meta){
+					f = f._meta.hidden;
+					if(f.hasOwnProperty(name)){
+						f = f[name];
+						if(f instanceof Advice){
+							if(f.b || f.a){ a.add(f.b, f.a); }
+						}
+					}
+				}
 			}
 			bases = null;
 			if(a.pb === a && a.pa === a){
 				// no before/after advices => fall back to a regular stub
 				f = a.pf.f;
-				a.destroy();
+				a.remove(a);
 				return f;
 			}
 			// AOP stub
@@ -99,7 +106,7 @@
 				}
 				// running the after chain
 				for(p = a.na; p !== a; p = p.na){
-					p.a.apply(this, arguments);
+					p.a.call(this, r);
 				}
 				if(r instanceof Error){
 					throw r;
@@ -154,7 +161,10 @@
 
 		dcl.chainBefore = chain(1);
 		dcl.chainAfter = chain(2);
-		dcl.noChain = chain(3);
+
+		dcl.isInstanceOf = function(object, ctor){
+			return object instanceof ctor || (object.constructor._meta && object.constructor._meta.bases.indexOf(ctor) >= 0);
+		};
 
 		dcl._AdviceNode = AdviceNode;
 		dcl._makeAOPStub = makeAOPStub;

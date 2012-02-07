@@ -22,16 +22,14 @@
 						// pre-process a base
 						// 1) add declaredClass
 						if(!base.__u){
-							base.__u = uniqPrefix + counter++;
+							base.__u = counter++;
 						}
 						// 2) build a connection map and the base list
 						proto = base[pname];
 						if(base._meta){
 							for(bases = base._meta.bases, j = 0, l = bases.length - 1; j < l; ++j){
 								n = bases[j].__u;
-								if(!m[n]){
-									m[n] = [];
-								}
+								m[n] = m[n] || [];
 								m[n].push(bases[j + 1]);
 							}
 							b = b.concat(bases);
@@ -45,8 +43,7 @@
 						n = base.__u;
 						if(!o[n]){
 							if(m[n]){
-								b.push(base);
-								b = b.concat(m[n]);
+								b = b.concat(base, m[n]);
 								m[n] = 0;
 							}else{
 								o[n] = 1;
@@ -54,10 +51,10 @@
 							}
 						}
 					}
+					r.push(0); // reserve space for this class
 					// calculate a base class
 					base = superClass[0];
-					mixIdx = base ? base._meta && base === r[base._meta.bases.length - 1] ? base._meta.bases.length : 1 : 0;
-					r.push(0);
+					mixIdx = r.length - (base._meta && base === r[base._meta.bases.length - 1] ? base._meta.bases.length : 1);
 					bases = r.reverse();
 					superClass = bases[mixIdx--];
 				}else{
@@ -71,7 +68,7 @@
 				bases = [0];
 				proto = {};
 			}
-			r = superClass && superClass._meta ? delegate(superClass._meta.chains) : {};
+			r = superClass && superClass._meta ? delegate(superClass._meta.chains) : {constructor: 2};
 
 			// create prototype: mix in mixins and props
 			for(; mixIdx > 0; --mixIdx){
@@ -87,7 +84,7 @@
 			for(n in props){
 				m = props[n];
 				if(m instanceof Super){
-					if(!r[n]){ r[n] = 3; }
+					r[n] = r[n] || 3;
 				}else{
 					proto[n] = m;
 				}
@@ -113,8 +110,8 @@
 		}
 
 		function mix(_, a, b){
-			for(var n in a){
-				b[n] = a[n];
+			for(var n in b){
+				a[n] = b[n];
 			}
 		}
 
@@ -175,7 +172,7 @@
 					f = f._meta.hidden;
 					if(f.hasOwnProperty(name)){
 						f = f[name];
-						p = (f instanceof Super ? f.f(p) : f) || p;
+						p = (f instanceof Super ? f.f && f.f(p) : f) || p;
 					}
 				}else{
 					p = f.prototype[name] || p;
@@ -189,10 +186,6 @@
 				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubAfterChain(chain(bases, name));
 			}
 		}
-
-		dcl.isInstanceOf = function(object, ctor){
-			return object instanceof ctor || (object.constructor._meta && object.constructor._meta.bases.indexOf(ctor) >= 0);
-		};
 
 		dcl._Super = Super;
 		dcl._chain = chain;
