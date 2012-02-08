@@ -98,6 +98,8 @@
 			return ctor;
 		}
 
+		// utilities
+
 		function mix(a, b){
 			for(var n in b){
 				a[n] = b[n];
@@ -162,23 +164,6 @@
 				function(f){
 					p = f && f !== t ? f : p;
 				});
-			return p || new Function;
-		}
-
-		function stubSuper2(bases, name){
-			var i = bases.length - 1, f, p = null;
-			for(; i >= 0; --i){
-				f = bases[i];
-				if(f._meta){
-					f = f._meta.hidden;
-					if(f.hasOwnProperty(name)){
-						f = f[name];
-						p = (f instanceof Super ? f.f && f.f(p) : f) || p;
-					}
-				}else{
-					p = f.prototype[name] || p;
-				}
-			}
 			return p || new Function;
 		}
 
