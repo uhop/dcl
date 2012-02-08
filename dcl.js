@@ -2,9 +2,7 @@
 	"use strict";
 	define(["./dcl-mini"], function(dcl){
 
-		function err(name, msg){
-			throw Error("ERROR in class '" + name + "': " + msg);
-		}
+		function err(msg){ throw Error("ERROR: " + msg); }
 
 		function stubBeforeChain(chain){
 			if(chain.length){
@@ -17,7 +15,8 @@
 			return new Function;
 		}
 
-		var AdviceNode = dcl("dcl.AdviceNode", null, {
+		var AdviceNode = dcl(null, {
+			declaredClass: "dcl.AdviceNode",
 			constructor: function(){
 				this.nb = this.pb = this.na = this.pa = this.nf = this.pf = this;
 			},
@@ -52,7 +51,8 @@
 			}
 		});
 
-		var Advice = dcl("dcl.Advice", dcl._Super, {
+		var Advice = dcl(dcl._Super, {
+			declaredClass: "dcl.Advice",
 			constructor: function(){
 				this.b = this.f.before;
 				this.a = this.f.after;
@@ -116,7 +116,7 @@
 			return f;
 		}
 
-		function mixChains(name, dst, src){
+		function mixChains(dst, src){
 			var n, d, s;
 			for(n in src){
 				if(src.hasOwnProperty(n)){
@@ -128,7 +128,7 @@
 								continue;
 							}
 							if(d !== s){
-								err(name, "member function '" + n + "' has incompatible chaining");
+								err("member function '" + n + "' has incompatible chaining");
 							}
 						}
 					}
@@ -152,7 +152,7 @@
 				var m = ctor._meta;
 				if(m){
 					if(m.bases.length > 1){
-						err(ctor.prototype.declaredClass, "chaining is being set on '" + name + "' for a class with non-null base");
+						err("chaining is being set on '" + name + "' for a class with non-null base");
 					}
 					m.chains[name] = id;
 				}

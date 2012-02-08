@@ -44,23 +44,15 @@ function getNames(ctor){
 var tests = [
 	// dcl-mini tests
 	function(){
-		var A = dcl(null, {});
-		submit(A.prototype.declaredClass, A.prototype.declaredClass.match(/uniqName_\d+/));
-	},
-	function(){
-		var A = dcl("A", null, {});
-		submit(A.prototype.declaredClass, A.prototype.declaredClass === "A");
-	},
-	function(){
-		var A = dcl("A", null, {});
-		var B = dcl("B", A, {});
-		var C = dcl("C", B, {});
+		var A = dcl(null, {declaredClass: "A"});
+		var B = dcl(A, {declaredClass: "B"});
+		var C = dcl(B, {declaredClass: "C"});
 		submit("[A]", eqArrays(getNames(A), ["A"]));
 		submit("[B, A]", eqArrays(getNames(B), ["B", "A"]));
 		submit("[C, B, A]", eqArrays(getNames(C), ["C", "B", "A"]));
 	},
 	function(){
-		var A = dcl("A", null, {
+		var A = dcl(null, {
 			constructor: function(){
 				if(!this.a){ this.a = []; }
 				this.a.push("A");
@@ -93,7 +85,7 @@ var tests = [
 		submit("m2/super [1]", eqArrays(a.c, [1]));
 		submit("m3/super [M]", eqArrays(a.d, ["M"]));
 
-		var B = dcl("B", A, {
+		var B = dcl(A, {
 			constructor: function(){
 				if(!this.a){ this.a = []; }
 				this.a.push("B");
@@ -126,7 +118,7 @@ var tests = [
 		submit("m2/super [1, 2]", eqArrays(b.c, [1, 2]));
 		submit("m3/super [N, M]", eqArrays(b.d, ["N", "M"]));
 
-		var C = dcl("C", B, {
+		var C = dcl(B, {
 			constructor: function(){
 				if(!this.a){ this.a = []; }
 				this.a.push("C");
@@ -160,44 +152,44 @@ var tests = [
 		submit("m3/super [O, N, M]", eqArrays(c.d, ["O", "N", "M"]));
 	},
 	function(){
-		var A = dcl("A", null, {});
-		var B = dcl("B", null, {});
-		var C = dcl("C", null, {});
-		var D = dcl("D", null, {});
+		var A = dcl(null, {declaredClass: "A"});
+		var B = dcl(null, {declaredClass: "B"});
+		var C = dcl(null, {declaredClass: "C"});
+		var D = dcl(null, {declaredClass: "D"});
 
-		var ABC = dcl("ABC", [A, B, C], {});
-		var ADC = dcl("ADC", [A, D, C], {});
+		var ABC = dcl([A, B, C], {declaredClass: "ABC"});
+		var ADC = dcl([A, D, C], {declaredClass: "ADC"});
 
 		submit("ABC", eqArrays(getNames(ABC), ["ABC", "C", "B", "A"]));
 		submit("ADC", eqArrays(getNames(ADC), ["ADC", "C", "D", "A"]));
 
-		var ABCD1 = dcl("ABCD1", [ABC, ADC], {});
-		var ABCD2 = dcl("ABCD2", [ADC, ABC], {});
+		var ABCD1 = dcl([ABC, ADC], {declaredClass: "ABCD1"});
+		var ABCD2 = dcl([ADC, ABC], {declaredClass: "ABCD2"});
 
 		submit("ABDC diamond", eqArrays(getNames(ABCD1), ["ABCD1", "ADC", "ABC", "C", "D", "B", "A"]));
 		submit("ADBC diamond", eqArrays(getNames(ABCD2), ["ABCD2", "ABC", "ADC", "C", "B", "D", "A"]));
 	},
 	function(){
-		var A = dcl("A", null, {});
-		var B = dcl("B", null, {});
-		var C = dcl("C", null, {});
+		var A = dcl(null, {declaredClass: "A"});
+		var B = dcl(null, {declaredClass: "B"});
+		var C = dcl(null, {declaredClass: "C"});
 
-		var ABC = dcl("ABC", [A, B, C], {});
-		var AC = dcl("AC", [A, C], {});
-		var BC = dcl("BC", [B, C], {});
+		var ABC = dcl([A, B, C], {declaredClass: "ABC"});
+		var AC = dcl([A, C], {declaredClass: "AC"});
+		var BC = dcl([B, C], {declaredClass: "BC"});
 
 		submit("ABC", eqArrays(getNames(ABC), ["ABC", "C", "B", "A"]));
 		submit("AC", eqArrays(getNames(AC), ["AC", "C", "A"]));
 		submit("BC", eqArrays(getNames(BC), ["BC", "C", "B"]));
 
-		var ABC1 = dcl("ABC1", [ABC, AC], {});
-		var ABC2 = dcl("ABC2", [AC, ABC], {});
+		var ABC1 = dcl([ABC, AC], {declaredClass: "ABC1"});
+		var ABC2 = dcl([AC, ABC], {declaredClass: "ABC2"});
 
 		submit("ABC1 triangle", eqArrays(getNames(ABC1), ["ABC1", "AC", "ABC", "C", "B", "A"]));
 		submit("ABC2 triangle", eqArrays(getNames(ABC2), ["ABC2", "ABC", "AC", "C", "B", "A"]));
 
-		var ABC3 = dcl("ABC3", [ABC, BC], {});
-		var ABC4 = dcl("ABC4", [BC, ABC], {});
+		var ABC3 = dcl([ABC, BC], {declaredClass: "ABC3"});
+		var ABC4 = dcl([BC, ABC], {declaredClass: "ABC4"});
 
 		submit("ABC3 triangle", eqArrays(getNames(ABC3), ["ABC3", "BC", "ABC", "C", "B", "A"]));
 		submit("ABC4 triangle", eqArrays(getNames(ABC4), ["ABC4", "ABC", "BC", "C", "B", "A"]));

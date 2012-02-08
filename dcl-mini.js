@@ -1,17 +1,10 @@
 (function(define){
 	"use strict";
 	define([], function(){
-		var counter = 0, uniqPrefix = "uniqName_", cname = "constructor", pname = "prototype", F = new Function, mixChains = mix;
+		var counter = 0, cname = "constructor", pname = "prototype", F = new Function, mixChains = mix;
 
-		function dcl(name, superClass, props){
+		function dcl(superClass, props){
 			var bases, proto, base, ctor, mixIdx = 0, m, o, r, b, i, j, l, n;
-
-			if(typeof name != "string"){
-				props = superClass;
-				superClass = name;
-				name = uniqPrefix + counter++;
-			}
-			props = props || {};
 
 			if(superClass){
 				if(superClass instanceof Array){
@@ -75,10 +68,10 @@
 				base = bases[mixIdx];
 				m = base._meta;
 				if(m){
-					mix(name, proto, m.hidden);
-					mixChains(name, r, m.chains);
+					mix(proto, m.hidden);
+					mixChains(r, m.chains);
 				}else{
-					mix(name, proto, base[pname]);
+					mix(proto, base[pname]);
 				}
 			}
 			for(n in props){
@@ -103,13 +96,12 @@
 			ctor._meta  = o;
 			ctor[pname] = proto;
 			proto.constructor = ctor;
-			proto.declaredClass = name;
 			bases[0] = ctor;
 
 			return ctor;
 		}
 
-		function mix(_, a, b){
+		function mix(a, b){
 			for(var n in b){
 				a[n] = b[n];
 			}
