@@ -4,42 +4,6 @@
 
 		function err(msg){ throw Error("ERROR: " + msg); }
 
-		var Node = dcl(null, {
-			declaredClass: "dcl.Node",
-			constructor: function(){
-				this.nb = this.pb = this.na = this.pa = this.nf = this.pf = this;
-			},
-			add: function(b, a, f, o){
-				var t = new Node;
-				t.p = this;
-				t.b = b;
-				this._add("b", t);
-				t.a = a;
-				this._add("a", t);
-				t.f = f;
-				this._add("f", t, o);
-				t.o = o;
-				if(o){ t.f = o(t.pf.f); }
-				return t;
-			},
-			_add: function(topic, node, flag){
-				if(node[topic] || flag){
-					var n = "n" + topic, p = "p" + topic;
-					(node[p] = this[p])[n] = (node[n] = this)[p] = node;
-				}
-			},
-			remove: function(node){
-				this._rem("b", node);
-				this._rem("a", node);
-				this._rem("f", node);
-			},
-			_rem: function(topic, node){
-				var n = "n" + topic, p = "p" + topic;
-				node[n][p] = node[p];
-				node[p][n] = node[n];
-			}
-		});
-
 		var Advice = dcl(dcl._Super, {
 			declaredClass: "dcl.Advice",
 			constructor: function(){
@@ -50,56 +14,51 @@
 		});
 
 		function stub(id, bases, name){
-			var a = new Node, i = bases.length - 1, f;
+			var i = bases.length - 1, b = [], a = [], f;
 			if(id < 3){
 				f = dcl._chain(bases, name);
 				f = dcl._stubChain(id < 2 ? f : f.reverse());
 			}else{
 				f = dcl._stubSuper(bases, name);
 			}
-			if(f){ a.add(0, 0, f); }
 			dcl._iterate(
 				bases, name,
 				function(f){
 					if(f instanceof Advice){
-						if(f.b || f.a){ a.add(f.b, f.a); }
+						if(f.b){ b.push(f.b); }
+						if(f.a){ a.push(f.a); }
 					}
 				},
 				function(){});
-			bases = null;
-			if(a.pb === a && a.pa === a){
+			if(!b.length && !a.length){
 				// no before/after advices => fall back to a regular stub
-				f = a.pf.f;
-				a.remove(a);
 				return f;
 			}
 			// AOP stub
-			return makeAOPStub(a);
+			return makeAOPStub(b, a.reverse(), f);
 		}
 
-		function makeAOPStub(a){
-			var f = function(){
-				var p, r;
-				// running the before chain
-				for(p = a.pb; p !== a; p = p.pb){
-					p.b.apply(this, arguments);
-				}
-				// running the around chain
-				try{
-					if(a.pf !== a){ r = a.pf.f.apply(this, arguments); }
-				}catch(e){
-					r = e;
-				}
-				// running the after chain
-				for(p = a.na; p !== a; p = p.na){
-					p.a.call(this, r);
-				}
-				if(r instanceof Error){
-					throw r;
-				}
-			};
-			f.adviceNode = a;
-			return f;
+		function makeAOPStub(b, a, f){
+			var sb = dcl._stubChain(b),
+				sa = dcl._stubChain(a),
+				t = function(){
+					var r;
+					// running the before chain
+					sb.apply(this, arguments);
+					// running the around chain
+					try{
+						r = f.apply(this, arguments);
+					}catch(e){
+						r = e;
+					}
+					// running the after chain
+					sa.call(this, r);
+					if(r instanceof Error){
+						throw r;
+					}
+				};
+			t.advices = {b: b, a: a, f: f, sb: sb, sa: sa};
+			return t;
 		}
 
 		function mixChains(dst, src){
@@ -148,8 +107,8 @@
 			return o instanceof ctor || (o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) >= 0);
 		};
 
-		dcl._Node = Node;
-		dcl._makeAOPStub = makeAOPStub;
+		//dcl._Node = Node;
+		//dcl._makeAOPStub = makeAOPStub;
 
 		return dcl;
 	});
