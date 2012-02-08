@@ -4,39 +4,39 @@
 
 		function err(msg){ throw Error("ERROR: " + msg); }
 
-		var AdviceNode = dcl(null, {
-			declaredClass: "dcl.AdviceNode",
+		var Node = dcl(null, {
+			declaredClass: "dcl.Node",
 			constructor: function(){
 				this.nb = this.pb = this.na = this.pa = this.nf = this.pf = this;
 			},
-			add: function(b, a, o, f){
-				var t = new AdviceNode;
+			add: function(b, a, f, o){
+				var t = new Node;
 				t.p = this;
 				t.b = b;
-				t.a = a;
-				t.o = o;
-				t.f = f;
 				this._add("b", t);
+				t.a = a;
 				this._add("a", t);
+				t.f = f;
 				this._add("f", t, o);
+				t.o = o;
 				if(o){ t.f = o(t.pf.f); }
 				return t;
 			},
-			_add: function(topic, adviceNode, flag){
-				if(adviceNode[topic] || flag){
+			_add: function(topic, node, flag){
+				if(node[topic] || flag){
 					var n = "n" + topic, p = "p" + topic;
-					(adviceNode[p] = this[p])[n] = (adviceNode[n] = this)[p] = adviceNode;
+					(node[p] = this[p])[n] = (node[n] = this)[p] = node;
 				}
 			},
-			remove: function(adviceNode){
-				this._rem("b", adviceNode);
-				this._rem("a", adviceNode);
-				this._rem("f", adviceNode);
+			remove: function(node){
+				this._rem("b", node);
+				this._rem("a", node);
+				this._rem("f", node);
 			},
-			_rem: function(topic, adviceNode){
+			_rem: function(topic, node){
 				var n = "n" + topic, p = "p" + topic;
-				adviceNode[n][p] = adviceNode[p];
-				adviceNode[p][n] = adviceNode[n];
+				node[n][p] = node[p];
+				node[p][n] = node[n];
 			}
 		});
 
@@ -50,14 +50,14 @@
 		});
 
 		function stub(id, bases, name){
-			var a = new AdviceNode, i = bases.length - 1, f;
+			var a = new Node, i = bases.length - 1, f;
 			if(id < 3){
 				f = dcl._chain(bases, name);
 				f = dcl._stubChain(id < 2 ? f : f.reverse());
 			}else{
 				f = dcl._stubSuper(bases, name);
 			}
-			if(f){ a.add(0, 0, 0, f); }
+			if(f){ a.add(0, 0, f); }
 			dcl._iterate(
 				bases, name,
 				function(f){
@@ -108,8 +108,10 @@
 				d = dst[n] - 0;
 				s = src[n] - 0;
 				if(d != s){
-					if(s == 3 || d == 0){
-						dst[n] = s;
+					if(!d || s == 3){
+						if(!d || s != 3){
+							dst[n] = s;
+						}
 					}else{
 						err("member function '" + n + "' has incompatible chaining");
 					}
@@ -146,7 +148,7 @@
 			return o instanceof ctor || (o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) >= 0);
 		};
 
-		dcl._AdviceNode = AdviceNode;
+		dcl._Node = Node;
 		dcl._makeAOPStub = makeAOPStub;
 
 		return dcl;

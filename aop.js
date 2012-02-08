@@ -1,8 +1,8 @@
 (function(define){
 	"use strict";
 	define(["./dcl"], function(dcl){
-		dcl._AdviceNode.prototype.unadvise =
-		dcl._AdviceNode.prototype.destroy = function(){
+		dcl._Node.prototype.unadvise =
+		dcl._Node.prototype.destroy = function(){
 			var f = this.pf.f || null, t = this.nf, p = this.p;
 			this.remove(this);
 			for(; t !== p; f = t.f, t = t.nf){
@@ -14,14 +14,14 @@
 
 		function advise(instance, name, advice){
 			var f = instance[name], a;
-			if(f && f.adviceNode && f.adviceNode instanceof dcl._AdviceNode){
+			if(f && f.adviceNode && f.adviceNode instanceof dcl._Node){
 				a = f.adviceNode;
 			}else{
-				a = new dcl._AdviceNode;
+				a = new (dcl._Node);
 				a.add(0, 0, 0, f);
 				instance[name] = dcl._makeAOPStub(a);
 			}
-			return a.add(advice.before, advice.after, advice.around);
+			return a.add(advice.before, advice.after, 0, advice.around);
 		}
 
 		return {advise: advise};
