@@ -145,7 +145,7 @@
 			return r;
 		}
 
-		function stubAfterChain(chain){
+		function stubChain(chain){
 			if(chain.length){
 				return function(){
 					for(var i = chain.length - 1; i >= 0; --i){
@@ -175,13 +175,13 @@
 
 		function buildStubs(chains, bases, proto){
 			for(var name in chains){
-				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubAfterChain(chain(bases, name));
+				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubChain(chain(bases, name));
 			}
 		}
 
 		dcl._Super = Super;
 		dcl._chain = chain;
-		dcl._stubAfterChain = stubAfterChain;
+		dcl._stubChain = stubChain;
 		dcl._stubSuper = stubSuper;
 
 		return dcl;

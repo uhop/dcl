@@ -4,17 +4,6 @@
 
 		function err(msg){ throw Error("ERROR: " + msg); }
 
-		function stubBeforeChain(chain){
-			if(chain.length){
-				return function(){
-					for(var i = 0, l = chain.length; i < l; ++i){
-						chain[i].apply(this, arguments);
-					}
-				};
-			}
-			return new Function;
-		}
-
 		var AdviceNode = dcl(null, {
 			declaredClass: "dcl.AdviceNode",
 			constructor: function(){
@@ -61,11 +50,12 @@
 		});
 
 		function stub(id, bases, name){
-			var a = new AdviceNode, f, i = bases.length - 1;
-			switch(id){
-				case 1: f = stubBeforeChain(dcl._chain(bases, name)); break;
-				case 2: f = dcl._stubAfterChain(dcl._chain(bases, name)); break;
-				default: f = dcl._stubSuper(bases, name); break;
+			var a = new AdviceNode, i = bases.length - 1, f;
+			if(id < 3){
+				f = dcl._chain(bases, name);
+				f = dcl._stubChain(id < 2 ? f.reverse() : f);
+			}else{
+				f = dcl._stubSuper(bases, name);
 			}
 			if(f){ a.add(0, 0, 0, f); }
 			for(; i >= 0; --i){
