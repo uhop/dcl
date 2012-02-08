@@ -194,6 +194,16 @@ var tests = [
 		submit("ABC3 triangle", eqArrays(getNames(ABC3), ["ABC3", "BC", "ABC", "C", "B", "A"]));
 		submit("ABC4 triangle", eqArrays(getNames(ABC4), ["ABC4", "ABC", "BC", "C", "B", "A"]));
 	},
+	function(){
+		var a = new (dcl(null, {
+			toString: dcl.superCall(function(sup){
+				return function(){
+					return "PRE-" + sup.call(this) + "-POST";
+				};
+			})
+		}));
+		submit("super-calling intrinsics", a.toString() === "PRE-[object Object]-POST");
+	},
 	// dcl tests
 	function(){
 		if(dcl.chainBefore && dcl.chainAfter){
