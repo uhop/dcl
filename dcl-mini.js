@@ -1,7 +1,7 @@
 (function(define){
 	"use strict";
 	define([], function(){
-		var counter = 0, cname = "constructor", pname = "prototype", F = new Function, mixChains = mix;
+		var counter = 0, cname = "constructor", pname = "prototype", F = new Function, mixChains = mix, empty = {};
 
 		function dcl(superClass, props){
 			var bases, proto, base, ctor, mixIdx = 0, m, o, r, b, i, j, l, n;
@@ -84,9 +84,6 @@
 			}
 
 			// create stubs
-			if(bases.length == 1){
-				r[cname] = 2;
-			}
 			o = {bases: bases, hidden: props, chains: r};
 			bases[0] = {_meta: o};
 			buildStubs(r, bases, proto);
@@ -124,39 +121,51 @@
 		function Super(f){ this.f = f; }
 		dcl.superCall = function(f){ return new Super(f); };
 
-		function chain(bases, name){
-			var i = 0, l = bases.length, r = [], f;
-			for(; i < l; ++i){
+		function iterate(bases, name, c, s){
+			var i = bases.length - 1, f;
+			for(; i >= 0; --i){
 				f = bases[i];
 				if(f._meta){
 					f = f._meta.hidden;
 					if(f.hasOwnProperty(name)){
-						f = f[name];
-						if(f instanceof Super){
-							f = f.f(null);
-						}
-						if(f){ r.push(f); }
+						c(f[name]);
 					}
 				}else{
-					f = f.prototype[name];
-					if(f){ r.push(f); }
+					s(f[pname][name]);
 				}
 			}
+		}
+
+		function chain(bases, name, c, s){
+			var r = [], t = empty[name];
+			iterate(
+				bases, name,
+				function(f){
+					if(f instanceof Super){
+						f = f.f(null);
+					}
+					if(f){ r.push(f); }
+				},
+				function(f){
+					if(f && f !== t){ r.push(f); }
+				});
 			return r;
 		}
 
-		function stubChain(chain){
-			if(chain.length){
-				return function(){
-					for(var i = chain.length - 1; i >= 0; --i){
-						chain[i].apply(this, arguments);
-					}
-				};
-			}
-			return new Function;
+		function stubSuper(bases, name){
+			var p = empty[name], t = p;
+			iterate(
+				bases, name,
+				function(f){
+					p = (f instanceof Super ? f.f && f.f(p) : f) || p;
+				},
+				function(f){
+					p = f && f !== t ? f : p;
+				});
+			return p || new Function;
 		}
 
-		function stubSuper(bases, name){
+		function stubSuper2(bases, name){
 			var i = bases.length - 1, f, p = null;
 			for(; i >= 0; --i){
 				f = bases[i];
@@ -173,13 +182,25 @@
 			return p || new Function;
 		}
 
+		function stubChain(chain){
+			if(chain.length){
+				return function(){
+					for(var i = chain.length - 1; i >= 0; --i){
+						chain[i].apply(this, arguments);
+					}
+				};
+			}
+			return new Function;
+		}
+
 		function buildStubs(chains, bases, proto){
 			for(var name in chains){
-				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubChain(chain(bases, name));
+				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubChain(chain(bases, name).reverse());
 			}
 		}
 
 		dcl._Super = Super;
+		dcl._iterate = iterate;
 		dcl._chain = chain;
 		dcl._stubChain = stubChain;
 		dcl._stubSuper = stubSuper;

@@ -53,23 +53,19 @@
 			var a = new AdviceNode, i = bases.length - 1, f;
 			if(id < 3){
 				f = dcl._chain(bases, name);
-				f = dcl._stubChain(id < 2 ? f.reverse() : f);
+				f = dcl._stubChain(id < 2 ? f : f.reverse());
 			}else{
 				f = dcl._stubSuper(bases, name);
 			}
 			if(f){ a.add(0, 0, 0, f); }
-			for(; i >= 0; --i){
-				f = bases[i];
-				if(f._meta){
-					f = f._meta.hidden;
-					if(f.hasOwnProperty(name)){
-						f = f[name];
-						if(f instanceof Advice){
-							if(f.b || f.a){ a.add(f.b, f.a); }
-						}
+			dcl._iterate(
+				bases, name,
+				function(f){
+					if(f instanceof Advice){
+						if(f.b || f.a){ a.add(f.b, f.a); }
 					}
-				}
-			}
+				},
+				function(){});
 			bases = null;
 			if(a.pb === a && a.pa === a){
 				// no before/after advices => fall back to a regular stub
@@ -107,22 +103,16 @@
 		}
 
 		function mixChains(dst, src){
-			var n, d, s;
+			var n, d, s, t;
 			for(n in src){
-				if(src.hasOwnProperty(n)){
-					s = src[n];
-					if(dst.hasOwnProperty(n)){
-						d = dst[n];
-						if(d !== 3){
-							if(s === 3){
-								continue;
-							}
-							if(d !== s){
-								err("member function '" + n + "' has incompatible chaining");
-							}
-						}
+				d = dst[n] - 0;
+				s = src[n] - 0;
+				if(d != s){
+					if(s == 3 || d == 0){
+						dst[n] = s;
+					}else{
+						err("member function '" + n + "' has incompatible chaining");
 					}
-					dst[n] = s;
 				}
 			}
 		}
@@ -152,8 +142,8 @@
 		dcl.chainBefore = chain(1);
 		dcl.chainAfter = chain(2);
 
-		dcl.isInstanceOf = function(object, ctor){
-			return object instanceof ctor || (object.constructor._meta && object.constructor._meta.bases.indexOf(ctor) >= 0);
+		dcl.isInstanceOf = function(o, ctor){
+			return o instanceof ctor || (o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) >= 0);
 		};
 
 		dcl._AdviceNode = AdviceNode;
