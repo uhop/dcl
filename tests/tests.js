@@ -447,38 +447,40 @@ var tests = [
 		}
 	},
 	function(){
-		var A = dcl(null, {
-			m1: dcl.advise({
-				before: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "Ab";
-				},
-				after: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "Aa";
-				}
-			})
-		});
-		var B = dcl(null, {
-			m1: dcl.advise({
-				before: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "Bb";
-				},
-				after: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "Ba";
-				}
-			})
-		});
+		if(dcl.advise){
+			var A = dcl(null, {
+				m1: dcl.advise({
+					before: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "Ab";
+					},
+					after: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "Aa";
+					}
+				})
+			});
+			var B = dcl(null, {
+				m1: dcl.advise({
+					before: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "Bb";
+					},
+					after: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "Ba";
+					}
+				})
+			});
 
-		var x = new (dcl([A, B], {}));
-		x.m1();
-		submit("AB", x.a === "BbAbAaBa");
+			var x = new (dcl([A, B], {}));
+			x.m1();
+			submit("AB", x.a === "BbAbAaBa");
 
-		var y = new (dcl([B, A], {}));
-		y.m1();
-		submit("BA", y.a === "AbBbBaAa");
+			var y = new (dcl([B, A], {}));
+			y.m1();
+			submit("BA", y.a === "AbBbBaAa");
+		}
 	}
 	// aop tests
 ];

@@ -81,7 +81,7 @@
 				a = new Node;
 				if(f && f.advices){
 					f = f.advices;
-					a.a(f.b.length && f.sb, f.a.length && f.sa, f.f);
+					a.a(f.b, f.a, f.f);
 				}else{
 					a.a(0, 0, f);
 				}

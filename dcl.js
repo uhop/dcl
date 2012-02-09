@@ -2,6 +2,7 @@
 	"use strict";
 	define(["./dcl-mini"], function(dcl){
 
+		function nop(){}
 		function err(msg){ throw Error("ERROR: " + msg); }
 
 		var Advice = dcl(dcl._Super, {
@@ -29,25 +30,26 @@
 						if(f.a){ a.push(f.a); }
 					}
 				},
-				function(){});
+				nop);
 			if(!b.length && !a.length){
 				// no before/after advices => fall back to a regular stub
-				return f;
+				return f || new Function;
 			}
 			// AOP stub
-			return makeAOPStub(b, a.reverse(), f);
+			return makeAOPStub(dcl._stubChain(b), dcl._stubChain(a.reverse()), f);
 		}
 
 		function makeAOPStub(b, a, f){
-			var sb = dcl._stubChain(b),
-				sa = dcl._stubChain(a),
+			var sb = b || nop,
+				sa = a || nop,
+				sf = f || nop,
 				t = function(){
 					var r;
 					// running the before chain
 					sb.apply(this, arguments);
 					// running the around chain
 					try{
-						r = f.apply(this, arguments);
+						r = sf.apply(this, arguments);
 					}catch(e){
 						r = e;
 					}
@@ -57,15 +59,15 @@
 						throw r;
 					}
 				};
-			t.advices = {b: b, a: a, f: f, sb: sb, sa: sa};
+			t.advices = {b: b, a: a, f: f};
 			return t;
 		}
 
 		function mixChains(dst, src){
 			var n, d, s, t;
 			for(n in src){
-				d = dst[n] - 0;
-				s = src[n] - 0;
+				d = +dst[n];
+				s = +src[n];
 				if(d != s){
 					if(!d || s == 3){
 						if(!d || s != 3){
@@ -106,9 +108,6 @@
 		dcl.isInstanceOf = function(o, ctor){
 			return o instanceof ctor || (o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) >= 0);
 		};
-
-		//dcl._Node = Node;
-		//dcl._makeAOPStub = makeAOPStub;
 
 		return dcl;
 	});

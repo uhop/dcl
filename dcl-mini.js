@@ -61,6 +61,7 @@
 				bases = [0];
 				proto = {};
 			}
+			// the next line assumes that constructor is actually named "constructor", should be changed if desired
 			r = superClass && superClass._meta ? delegate(superClass._meta.chains) : {constructor: 2};
 
 			// create prototype: mix in mixins and props
@@ -77,7 +78,7 @@
 			for(n in props){
 				m = props[n];
 				if(m instanceof Super){
-					r[n] = r[n] || 3;
+					r[n] = +r[n] || 3;
 				}else{
 					proto[n] = m;
 				}
@@ -164,23 +165,21 @@
 				function(f){
 					p = f && f !== t ? f : p;
 				});
-			return p || new Function;
+			return p;
 		}
 
 		function stubChain(chain){
-			if(chain.length){
-				return function(){
-					for(var i = chain.length - 1; i >= 0; --i){
-						chain[i].apply(this, arguments);
-					}
-				};
-			}
-			return new Function;
+			return chain.length ? function(){
+				for(var i = chain.length - 1; i >= 0; --i){
+					chain[i].apply(this, arguments);
+				}
+			} : 0;
 		}
 
 		function buildStubs(chains, bases, proto){
 			for(var name in chains){
-				proto[name] = chains[name] === 3 ? stubSuper(bases, name) : stubChain(chain(bases, name).reverse());
+				proto[name] = (chains[name] === 3 ? stubSuper(bases, name) :
+					stubChain(chain(bases, name).reverse())) || new Function;
 			}
 		}
 
