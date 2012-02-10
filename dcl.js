@@ -6,7 +6,7 @@
 		function err(msg){ throw Error("ERROR: " + msg); }
 
 		var Advice = dcl(dcl._Super, {
-			declaredClass: "dcl.Advice",
+			//declaredClass: "dcl.Advice",
 			constructor: function(){
 				this.b = this.f.before;
 				this.a = this.f.after;

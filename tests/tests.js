@@ -8,7 +8,7 @@ if(typeof out == "undefined"){
 		console.log(msg);
 	};
 	dcl = require("../dcl");
-	aop = require("../aop");
+	advise = require("../advise");
 }
 
 function submit(msg, success){
@@ -481,8 +481,83 @@ var tests = [
 			y.m1();
 			submit("BA", y.a === "AbBbBaAa");
 		}
+	},
+	// advise tests
+	function(){
+		if(typeof advise != "undefined"){
+			var A = dcl(null, {
+				m1: dcl.advise({
+					before: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "b";
+					},
+					after: function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "a";
+					}
+				})
+			});
+			var B = dcl(A, {
+				m1: function(x){
+					if(!this.a){ this.a = ""; }
+					this.a += x;
+				}
+			});
+
+			var x = new B;
+			x.m1("-");
+			submit("b-a", x.a === "b-a");
+
+			var h1 = advise(x, "m1", {
+				after: function(){
+					if(!this.a){ this.a = ""; }
+					this.a += "A1";
+				}
+			});
+			x.a = "";
+			x.m1("-");
+			submit("b-aA1", x.a === "b-aA1");
+
+			var h2 = advise(x, "m1", {
+				before: function(){
+					if(!this.a){ this.a = ""; }
+					this.a += "B1";
+				}
+			});
+			x.a = "";
+			x.m1("-");
+			submit("B1b-aA1", x.a === "B1b-aA1");
+
+			var h3 = advise(x, "m1", {
+				around: function(sup){
+					return function(){
+						if(!this.a){ this.a = ""; }
+						this.a += "F1";
+						if(sup){ sup.apply(this, arguments); }
+						this.a += "F2";
+					};
+				}
+			});
+			x.a = "";
+			x.m1("-");
+			submit("B1bF1-F2aA1", x.a === "B1bF1-F2aA1");
+
+			h1.unadvise();
+			x.a = "";
+			x.m1("-");
+			submit("B1bF1-F2a", x.a === "B1bF1-F2a");
+
+			h2.unadvise();
+			x.a = "";
+			x.m1("-");
+			submit("bF1-F2a", x.a === "bF1-F2a");
+
+			h3.unadvise();
+			x.a = "";
+			x.m1("-");
+			submit("b-a #2", x.a === "b-a");
+		}
 	}
-	// aop tests
 ];
 
 function runTests(){
