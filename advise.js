@@ -75,7 +75,7 @@
 			return f;
 		}
 
-		return function advise(instance, name, advice){
+		function advise(instance, name, advice){
 			var f = instance[name], a;
 			if(f && f.adviceNode && f.adviceNode instanceof Node){
 				a = f.adviceNode;
@@ -89,9 +89,14 @@
 				}
 				instance[name] = makeAOPStub(a);
 			}
-			if(advice instanceof Function){ advice = advice(instance, name); }
-			return a.a(advice.before, advice.after, 0, advice.around);
-		};
+			if(advice instanceof Function){ advice = advice(name, instance); }
+			return a.a(advice.before || advice.b, advice.after || advice.a, 0, advice.around || advice.f);
+		}
+		
+		//advise.before = function(instance, name, f){ return advise(instance, name, {before: f}); };
+		//advise.after  = function(instance, name, f){ return advise(instance, name, {after: f}); };
+		
+		return advise;
 	});
 })(typeof define != "undefined" ? define : function(_, f){
 	if(typeof module != "undefined"){

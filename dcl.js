@@ -13,6 +13,10 @@
 				this.f = this.f.around;
 			}
 		});
+		dcl.advise = function(f){
+			if(f instanceof Function){ f = advice(name); }
+			return new Advice(f);
+		}
 
 		function stub(id, bases, name){
 			var i = bases.length - 1, b = [], a = [], f;
@@ -88,8 +92,6 @@
 
 		dcl._setStubs(mixChains, buildStubs);
 
-		dcl.advise = function(f){ return new Advice(f); }
-
 		function chain(id){
 			return function(ctor, name){
 				var m = ctor._meta;
@@ -106,7 +108,7 @@
 		dcl.chainAfter = chain(2);
 
 		dcl.isInstanceOf = function(o, ctor){
-			return o instanceof ctor || (o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) >= 0);
+			return o instanceof ctor || o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) > 0;
 		};
 
 		return dcl;

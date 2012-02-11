@@ -93,7 +93,7 @@
 			// put in place all decorations and return a constructor
 			ctor._meta  = o;
 			ctor[pname] = proto;
-			proto.constructor = ctor;
+			//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
 			bases[0] = ctor;
 
 			return ctor;
