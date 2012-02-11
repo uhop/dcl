@@ -2,7 +2,7 @@
 	"use strict";
 	define(["../dcl", "../advise"], function(dcl, advise){
 		var Counter = new dcl(null, {
-			declaredClass: "dcl.advices.counter",
+			declaredClass: "dcl.advices.Counter",
 			constructor: function(){
 				this.reset();
 			},

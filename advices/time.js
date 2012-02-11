@@ -1,11 +1,11 @@
 (function(define){
 	"use strict";
-	define(["../advise"], function(advise){
+	define(["../dcl", "../advise"], function(dcl, advise){
 		var uniq = 0;
-		return function(instance, name, label){
+		return function(name){
 			var inCall = 0;
 			label = label || "UniqueTimer (" + name + ") #" + uniq++;
-			return advise(instance, name, {
+			return new dcl.Advice({
 				before: function(){
 					if(!(inCall++)){
 						console.time(label);
@@ -21,12 +21,12 @@
 	});
 })(typeof define != "undefined" ? define : function(_, f){
 	if(typeof module != "undefined"){
-		module.exports = f(require("../advise"));
+		module.exports = f(require("../dcl"), require("../advise"));
 	}else{
 		if(typeof advise != "undefined"){
-			time = f(advise);  // describing a global
+			time = f(dcl, advise);  // describing a global
 		}else{
-			throw Error("Include advise.js before advices/time.js");
+			throw Error("Include dcl.js and advise.js before advices/time.js");
 		}
 	}
 });

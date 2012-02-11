@@ -1,8 +1,8 @@
 (function(define){
 	"use strict";
-	define(["../advise"], function(advise){
-		return function(instance, name){
-			return advise(instance, name, {
+	define(["../dcl", "../advise"], function(dcl, advise){
+		return function(name){
+			return new dcl.Advice({
 				before: function(){
 					console.log(this, " => " + name + "(" + Array.prototype.join.call(arguments, ", ") + ")");
 				},
@@ -14,12 +14,12 @@
 	});
 })(typeof define != "undefined" ? define : function(_, f){
 	if(typeof module != "undefined"){
-		module.exports = f(require("../advise"));
+		module.exports = f(require("../dcl"), require("../advise"));
 	}else{
 		if(typeof advise != "undefined"){
-			trace = f(advise);  // describing a global
+			trace = f(dcl, advise);  // describing a global
 		}else{
-			throw Error("Include advise.js before advices/trace.js");
+			throw Error("Include dcl.js and advise.js before advices/trace.js");
 		}
 	}
 });

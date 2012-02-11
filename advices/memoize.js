@@ -1,6 +1,6 @@
 (function(define){
 	"use strict";
-	define(["../advise"], function(advise){
+	define(["../dcl", "../advise"], function(dcl, advise){
 		function mem1(name){
 			return function(sup){
 				return function(key){
@@ -58,12 +58,12 @@
 	});
 })(typeof define != "undefined" ? define : function(_, f){
 	if(typeof module != "undefined"){
-		module.exports = f(require("../advise"));
+		module.exports = f(require("../dcl"), require("../advise"));
 	}else{
 		if(typeof advise != "undefined"){
-			memoize = f(advise);  // describing a global
+			memoize = f(dcl, advise);  // describing a global
 		}else{
-			throw Error("Include advise.js before advices/memoize.js");
+			throw Error("Include dcl.js and advise.js before advices/memoize.js");
 		}
 	}
 });
