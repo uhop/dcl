@@ -18,7 +18,7 @@
 								return m[name];
 							}
 						}else{
-							return c.prototype.[name];
+							return c.prototype[name];
 						}
 					}
 				}
