@@ -5,7 +5,7 @@
 		function nop(){}
 		function err(msg){ throw Error("ERROR: " + msg); }
 
-		var Advice = dcl(dcl._Super, {
+		var Advice = dcl.Advice = dcl(dcl.Super, {
 			//declaredClass: "dcl.Advice",
 			constructor: function(){
 				this.b = this.f.before;
@@ -16,17 +16,17 @@
 		dcl.advise = function(f){
 			if(f instanceof Function){ f = advice(name); }
 			return new Advice(f);
-		}
+		};
 
 		function stub(id, bases, name){
 			var i = bases.length - 1, b = [], a = [], f;
 			if(id < 3){
-				f = dcl._chain(bases, name);
-				f = dcl._stubChain(id < 2 ? f : f.reverse());
+				f = dcl._ch(bases, name);
+				f = dcl._sc(id < 2 ? f : f.reverse());
 			}else{
-				f = dcl._stubSuper(bases, name);
+				f = dcl._ss(bases, name);
 			}
-			dcl._iterate(
+			dcl._it(
 				bases, name,
 				function(f){
 					if(f instanceof Advice){
@@ -40,7 +40,7 @@
 				return f || new Function;
 			}
 			// AOP stub
-			return makeAOPStub(dcl._stubChain(b), dcl._stubChain(a.reverse()), f);
+			return makeAOPStub(dcl._sc(b), dcl._sc(a.reverse()), f);
 		}
 
 		function makeAOPStub(b, a, f){
@@ -67,37 +67,39 @@
 			return t;
 		}
 
-		function mixChains(dst, src){
-			var n, d, s, t;
-			for(n in src){
-				d = +dst[n];
-				s = +src[n];
-				if(d != s){
-					if(!d || s == 3){
-						if(!d || s != 3){
-							dst[n] = s;
+
+		dcl._set(
+			//mixChains
+			function(dst, src){
+				var n, d, s, t;
+				for(n in src){
+					d = +dst[n];
+					s = +src[n];
+					if(d != s){
+						if(!d || s == 3){
+							if(!d || s != 3){
+								dst[n] = s;
+							}
+						}else{
+							err(n + ": incompatible chaining");
 						}
-					}else{
-						err("member function '" + n + "' has incompatible chaining");
 					}
 				}
-			}
-		}
-
-		function buildStubs(chains, bases, proto){
-			for(var name in chains){
-				proto[name] = stub(chains[name], bases, name);
-			}
-		}
-
-		dcl._setStubs(mixChains, buildStubs);
+			},
+			//buildStubs
+			function(meta, proto){
+				var chains = meta.chains, bases = meta.bases;
+				for(var name in chains){
+					proto[name] = stub(chains[name], bases, name);
+				}
+			});
 
 		function chain(id){
 			return function(ctor, name){
 				var m = ctor._meta;
 				if(m){
 					if(m.bases.length > 1){
-						err("chaining is being set on '" + name + "' for a class with non-null base");
+						err(name + ": can't set chaining now");
 					}
 					m.chains[name] = id;
 				}

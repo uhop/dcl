@@ -3,8 +3,7 @@
 	define(["../dcl", "../advise"], function(dcl, advise){
 		var uniq = 0;
 		return function(name){
-			var inCall = 0;
-			label = label || "UniqueTimer (" + name + ") #" + uniq++;
+			var inCall = 0, label = "UniqueTimer (" + name + ") #" + uniq++;
 			return new dcl.Advice({
 				before: function(){
 					if(!(inCall++)){

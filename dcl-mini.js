@@ -87,7 +87,8 @@
 			// create stubs
 			o = {bases: bases, hidden: props, chains: r};
 			bases[0] = {_meta: o};
-			buildStubs(r, bases, proto);
+			buildStubs(o, proto);
+			buildLast(o, proto);
 			ctor = proto[cname];
 
 			// put in place all decorations and return a constructor
@@ -114,9 +115,10 @@
 		    return t;
 		}
 
-		dcl._setStubs = function(mix, build){
-			mixChains = mix;
-			buildStubs = build;
+		dcl._set = function(m, bs, bl){
+			mixChains = m || mixChains;
+			buildStubs = bs || buildStubs;
+			buildLast = bl || buildLast;
 		};
 
 		// decorators
@@ -176,18 +178,21 @@
 			} : 0;
 		}
 
-		function buildStubs(chains, bases, proto){
+		function buildStubs(meta, proto){
+			var chains = meta.chains, bases = meta.bases;
 			for(var name in chains){
 				proto[name] = (chains[name] === 3 ? stubSuper(bases, name) :
 					stubChain(chain(bases, name).reverse())) || new Function;
 			}
 		}
 
-		dcl._Super = Super;
-		dcl._iterate = iterate;
-		dcl._chain = chain;
-		dcl._stubChain = stubChain;
-		dcl._stubSuper = stubSuper;
+		function buildLast(){}
+
+		dcl.Super = Super;
+		dcl._it = iterate;
+		dcl._ch = chain;
+		dcl._sc = stubChain;
+		dcl._ss = stubSuper;
 
 		return dcl;
 	});
