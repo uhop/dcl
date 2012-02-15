@@ -13,10 +13,7 @@
 				this.f = this.f.around;
 			}
 		});
-		dcl.advise = function(f){
-			if(f instanceof Function){ f = advice(name); }
-			return new Advice(f);
-		};
+		dcl.advise = function(f){ return new Advice(f); };
 
 		function stub(id, bases, name){
 			var i = bases.length - 1, b = [], a = [], f;
@@ -73,9 +70,7 @@
 			function(dst, src){
 				var n, d, s, t;
 				for(n in src){
-					d = +dst[n];
-					s = +src[n];
-					if(d != s){
+					if((d = +dst[n]) != (s = +src[n])){ // intentional assignments
 						if(!d || s == 3){
 							if(!d || s != 3){
 								dst[n] = s;

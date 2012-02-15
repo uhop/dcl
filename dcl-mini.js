@@ -158,7 +158,7 @@
 		}
 
 		function stubSuper(bases, name){
-			var p = empty[name], t = p;
+			var t = empty[name], p = t;
 			iterate(
 				bases, name,
 				function(f){

@@ -90,7 +90,7 @@
 				instance[name] = makeAOPStub(a);
 			}
 			if(advice instanceof Function){ advice = advice(name, instance); }
-			return a.a(advice.before || advice.b, advice.after || advice.a, 0, advice.around || advice.f);
+			return a.a(advice.before, advice.after, 0, advice.around);
 		}
 		
 		//advise.before = function(instance, name, f){ return advise(instance, name, {before: f}); };
