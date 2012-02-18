@@ -50,28 +50,28 @@
 		});
 		Node.prototype.unadvise = Node.prototype.destroy;   // alias
 
-		function makeAOPStub(a){
+		function makeAOPStub(x){
 			var f = function(){
-				var p, r;
+				var p, r, t = this, a = arguments;
 				// running the before chain
-				for(p = a.pb; p !== a; p = p.pb){
-					p.b.apply(this, arguments);
+				for(p = x.pb; p !== x; p = p.pb){
+					p.b.apply(t, a);
 				}
 				// running the around chain
 				try{
-					if(a.pf !== a){ r = a.pf.f.apply(this, arguments); }
+					if(x.pf !== x){ r = x.pf.f.apply(t, a); }
 				}catch(e){
 					r = e;
 				}
 				// running the after chain
-				for(p = a.na; p !== a; p = p.na){
-					p.a.call(this, r);
+				for(p = x.na; p !== x; p = p.na){
+					p.a.call(t, a, r);
 				}
 				if(r instanceof Error){
 					throw r;
 				}
 			};
-			f.adviceNode = a;
+			f.adviceNode = x;
 			return f;
 		}
 

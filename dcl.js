@@ -15,6 +15,9 @@
 		});
 		dcl.advise = function(f){ return new Advice(f); };
 
+		//dcl.advise.before = function(f){ return new Advice({before: f}); };
+		//dcl.advise.after  = function(f){ return new Advice({after: f}); };
+
 		function stub(id, bases, name){
 			var i = bases.length - 1, b = [], a = [], f;
 			if(id < 3){
@@ -44,24 +47,24 @@
 			var sb = b || nop,
 				sa = a || nop,
 				sf = f || nop,
-				t = function(){
-					var r;
+				x = function(){
+					var r, t = this, a = arguments;
 					// running the before chain
-					sb.apply(this, arguments);
+					sb.apply(t, a);
 					// running the around chain
 					try{
-						r = sf.apply(this, arguments);
+						r = sf.apply(t, a);
 					}catch(e){
 						r = e;
 					}
 					// running the after chain
-					sa.call(this, r);
+					sa.call(t, a, r);
 					if(r instanceof Error){
 						throw r;
 					}
 				};
-			t.advices = {b: b, a: a, f: f};
-			return t;
+			x.advices = {b: b, a: a, f: f};
+			return x;
 		}
 
 		function chain(id){
