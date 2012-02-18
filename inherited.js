@@ -1,6 +1,6 @@
 (function(define){
-	define(["./dcl-mini"], function(dcl){
-		var empty = {};
+	define(["./dcl"], function(dcl){
+		var empty = {}, t;
 		
 		function inherited(ctor, name, args){
 			var c = arguments.length < 3 && ctor.callee, // c is truthy if in non-strict mode.
@@ -30,7 +30,10 @@
 			return empty[name];
 		}
 
-		dcl._set(0, 0, function(meta, proto){
+		t = dcl._set()[1];
+
+		dcl._set(0, function(meta, proto){
+			t(meta, proto);
 			var b = meta.bases, i = b.length - 1, c, m, n, f;
 			for(; i >= 0; --i){
 				c = b[i];
@@ -39,7 +42,7 @@
 					for(n in m){
 						f = m[n];
 						if(f instanceof Function){
-							if(f.nom === n){ break }
+							if(f.nom === n){ break; }
 							f.ctr = c;
 							f.nom = n;
 						}
@@ -54,12 +57,12 @@
 	});
 })(	typeof define != "undefined" ? define : function(_, f){
 	if(typeof module != "undefined"){
-		module.exports = f(require("./dcl-mini"));
+		module.exports = f(require("./dcl"));
 	}else{
 		if(typeof dcl != "undefined"){
 			inherited = f(dcl);
 		}else{
-			throw Error("Include dcl-mini.js before dcl.js");
+			throw Error("Include dcl.js before inherited.js");
 		}
 	}
 });

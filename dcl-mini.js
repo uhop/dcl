@@ -1,7 +1,8 @@
 (function(define){
 	"use strict";
 	define([], function(){
-		var counter = 0, cname = "constructor", pname = "prototype", F = new Function, mixChains = mix, empty = {};
+		var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
+			mixIn, delegate, mixInChains, Super, iterate, chain, stubSuper, stubChain;
 
 		function dcl(superClass, props){
 			var bases, proto, base, ctor, mixIdx = 0, m, o, r, b, i, j, l, n;
@@ -13,17 +14,14 @@
 					for(i = superClass.length - 1; i >= 0; --i){
 						base = superClass[i];
 						// pre-process a base
-						// 1) add declaredClass
-						if(!base.__u){
-							base.__u = counter++;
-						}
+						// 1) add a unique id
+						base._u = base._u || counter++;
 						// 2) build a connection map and the base list
-						proto = base[pname];
-						if(base._meta){
-							for(bases = base._meta.bases, j = 0, l = bases.length - 1; j < l; ++j){
-								n = bases[j].__u;
-								m[n] = m[n] || [];
-								m[n].push(bases[j + 1]);
+						if((proto = base._meta)){   // intentional assignment
+							for(bases = proto.bases, j = 0, l = bases.length - 1; j < l; ++j){
+								n = bases[j]._u;
+								n = m[n] = m[n] || [];
+								n.push(bases[j + 1]);
 							}
 							b = b.concat(bases);
 						}else{
@@ -33,7 +31,7 @@
 					// build output
 					while(b.length){
 						base = b.pop();
-						n = base.__u;
+						n = base._u;
 						if(!o[n]){
 							if(m[n]){
 								b = b.concat(base, m[n]);
@@ -47,12 +45,12 @@
 					r.push(0); // reserve space for this class
 					// calculate a base class
 					base = superClass[0];
-					mixIdx = r.length - (base._meta && base === r[base._meta.bases.length - 1] ? base._meta.bases.length : 1);
+					mixIdx = r.length - ((m = base._meta) && base === r[(l = m.bases.length) - 1] ? l : 1); // intentional assignments
 					bases = r.reverse();
 					superClass = bases[mixIdx--];
 				}else{
 					// single inheritance
-					bases = [0].concat(superClass._meta ? superClass._meta.bases: superClass);
+					bases = [0].concat((m = superClass._meta) ? m.bases: superClass);   // intentional assignment
 				}
 				// create a base class
 				proto = delegate(superClass[pname]);
@@ -62,22 +60,21 @@
 				proto = {};
 			}
 			// the next line assumes that constructor is actually named "constructor", should be changed if desired
-			r = superClass && superClass._meta ? delegate(superClass._meta.chains) : {constructor: 2};
+			r = superClass && (m = superClass._meta) ? delegate(m.chains) : {constructor: 2};   // intentional assignment
 
 			// create prototype: mix in mixins and props
 			for(; mixIdx > 0; --mixIdx){
 				base = bases[mixIdx];
 				m = base._meta;
 				if(m){
-					mix(proto, m.hidden);
-					mixChains(r, m.chains);
+					mixIn(proto, m.hidden);
+					mixInChains(r, m.chains);
 				}else{
-					mix(proto, base[pname]);
+					mixIn(proto, base[pname]);
 				}
 			}
 			for(n in props){
-				m = props[n];
-				if(m instanceof Super){
+				if(isSuper(m = props[n])){  // intentional assignment
 					r[n] = +r[n] || 3;
 				}else{
 					proto[n] = m;
@@ -88,7 +85,6 @@
 			o = {bases: bases, hidden: props, chains: r};
 			bases[0] = {_meta: o};
 			buildStubs(o, proto);
-			buildLast(o, proto);
 			ctor = proto[cname];
 
 			// put in place all decorations and return a constructor
@@ -102,51 +98,52 @@
 
 		// utilities
 
-		function mix(a, b){
+		mixIn = dcl.mix = function(a, b){
 			for(var n in b){
 				a[n] = b[n];
 			}
-		}
+		};
 
-		function delegate(o){
+		delegate = dcl.delegate = function(o){
 		    F[pname] = o;
 		    var t = new F;
 		    F[pname] = null;
 		    return t;
-		}
+		};
 
-		dcl._set = function(m, bs, bl){
-			mixChains = m || mixChains;
+		dcl._set = function(m, bs){
+			mixInChains = m || mixInChains;
 			buildStubs = bs || buildStubs;
-			buildLast = bl || buildLast;
+			return [mixInChains, buildStubs];
 		};
 
 		// decorators
 
-		function Super(f){ this.f = f; }
+		Super = dcl.Super = function(f){ this.f = f; }
 		dcl.superCall = function(f){ return new Super(f); };
+		function isSuper(f){ return f instanceof Super; }
 
-		function iterate(bases, name, c, s){
-			var i = bases.length - 1, f;
+		iterate = dcl._it = function(bases, name, c, s){
+			var i = bases.length - 1, f, m;
 			for(; i >= 0; --i){
 				f = bases[i];
-				if(f._meta){
-					f = f._meta.hidden;
+				if((m = f._meta)){  // intentional assignment
+					f = m.hidden;
 					if(f.hasOwnProperty(name)){
 						c(f[name]);
 					}
 				}else{
-					s(f[pname][name]);
+					s(name == cname ? f : f[pname][name]);
 				}
 			}
-		}
+		};
 
-		function chain(bases, name, c, s){
-			var r = [], t = empty[name];
+		chain = dcl._ch = function(bases, name){
+			var t = empty[name], r = [];
 			iterate(
 				bases, name,
 				function(f){
-					if(f instanceof Super){
+					if(isSuper(f)){
 						f = f.f(null);
 					}
 					if(f){ r.push(f); }
@@ -155,28 +152,28 @@
 					if(f && f !== t){ r.push(f); }
 				});
 			return r;
-		}
+		};
 
-		function stubSuper(bases, name){
+		stubSuper = dcl._ss = function(bases, name){
 			var t = empty[name], p = t;
 			iterate(
 				bases, name,
 				function(f){
-					p = (f instanceof Super ? f.f && f.f(p) : f) || p;
+					p = (isSuper(f) ? f.f && f.f(p) : f) || p;
 				},
 				function(f){
-					p = f && f !== t ? f : p;
+					p = f !== t && f || p;
 				});
 			return p;
-		}
+		};
 
-		function stubChain(chain){
+		stubChain = dcl._sc = function(chain){
 			return chain.length ? function(){
 				for(var i = chain.length - 1; i >= 0; --i){
 					chain[i].apply(this, arguments);
 				}
 			} : 0;
-		}
+		};
 
 		function buildStubs(meta, proto){
 			var chains = meta.chains, bases = meta.bases;
@@ -185,14 +182,6 @@
 					stubChain(chain(bases, name).reverse())) || new Function;
 			}
 		}
-
-		function buildLast(){}
-
-		dcl.Super = Super;
-		dcl._it = iterate;
-		dcl._ch = chain;
-		dcl._sc = stubChain;
-		dcl._ss = stubSuper;
 
 		return dcl;
 	});

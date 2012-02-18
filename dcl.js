@@ -64,6 +64,24 @@
 			return t;
 		}
 
+		function chain(id){
+			return function(ctor, name){
+				var m = ctor._meta;
+				if(m){
+					if(m.bases.length > 1){
+						err(name + ": can't set chaining now");
+					}
+					m.chains[name] = id;
+				}
+			};
+		}
+
+		dcl.chainBefore = chain(1);
+		dcl.chainAfter = chain(2);
+
+		dcl.isInstanceOf = function(o, ctor){
+			return o instanceof ctor || o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) > 0;
+		};
 
 		dcl._set(
 			//mixChains
@@ -88,25 +106,6 @@
 					proto[name] = stub(chains[name], bases, name);
 				}
 			});
-
-		function chain(id){
-			return function(ctor, name){
-				var m = ctor._meta;
-				if(m){
-					if(m.bases.length > 1){
-						err(name + ": can't set chaining now");
-					}
-					m.chains[name] = id;
-				}
-			};
-		}
-
-		dcl.chainBefore = chain(1);
-		dcl.chainAfter = chain(2);
-
-		dcl.isInstanceOf = function(o, ctor){
-			return o instanceof ctor || o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) > 0;
-		};
 
 		return dcl;
 	});
