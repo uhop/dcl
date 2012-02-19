@@ -32,7 +32,7 @@ function eqArrays(a, b){
 }
 
 function getNames(ctor){
-	var b = ctor._meta.bases, r = [];
+	var b = ctor._m.b, r = [];
 	for(var i = 0, l = b.length; i < l; ++i){
 		r.push(b[i].prototype.declaredClass);
 	}
@@ -559,93 +559,95 @@ var tests = [
 		}
 	},
 	function(){
-		var x = new (dcl(null, {
-			constructor: function(){
-				this.a = "";
-			},
-			m1: function(){
-				this.a += "*";
-			}
-		}));
+		if(typeof advise != "undefined"){
+			var x = new (dcl(null, {
+				constructor: function(){
+					this.a = "";
+				},
+				m1: function(){
+					this.a += "*";
+				}
+			}));
 
-		x.m1();
-		submit("no advises", x.a === "*");
+			x.m1();
+			submit("no advises", x.a === "*");
 
-		var h1 = advise(x, "m1", {
-			around: function(sup){
-				return function(){
-					this.a += "b1";
-					sup.call(this);
-					this.a += "a1";
-				};
-			}
-		});
+			var h1 = advise(x, "m1", {
+				around: function(sup){
+					return function(){
+						this.a += "b1";
+						sup.call(this);
+						this.a += "a1";
+					};
+				}
+			});
 
-		x.a = "";
-		x.m1();
-		submit("Advise #1", x.a === "b1*a1");
+			x.a = "";
+			x.m1();
+			submit("Advise #1", x.a === "b1*a1");
 
-		var h2 = advise(x, "m1", {
-			around: function(sup){
-				return function(){
-					this.a += "b2";
-					sup.call(this);
-					this.a += "a2";
-				};
-			}
-		});
+			var h2 = advise(x, "m1", {
+				around: function(sup){
+					return function(){
+						this.a += "b2";
+						sup.call(this);
+						this.a += "a2";
+					};
+				}
+			});
 
-		x.a = "";
-		x.m1();
-		submit("Advises ##1-2", x.a === "b2b1*a1a2");
+			x.a = "";
+			x.m1();
+			submit("Advises ##1-2", x.a === "b2b1*a1a2");
 
-		var h3 = advise(x, "m1", {
-			around: function(sup){
-				return function(){
-					this.a += "b3";
-					sup.call(this);
-					this.a += "a3";
-				};
-			}
-		});
+			var h3 = advise(x, "m1", {
+				around: function(sup){
+					return function(){
+						this.a += "b3";
+						sup.call(this);
+						this.a += "a3";
+					};
+				}
+			});
 
-		x.a = "";
-		x.m1();
-		submit("Advises ##1-3", x.a === "b3b2b1*a1a2a3");
+			x.a = "";
+			x.m1();
+			submit("Advises ##1-3", x.a === "b3b2b1*a1a2a3");
 
-		var h4 = advise(x, "m1", {
-			around: function(sup){
-				return function(){
-					this.a += "b4";
-					sup.call(this);
-					this.a += "a4";
-				};
-			}
-		});
+			var h4 = advise(x, "m1", {
+				around: function(sup){
+					return function(){
+						this.a += "b4";
+						sup.call(this);
+						this.a += "a4";
+					};
+				}
+			});
 
-		x.a = "";
-		x.m1();
-		submit("Advises ##1-4", x.a === "b4b3b2b1*a1a2a3a4");
+			x.a = "";
+			x.m1();
+			submit("Advises ##1-4", x.a === "b4b3b2b1*a1a2a3a4");
 
-		h2.unadvise();
-		x.a = "";
-		x.m1();
-		submit("Advises ##1,3,4", x.a === "b4b3b1*a1a3a4");
+			h2.unadvise();
+			x.a = "";
+			x.m1();
+			submit("Advises ##1,3,4", x.a === "b4b3b1*a1a3a4");
 
-		h1.unadvise();
-		x.a = "";
-		x.m1();
-		submit("Advises ##3,4", x.a === "b4b3*a3a4");
+			h1.unadvise();
+			x.a = "";
+			x.m1();
+			submit("Advises ##3,4", x.a === "b4b3*a3a4");
 
-		h3.unadvise();
-		x.a = "";
-		x.m1();
-		submit("Advise #4", x.a === "b4*a4");
+			h3.unadvise();
+			x.a = "";
+			x.m1();
+			submit("Advise #4", x.a === "b4*a4");
 
-		h4.unadvise();
-		x.a = "";
-		x.m1();
-		submit("no advices again", x.a === "*");
+			h4.unadvise();
+			x.a = "";
+			x.m1();
+			submit("no advices again", x.a === "*");
+		}
 	}
 ];
 

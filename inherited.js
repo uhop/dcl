@@ -4,25 +4,36 @@
 		
 		function inherited(ctor, name, args){
 			var c = arguments.length < 3 && ctor.callee, // c is truthy if in non-strict mode.
-				f = get(c ? c.ctr : ctor, c ? c.nom : name, this);
+				f = get.call(this, c ? c.ctr : ctor, c ? c.nom : name);
 			if(f){ return f.apply(this, c ? ctor || name : args); }
 			// intentionally no return
 		}
 		
-		function get(ctor, name, instance){
-			var m = instance.constructor._meta, b, c, i, l;
-			if(typeof m.chains[name] == "number"){
-				throw Error(name + ": can't use inherited() on chained/advised methods");
+		function get(ctor, name){
+			var meta = this.constructor._m, bases, base, i, l;
+			if(typeof meta.w[name] == "number" && meta.w[name] < 3){
+				return 0;
 			}
-			if(m){
-				if((i = (b = m.bases).indexOf(ctor)) > 0){	// intentional assignments
-					for(++i, l = b.length; i < l; ++i){
-						if((m = (c = b[i])._meta)){	// intentional assignment
-							if((m = m.hidden).hasOwnProperty(name)){	// intentional assignment
-								return m[name];
+			if(meta){
+				if(meta.c.hasOwnProperty(name)){
+					if((bases = meta.c[name])){	// intentional assignment
+						for(i = bases.length - 1; i >= 0; --i){
+							base = bases[i];
+							if(base.ctr === ctor){
+								return i > 0 ? bases[i - 1] : 0;
+							}
+						}
+					}
+					return 0;
+				}
+				if((i = (bases = meta.b).indexOf(ctor)) > 0){	// intentional assignments
+					for(++i, l = bases.length; i < l; ++i){
+						if((meta = (base = bases[i])._m)){	// intentional assignment
+							if((meta = meta.h).hasOwnProperty(name)){	// intentional assignment
+								return meta[name];
 							}
 						}else{
-							return c.prototype[name];
+							return base.prototype[name];
 						}
 					}
 				}
@@ -34,11 +45,11 @@
 
 		dcl._set(0, function(meta, proto){
 			t(meta, proto);
-			var b = meta.bases, i = b.length - 1, c, m, n, f;
+			var b = meta.b, i = b.length - 1, c, m, n, f;
 			for(; i >= 0; --i){
 				c = b[i];
-				if((m = c._meta)){ // intentional assignment
-					m = m.hidden;
+				if((m = c._m)){ // intentional assignment
+					m = m.h;
 					for(n in m){
 						f = m[n];
 						if(f instanceof Function){

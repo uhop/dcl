@@ -3,6 +3,7 @@
 	define(["./dcl-mini"], function(dcl){
 
 		function nop(){}
+		function unit(f){ return f; }
 		function err(msg){ throw Error("ERROR: " + msg); }
 
 		var Advice = dcl.Advice = dcl(dcl.Super, {
@@ -18,29 +19,14 @@
 		//dcl.advise.before = function(f){ return new Advice({before: f}); };
 		//dcl.advise.after  = function(f){ return new Advice({after: f}); };
 
-		function stub(id, bases, name){
-			var i = bases.length - 1, b = [], a = [], f;
-			if(id < 3){
-				f = dcl._ch(bases, name);
-				f = dcl._sc(id < 2 ? f : f.reverse());
-			}else{
-				f = dcl._ss(bases, name);
-			}
-			dcl._it(
-				bases, name,
-				function(f){
-					if(f instanceof Advice){
-						if(f.b){ b.push(f.b); }
-						if(f.a){ a.push(f.a); }
-					}
-				},
-				nop);
-			if(!b.length && !a.length){
-				// no before/after advices => fall back to a regular stub
-				return f || new Function;
-			}
-			// AOP stub
-			return makeAOPStub(dcl._sc(b), dcl._sc(a.reverse()), f);
+		function stub(id, bases, name, chains){
+			var i = bases.length - 1,
+				f = dcl._ch(bases, name, id < 3 ? nop : unit, "f"),
+				b = dcl._ch(bases, name, nop, "b"),
+				a = dcl._ch(bases, name, nop, "a");
+			f = id < 3 ? dcl._sc(id < 2 ? f : f.reverse()) : dcl._ss(f);
+			chains[name] = f;
+			return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a.reverse()), f);
 		}
 
 		function makeAOPStub(b, a, f){
@@ -48,17 +34,17 @@
 				sa = a || nop,
 				sf = f || nop,
 				x = function(){
-					var r, t = this, a = arguments;
+					var r;
 					// running the before chain
-					sb.apply(t, a);
+					sb.apply(this, arguments);
 					// running the around chain
 					try{
-						r = sf.apply(t, a);
+						r = sf.apply(this, arguments);
 					}catch(e){
 						r = e;
 					}
 					// running the after chain
-					sa.call(t, a, r);
+					sa.call(this, arguments, r);
 					if(r instanceof Error){
 						throw r;
 					}
@@ -69,12 +55,12 @@
 
 		function chain(id){
 			return function(ctor, name){
-				var m = ctor._meta;
+				var m = ctor._m;
 				if(m){
-					if(m.bases.length > 1){
+					if(m.b.length > 1){
 						err(name + ": can't set chaining now");
 					}
-					m.chains[name] = id;
+					m.w[name] = id;
 				}
 			};
 		}
@@ -83,7 +69,7 @@
 		dcl.chainAfter = chain(2);
 
 		dcl.isInstanceOf = function(o, ctor){
-			return o instanceof ctor || o.constructor._meta && o.constructor._meta.bases.indexOf(ctor) > 0;
+			return o instanceof ctor || o.constructor._m && o.constructor._m.b.indexOf(ctor) > 0;
 		};
 
 		dcl._set(
@@ -104,9 +90,9 @@
 			},
 			//buildStubs
 			function(meta, proto){
-				var chains = meta.chains, bases = meta.bases;
-				for(var name in chains){
-					proto[name] = stub(chains[name], bases, name);
+				var weaver = meta.w, bases = meta.b, chains = meta.c;
+				for(var name in weaver){
+					proto[name] = stub(weaver[name], bases, name, chains);
 				}
 			});
 
