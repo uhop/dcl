@@ -9,7 +9,7 @@
 })(function(){
 	"use strict";
 	var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
-		mixIn, delegate, mixInChains, Super, iterate, chain, stubSuper, stubChain;
+		mixIn, delegate, mixInChains, chain, stubSuper, stubChain, post;
 
 	function dcl(superClass, props){
 		var bases, proto, base, ctor, mixIdx = 0, m, o, r, b, i, j, l, n;
@@ -105,67 +105,66 @@
 		return ctor;
 	}
 
+	// decorators
+
+	function Super(f){ this.f = f; }
+	function isSuper(f){ return f instanceof Super; }
+
 	// utilities
 
-	mixInChains = mixIn = dcl.mix = function(a, b){
+	mixInChains = mixIn = function(a, b){
 		for(var n in b){
 			a[n] = b[n];
 		}
 	};
 
-	delegate = dcl.delegate = function(o){
-	    F[pname] = o;
-	    var t = new F;
-	    F[pname] = null;
-	    return t;
-	};
-
-	function post(){}
-
-	dcl._set = function(m, bs){
-		mixInChains = m;
-		buildStubs = bs;
-	};
-
-	dcl._post = function(p){
-		post = p;
-	};
-
-	// decorators
-
-	Super = dcl.Super = function(f){ this.f = f; };
-	dcl.superCall = function(f){ return new Super(f); };
-	function isSuper(f){ return f instanceof Super; }
-
-	chain = dcl._ch = function(bases, name, next, advice){
-		var i = bases.length - 1, t = empty[name], base, meta, r = [], f, p, flag = advice == "f";
-		if(t && name != cname && flag){ r.push(t); p = next(t); }
-		for(; i >= 0; --i, f = 0){
-			base = bases[i];
-			if((meta = base._m)){  // intentional assignment
-				if((meta = meta.h).hasOwnProperty(name)){ // intentional assignment
-					f = isSuper(f = meta[name]) ? (flag ? f.f && (f = f.f(p), f.ctr = base, f.nom = name, f) : f[advice]) : (flag && f);    // intentional assignments
+	mixIn(dcl, {
+		// piblic API
+		mix: mixIn,
+		delegate: delegate = function(o){
+			F[pname] = o;
+			var t = new F;
+			F[pname] = null;
+			return t;
+		},
+		Super: Super,
+		superCall: function(f){ return new Super(f); },
+		// protected API (don't use it!)
+		_set: function(m, bs){
+			mixInChains = m;
+			buildStubs = bs;
+		},
+		_post: function(p){
+			post = p;
+		},
+		_ch: chain = function(bases, name, next, advice){
+			var i = bases.length - 1, t = empty[name], base, meta, r = [], f, p, flag = advice == "f";
+			if(t && name != cname && flag){ r.push(t); p = next(t); }
+			for(; i >= 0; --i, f = 0){
+				base = bases[i];
+				if((meta = base._m)){  // intentional assignment
+					if((meta = meta.h).hasOwnProperty(name)){ // intentional assignment
+						f = isSuper(f = meta[name]) ? (flag ? f.f && (f = f.f(p), f.ctr = base, f.nom = name, f) : f[advice]) : (flag && f);    // intentional assignments
+					}
+				}else{
+					f = flag && ((name == cname ? base : (f = base[pname][name], f !== t && f)) || p);
 				}
-			}else{
-				f = flag && ((name == cname ? base : (f = base[pname][name], f !== t && f)) || p);
+				if(f){ r.push(f); p = next(f || p); }
 			}
-			if(f){ r.push(f); p = next(f || p); }
+			return r;
+		},
+		_sc: stubChain = function(chain){
+			return chain.length ? function(){
+				for(var i = chain.length - 1; i >= 0; --i){
+					chain[i].apply(this, arguments);
+				}
+			} : 0;
+		},
+		_ss: stubSuper = function(chain){
+			var l = chain.length;
+			return l && chain[l - 1];
 		}
-		return r;
-	};
-
-	stubChain = dcl._sc = function(chain){
-		return chain.length ? function(){
-			for(var i = chain.length - 1; i >= 0; --i){
-				chain[i].apply(this, arguments);
-			}
-		} : 0;
-	};
-
-	stubSuper = dcl._ss = function(chain){
-		var l = chain.length;
-		return l && chain[l - 1];
-	};
+	});
 
 	function buildStubs(meta, proto){
 		var weaver = meta.w, bases = meta.b, chains = meta.c, name, ch;

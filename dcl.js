@@ -12,7 +12,7 @@
 	function nop(){}
 	function err(msg){ throw Error("ERROR: " + msg); }
 
-	var Advice = dcl.Advice = dcl(dcl.Super, {
+	var Advice = dcl(dcl.Super, {
 		//declaredClass: "dcl.Advice",
 		constructor: function(){
 			this.b = this.f.before;
@@ -20,10 +20,10 @@
 			this.f = this.f.around;
 		}
 	});
-	dcl.advise = function(f){ return new Advice(f); };
+	function advise(f){ return new Advice(f); }
 
-	//dcl.advise.before = function(f){ return new Advice({before: f}); };
-	//dcl.advise.after  = function(f){ return new Advice({after: f}); };
+	//advise.before = function(f){ return new Advice({before: f}); };
+	//advise.after  = function(f){ return new Advice({after: f}); };
 
 	function stub(id, bases, name, chains){
 		var i = bases.length - 1,
@@ -70,12 +70,14 @@
 		};
 	}
 
-	dcl.chainBefore = chain(1);
-	dcl.chainAfter = chain(2);
-
-	dcl.isInstanceOf = function(o, ctor){
-		return o instanceof ctor || o.constructor._m && o.constructor._m.b.indexOf(ctor) > 0;
-	};
+	dcl.mix(dcl, {
+		// public API
+		Advice: Advice,
+		advise: advise,
+		chainBefore: chain(1),
+		chainAfter:  chain(2),
+		isInstanceOf: function(o, ctor){ return o instanceof ctor || o.constructor._m && o.constructor._m.b.indexOf(ctor) > 0; }
+	});
 
 	dcl._set(
 		//mixChains
