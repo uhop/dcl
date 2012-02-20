@@ -10,7 +10,6 @@
 	"use strict";
 
 	function nop(){}
-	function unit(f){ return f; }
 	function err(msg){ throw Error("ERROR: " + msg); }
 
 	var Advice = dcl.Advice = dcl(dcl.Super, {
@@ -28,11 +27,10 @@
 
 	function stub(id, bases, name, chains){
 		var i = bases.length - 1,
-			f = dcl._ch(bases, name, id < 3 ? nop : unit, "f"),
+			f = chains[name] = dcl._ch(bases, name, id < 3 ? nop : function(f){ return f; }, "f"),
 			b = dcl._ch(bases, name, nop, "b"),
 			a = dcl._ch(bases, name, nop, "a");
 		f = id < 3 ? dcl._sc(id < 2 ? f : f.reverse()) : dcl._ss(f);
-		chains[name] = f;
 		return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a.reverse()), f);
 	}
 

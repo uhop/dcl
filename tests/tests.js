@@ -9,6 +9,7 @@ if(typeof out == "undefined"){
 	};
 	dcl = require("../dcl");
 	advise = require("../advise");
+	inherited = require("../inherited");
 }
 
 function submit(msg, success){
@@ -647,6 +648,151 @@ var tests = [
 			x.a = "";
 			x.m1();
 			submit("no advices again", x.a === "*");
+		}
+	},
+	// inherited tests
+	function(){
+		if(dcl.inherited){
+			var A = dcl(null, {
+				m2: dcl.superCall(function(sup){
+					return function(){
+						if(sup){ sup.call(this); }
+						if(!this.c){ this.c = ""; }
+						this.c += "1";
+					};
+				}),
+				m3: dcl.superCall(function(sup){
+					return function(){
+						if(!this.d){ this.d = ""; }
+						this.d += "M";
+						if(sup){ sup.call(this); }
+					};
+				})
+			});
+
+			var B = dcl(A, {
+				m2: function(){
+					this.inherited(arguments);
+					if(!this.c){ this.c = ""; }
+					this.c += "2";
+				},
+				m3: function(){
+					if(!this.d){ this.d = ""; }
+					this.d += "N";
+					this.inherited(arguments);
+				}
+			});
+
+			var b = new B;
+			b.m2();
+			b.m3();
+			submit("inherited m2/super 12", b.c === "12");
+			submit("inherited m3/super NM", b.d === "NM");
+
+			var C = dcl(B, {
+				m2: dcl.superCall(function(sup){
+					return function(){
+						if(sup){ sup.call(this); }
+						if(!this.c){ this.c = ""; }
+						this.c += "3";
+					};
+				}),
+				m3: dcl.superCall(function(sup){
+					return function(){
+						if(!this.d){ this.d = ""; }
+						this.d += "O";
+						if(sup){ sup.call(this); }
+					};
+				})
+			});
+
+			var c = new C;
+			c.m2();
+			c.m3();
+			submit("inherited m2/super 123", c.c === "123");
+			submit("inherited m3/super ONM", c.d === "ONM");
+		}
+	},
+	function(){
+		if(dcl.inherited){
+			var A = dcl(null, {
+				m2: function(){
+					this.inherited(A, "m2", []);
+					if(!this.c){ this.c = ""; }
+					this.c += "1";
+				},
+				m3: function(){
+					if(!this.d){ this.d = ""; }
+					this.d += "M";
+					this.inherited(arguments);
+				}
+			});
+
+			var a = new A;
+			a.m2();
+			a.m3();
+			submit("m2/inherited 1", a.c === "1");
+			submit("m3/inherited M", a.d === "M");
+
+			var B = dcl(A, {
+				m2: function(){
+					this.inherited(arguments);
+					if(!this.c){ this.c = ""; }
+					this.c += "2";
+				},
+				m3: function(){
+					if(!this.d){ this.d = ""; }
+					this.d += "N";
+					this.inherited(B, "m3", []);
+				}
+			});
+
+			var b = new B;
+			b.m2();
+			b.m3();
+			submit("m2/inherited 12", b.c === "12");
+			submit("m3/inherited NM", b.d === "NM");
+
+			var C = dcl(B, {
+				m2: function(){
+					this.inherited(C, "m2", []);
+					if(!this.c){ this.c = ""; }
+					this.c += "3";
+				},
+				m3: function(){
+					if(!this.d){ this.d = ""; }
+					this.d += "O";
+					this.inherited(arguments);
+				}
+			});
+
+			var c = new C;
+			c.m2();
+			c.m3();
+			submit("m2/inherited 123", c.c === "123");
+			submit("m3/inherited ONM", c.d === "ONM");
+		}
+	},
+	function(){
+		if(dcl.inherited){
+			var a = new (dcl(null, {
+				toString: function(){
+					return "PRE-" + this.inherited(arguments) + "-POST";
+				}
+			}));
+			submit("inherited-calling intrinsics", a.toString() === "PRE-[object Object]-POST");
+		}
+	},
+	function(){
+		"use strict";
+		if(dcl.inherited){
+			var A = dcl(null, {
+				toString: function(){
+					return "PRE-" + this.inherited(A, "toString", arguments) + "-POST";
+				}
+			});
+			var a = new A;
+			submit("strict inherited-calling intrinsics", a.toString() === "PRE-[object Object]-POST");
 		}
 	}
 ];

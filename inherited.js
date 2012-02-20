@@ -1,8 +1,8 @@
 (function(factory){
 	if(typeof define != "undefined"){
-		define(["./dcl"], factory);
+		define(["./dcl-mini"], factory);
 	}else if(typeof module != "undefined"){
-		module.exports = factory(require("./dcl"));
+		module.exports = factory(require("./dcl-mini"));
 	}else{
 		factory(dcl);
 	}
@@ -33,7 +33,7 @@
 				}
 				return 0;
 			}
-			if((i = (bases = meta.b).indexOf(ctor)) > 0){	// intentional assignments
+			if((i = (bases = meta.b).indexOf(ctor)) >= 0){	// intentional assignments
 				for(++i, l = bases.length; i < l; ++i){
 					if((meta = (base = bases[i])._m)){	// intentional assignment
 						if((meta = meta.h).hasOwnProperty(name)){	// intentional assignment
@@ -48,28 +48,25 @@
 		return empty[name];
 	}
 
-	t = dcl._set()[1];
-
-	dcl._set(0, function(meta, proto){
-		t(meta, proto);
-		var b = meta.b, i = b.length - 1, c, m, n, f;
+	dcl._post(function(ctor){
+		var bases = ctor._m.b, i = bases.length - 1, ctr, meta, name, f;
 		for(; i >= 0; --i){
-			c = b[i];
-			if((m = c._m)){ // intentional assignment
-				m = m.h;
-				for(n in m){
-					f = m[n];
+			ctr = bases[i];
+			if((meta = ctr._m)){ // intentional assignment
+				meta = meta.h;
+				for(name in meta){
+					f = meta[name];
 					if(f instanceof Function){
-						if(f.nom === n){ break; }
-						f.ctr = c;
-						f.nom = n;
+						if(f.nom === name){ break; }
+						f.ctr = ctr;
+						f.nom = name;
 					}
 				}
 			}
 		}
-		proto.inherited = inherited;
+		ctor.prototype.inherited = inherited;
 	});
 
 	inherited.get = get;
-	return inherited;
+	return dcl.inherited = inherited;   // intentional assignment
 });

@@ -100,6 +100,8 @@
 		//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
 		bases[0] = ctor;
 
+		post && post(ctor);
+
 		return ctor;
 	}
 
@@ -118,10 +120,15 @@
 	    return t;
 	};
 
+	function post(){}
+
 	dcl._set = function(m, bs){
-		mixInChains = m || mixInChains;
-		buildStubs = bs || buildStubs;
-		return [mixInChains, buildStubs];
+		mixInChains = m;
+		buildStubs = bs;
+	};
+
+	dcl._post = function(p){
+		post = p;
 	};
 
 	// decorators
@@ -160,15 +167,12 @@
 		return l && chain[l - 1];
 	};
 
-	function nop(){}
-	function unit(f){ return f; }
-
 	function buildStubs(meta, proto){
 		var weaver = meta.w, bases = meta.b, chains = meta.c, name, ch;
 		for(name in weaver){
 			proto[name] = (weaver[name] === 3 ?
-				stubSuper(ch = chain(bases, name, unit, "f")) :
-				stubChain(ch = chain(bases, name, nop, "f").reverse())) || new Function;
+				stubSuper(ch = chain(bases, name, function(f){ return f; }, "f")) :
+				stubChain(ch = chain(bases, name, F, "f").reverse())) || new Function;
 			chains[name] = ch;
 		}
 	}
