@@ -33,7 +33,12 @@
 				}
 				return 0;
 			}
-			if((i = (bases = meta.b).indexOf(ctor)) >= 0){	// intentional assignments
+			for(bases = meta.b, i = bases.length - 1; i >= 0; --i){
+				if(bases[i] === ctor){
+					break;
+				}
+			}
+			if(i >= 0){	// intentional assignments
 				for(++i, l = bases.length; i < l; ++i){
 					if((meta = (base = bases[i])._m)){	// intentional assignment
 						if((meta = meta.h).hasOwnProperty(name)){	// intentional assignment

@@ -76,7 +76,20 @@
 		advise: advise,
 		chainBefore: chain(1),
 		chainAfter:  chain(2),
-		isInstanceOf: function(o, ctor){ return o instanceof ctor || o.constructor._m && o.constructor._m.b.indexOf(ctor) > 0; }
+		isInstanceOf: function(o, ctor){
+			if(o instanceof ctor){
+				return true;
+			}
+			var t = o.constructor._m, i;
+			if(t){
+				for(t = t.b, i = t.length - 1; i >= 0; --i){
+					if(t[i] === ctor){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	});
 
 	dcl._set(
