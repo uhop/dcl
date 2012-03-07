@@ -10,28 +10,29 @@
 		-->
 		<style>
 			.error {color: red; font-weight: bold;}
-			#summary {font-weight: bold; margin: 3pt 0;}
 		</style>
 		<script>
-			var successCounter = 0, errorCounter = 0;
-			function out(msg, isError){
+			var _total = 0, _errors = 0;
+			function out(msg){
 				var div = document.createElement("div");
-				if(isError){
-					++errorCounter;
-					div.className = "error";
-				}else{
-					++successCounter;
-				}
 				div.innerHTML = "<tt>" + msg + "</tt>";
 				document.getElementById("container").appendChild(div);
-				document.getElementById("summary").innerHTML = "Success: " + successCounter + ", Errors: " + errorCounter;
+			}
+			function res(msg, isError){
+				++_total;
+				var div = document.createElement("div");
+				if(isError){
+					++_errors;
+					div.className = "error";
+					div.innerHTML = "<tt>" + msg + "</tt>";
+					document.getElementById("container").appendChild(div);
+				}
 			}
 		</script>
 		<script src="tests.js"></script>
 	</head>
 	<body onload="runTests()">
 		<h1>Tests for DCL</h1>
-		<div id="summary"></div>
 		<div id="container"></div>
 	</body>
 </html>

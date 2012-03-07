@@ -1,11 +1,17 @@
 // test harness
 
 if(typeof out == "undefined"){
-	out = function(msg, isError){
-		if(isError){
-			msg = "*** " + msg;
-		}
+	out = function(msg){
 		console.log(msg);
+	};
+	_total = 0;
+	_errors = 0;
+	res = function(msg, isError){
+		++_total;
+		if(isError){
+			++_errors;
+			console.log(msg);
+		}
 	};
 	dcl = require("../dcl");
 	advise = require("../advise");
@@ -14,9 +20,9 @@ if(typeof out == "undefined"){
 
 function submit(msg, success){
 	if(success){
-		out("Success: " + msg);
+		res("Success: " + msg);
 	}else{
-		out("Failed: " + msg, true);
+		res("Failed: " + msg, true);
 	}
 }
 
@@ -798,11 +804,12 @@ var tests = [
 ];
 
 function runTests(){
+	_total = _errors = 0;
 	out("Starting tests...");
 	for(var i = 0, l = tests.length; i < l; ++i){
 		tests[i]();
 	}
-	out("Finished.");
+	out(_errors ? "Finished " + _errors + " out of " + _total + " tests." : "Finished " + _total + " tests.");
 }
 
 if(typeof require != "undefined" && require.main === module){
