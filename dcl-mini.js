@@ -27,8 +27,7 @@
 					if((proto = base._m)){   // intentional assignment
 						for(bases = proto.b, j = 0, l = bases.length - 1; j < l; ++j){
 							n = bases[j]._u;
-							n = m[n] = m[n] || [];
-							n.push(bases[j + 1]);
+							(m[n] = m[n] || []).push(bases[j + 1]);
 						}
 						b = b.concat(bases);
 					}else{
@@ -100,9 +99,7 @@
 		//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
 		bases[0] = ctor;
 
-		post && post(ctor);
-
-		return ctor;
+		return post && post(ctor) || ctor;
 	}
 
 	// decorators
@@ -112,13 +109,11 @@
 
 	// utilities
 
-	mixInChains = mixIn = function(a, b){
+	(mixInChains = mixIn = function(a, b){
 		for(var n in b){
 			a[n] = b[n];
 		}
-	};
-
-	mixIn(dcl, {
+	})(dcl, {
 		// piblic API
 		mix: mixIn,
 		delegate: delegate = function(o){
