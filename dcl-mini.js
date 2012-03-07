@@ -12,7 +12,7 @@
 		mixIn, delegate, mixInChains, chain, stubSuper, stubChain, post;
 
 	function dcl(superClass, props){
-		var bases, proto, base, ctor, mixIdx = 0, m, o, r, b, i, j, l, n;
+		var bases, proto, base, ctor, m, o, r, b, i, j = 0, n;
 
 		if(superClass){
 			if(superClass instanceof Array){
@@ -25,7 +25,7 @@
 					base._u = base._u || counter++;
 					// 2) build a connection map and the base list
 					if((proto = base._m)){   // intentional assignment
-						for(bases = proto.b, j = 0, l = bases.length - 1; j < l; ++j){
+						for(bases = proto.b, j = bases.length - 2; j >= 0; --j){
 							n = bases[j]._u;
 							(m[n] = m[n] || []).push(bases[j + 1]);
 						}
@@ -51,9 +51,9 @@
 				r.push(0); // reserve space for this class
 				// calculate a base class
 				base = superClass[0];
-				mixIdx = r.length - ((m = base._m) && base === r[(l = m.b.length) - 1] ? l : 1); // intentional assignments
+				j = r.length - ((m = base._m) && base === r[(j = m.b.length) - 1] ? j : 1); // intentional assignments
 				bases = r.reverse();
-				superClass = bases[mixIdx--];
+				superClass = bases[j--];
 			}else{
 				// single inheritance
 				bases = [0].concat((m = superClass._m) ? m.b: superClass);   // intentional assignment
@@ -69,8 +69,8 @@
 		r = superClass && (m = superClass._m) ? delegate(m.w) : {constructor: 2};   // intentional assignment
 
 		// create prototype: mix in mixins and props
-		for(; mixIdx > 0; --mixIdx){
-			base = bases[mixIdx];
+		for(; j > 0; --j){
+			base = bases[j];
 			m = base._m;
 			if(m){
 				mixIn(proto, m.h);
