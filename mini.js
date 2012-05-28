@@ -8,6 +8,7 @@
 	}
 })(function(){
 	"use strict";
+
 	var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
 		mixIn, delegate, mixInChains, chain, stubSuper, stubChain, post;
 

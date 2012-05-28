@@ -1,8 +1,8 @@
 (function(factory){
 	if(typeof define != "undefined"){
-		define(["./dcl-mini"], factory);
+		define(["./mini"], factory);
 	}else if(typeof module != "undefined"){
-		module.exports = factory(require("./dcl-mini"));
+		module.exports = factory(require("./mini"));
 	}else{
 		dcl = factory(dcl);
 	}

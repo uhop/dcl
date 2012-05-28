@@ -49,7 +49,7 @@ function getNames(ctor){
 // tests
 
 var tests = [
-	// dcl-mini tests
+	// mini.js tests
 	function(){
 		var A = dcl(null, {declaredClass: "A"});
 		var B = dcl(A, {declaredClass: "B"});
