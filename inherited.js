@@ -61,7 +61,7 @@
 				meta = meta.h;
 				for(name in meta){
 					f = meta[name];
-					if(f instanceof Function){
+					if(typeof f == "function"){
 						if(f.nom === name){ break; }
 						f.ctr = ctr;
 						f.nom = name;
