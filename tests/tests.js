@@ -261,6 +261,86 @@ var tests = [
 		}
 	},
 	function(){
+		if(dcl.chainBefore && dcl.chainAfter){
+			var A = dcl(null, {
+				constructor: function(){
+					this.reset();
+					this.flag = true;
+				},
+				reset: function(){
+					this.b = this.c = "";
+				},
+				m1: function(){
+					this.b += "A";
+				},
+				m2: function(){
+					this.c += "A";
+				}
+			});
+			dcl.chainBefore(A, "m1");
+			dcl.chainAfter(A, "m2");
+
+			var B = dcl(null, {
+				m1: function(){
+					this.b += "B";
+				},
+				m2: function(){
+					this.c += "B";
+				}
+			});
+
+			var C = dcl(null, {
+				m1: dcl.superCall(function(sup){
+					return function(){
+						this.b += "Cb";
+						if(this.flag && sup){ sup.call(this); }
+						this.b += "Ca";
+					};
+				}),
+				m2: dcl.superCall(function(sup){
+					return function(){
+						this.c += "Cb";
+						if(this.flag && sup){ sup.call(this); }
+						this.c += "Ca";
+					};
+				})
+			});
+
+			var D = dcl(null, {
+				m1: function(){
+					this.b += "D";
+				},
+				m2: function(){
+					this.c += "D";
+				}
+			});
+
+			var E = dcl(null, {
+				m1: function(){
+					this.b += "E";
+				},
+				m2: function(){
+					this.c += "E";
+				}
+			});
+
+			var x = new (dcl([A, B, C, D, E], {}));
+			x.m1();
+			x.m2();
+
+			submit("Chained with super before", x.b === "EDCbBACa");
+			submit("Chained with super after", x.c === "CbABCaDE");
+
+			x.reset();
+			x.flag = false;
+			x.m1();
+			x.m2();
+
+			submit("Chained without calling super before", x.b === "EDCbCa");
+			submit("Chained without calling super after", x.c === "CbCaDE");
+		}
+	},
+	function(){
 		if(dcl.isInstanceOf){
 			var A = dcl(null, {});
 			var B = dcl(null, {});
@@ -379,10 +459,10 @@ var tests = [
 			submit("ABCP", z.a === "ABCP");
 
 			var m = new (dcl([B, A], {}));
-			submit("BAP", m.a === "BAP");
+			submit("AP, not BAP", m.a === "AP");
 
 			var n = new (dcl([C, A, B], {}));
-			submit("CABP", n.a === "CABP");
+			submit("ABP, CABP", n.a === "ABP");
 		}
 	},
 	function(){
@@ -809,7 +889,7 @@ function runTests(){
 	for(var i = 0, l = tests.length; i < l; ++i){
 		tests[i]();
 	}
-	out(_errors ? "Finished " + _errors + " out of " + _total + " tests." : "Finished " + _total + " tests.");
+	out(_errors ? "Failed " + _errors + " out of " + _total + " tests." : "Finished " + _total + " tests.");
 }
 
 if(typeof require != "undefined" && require.main === module){

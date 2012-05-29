@@ -19,7 +19,7 @@
 	function get(ctor, name){
 		var meta = this.constructor._m, bases, base, i, l;
 		if(typeof meta.w[name] == "number" && meta.w[name] < 3){
-			return 0;
+			return; // return undefined
 		}
 		if(meta){
 			if(meta.c.hasOwnProperty(name)){
@@ -31,7 +31,7 @@
 						}
 					}
 				}
-				return 0;
+				return; // return undefined
 			}
 			for(bases = meta.b, i = bases.length - 1; i >= 0; --i){
 				if(bases[i] === ctor){

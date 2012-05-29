@@ -22,16 +22,15 @@
 	});
 	function advise(f){ return new Advice(f); }
 
-	//advise.before = function(f){ return new Advice({before: f}); };
-	//advise.after  = function(f){ return new Advice({after: f}); };
+	advise.before = function(f){ return new Advice({before: f}); };
+	advise.after  = function(f){ return new Advice({after: f}); };
 
 	function stub(id, bases, name, chains){
-		var i = bases.length - 1,
-			f = chains[name] = dcl._ch(bases, name, id < 3 ? nop : function(f){ return f; }, "f"),
-			b = dcl._ch(bases, name, nop, "b"),
-			a = dcl._ch(bases, name, nop, "a");
-		f = id < 3 ? dcl._sc(id < 2 ? f : f.reverse()) : dcl._ss(f);
-		return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a.reverse()), f);
+		var f = chains[name] = dcl._ec(bases, name, "f"),
+			b = dcl._ec(bases, name, "b").reverse(),
+			a = dcl._ec(bases, name, "a");
+		f = id < 3 ? dcl._st(f, id < 2 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
+		return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
 	}
 
 	function makeAOPStub(b, a, f){
