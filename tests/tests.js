@@ -51,6 +51,7 @@ function getNames(ctor){
 var tests = [
 	// mini.js tests
 	function(){
+		"use strict";
 		var A = dcl(null, {declaredClass: "A"});
 		var B = dcl(A, {declaredClass: "B"});
 		var C = dcl(B, {declaredClass: "C"});
@@ -59,6 +60,8 @@ var tests = [
 		submit("CBA", getNames(C).join("") === "CBA");
 	},
 	function(){
+		"use strict";
+
 		var A = dcl(null, {
 			constructor: function(){
 				if(!this.a){ this.a = ""; }
@@ -159,6 +162,8 @@ var tests = [
 		submit("m3/super [O, N, M]", c.d === "ONM");
 	},
 	function(){
+		"use strict";
+
 		var A = dcl(null, {declaredClass: "A"});
 		var B = dcl(null, {declaredClass: "B"});
 		var C = dcl(null, {declaredClass: "C"});
@@ -177,6 +182,8 @@ var tests = [
 		submit("ADBC diamond", getNames(ABCD2).join(",") === "ABCD2,ABC,ADC,C,B,D,A");
 	},
 	function(){
+		"use strict";
+
 		var A = dcl(null, {declaredClass: "A"});
 		var B = dcl(null, {declaredClass: "B"});
 		var C = dcl(null, {declaredClass: "C"});
@@ -202,6 +209,7 @@ var tests = [
 		submit("ABC4 triangle", getNames(ABC4).join(",") === "ABC4,ABC,BC,C,B,A");
 	},
 	function(){
+		"use strict";
 		var a = new (dcl(null, {
 			toString: dcl.superCall(function(sup){
 				return function(){
@@ -211,8 +219,28 @@ var tests = [
 		}));
 		submit("super-calling intrinsics", a.toString() === "PRE-[object Object]-POST");
 	},
+	function(){
+		"use strict";
+
+		var A = dcl(null, {declaredClass: "A"});
+		var B = dcl(null, {declaredClass: "B"});
+
+		var AB = dcl([A, B], {declaredClass: "AB"});
+		var BA = dcl([B, A], {declaredClass: "BA"});
+
+		var failed = false;
+		try{
+			var X = dcl([AB, BA], {declaredClass: "X"});
+		}catch(e){
+			failed = true;
+		}finally{
+			submit("Should fail: AB. BA inheritance", failed === true);
+		}
+	},
 	// dcl tests
 	function(){
+		"use strict";
+
 		if(dcl.chainBefore && dcl.chainAfter){
 			var A = dcl(null, {});
 			dcl.chainBefore(A, "m1");
@@ -261,6 +289,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(dcl.chainBefore && dcl.chainAfter){
 			var A = dcl(null, {
 				constructor: function(){
@@ -341,6 +371,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(dcl.isInstanceOf){
 			var A = dcl(null, {});
 			var B = dcl(null, {});
@@ -416,6 +448,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(dcl.advise){
 			var A = dcl(null, {
 				constructor: dcl.advise({
@@ -466,6 +500,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(dcl.advise){
 			var A = dcl(null, {
 				m1: dcl.advise({
@@ -534,6 +570,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(dcl.advise){
 			var A = dcl(null, {
 				m1: dcl.advise({
@@ -571,6 +609,8 @@ var tests = [
 	},
 	// advise tests
 	function(){
+		"use strict";
+
 		if(typeof advise != "undefined"){
 			var A = dcl(null, {
 				m1: dcl.advise({
@@ -646,6 +686,8 @@ var tests = [
 		}
 	},
 	function(){
+		"use strict";
+
 		if(typeof advise != "undefined"){
 			var x = new (dcl(null, {
 				constructor: function(){

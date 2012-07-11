@@ -13,59 +13,62 @@
 		mixIn, delegate, mixInChains, extractChain, stubSuper, stubChain, stub, post;
 
 	function dcl(superClass, props){
-		var bases, proto, base, ctor, m, o, r, b, i, j = 0, n;
+		var bases = [0], proto, base, ctor, m, o, r, b, i, j = 0, n;
 
 		if(superClass){
 			if(superClass instanceof Array){
-				// mixins: C3 MRO approximation
-				m = {}; o = {}; r = []; b = [];
-				for(i = superClass.length - 1; i >= 0; --i){
-					base = superClass[i];
+				// mixins: C3 MRO
+				m = {}; b = superClass.slice(0).reverse();
+				for(i = b.length - 1; i >= 0; --i){
+					base = b[i];
 					// pre-process a base
 					// 1) add a unique id
 					base._u = base._u || counter++;
 					// 2) build a connection map and the base list
 					if((proto = base._m)){   // intentional assignment
-						for(bases = proto.b, j = bases.length - 2; j >= 0; --j){
-							n = bases[j]._u;
-							(m[n] = m[n] || []).push(bases[j + 1]);
+						for(r = proto.b, j = r.length - 1; j > 0; --j){
+							n = r[j]._u;
+							m[n] = (m[n] || 0) + 1;
 						}
-						b = b.concat(bases);
+						b[i] = r.slice(0);
 					}else{
-						b.push(base);
+						b[i] = [base];
 					}
 				}
 				// build output
-				while(b.length){
-					base = b.pop();
-					n = base._u;
-					if(!o[n]){
-						if(m[n]){
-							b = b.concat(base, m[n]);
-							m[n] = 0;
-						}else{
-							o[n] = 1;
-							r.push(base);
+				o = {};
+				c: while(b.length){
+					for(i = 0; i < b.length; ++i){
+						r = b[i];
+						base = r[0];
+						n = base._u;
+						if(!m[n]){
+							if(!o[n]){
+								bases.push(base);
+								o[n] = 1;
+							}
+							r.shift();
+							if(r.length){
+								--m[r[0]._u];
+							}else{
+								b.splice(i, 1);
+							}
+							continue c;
 						}
 					}
+					// error
+					dcl._er("cycle", superClass, b);
 				}
-				r.push(0); // reserve space for this class
 				// calculate a base class
-				base = superClass[0];
-				j = r.length - ((m = base._m) && base === r[(j = m.b.length) - 1] ? j : 1); // intentional assignments
-				bases = r.reverse();
-				superClass = bases[j--];
+				superClass = superClass[0];
+				j = bases.length - ((m = superClass._m) && superClass === bases[bases.length - (j = m.b.length)] ? j : 1) - 1; // intentional assignments
 			}else{
 				// single inheritance
-				bases = [0].concat((m = superClass._m) ? m.b: superClass);   // intentional assignment
+				bases = bases.concat((m = superClass._m) ? m.b : superClass);   // intentional assignment
 			}
-			// create a base class
-			proto = delegate(superClass[pname]);
-		}else{
-			// no super class
-			bases = [0];
-			proto = {};
 		}
+		// create a base class
+		proto = superClass ? delegate(superClass[pname]) : {};
 		// the next line assumes that constructor is actually named "constructor", should be changed if desired
 		r = superClass && (m = superClass._m) ? delegate(m.w) : {constructor: 2};   // intentional assignment
 
@@ -174,6 +177,9 @@
 			}
 			t = i - pi;
 			return t == 0 ? 0 : t == 1 ? chain[pi] : stub(pi ? chain.slice(pi, i) : chain);
+		},
+		_er: function(m){
+			throw Error("dcl: " + m);
 		}
 	});
 
