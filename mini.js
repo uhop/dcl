@@ -103,7 +103,7 @@
 		//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
 		bases[0] = ctor;
 
-		return post && post(ctor) || ctor;
+		return dcl._p(ctor);
 	}
 
 	// decorators
@@ -128,10 +128,10 @@
 		},
 		Super: Super,
 		superCall: function(f){ return new Super(f); },
-		// protected API (don't use it!)
-		_post: function(p){
-			post = p;
-		},
+		// protected API starts with _ (don't use it!)
+		_p: function(ctr){ return ctr; },   // identity, used to hang on advices
+		_er: function(m){ throw Error("dcl: " + m); },  // primitive error function, can be augmented/overwritten
+		// the "buildStubs()" helpers, can be overwritten
 		_ec: extractChain = function(bases, name, advice){
 			var i = bases.length - 1, r = [], b, f, around = advice == "f";
 			for(; i >= 0; --i){
@@ -178,9 +178,6 @@
 		_sb: function(id, bases, name, chains){
 			var f = chains[name] = extractChain(bases, name, "f");
 			return (id ? stubChainSuper(f, stubChain) : stubSuper(f, name)) || new Function;
-		},
-		_er: function(m){
-			throw Error("dcl: " + m);
 		}
 	});
 
