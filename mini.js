@@ -100,10 +100,10 @@
 		// put in place all decorations and return a constructor
 		ctor._m  = o;
 		ctor[pname] = proto;
-		//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
+		//proto[cname] = ctor; // uncomment if constructor is not named "constructor"
 		bases[0] = ctor;
 
-		return dcl._p(ctor);
+		return dcl._p(ctor);    // fully prepared constructor
 	}
 
 	// decorators
