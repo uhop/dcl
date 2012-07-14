@@ -18,7 +18,7 @@
 
 	function get(ctor, name){
 		var meta = this.constructor._m, bases, base, i, l;
-		if(typeof meta.w[name] == "number" && meta.w[name] < 3){
+		if(+meta.w[name]){
 			return; // return undefined
 		}
 		if(meta){

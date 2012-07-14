@@ -26,7 +26,7 @@
 		var f = chains[name] = dcl._ec(bases, name, "f"),
 			b = dcl._ec(bases, name, "b").reverse(),
 			a = dcl._ec(bases, name, "a");
-		f = id < 3 ? dcl._st(f, id < 2 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
+		f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
 		return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
 	}
 
@@ -94,21 +94,6 @@
 	});
 
 	dcl._set(
-		//mixChains
-		function(dst, src){
-			var n, d, s, t;
-			for(n in src){
-				if((d = +dst[n]) != (s = +src[n])){ // intentional assignments
-					if(!d || s == 3){
-						if(!d || s != 3){
-							dst[n] = s;
-						}
-					}else{
-						err(n + ": incompatible chaining");
-					}
-				}
-			}
-		},
 		//buildStubs
 		function(meta, proto){
 			var weaver = meta.w, bases = meta.b, chains = meta.c;

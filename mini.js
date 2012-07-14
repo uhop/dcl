@@ -10,7 +10,7 @@
 	"use strict";
 
 	var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
-		mixIn, delegate, mixInChains, extractChain, stubSuper, stubChain, stub, post;
+		mixIn, delegate, extractChain, stubSuper, stubChain, stub, post;
 
 	function dcl(superClass, props){
 		var bases = [0], proto, base, ctor, m, o, r, b, i, j = 0, n;
@@ -76,16 +76,16 @@
 		for(; j > 0; --j){
 			base = bases[j];
 			m = base._m;
+			mixIn(proto, m && m.h || base[pname]);
 			if(m){
-				mixIn(proto, m.h);
-				mixInChains(r, m.w);
-			}else{
-				mixIn(proto, base[pname]);
+				for(n in (b = m.w)){    // intentional assignment
+					r[n] = (+r[n] || 0) | b[n];
+				}
 			}
 		}
 		for(n in props){
 			if(isSuper(m = props[n])){  // intentional assignment
-				r[n] = +r[n] || 3;
+				r[n] = +r[n] || 0;
 			}else{
 				proto[n] = m;
 			}
@@ -93,7 +93,7 @@
 
 		// create stubs
 		o = {b: bases, h: props, w: r, c: {}};
-		bases[0] = {_m: o};
+		bases[0] = {_m: o}; // fake constructor (only meta is available)
 		buildStubs(o, proto);
 		ctor = proto[cname];
 
@@ -113,7 +113,7 @@
 
 	// utilities
 
-	(mixInChains = mixIn = function(a, b){
+	(mixIn = function(a, b){
 		for(var n in b){
 			a[n] = b[n];
 		}
@@ -129,8 +129,7 @@
 		Super: Super,
 		superCall: function(f){ return new Super(f); },
 		// protected API (don't use it!)
-		_set: function(m, bs){
-			mixInChains = m;
+		_set: function(bs){
 			buildStubs = bs;
 		},
 		_post: function(p){
@@ -140,6 +139,7 @@
 			var i = bases.length - 1, r = [], b, f, around = advice == "f";
 			for(; i >= 0; --i){
 				b = bases[i];
+				// next line contains 5 intentional assignments
 				if((f = b._m) ? (f = f.h).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.f : (f = f[advice])) : around) : around && (f = b[pname][name]) && f !== empty[name]){
 					r.push(f);
 				}
@@ -187,7 +187,7 @@
 		var weaver = meta.w, bases = meta.b, chains = meta.c, name, ch;
 		for(name in weaver){
 			chains[name] = ch = extractChain(bases, name, "f");
-			proto[name] = (weaver[name] === 3 ? stubSuper(ch, name) : stub(ch, stubChain)) || new Function;
+			proto[name] = (weaver[name] ? stub(ch, stubChain) : stubSuper(ch, name)) || new Function;
 		}
 	}
 
