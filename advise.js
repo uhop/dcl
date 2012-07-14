@@ -102,6 +102,7 @@
 
 	advise.before = function(instance, name, f){ return advise(instance, name, {before: f}); };
 	advise.after  = function(instance, name, f){ return advise(instance, name, {after: f}); };
+	advise.around = function(instance, name, f){ return advise(instance, name, {around: f}); };
 
 	return advise;
 });
