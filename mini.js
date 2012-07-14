@@ -10,7 +10,7 @@
 	"use strict";
 
 	var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
-		mixIn, delegate, extractChain, stubSuper, stubChain, stub, post;
+		mix, extractChain, stubSuper, stubChain, stubChainSuper, post;
 
 	function dcl(superClass, props){
 		var bases = [0], proto, base, ctor, m, o, r, b, i, j = 0, n;
@@ -68,15 +68,15 @@
 			}
 		}
 		// create a base class
-		proto = superClass ? delegate(superClass[pname]) : {};
+		proto = superClass ? dcl.delegate(superClass[pname]) : {};
 		// the next line assumes that constructor is actually named "constructor", should be changed if desired
-		r = superClass && (m = superClass._m) ? delegate(m.w) : {constructor: 2};   // intentional assignment
+		r = superClass && (m = superClass._m) ? dcl.delegate(m.w) : {constructor: 2};   // intentional assignment
 
 		// create prototype: mix in mixins and props
 		for(; j > 0; --j){
 			base = bases[j];
 			m = base._m;
-			mixIn(proto, m && m.h || base[pname]);
+			mix(proto, m && m.h || base[pname]);
 			if(m){
 				for(n in (b = m.w)){    // intentional assignment
 					r[n] = (+r[n] || 0) | b[n];
@@ -113,14 +113,14 @@
 
 	// utilities
 
-	(mixIn = function(a, b){
+	(mix = function(a, b){
 		for(var n in b){
 			a[n] = b[n];
 		}
 	})(dcl, {
 		// piblic API
-		mix: mixIn,
-		delegate: delegate = function(o){
+		mix: mix,
+		delegate: function(o){
 			F[pname] = o;
 			var t = new F;
 			F[pname] = null;
@@ -129,9 +129,6 @@
 		Super: Super,
 		superCall: function(f){ return new Super(f); },
 		// protected API (don't use it!)
-		_set: function(bs){
-			buildStubs = bs;
-		},
 		_post: function(p){
 			post = p;
 		},
@@ -165,7 +162,7 @@
 			}
 			return p;
 		},
-		_st: stub = function(chain, stub){
+		_st: stubChainSuper = function(chain, stub){
 			var i = 0, f, t, pi = 0;
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){
@@ -178,16 +175,19 @@
 			t = i - pi;
 			return t == 0 ? 0 : t == 1 ? chain[pi] : stub(pi ? chain.slice(pi, i) : chain);
 		},
+		_sb: function(id, bases, name, chains){
+			var f = chains[name] = extractChain(bases, name, "f");
+			return (id ? stubChainSuper(f, stubChain) : stubSuper(f, name)) || new Function;
+		},
 		_er: function(m){
 			throw Error("dcl: " + m);
 		}
 	});
 
 	function buildStubs(meta, proto){
-		var weaver = meta.w, bases = meta.b, chains = meta.c, name, ch;
-		for(name in weaver){
-			chains[name] = ch = extractChain(bases, name, "f");
-			proto[name] = (weaver[name] ? stub(ch, stubChain) : stubSuper(ch, name)) || new Function;
+		var weaver = meta.w, bases = meta.b, chains = meta.c;
+		for(var name in weaver){
+			proto[name] = dcl._sb(weaver[name], bases, name, chains);
 		}
 	}
 

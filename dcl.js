@@ -22,14 +22,6 @@
 	});
 	function advise(f){ return new Advice(f); }
 
-	function stub(id, bases, name, chains){
-		var f = chains[name] = dcl._ec(bases, name, "f"),
-			b = dcl._ec(bases, name, "b").reverse(),
-			a = dcl._ec(bases, name, "a");
-		f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
-		return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
-	}
-
 	function makeAOPStub(b, a, f){
 		var sb = b || nop,
 			sa = a || nop,
@@ -90,17 +82,16 @@
 				}
 			}
 			return false;
+		},
+		// protected API (don't use it!)
+		_sb: function(id, bases, name, chains){
+			var f = chains[name] = dcl._ec(bases, name, "f"),
+				b = dcl._ec(bases, name, "b").reverse(),
+				a = dcl._ec(bases, name, "a");
+			f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
+			return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
 		}
 	});
-
-	dcl._set(
-		//buildStubs
-		function(meta, proto){
-			var weaver = meta.w, bases = meta.b, chains = meta.c;
-			for(var name in weaver){
-				proto[name] = stub(weaver[name], bases, name, chains);
-			}
-		});
 
 	return dcl;
 });
