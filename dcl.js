@@ -22,9 +22,6 @@
 	});
 	function advise(f){ return new Advice(f); }
 
-	advise.before = function(f){ return new Advice({before: f}); };
-	advise.after  = function(f){ return new Advice({after: f}); };
-
 	function stub(id, bases, name, chains){
 		var f = chains[name] = dcl._ec(bases, name, "f"),
 			b = dcl._ec(bases, name, "b").reverse(),
@@ -73,6 +70,11 @@
 		// public API
 		Advice: Advice,
 		advise: advise,
+		// expose helper methods
+		before: function(f){ return new Advice({before: f}); },
+		after: function(f){ return new Advice({after: f}); },
+		around: dcl.superCall,
+		// chains
 		chainBefore: chain(1),
 		chainAfter:  chain(2),
 		isInstanceOf: function(o, ctor){
