@@ -77,6 +77,7 @@
 			if(r instanceof Error){
 				throw r;
 			}
+			return r;
 		};
 		f.adviceNode = x;
 		return f;

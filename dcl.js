@@ -41,6 +41,7 @@
 				if(r instanceof Error){
 					throw r;
 				}
+				return r;
 			};
 		x.advices = {b: b, a: a, f: f};
 		return x;
@@ -83,7 +84,7 @@
 			}
 			return false;
 		},
-		// protected API (don't use it!)
+		// protected API starts with _ (don't use it!)
 		_sb: function(id, bases, name, chains){
 			var f = chains[name] = dcl._ec(bases, name, "f"),
 				b = dcl._ec(bases, name, "b").reverse(),
