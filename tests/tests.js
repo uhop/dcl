@@ -611,7 +611,7 @@ var tests = [
 	function(){
 		"use strict";
 
-		if(typeof advise != "undefined"){
+		if(dcl.advise && typeof advise != "undefined"){
 			var A = dcl(null, {
 				m1: dcl.advise({
 					before: function(){
