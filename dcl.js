@@ -10,7 +10,6 @@
 	"use strict";
 
 	function nop(){}
-	function err(msg){ throw Error("ERROR: " + msg); }
 
 	var Advice = dcl(dcl.Super, {
 		//declaredClass: "dcl.Advice",
@@ -49,10 +48,11 @@
 
 	function chain(id){
 		return function(ctor, name){
-			var m = ctor._m;
+			var m = ctor._m, c;
 			if(m){
-				if(m.b.length > 1){
-					err(name + ": can't set chaining now");
+				c = (+m.w[name] || 0);
+				if(c && c != id){
+					dcl._er("set chaining", name, ctor, id, c);
 				}
 				m.w[name] = id;
 			}
@@ -85,11 +85,11 @@
 			return false;
 		},
 		// protected API starts with _ (don't use it!)
-		_sb: function(id, bases, name, chains){
+		_sb: /*stub*/ function(id, bases, name, chains){
 			var f = chains[name] = dcl._ec(bases, name, "f"),
 				b = dcl._ec(bases, name, "b").reverse(),
 				a = dcl._ec(bases, name, "a");
-			f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc) : dcl._ss(f, name);
+			f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc, name) : dcl._ss(f, name);
 			return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
 		}
 	});

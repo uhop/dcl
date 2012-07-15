@@ -57,7 +57,7 @@
 						}
 					}
 					// error
-					dcl._er("cycle", superClass, b);
+					dcl._er("cycle", props, b);
 				}
 				// calculate a base class
 				superClass = superClass[0];
@@ -100,7 +100,7 @@
 		// put in place all decorations and return a constructor
 		ctor._m  = o;
 		ctor[pname] = proto;
-		//proto[cname] = ctor; // uncomment if constructor is not named "constructor"
+		//proto.constructor = ctor; // uncomment if constructor is not named "constructor"
 		bases[0] = ctor;
 
 		return dcl._p(ctor);    // fully prepared constructor
@@ -160,9 +160,9 @@
 					p = f;
 				}
 			}
-			return p;
+			return name != cname ? p : function(){ return p.apply(this, arguments); };
 		},
-		_st: stubChainSuper = function(chain, stub){
+		_st: stubChainSuper = function(chain, stub, name){
 			var i = 0, f, t, pi = 0;
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){
@@ -173,11 +173,11 @@
 				}
 			}
 			t = i - pi;
-			return t == 0 ? 0 : t == 1 ? chain[pi] : stub(pi ? chain.slice(pi, i) : chain);
+			return t == 0 ? 0 : t == 1 && name != cname ? chain[pi] : stub(pi ? chain.slice(pi) : chain);
 		},
-		_sb: function(id, bases, name, chains){
+		_sb: /*stub*/ function(id, bases, name, chains){
 			var f = chains[name] = extractChain(bases, name, "f");
-			return (id ? stubChainSuper(f, stubChain) : stubSuper(f, name)) || new Function;
+			return (id ? stubChainSuper(f, stubChain, name) : stubSuper(f, name)) || new Function;
 		}
 	});
 
