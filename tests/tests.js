@@ -16,6 +16,7 @@ if(typeof out == "undefined"){
 	dcl = require("../dcl");
 	advise = require("../advise");
 	inherited = require("../inherited");
+	dcl_debug = require("../debug");
 }
 
 function submit(msg, success){
