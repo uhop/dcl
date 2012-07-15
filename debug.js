@@ -175,8 +175,7 @@
 	}
 
 	function countAdvices(node, chain){
-		var c = 0;
-		for(var p = node[chain]; p != node; p = p[chain], ++c);
+		for(var c = 0, p = node[chain]; p != node; p = p[chain], ++c);
 		return c;
 	}
 
@@ -199,7 +198,11 @@
 					var f = o[name];
 					if(typeof f == "function"){
 						if(f.adviceNode && f.adviceNode instanceof advise.Node){
-							console.log("    method " + name + " has advise() AOP stub");
+							var b = countAdvices(f.adviceNode, "pb"),
+								r = countAdvices(f.adviceNode, "pf"),
+								a = countAdvices(f.adviceNode, "pa");
+							console.log("    method " + name + " has advise() AOP stub (before: " +
+								b + ", around: " + r + ", after: " + a + ")");
 						}else if(f.advices && typeof f.advices == "object"){
 							console.log("    method " + name + " has dcl.advise() AOP stub");
 						}
