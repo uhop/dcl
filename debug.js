@@ -149,7 +149,7 @@
 			console.log("*** class does not have meta information compatible with dcl");
 			return;
 		}
-		var weaver = meta.w, bases = meta.b, names = [], base, name, someUnknown, i;
+		var weaver = meta.w, bases = meta.b, chains = meta.c, names = [], base, name, someUnknown, i;
 		for(i = 0; i < bases.length; ++i){
 			base = bases[i];
 			name = base.prototype.hasOwnProperty("declaredClass") && base.prototype.declaredClass;
@@ -163,14 +163,28 @@
 		if(names.length > 1){
 			console.log("    dependencies: " + names.slice(1).join(", "));
 		}
+		if(someUnknown){
+			console.log("    " + noDecls);
+		}
 		for(name in weaver){
 			i = +weaver[name];
 			if(!isNaN(i)){
-				console.log("    method " + name + " is " + chainName(i));
+				var hasStub = typeof ctor.prototype[name].advices == "object", b = 0, r = 0, a = 0, f;
+				if(hasStub){
+					for(var ch = chains[name], i = 0; i < ch.length; ++i){
+						f = ch[i];
+						if(f instanceof dcl.Super){
+							if(f.b){ ++b; }
+							if(f.f){ ++r; }
+							if(f.a){ ++a; }
+						}else{
+							++r;
+						}
+					}
+				}
+				console.log("    class method " + name + " is " + chainName(i) + " (length: " + chains[name].length + ")" +
+					(hasStub ? ", and has an AOP stub (before: " + b + ", around: " + r + ", after: " + a + ")": ""));
 			}
-		}
-		if(someUnknown){
-			console.log("    " + noDecls);
 		}
 	}
 
@@ -179,7 +193,7 @@
 		return c;
 	}
 
-	function log(o){
+	function log(o, suppressCtor){
 		switch(typeof o){
 			case "function":
 				logCtor(o);
@@ -192,19 +206,19 @@
 				}
 				console.log("*** object of class " + name);
 				// log the constructor
-				logCtor(base);
+				if(!suppressCtor){
+					logCtor(base);
+				}
 				// log methods
 				for(name in o){
-					var f = o[name];
+					var f = o[name], b, r, a;
 					if(typeof f == "function"){
 						if(f.adviceNode && f.adviceNode instanceof advise.Node){
-							var b = countAdvices(f.adviceNode, "pb"),
-								r = countAdvices(f.adviceNode, "pf"),
-								a = countAdvices(f.adviceNode, "pa");
-							console.log("    method " + name + " has advise() AOP stub (before: " +
+							b = countAdvices(f.adviceNode, "pb");
+							r = countAdvices(f.adviceNode, "pf");
+							a = countAdvices(f.adviceNode, "pa");
+							console.log("    object method " + name + " has an AOP stub (before: " +
 								b + ", around: " + r + ", after: " + a + ")");
-						}else if(f.advices && typeof f.advices == "object"){
-							console.log("    method " + name + " has dcl.advise() AOP stub");
 						}
 					}
 				}
