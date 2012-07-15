@@ -143,7 +143,7 @@
 		}
 	});
 
-	function log(ctor){
+	function logCtor(ctor){
 		var meta = ctor._m;
 		if(!meta){
 			console.log("*** class does not have meta information compatible with dcl");
@@ -172,6 +172,42 @@
 		if(someUnknown){
 			console.log("    " + noDecls);
 		}
+	}
+
+	function countAdvices(node, chain){
+		var c = 0;
+		for(var p = node[chain]; p != node; p = p[chain], ++c);
+		return c;
+	}
+
+	function log(o){
+		switch(typeof o){
+			case "function":
+				logCtor(o);
+				return;
+			case "object":
+				var base = o.constructor,
+					name = base.prototype.hasOwnProperty("declaredClass") && base.prototype.declaredClass;
+				if(!name){
+					name = "UNNAMED_" + (base.hasOwnProperty("_u") ? base._u : "");
+				}
+				console.log("*** object of class " + name);
+				// log the constructor
+				logCtor(base);
+				// log methods
+				for(name in o){
+					var f = o[name];
+					if(typeof f == "function"){
+						if(f.adviceNode && f.adviceNode instanceof advise.Node){
+							console.log("    method " + name + " has advise() AOP stub");
+						}else if(f.advices && typeof f.advices == "object"){
+							console.log("    method " + name + " has dcl.advise() AOP stub");
+						}
+					}
+				}
+				return;
+		}
+		console.log(o);
 	}
 
 	return {
