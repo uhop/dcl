@@ -57,7 +57,7 @@
 						}
 					}
 					// error
-					dcl._er("cycle", props, b);
+					dcl._e("cycle", props, b);
 				}
 				// calculate a base class
 				superClass = superClass[0];
@@ -129,51 +129,55 @@
 		Super: Super,
 		superCall: function(f){ return new Super(f); },
 		// protected API starts with _ (don't use it!)
-		_p: function(ctr){ return ctr; },   // identity, used to hang on advices
-		_er: function(m){ throw Error("dcl: " + m); },  // primitive error function, can be augmented/overwritten
+		_p: function(ctor){ return ctor; },   // identity, used to hang on advices
+		_e: function(m){ throw Error("dcl: " + m); },  // error function, augmented by debug.js
+		_f: function(f, a, n){ var t = f.f(a); t.ctr = f.ctr; return t; },  // supercall instantiation, augmented by debug.js
 		// the "buildStubs()" helpers, can be overwritten
 		_ec: extractChain = function(bases, name, advice){
 			var i = bases.length - 1, r = [], b, f, around = advice == "f";
-			for(; i >= 0; --i){
-				b = bases[i];
+			for(; b = bases[i]; --i){
 				// next line contains 5 intentional assignments
 				if((f = b._m) ? (f = f.h).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.f : (f = f[advice])) : around) : around && (f = b[pname][name]) && f !== empty[name]){
+					f.ctr = b;
 					r.push(f);
 				}
 			}
 			return r;
 		},
 		_sc: stubChain = function(chain){ // this is "after" chain
-			return chain.length ? function(){
-				for(var i = 0, l = chain.length; i < l; ++i){
-					chain[i].apply(this, arguments);
-				}
-			} : 0;
+			var l = chain.length, f;
+			return !l ? 0 : l == 1 ?
+				(f = chain[0], function(){
+					f.apply(this, arguments);
+				}) :
+				function(){
+					for(var i = 0; i < l; ++i){
+						chain[i].apply(this, arguments);
+					}
+				};
 		},
 		_ss: stubSuper = function(chain, name){
 			var i = 0, f, p = empty[name];
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){  // intentional assignment
-					p = chain[i] = f.f(p);
-					p.ctr = f.ctr;
+					p = chain[i] = dcl._f(f, p, name);
 				}else{
 					p = f;
 				}
 			}
-			return name != cname ? p : function(){ return p.apply(this, arguments); };
+			return name != cname ? p : function(){ p.apply(this, arguments); };
 		},
 		_st: stubChainSuper = function(chain, stub, name){
 			var i = 0, f, t, pi = 0;
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){
 					t = i - pi;
-					t = chain[i] = f.f(t == 0 ? 0 : t == 1 ? chain[pi] : stub(chain.slice(pi, i)));
-					t.ctr = f.ctr;
+					t = chain[i] = dcl._f(f, !t ? 0 : t == 1 ? chain[pi] : stub(chain.slice(pi, i)), name);
 					pi = i;
 				}
 			}
 			t = i - pi;
-			return t == 0 ? 0 : t == 1 && name != cname ? chain[pi] : stub(pi ? chain.slice(pi) : chain);
+			return !t ? 0 : t == 1 && name != cname ? chain[pi] : stub(pi ? chain.slice(pi) : chain);
 		},
 		_sb: /*stub*/ function(id, bases, name, chains){
 			var f = chains[name] = extractChain(bases, name, "f");

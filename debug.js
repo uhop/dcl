@@ -9,7 +9,7 @@
 })(function(dcl, advise){
 	function DclError(message){
 		if(Error.captureStackTrace){
-			Error.captureStackTrace(this, ErrorCtor);
+			Error.captureStackTrace(this, DclError);
 		}
 		var e = Error.call(this, message), name;
 		for(name in e){
@@ -24,7 +24,10 @@
 
 	var DclCycleError = dcl(DclError, {declaredClass: "dcl/debug/DclCycleError"}),
 		DclChainingError = dcl(DclError, {declaredClass: "dcl/debug/DclChainingError"}),
-		DclSetChainingError = dcl(DclError, {declaredClass: "dcl/debug/DclSetChainingError"});
+		DclSetChainingError = dcl(DclError, {declaredClass: "dcl/debug/DclSetChainingError"}),
+		DclSuperCallError = dcl(DclError, {declaredClass: "dcl/debug/DclSuperCallError"}),
+		DclSuperError = dcl(DclError, {declaredClass: "dcl/debug/DclSuperError"}),
+		DclSuperResultError = dcl(DclError, {declaredClass: "dcl/debug/DclSuperResultError"});
 
 	var chainNames = ["UNCHAINED BUT CONTAINS ADVICE(S)", "CHAINED BEFORE", "CHAINED AFTER"];
 	function chainName(id){
@@ -32,7 +35,7 @@
 	}
 
 	var noDecls = "(specify 'declaredClass' string in your classes to get better diagnostics)";
-	advise.around(dcl, "_er", function(/*sup*/){
+	advise.around(dcl, "_e", function(/*sup*/){
 		return function(reason, a1, a2, a3, a4, a5){
 			var cName, someUnknown, i, base, name, names = [], c = {};
 			switch(reason){
@@ -68,6 +71,21 @@
 					throw new DclSetChainingError("dcl: attempt to set conflicting chain directive" + (cName ? " in " + cName: "") +
 						" for method " + a1 + " - it is " + chainName(a3) + " now yet being changed to " + chainName(a4) +
 						(someUnknown ? noDecls : ""));
+				case "wrong super call":
+					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
+					someUnknown = !cName;
+					throw new DclSuperCallError("dcl: wrong argument of an around advice or supercall" +
+						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
+				case "wrong super":
+					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
+					someUnknown = !cName;
+					throw new DclSuperError("dcl: super method should be a function" +
+						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
+				case "wrong super result":
+					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
+					someUnknown = !cName;
+					throw new DclSuperResultError("dcl: around advice or supercall should return a function" +
+						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
 			}
 			throw new DclError("dcl: " + reason);
 		};
@@ -85,11 +103,28 @@
 				if(meta){
 					c = (+meta.w[name] || 0);
 					if(chain != c && (!chain || c)){
-						dcl._er("chain", name, ctor, chain, base, c);
+						dcl._e("chain", name, ctor, chain, base, c);
 					}
 				}
 			}
 		}
+	});
+
+	advise.around(dcl, "_f", function(/*sup*/){
+		return function(f, a, n){
+			if(typeof f.f != "function"){
+				dcl._e("wrong super call", f.ctr, n);
+			}
+			if(a && typeof a != "function"){
+				dcl._e("wrong super", f.ctr, n);
+			}
+			var t = f.f(a);
+			if(typeof t != "function"){
+				dcl._e("wrong super result", f.ctr, n);
+			}
+			t.ctr = f.ctr;
+			return t;
+		};
 	});
 
 	function log(ctor){

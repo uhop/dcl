@@ -64,8 +64,8 @@
 					f = meta[name];
 					if(typeof f == "function"){
 						if(f.nom === name){ break; }
-						f.ctr = base;
 						f.nom = name;
+						f.ctr = base;
 					}
 				}
 			}
