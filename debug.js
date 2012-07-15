@@ -127,6 +127,22 @@
 		};
 	});
 
+	advise(advise, "_f", {
+		before: function(f, a, n){
+			if(typeof f != "function"){
+				dcl._e("wrong super call", n.i.constructor, n.n);
+			}
+			if(a && typeof a != "function"){
+				dcl._e("wrong super", n.i.constructor, n.n);
+			}
+		},
+		after: function(a, f){
+			if(typeof f != "function"){
+				dcl._e("wrong super result", a[2].i.constructor, a[2].n);
+			}
+		}
+	});
+
 	function log(ctor){
 		var meta = ctor._m;
 		if(!meta){
