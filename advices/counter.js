@@ -8,9 +8,8 @@
 	}
 })(function(dcl){
 	"use strict";
-
 	var Counter = new dcl(null, {
-		//declaredClass: "dcl/advices/counter/Counter",
+		declaredClass: "dcl/advices/counter/Counter",
 		constructor: function(){
 			this.reset();
 		},

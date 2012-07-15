@@ -8,9 +8,8 @@
 	}
 })(function(dcl, Destroyable){
 	"use strict";
-
 	return dcl(Destroyable, {
-		//declaredClass: "dcl/mixins/Cleanup",
+		declaredClass: "dcl/mixins/Cleanup",
 		constructor: function(){
 			this.__cleanupStack = [];
 		},
@@ -34,10 +33,9 @@
 			}
 		},
 		cleanup: function(){
-			for(var i = this.__cleanupStack.length - 1; i >= 0; --i){
-				this.__cleanupStack[i]();
+			while(this.__cleanupStack.length){
+				this.__cleanupStack.pop()();
 			}
-			this.__cleanupStack = [];
 		},
 		destroy: function(){
 			this.cleanup();

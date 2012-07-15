@@ -8,7 +8,6 @@
 	}
 })(function(){
 	"use strict";
-
 	return {
 		advice: function(name, keyMaker){
 			return keyMaker ?

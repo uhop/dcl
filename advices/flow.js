@@ -8,7 +8,6 @@
 	}
 })(function(){
 	"use strict";
-
 	var flowStack = [], flowCount = {};
 	return {
 		advice: function(name){

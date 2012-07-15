@@ -8,9 +8,8 @@
 	}
 })(function(dcl){
 	"use strict";
-
 	return dcl(null, {
-		//declaredClass: "dcl/bases/Mixer",
+		declaredClass: "dcl/bases/Mixer",
 		constructor: function(x){
 			dcl.mix(this, x);
 		}

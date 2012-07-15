@@ -8,9 +8,8 @@
 	}
 })(function(dcl){
 	"use strict";
-
 	return dcl(null, {
-		//declaredClass: "dcl/bases/Replacer",
+		declaredClass: "dcl/bases/Replacer",
 		constructor: function(x){
 			var empty = {};
 			for(var name in x){

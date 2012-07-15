@@ -8,9 +8,7 @@
 	}
 })(function(dcl){
 	"use strict";
-
-	return dcl(null, {
-		//declaredClass: "dcl/mixins/Destroyable",
-		destroy: dcl.chainBefore(function(){})
-	});
+	var Destroyable = dcl(null, {declaredClass: "dcl/mixins/Destroyable"});
+	dcl.chainBefore(Destroyable, "destroy");
+	return Destroyable;
 });
