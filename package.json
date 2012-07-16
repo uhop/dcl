@@ -1,0 +1,29 @@
+{
+  "name": "dcl",
+  "version": "1.0.0",
+  "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
+  "main": "dcl.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node tests/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/uhop/dcl.git"
+  },
+  "keywords": [
+    "object-oriented",
+    "programming",
+    "aspect-oriented",
+    "programming",
+    "OOP",
+    "AOP",
+    "OO"
+  ],
+  "author": "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://lazutkin.com/)",
+  "license": "BSD"
+}
