@@ -933,6 +933,9 @@ function runTests(){
 		tests[i]();
 	}
 	out(_errors ? "Failed " + _errors + " out of " + _total + " tests." : "Finished " + _total + " tests.");
+	if(typeof process != "undefined"){
+		process.exit(_errors ? 1 : 0);
+	}
 }
 
 if(typeof require != "undefined" && require.main === module){
