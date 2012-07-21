@@ -169,21 +169,14 @@
 		for(name in weaver){
 			i = +weaver[name];
 			if(!isNaN(i)){
-				var hasStub = typeof ctor.prototype[name].advices == "object", b = 0, r = 0, a = 0, f;
+				var hasStub = typeof ctor.prototype[name].advices == "object";
 				if(hasStub){
-					for(var ch = chains[name], i = 0; i < ch.length; ++i){
-						f = ch[i];
-						if(f instanceof dcl.Super){
-							if(f.b){ ++b; }
-							if(f.f){ ++r; }
-							if(f.a){ ++a; }
-						}else{
-							++r;
-						}
-					}
+					var b = dcl._ec(bases, name, "b").length,
+						f = dcl._ec(bases, name, "f").length,
+						a = dcl._ec(bases, name, "a").length;
 				}
 				console.log("    class method " + name + " is " + chainName(i) + " (length: " + chains[name].length + ")" +
-					(hasStub ? ", and has an AOP stub (before: " + b + ", around: " + r + ", after: " + a + ")": ""));
+					(hasStub ? ", and has an AOP stub (before: " + b + ", around: " + f + ", after: " + a + ")": ""));
 			}
 		}
 	}
