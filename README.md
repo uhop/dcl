@@ -10,13 +10,16 @@ If you migrate your code from a legacy framework that implements dynamic (rather
 
 ```js
 // if you run node.js, or CommonJS-compliant system
-
 var dcl = require("dcl");
 
-// if you use dcl in a browser with RequireJS:
-
+// if you use dcl in a browser with AMD (like RequireJS):
 require(["dcl"], function(dcl){
     // the same code that uses dcl
+});
+
+// or when you define your own module:
+define(["dcl"], function(dcl){
+	// your dcl-using code goes here
 });
 ```
 
@@ -27,6 +30,8 @@ Let's continue with our coding example:
 ```js
 // declare a class derived from Object:
 var Person = dcl(null, {
+	// (optional, but recommended) name your class:
+	declaredClass: "Person",
     // let's specify a default name as a class-level constant
     name: "Anonymous",
     // constructor is a method named ... 'constructor'
@@ -40,6 +45,7 @@ var Person = dcl(null, {
 
 // we can derive more classes from it using single inheritance
 var Bureaucrat = dcl(Person, {
+	declaredClass: "Bureaucrat",
     constructor: function(name){
         console.log("Bureaucrat " + this.name + " is constructed");
     },
@@ -57,7 +63,7 @@ clerk.approve(123);
 // Rejected by Anonymous
 ```
 
-As you can see it is trivial to define "classes" and derived them using single inheritance. Constructors are automatically chained and called from the farthest to the closest with the same arguments. Our Bureaucrat constructor ignores name, because it knows that Person will take care of it.
+As you can see it is trivial to define "classes" and derive them using single inheritance. Constructors are automatically chained and called from the farthest to the closest with the same arguments. Our Bureaucrat constructor ignores name, because it knows that Person will take care of it.
 
 Now let's do a mixin.
 
@@ -173,7 +179,7 @@ var SickMartianSarge = dcl([Sarge, Sick, Martian], {
     // no own methods for simplicity
 });
 
-var don = new SickMartianSarge("Donald");
+var don = new SickMartianSarge("Don");
 // Person Don is constructed
 don.speak("Doctor? Nurse? Anybody?");
 // Don: *hiccup* *hiccup* *hiccup*
@@ -296,9 +302,9 @@ Again, for convenience, `dcl/advise` provides shortcuts for singular advices:
 
 ```
 // pseudo code
-advise.before(object, methodName, f) == advise(object, methodName, {before: f})
-advise.around(object, methodName, f) == advise(object, methodName, {around: f})
-advise.after (object, methodName, f) == advise(object, methodName, {after:  f})
+advise.before(obj, methodName, f) == advise(obj, methodName, {before: f})
+advise.around(obj, methodName, f) == advise(obj, methodName, {around: f})
+advise.after (obj, methodName, f) == advise(obj, methodName, {after:  f})
 ```
 
 Naturally "around" advices use the same double function technique to be super light-weight.
@@ -355,14 +361,14 @@ fred.sleep();
 dclDebug.log(A);
 // *** class A depends on 0 classes
 //     class method constructor is CHAINED AFTER (length: 0)
-//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S) (length: 0),
+//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),
 //       and has an AOP stub (before: 0, around: 0, after: 1)
 
 dclDebug.log(B);
 // *** class B depends on 1 classes
 //     dependencies: A
 //     class method constructor is CHAINED AFTER (length: 0)
-//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S) (length: 1),
+//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),
 //       and has an AOP stub (before: 0, around: 1, after: 1)
 
 dclDebug.log(fred);
@@ -370,7 +376,7 @@ dclDebug.log(fred);
 // *** class B depends on 1 classes
 //     dependencies: A
 //     class method constructor is CHAINED AFTER (length: 0)
-//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S) (length: 1),
+//     class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),
 //       and has an AOP stub (before: 0, around: 1, after: 1)
 //     object method sleep has an AOP stub (before: 0, around: 1, after: 2)
 ```
