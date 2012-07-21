@@ -175,8 +175,10 @@
 						f = dcl._ec(bases, name, "f").length,
 						a = dcl._ec(bases, name, "a").length;
 				}
-				console.log("    class method " + name + " is " + chainName(i) + " (length: " + chains[name].length + ")" +
-					(hasStub ? ", and has an AOP stub (before: " + b + ", around: " + f + ", after: " + a + ")": ""));
+				console.log("    class method " + name + " is " + chainName(i) + 
+					(hasStub ?
+						", and has an AOP stub (before: " + b + ", around: " + f + ", after: " + a + ")" :
+						" (length: " + chains[name].length + ")" ));
 			}
 		}
 	}
