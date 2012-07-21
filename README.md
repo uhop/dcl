@@ -2,7 +2,7 @@
 
 A minimalistic yet complete JavaScript package for node.js and browsers that implements OOP with mixins + AOP at both "class" and object level. Implements C3 MRO to support a Python-like multiple inheritance, efficient supercalls, chaining, full set of advices, and provides some useful generic building blocks. The whole package comes with an extensive test set (85 tests at the time of writing) and fully compatible with the strict mode.
 
-The package was written with debugability of your code in mind. It comes with a special debug module that explains mistakes, verifies created objects, and helps to keep track of AOP advices. Because the package uses direct static calls to super methods, you don't need to step over unnecessary stubs. In places where stubs are unavoidable (chains or advices) they are small, and intuitive.
+The package was written with debuggability of your code in mind. It comes with a special debug module that explains mistakes, verifies created objects, and helps to keep track of AOP advices. Because the package uses direct static calls to super methods, you don't need to step over unnecessary stubs. In places where stubs are unavoidable (chains or advices) they are small, and intuitive.
 
 If you migrate your code from a legacy framework that implements dynamic (rather than static) supercalls, take a look at the module "inherited" that dispatches supercalls dynamically trading off the simplicity of the code for some run-time CPU use, and a little bit less convenient debugging of such calls due to an extra stub between your methods.
 
@@ -92,7 +92,8 @@ var Shouter = dcl(Speaker, {
         // "sup" --- a method from a super class
         return function(msg){
             if(sup){
-                // theoretically we have no super method;
+                // theoretically it is possible that
+                // there is no super method --- we can be last in line;
                 // not in this case, though --- we are based
                 // on Speaker meaning it will be always pulled in
                 sup.call(this, msg.toUpperCase());
@@ -111,7 +112,7 @@ bob.speak("give me twenty!");
 // Bob: GIVE ME TWENTY!
 ```
 
-The double function technique for a super call allows you to work directly with a next method in chain --- no intermediateries means that this call is as fast as it can be, no run-time penalties are involved during method calls, and it greatly simplifies debugging.
+The double function technique for a super call allows you to work directly with a next method in chain --- no intermediaries means that this call is as fast as it can be, no run-time penalties are involved during method calls, and it greatly simplifies debugging.
 
 And, of course, our "classes" can be absolutely anonymous, like in this one-off "class":
 
@@ -304,7 +305,7 @@ Naturally "around" advices use the same double function technique to be super li
 
 ## Debugging helpers
 
-There is a special moduule `dcl/debug` that adds better error checking and reporting for your "classes" and objects. All you need is to require it, and it will plug right in:
+There is a special module `dcl/debug` that adds better error checking and reporting for your "classes" and objects. All you need is to require it, and it will plug right in:
 
 ```js
 var dclDebug = require("dcl/debug");
@@ -374,7 +375,7 @@ dclDebug.log(fred);
 //     object method sleep has an AOP stub (before: 0, around: 1, after: 2)
 ```
 
-This way we can always know that we generated correct classes, inspect static chaning and advices, and even can monitor dynamically attached/removed advices.
+This way we can always know that we generated correct classes, inspect static chaining and advices, and even can monitor dynamically attached/removed advices.
 
 ## Summary
 
