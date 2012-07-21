@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>DCL</title>
+  <title>About - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts Google+ Latest Tweets Status updating&#8230; $.domReady(function(){ getTwitterFeed("uhop", 2, false); }); Follow @uhop ">
+  <meta name="description" content="About Jul 21st, 2012 A minimalistic yet complete JavaScript package for node.js and browsers that implements OOP with mixins + AOP at both
+"class" &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//">
+  <link rel="canonical" href="http://www.dcljs.org//about/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -77,15 +78,90 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">About</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-21T13:03:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
+  </header>
+  
+  <p>A minimalistic yet complete JavaScript package for node.js and browsers that implements OOP with mixins + AOP at both
+"class" and object level.</p>
+
+<p>Highlights:</p>
+
+<ul>
+<li>Works in node.js and browsers, fully supports AMD.</li>
+<li>Implements C3 MRO to support a Python-like multiple inheritance.</li>
+<li>Targets object-oriented programming with mixins technology.</li>
+<li>Efficient supercalls &mdash; no run-time penalty, ultimate debuggability.</li>
+<li>Automatic constructor chaining, you can specify chaining for any method.</li>
+<li>Full support for AOP (before, around, after, after throwing advices).</li>
+<li>Comes with a mini library with some useful generic building blocks.</li>
+<li>Extensively tested, uses continuous integration with 85 automated tests.</li>
+<li>Fully compatible with the strict mode.</li>
+</ul>
+
+
+<p>The package was written with debuggability of your code in mind. It comes with a special debug module that verifies
+created objects, explains mistakes, and helps to keep track of AOP advices. Because the package uses direct static calls
+to super methods, you don't need to step over unnecessary stubs. In places where stubs are unavoidable (chains or
+advices) they are small, and intuitive.</p>
+
+<p>If you migrate your code from a legacy framework that implements dynamic (rather than static) supercalls, take a look at
+the module "inherited" that dispatches supercalls dynamically trading off the simplicity of the code for some run-time
+CPU use, and a little bit less convenient debugging of such calls due to an extra stub between your methods.</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-21T13:03:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//about/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//about/index.html" >Tweet</a>
   
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
 </div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -110,7 +186,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -127,6 +203,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
