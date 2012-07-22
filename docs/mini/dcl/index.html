@@ -120,11 +120,10 @@ dcl.js. Both these modules &hellip;">
 
 <ul>
 <li><code>null</code> - no base "class" &rArr; base it directly on <code>Object</code>.</li>
-<li>constructor object - a function created with <code>dcl</code> or a generic JavaScript constructor function. New "class" will be
+<li><strong>constructor object</strong> - a function created with <code>dcl</code> or a generic JavaScript constructor function. New "class" will be
 based on it using a single inheritance.</li>
-<li>array of constructors - a C3 superclass linearization will be performed on this array, and the result will be used
-to create a new constructor using a single inheritance. Effectively it sorts all bases topologically preserving
-their relative order and removing duplicates.</li>
+<li><strong>array of constructors</strong> - a C3 superclass linearization will be performed on this array, and the result will be used
+to create a new constructor using a single inheritance. This array should be non-empty.</li>
 </ul>
 </li>
 <li><code>props</code> is an object, whose properties are used to specify unique features of the "class" &mdash; methods, and
@@ -424,6 +423,9 @@ base constructor.</li>
 <li>If a constructor returns a value, it will be ignored.</li>
 <li>All unchained methods (the default), and other properties, override properties with the same name in base classes.</li>
 <li>Always use <code>new</code> keyword when creating objects with a constructor produced by <code>dcl()</code>.</li>
+<li>Methods in <code>props</code> will be decorated with a meta information, and possibly copied. Because of that it is not
+recommended to reuse them for different classes. In general <code>props</code> should be an object literal. <code>dcl()</code> will assume
+full control over it.</li>
 </ol>
 
 
@@ -505,6 +507,17 @@ it with super calls &mdash; just define a super call and doesn't call a super.</
 
 <p>See discussion of object invariants in <a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> and in
 <a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS revisited</a>.</p>
+
+<h3>Can I use <code>[]</code> instead of <code>null</code> as my base?</h3>
+
+<p>No. <code>null</code> is a constant, which is shared, while <code>[]</code> is a newly-created object. The latter comes with a penalty (it
+has to be created, and it will add a load to the garbage collector afterwards. <code>null</code> is cheaper, and clearly
+demonstrates programmer's intent.</p>
+
+<h3>Can I use <code>[base]</code> instead of <code>base</code> as my base?</h3>
+
+<p>Yes, but why? The former will create an additional array object, which will be discarded right after the <code>dcl()</code> call
+increasing the load on the garbage collector. The latter is clearly cheaper, and more intentional.</p>
 
   
     <footer>
