@@ -63,7 +63,9 @@
 				superClass = superClass[0];
 				j = bases.length - ((m = superClass._m) && superClass === bases[bases.length - (j = m.b.length)] ? j : 1) - 1; // intentional assignments
 			}else{
-				// single inheritance
+				// 1) add a unique id
+				superClass._u = superClass._u || counter++;
+				// 2) single inheritance
 				bases = bases.concat((m = superClass._m) ? m.b : superClass);   // intentional assignment
 			}
 		}
