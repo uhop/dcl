@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Module mini.js - DCL</title>
+  <title>mini.js - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Module mini.js Jul 21st, 2012 mini.js is a minimal kernel of dcl. It implements C3 MRO to linearize bases, and super calls. Additionally it provides &hellip;">
+  <meta name="description" content="mini.js Jul 21st, 2012 mini.js is a minimal kernel of dcl. It implements OOP facilities for single and multiple inheritance using mixins,
+and super &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,7 +82,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">Module mini.js</h1>
+    <h1 class="entry-title">mini.js</h1>
     <p class="meta">
 
 
@@ -97,22 +98,26 @@
 <time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  <p>mini.js is a minimal kernel of dcl. It implements C3 MRO to linearize bases, and super calls. Additionally it provides
-useful utilities to work with objects.</p>
+  <p><code>mini.js</code> is a minimal kernel of <code>dcl</code>. It implements OOP facilities for single and multiple inheritance using mixins,
+and super calls. Additionally it provides useful utilities to work with objects.</p>
 
-<h2>Public properties</h2>
+<h2>Module API</h2>
+
+<p>The return value of this module is a function, which in this documentation it is called <code>dcl()</code>.</p>
+
+<p><a href="/docs/mini/dcl">dcl()</a> is the main composition engine. While it is important by itself, it hosts a number of
+public properties.</p>
 
 <p>Main properties:</p>
 
 <ul>
-<li><a href="/docs/mini/dcl">dcl()</a> - <em>the composition engine</em></li>
 <li><a href="/docs/mini/supercall">superCall()</a> - <em>super call decorator</em></li>
 <li><a href="/docs/mini/mix">mix()</a> - <em>mix in one object with another</em></li>
 <li><a href="/docs/mini/delegate">delegate()</a> - <em>delegate from one object to another</em></li>
 </ul>
 
 
-<p>Additionally it exposes these properties:</p>
+<p>Auxiliary properties:</p>
 
 <ul>
 <li><a href="/docs/mini/super">Super</a> - <em>constructor used by <a href="/docs/mini/supercall">superCall()</a> to create a decorator</em></li>
