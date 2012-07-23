@@ -928,13 +928,21 @@ var tests = [
 
 function runTests(){
 	_total = _errors = 0;
+	var exceptionFlag = false;
 	out("Starting tests...");
 	for(var i = 0, l = tests.length; i < l; ++i){
-		tests[i]();
+		try{
+			tests[i]();
+		}catch(e){
+			if(isError){
+				exceptionFlag = true;
+				console.log("Unhandled exception in test #" + i + ": " + e.message);
+			}
+		}
 	}
 	out(_errors ? "Failed " + _errors + " out of " + _total + " tests." : "Finished " + _total + " tests.");
 	if(typeof process != "undefined"){
-		process.exit(_errors ? 1 : 0);
+		process.exit(_errors || exceptionFlag? 1 : 0);
 	}
 }
 
