@@ -337,7 +337,7 @@ or logs. See <a href="/docs/debug">debug.js</a> for more details.</li>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p>We can base our classes on native JavaScript constructors as well:</p>
+<p>We can base our classes on normal JavaScript constructors as well:</p>
 
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Single inheritance II  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -379,22 +379,22 @@ or logs. See <a href="/docs/debug">debug.js</a> for more details.</li>
 <span class='line-number'>37</span>
 <span class='line-number'>38</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">A</span><span class="p">(){</span>
-</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A is constructed natively&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A is constructed manually&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">{</span>
 </span><span class='line'>  <span class="nx">hi</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from native land!&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from manual land!&quot;</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">},</span>
 </span><span class='line'>  <span class="nx">lo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Lo from native land!&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Lo from manual land!&quot;</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">};</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// A is constructed natively</span>
+</span><span class='line'><span class="c1">// A is constructed manually</span>
 </span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// Hi from native land!</span>
+</span><span class='line'><span class="c1">// Hi from manual land!</span>
 </span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// Lo from native land!</span>
+</span><span class='line'><span class="c1">// Lo from manual land!</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -405,12 +405,12 @@ or logs. See <a href="/docs/debug">debug.js</a> for more details.</li>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// A is constructed natively</span>
+</span><span class='line'><span class="c1">// A is constructed manually</span>
 </span><span class='line'><span class="c1">// B is constructed</span>
 </span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>
 </span><span class='line'><span class="c1">// Hi from dcl()!</span>
 </span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>
-</span><span class='line'><span class="c1">// Lo from native land!</span>
+</span><span class='line'><span class="c1">// Lo from manual land!</span>
 </span><span class='line'>
 </span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// true</span>
@@ -639,7 +639,7 @@ linearizing bases, eliminating duplicates, and checking the overall consistency 
 
 <p>Many JS OOP packages skip the correct linearization step hoping that everything will be right as is. Unfortunately it
 can be a source of extremely hard-to-find bugs. Besides mixins use inheritance routinely to indicate their relative
-dependencies so duplicates will occure natirally.</p>
+dependencies so duplicates will occure naturally.</p>
 
 <h3>I write only small programs. I don't need no linearization, right?</h3>
 
