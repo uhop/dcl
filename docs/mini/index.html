@@ -105,7 +105,7 @@ and super calls. Additionally it provides useful utilities to work with objects.
 
 <p>The return value of this module is a function, which in this documentation it is called <code>dcl()</code>.</p>
 
-<p><a href="/docs/mini/dcl">dcl()</a> is the main composition engine. While it is important by itself, it hosts a number of
+<p><a href="/docs/mini/dcl">dcl()</a> is the main "class" composition engine. While it is important by itself, it hosts a number of
 public properties.</p>
 
 <p>Main properties:</p>
@@ -170,8 +170,37 @@ public properties.</p>
   </ul>
 </section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/uhop">@uhop</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
 
-<section class="googleplus">
+        github.showRepos({
+            user: 'uhop',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section class="googleplus googleplus-hidden">
   <h1>
     <a href="https://plus.google.com/109185893580826547067?rel=author">
       <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
@@ -189,7 +218,7 @@ public properties.</p>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
-      getTwitterFeed("uhop", 2, false);
+      getTwitterFeed("uhop", 3, false);
     });
   </script>
   <script src="/javascripts/twitter.js" type="text/javascript"> </script>
