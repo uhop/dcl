@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>superCall() - DCL</title>
+  <title>mini.js - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" superCall() Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="mini.js Jul 21st, 2012 mini.js is a minimal kernel of dcl. It implements OOP facilities for single and multiple inheritance using mixins,
+and super &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/mini/supercall/">
+  <link rel="canonical" href="http://www.dcljs.org//docs/mini_js/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +82,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">superCall()</h1>
+    <h1 class="entry-title">mini.js</h1>
     <p class="meta">
 
 
@@ -94,10 +95,34 @@
   
 
 
-<time datetime="2012-07-21T13:53:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
+<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>mini.js</code> is a minimal kernel of <code>dcl</code>. It implements OOP facilities for single and multiple inheritance using mixins,
+and super calls. Additionally it provides useful utilities to work with objects.</p>
+
+<h2>Module API</h2>
+
+<p>The return value of this module is a function, which in this documentation it is called <code>dcl()</code>.</p>
+
+<p><a href="/docs/mini_js/dcl">dcl()</a> is the main "class" composition engine. While it is important by itself, it hosts a number of
+public properties.</p>
+
+<p>Main properties:</p>
+
+<ul>
+<li><a href="/docs/mini_js/supercall">superCall()</a> - <em>super call decorator</em></li>
+<li><a href="/docs/mini_js/mix">mix()</a> - <em>mix in one object with another</em></li>
+<li><a href="/docs/mini_js/delegate">delegate()</a> - <em>delegate from one object to another</em></li>
+</ul>
+
+
+<p>Auxiliary properties:</p>
+
+<ul>
+<li><a href="/docs/mini_js/super">Super</a> - <em>constructor used by <a href="/docs/mini_js/supercall">superCall()</a> to create a decorator</em></li>
+</ul>
+
 
   
     <footer>
@@ -115,13 +140,13 @@
   
 
 
-<time datetime="2012-07-21T13:53:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
         
       </p>
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini/supercall/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini/supercall/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini_js/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini_js/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

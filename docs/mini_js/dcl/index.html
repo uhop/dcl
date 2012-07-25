@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/mini/dcl/">
+  <link rel="canonical" href="http://www.dcljs.org//docs/mini_js/dcl/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -117,8 +117,8 @@
 compact way to achieve what you need. But, just in case, it will play nice with hand-made constructors, so your
 constructors can inherit from them, or mix them in as mixins.</p>
 
-<p><code>dcl()</code> is a main function of the whole package. It is defined in <a href="/docs/mini">mini.js</a> and can be extended by
-<a href="/docs/dcl">dcl.js</a>. Both these modules return it as their value.</p>
+<p><code>dcl()</code> is a main function of the whole package. It is defined in <a href="/docs/mini_js">mini.js</a> and can be extended by
+<a href="/docs/dcl_js">dcl.js</a>. Both these modules return it as their value.</p>
 
 <h2>Description</h2>
 
@@ -153,14 +153,14 @@ class-level variables. Following properties have a special meaning for <code>dcl
 always called before a derived constructor. There is no restrictions on what arguments can be used for
 a constructor. A return value of constructor (if any) is ignored.</li>
 <li><code>declaredClass</code> - an optional human-readable string, which is used to identify the created class in error messages
-or logs. See <a href="/docs/debug">debug.js</a> for more details.</li>
+or logs. See <a href="/docs/debug_js">debug.js</a> for more details.</li>
 </ul>
 </li>
 <li><code>dcl()</code> returns a constructor created according to user' specifications.</li>
 </ul>
 
 
-<p><code>dcl()</code> is returned by <a href="/docs/mini">mini.js</a> and <a href="/docs/dcl">dcl.js</a> and used to host additional properties. Look at
+<p><code>dcl()</code> is returned by <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a> and used to host additional properties. Look at
  specific modules to learn what public properties are available.</p>
 
 <h2>Examples</h2>
@@ -522,10 +522,10 @@ first item is used.</p>
 <code>dcl()</code> cannot preserve this list because <code>C</code> should go before <code>B</code> as defined in <code>E</code>. It forces <code>dcl()</code> to base <code>F</code>
 directly on <code>A</code>.</p>
 
-<p>For more debugging information take a look at <a href="/docs/debug">debug.js</a> and its <a href="/docs/debug/log">log()</a> method.</p>
+<p>For available debugging facilities take a look at <a href="/docs/debug_js">debug.js</a> and its <a href="/docs/debug_js/log">log()</a> method.</p>
 
 <p>If you want to test if an object is inherited directly (in JavaScript sense) or indirectly (e.g., as a mixin), consider
-using <a href="/docs/dcl/isinstanceof">isInstanceOf()</a>, which is defined in <a href="/docs/dcl">dcl.js</a>.</p>
+using <a href="/docs/dcl_js/isinstanceof">isInstanceOf()</a>, which is defined in <a href="/docs/dcl_js">dcl.js</a>.</p>
 
 <h2>Notes</h2>
 
@@ -547,7 +547,7 @@ full control over it.</li>
 
 <h3>What is the difference between <code>mini.js</code> and <code>dcl.js</code> modules and when should I use <code>mini.js</code>?</h3>
 
-<p>Both <a href="/docs/mini">mini.js</a> and <a href="/docs/dcl">dcl.js</a> return the same object. <code>mini.js</code> provides the core functionality
+<p>Both <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a> return the same object. <code>mini.js</code> provides the core functionality
 (mixin support, and super calls), while <code>dcl.js</code> adds chaining, and class-level AOP advices. By default, when you
 request <code>dcl</code>, it loads <code>dcl.js</code>:</p>
 
@@ -577,7 +577,7 @@ targeting mobile browsers), you may want to request <code>mini.js</code> explici
 
 <h3>How can I detect, if my class inherits directly or indirectly from <code>A</code>?</h3>
 
-<p>You can always use <a href="/docs/dcl/isinstanceof">isInstanceOf()</a>, which is defined in <a href="/docs/dcl">dcl.js</a>:</p>
+<p>You can always use <a href="/docs/dcl_js/isinstanceof">isInstanceOf()</a>, which is defined in <a href="/docs/dcl_js">dcl.js</a>:</p>
 
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>isInstanceOf()  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -653,8 +653,8 @@ facilities like super calls, or class-level advices, but other than that they ca
 
 <h3>Is it possible to chain methods other than constructor?</h3>
 
-<p>Yes. See <a href="/docs/dcl/chainbefore">chainBefore()</a> and <a href="/docs/dcl/chainafter">chainAfter()</a> directives provided by
-<a href="/docs/dcl">dcl.js</a>.</p>
+<p>Yes. See <a href="/docs/dcl_js/chainbefore">chainBefore()</a> and <a href="/docs/dcl_js/chainafter">chainAfter()</a> directives provided by
+<a href="/docs/dcl_js">dcl.js</a>.</p>
 
 <h3>Is it possible to use advices with constructors?</h3>
 
@@ -665,7 +665,7 @@ facilities like super calls, or class-level advices, but other than that they ca
 <p>While it is not advised due to possible violation of object invariants, and potential maintenance problems, you can do
 it with super calls &mdash; just define a super call and doesn't call a super.</p>
 
-<p>See <a href="/docs/mini/supercall">superCall()</a> for more details.</p>
+<p>See <a href="/docs/mini_js/supercall">superCall()</a> for more details.</p>
 
 <p>See discussion of object invariants in <a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> and in
 <a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS revisited</a>.</p>
@@ -705,7 +705,7 @@ increasing the load on the garbage collector. The latter is clearly cheaper, and
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini/dcl/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini/dcl/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini_js/dcl/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini_js/dcl/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
