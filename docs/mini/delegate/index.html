@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="delegate() Jul 21st, 2012 Jul 21st, 2012 Tweet Recent Posts GitHub Repos Status updating... @uhop on GitHub $.domReady(function(){ if (!window.jXHR &hellip;">
+  <meta name="description" content=" delegate() Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,11 +67,11 @@
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/">Home</a></li>
+	<li><a href="/about">What is dcl?</a></li>
 	<li><a href="/docs">Documentation</a></li>
-	<li><a href="/about">About</a></li>
-	<li><a href="http://github.com/uhop/dcl">Source</a></li>
+	<li><a href="http://github.com/uhop/dcl">Code</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
 </ul>
 
 </nav>
@@ -139,70 +139,14 @@
 <aside class="sidebar">
   
     <section>
+	<h1>Current Status</h1>
+	<p><a href="http://travis-ci.org/uhop/dcl"><img src="https://secure.travis-ci.org/uhop/dcl.png?branch=master" alt="Build Status"></a></p>
+</section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
   </ul>
 </section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/uhop">@uhop</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'uhop',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section class="googleplus googleplus-hidden">
-  <h1>
-    <a href="https://plus.google.com/109185893580826547067?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
-
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("uhop", 3, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/uhop" class="twitter-follow-button" data-show-count="false">Follow @uhop</a>
-  
-</section>
-
-
 
   
 </aside>
