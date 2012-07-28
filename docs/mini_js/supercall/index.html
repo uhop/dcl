@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" superCall() Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="superCall() Jul 21st, 2012 superCall() is a light-weight way to call a method with the same name from the base "class", if any. Essentially
+it is a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +98,217 @@
 <time datetime="2012-07-21T13:53:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>superCall()</code> is a light-weight way to call a method with the same name from the base "class", if any. Essentially
+it is a way to call a method that was overridden by the current method. It is used as a method decorator.</p>
+
+<p>It is defined as a property on <code>dcl</code> in <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a>.</p>
+
+<h2>Description</h2>
+
+<p>When you need to do a supercall, you decorate (wrap) a method with <code>dcl.superCall()</code> using a double function pattern:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Double function pattern  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>          <span class="p">...</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>The outer function always have one argument: <code>sup</code> (any name is fine). It is used to inject a method of super class
+in the inner function, which does the useful job. The outer function always returns the inner function.</p>
+
+<p>The inner function takes as many arguments as required and returns the actual value. It is the workhorse of the tandem.
+In doing its work it can optionally call its super method.</p>
+
+<p>It is possible that there is no super method to call (e.g., this "class" is the first one in line). In this case the
+injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
+
+<h2>Example</h2>
+
+<p>More complete example:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Example  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// or: var dcl = require(&quot;dcl/mini&quot;);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// we will call this method implicitly from B</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>              <span class="nx">r</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>              <span class="c1">// or: r = sup.apply(this, arguments);</span>
+</span><span class='line'>              <span class="c1">// or: r = sup.apply(this, [x, y]);</span>
+</span><span class='line'>          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B: no super&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>In the example above <code>B</code> can always expect that <code>A</code> comes before it, and <code>method()</code> in <code>B</code> always have a super method,
+meaning that checking for <code>sup</code> to be truthy/falsy was unnecessary. But even in trivial cases like in the example above
+possible modifications/refactoring may subtly change your assumptions making the check necessary.</p>
+
+<h2>Notes</h2>
+
+<ol>
+<li>If a method is present in an <code>Object</code>, it will be the last in line of potential super calls.</li>
+<li>It is not necessary to call a super method. This decision can be made dynamically.</li>
+<li>The funky double function pattern allows for static chaining of super calls. In this context "static" means "once at
+constructor definition".
+
+<ol>
+<li>It makes super calls as cheap as possible. No extra expences per call.</li>
+<li>It makes debugging simple: going inside a super call brings a programmer directly to the next method without any
+stubs or wrapper functions.</li>
+<li>Even if a programmer failed to check if <code>sup</code> is truthy, JavaScript will generate an exception pointing directly
+to the site of failure without any intermediaries.</li>
+<li>Both functions should be unique and created dynamically exactly like in examples.</li>
+</ol>
+</li>
+<li>If a super method throw an exception, it is a programmer's responsibility to catch it, to ignore it, or to pass it
+through.</li>
+</ol>
+
+
+<h2>FAQ</h2>
+
+<h3>Is it possible to call built-in functions like that?</h3>
+
+<p>Yes.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="c1">// no need to check if sup exists</span>
+</span><span class='line'>          <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<h3>Is it possible to use a super call in a chained method?</h3>
+
+<p>Yes. In this case, if a super is not called, a chain is interrupted. It is one of the methods to interrupt chained
+constructors. <strong>Think twice before interrupting construction chains &mdash; usually it is a bad idea.</strong></p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Interrupting constructors  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// we don&#39;t use sup at all</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// A</span>
+</span><span class='line'><span class="c1">// B</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// C</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>The same can be done with any chained method. See <a href="/docs/dcl_js/chainedbefore">chainedBefore()</a> and
+<a href="/docs/dcl_js/chainedafter">chainedAfter()</a> for more details.</p>
 
   
     <footer>
