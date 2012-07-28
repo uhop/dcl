@@ -101,11 +101,11 @@ it is a &hellip;">
   <p><code>superCall()</code> is a light-weight way to call a method with the same name from the base "class", if any. Essentially
 it is a way to call a method that was overridden by the current method. It is used as a method decorator.</p>
 
-<p>It is defined as a property on <code>dcl</code> in <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a>.</p>
+<p>It is defined as a property on <code>dcl</code> returned by <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a>.</p>
 
 <h2>Description</h2>
 
-<p>When you need to do a supercall, you decorate (wrap) a method with <code>dcl.superCall()</code> using a double function pattern:</p>
+<p>When you need to do a supercall, you decorate/wrap a method with <code>dcl.superCall()</code> using a double function pattern:</p>
 
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Double function pattern  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -207,9 +207,9 @@ constructor definition".
 <ol>
 <li>It makes super calls as cheap as possible. No extra expences per call.</li>
 <li>It makes debugging simple: going inside a super call brings a programmer directly to the next method without any
-stubs or wrapper functions.</li>
-<li>Even if a programmer failed to check if <code>sup</code> is truthy, JavaScript will generate an exception pointing directly
-to the site of failure without any intermediaries.</li>
+stubs, thunks, or wrapper functions.</li>
+<li>Even if a programmer failed to check if <code>sup</code> is truthy and called it anyway, JavaScript will generate
+an exception pointing directly to the site of failure without any intermediaries.</li>
 <li>Both functions should be unique and created dynamically exactly like in examples.</li>
 </ol>
 </li>
