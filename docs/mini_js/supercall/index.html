@@ -98,7 +98,8 @@
   </header>
   
   <p><code>dcl.superCall()</code> is a light-weight way to call a method with the same name from the base "class", if any. Essentially
-it is a way to call a method that was overridden by the current method. It is used as a method decorator.</p>
+it is a way to call a method that was overridden by the current method. It is used as a method
+<a href="/docs/general/decorator">decorator</a>.</p>
 
 <p>It is defined as a property on <code>dcl</code> returned by <a href="/docs/mini_js">mini.js</a> and <a href="/docs/dcl_js">dcl.js</a>.</p>
 
@@ -128,6 +129,41 @@ In doing its work it can optionally call its super method.</p>
 
 <p>It is possible that there is no super method to call (e.g., this "class" is the first one in line). In this case the
 injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
+
+<p>The reason to use the double function pattern is desribed in <a href="/docs/general/supercalls">Supercalls in JS</a>.</p>
+
+<p>Transitioning from a regular method to a method, which can execute a supercall is very simple:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Before applying a decorator  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">X</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span> <span class="o">*</span> <span class="nx">c</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>In the example above we transition a method called <code>method</code>, which is implemented by a function called <code>X</code>.
+Let's transition it to a supercalling method:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>After applying a decorator  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span> <span class="nx">X</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span> <span class="o">*</span> <span class="nx">c</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>As you can see our <code>X</code> function is completely preserved &mdash; all arguments are the same, its code, and its return
+value is completely intact. We just added a decorator and a trivial wrapper function that returns <code>X</code>. Now our method
+can take advantage of a supercall, which is injected using <code>sup</code> argument of the wrapper.</p>
 
 <h2>Example</h2>
 
@@ -235,7 +271,7 @@ through.</li>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
 </span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>          <span class="c1">// no need to check if sup exists</span>
+</span><span class='line'>          <span class="c1">// no need to check if sup exists here</span>
 </span><span class='line'>          <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">})</span>
