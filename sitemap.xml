@@ -13,16 +13,52 @@
         <lastmod>2012-07-29T13:46:47-05:00</lastmod>
     </url>
     <url>
+        <loc>http://www.dcljs.org//docs/advices/counter/</loc>
+        <lastmod>2012-07-29T14:12:44-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/advices/flow/</loc>
+        <lastmod>2012-07-29T14:12:44-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/advices/memoize/</loc>
+        <lastmod>2012-07-29T14:12:44-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/advices/time/</loc>
+        <lastmod>2012-07-29T14:12:44-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/advices/trace/</loc>
+        <lastmod>2012-07-29T14:12:44-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.dcljs.org//docs/advices/</loc>
-        <lastmod>2012-07-29T01:25:32-05:00</lastmod>
+        <lastmod>2012-07-29T14:09:42-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/mixins/cleanup/</loc>
+        <lastmod>2012-07-29T14:22:19-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/mixins/destroyable/</loc>
+        <lastmod>2012-07-29T14:22:30-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org//docs/mixins/</loc>
-        <lastmod>2012-07-29T01:25:32-05:00</lastmod>
+        <lastmod>2012-07-29T14:19:56-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/bases/mixer/</loc>
+        <lastmod>2012-07-29T14:15:54-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/bases/replacer/</loc>
+        <lastmod>2012-07-29T14:15:54-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org//docs/bases/</loc>
-        <lastmod>2012-07-29T01:25:32-05:00</lastmod>
+        <lastmod>2012-07-29T14:15:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org//docs/</loc>
