@@ -137,16 +137,28 @@
         <lastmod>2012-07-29T00:47:18-05:00</lastmod>
     </url>
     <url>
-        <loc>http://www.dcljs.org//docs/debug_js/error/</loc>
-        <lastmod>2012-07-29T00:47:10-05:00</lastmod>
-    </url>
-    <url>
         <loc>http://www.dcljs.org//docs/debug_js/setchainingerror/</loc>
         <lastmod>2012-07-29T00:47:02-05:00</lastmod>
     </url>
     <url>
+        <loc>http://www.dcljs.org//docs/debug_js/dclerror/</loc>
+        <lastmod>2012-07-29T14:32:15-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/debug_js/supercallerror/</loc>
+        <lastmod>2012-07-29T14:33:48-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/debug_js/supererror/</loc>
+        <lastmod>2012-07-29T14:34:09-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org//docs/debug_js/superresulterror/</loc>
+        <lastmod>2012-07-29T14:34:28-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.dcljs.org//docs/debug_js/</loc>
-        <lastmod>2012-07-29T00:51:04-05:00</lastmod>
+        <lastmod>2012-07-29T14:44:27-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org//docs/inherited_js/inherited/</loc>

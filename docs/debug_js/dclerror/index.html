@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>debug.js - DCL</title>
+  <title>dclDebug.DclError - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="debug.js Jul 21st, 2012 debug.js is a debug helper for dcl. It augments dcl() with enhanced error reporting, and
-provides debugging helpers. This &hellip;">
+  <meta name="description" content=" dclDebug.DclError Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ provides debugging helpers. This &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/debug_js/">
+  <link rel="canonical" href="http://www.dcljs.org//docs/debug_js/dclerror/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,7 +81,7 @@ provides debugging helpers. This &hellip;">
 <article role="article">
   
   <header>
-    <h1 class="entry-title">debug.js</h1>
+    <h1 class="entry-title">dclDebug.DclError</h1>
     <p class="meta">
 
 
@@ -95,60 +94,10 @@ provides debugging helpers. This &hellip;">
   
 
 
-<time datetime="2012-07-21T13:21:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
+<time datetime="2012-07-29T00:12:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p><code>debug.js</code> is a debug helper for <code>dcl</code>. It augments <a href="/docs/mini_js/dcl">dcl()</a> with enhanced error reporting, and
-provides debugging helpers. This module was designed primarily to be used during development.</p>
-
-<h2>Module API</h2>
-
-<p>The return value of this module is an object, which is called <code>dclDebug</code> in this documentation.</p>
-
-<p>Main property:</p>
-
-<ul>
-<li><a href="/docs/debug_js/log">dclDebug.log()</a> - <em>logs class and/or object metainformation to <code>console.log</code></em></li>
-</ul>
-
-
-<p>General error object:</p>
-
-<ul>
-<li><a href="/docs/debug_js/dclerror">dclDebug.DclError</a> - <em>the base for all errors</em></li>
-</ul>
-
-
-<p>"Class" composition error:</p>
-
-<ul>
-<li><a href="/docs/debug_js/cycleerror">dclDebug.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of
-declared bases</em></li>
-</ul>
-
-
-<p>Supercall and around advice errors:</p>
-
-<ul>
-<li><a href="/docs/debug_js/supercallerror">dclDebug.SuperCallError</a> - <em>thrown when an argument of
-<a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators is not a function</em></li>
-<li><a href="/docs/debug_js/supererror">dclDebug.SuperError</a> - <em>thrown when the next-in-line property is not a function, and
-a super call cannot be made</em></li>
-<li><a href="/docs/debug_js/superresulterror">dclDebug.SuperResultError</a> - <em>thrown when an argument of
-<a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators does not return
-a function (likely the double function pattern was not followed &mdash; see <a href="/docs/mini_js/supercall">dcl.superCall()</a>
-for details)</em></li>
-</ul>
-
-
-<p>Chaining errors:</p>
-
-<ul>
-<li><a href="/docs/debug_js/chainingerror">dclDebug.ChainingError</a> - <em>thrown when composing a class with different chaining
-directives for the same method</em></li>
-<li><a href="/docs/debug_js/setchainingerror">dclDebug.SetChainingError</a> - <em>thrown when setting a conflicting chaining</em></li>
-</ul>
-
+  
 
   
     <footer>
@@ -166,13 +115,13 @@ directives for the same method</em></li>
   
 
 
-<time datetime="2012-07-21T13:21:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+<time datetime="2012-07-29T00:12:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
         
       </p>
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/debug_js/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/debug_js/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/debug_js/dclerror/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/debug_js/dclerror/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
