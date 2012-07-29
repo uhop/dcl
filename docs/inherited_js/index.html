@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" inherited.js Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="inherited.js Jul 21st, 2012 inherited.js is a dynamic dispatcher of supercalls. It augments dcl(), and adds inherited()
+method to all newly created &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +98,23 @@
 <time datetime="2012-07-21T13:21:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>inherited.js</code> is a dynamic dispatcher of supercalls. It augments <a href="/docs/mini_js/dcl">dcl()</a>, and adds <code>inherited()</code>
+method to all newly created objects.</p>
+
+<h2>Module API</h2>
+
+<p>The return value of this module is a function, which is called <code>inherited()</code> in this documentation.</p>
+
+<p><a href="/docs/inherited_js/inherited">inherited()</a> is a dynamic dispatcher of supercalls, and the main function of the module.
+The same function is mixed in all newly created objects as <code>inherited</code>, and exposed publicly as <code>dcl.inherited()</code>.
+Additionally it hosts some public properties.</p>
+
+<p>Main properties:</p>
+
+<ul>
+<li><a href="/docs/inherited_js/get">inherited.get()</a> - <em>gets next-in-line super method dynamically</em></li>
+</ul>
+
 
   
     <footer>

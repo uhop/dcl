@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" advise.js Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="advise.js Jul 21st, 2012 advise.js provides general AOP facilities to advise object methods dynamically. Unlike dcl.js it is not used
+to weave &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +98,30 @@
 <time datetime="2012-07-21T13:21:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>advise.js</code> provides general AOP facilities to advise object methods dynamically. Unlike <a href="/docs/dcl_js">dcl.js</a> it is not used
+to weave methods of "classes".</p>
+
+<h2>Module API</h2>
+
+<p>The return value of this module is a function, which is called <code>advise()</code> in this documentation.</p>
+
+<p><a href="/docs/advise_js/advise">advise()</a> is an AOP composition engine. Additionally it hosts a raft of public properties.</p>
+
+<p>Helpers:</p>
+
+<ul>
+<li><a href="/docs/advise_js/before">advise.before()</a> - <em>shortcut for a "before" advice</em></li>
+<li><a href="/docs/advise_js/around">advise.around()</a> - <em>shortcut for an "around" advice</em></li>
+<li><a href="/docs/advise_js/after">advise.after()</a> - <em>shortcut for an "after" advice</em></li>
+</ul>
+
+
+<p>Auxiliary properties:</p>
+
+<ul>
+<li><a href="/docs/advise_js/node">advise.Node</a> - <em>constructor used by <a href="/docs/advise_js/advise">advise()</a> to advise a method</em></li>
+</ul>
+
 
   
     <footer>

@@ -9,8 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Documentation Jul 21st, 2012 dcl is a micro library written in JavaScript for node.js and browsers that implements OOP with
-mixins + AOP at both " &hellip;">
+  <meta name="description" content="Documentation Jul 21st, 2012 This documentation is a work in progress. dcl is a micro library written in JavaScript for node.js and browsers that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,12 +97,12 @@ mixins + AOP at both " &hellip;">
 <time datetime="2012-07-21T13:19:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  <p><code>dcl</code> is a micro library written in JavaScript for <a href="http://nodejs.org">node.js</a> and browsers that implements OOP with
+  <p><em>This documentation is a work in progress.</em></p>
+
+<p><code>dcl</code> is a micro library written in JavaScript for <a href="http://nodejs.org">node.js</a> and browsers that implements OOP with
 mixins + AOP at both "class" and object level.</p>
 
 <h2>Getting started</h2>
-
-<p><em>This documentation is a work in progress.</em></p>
 
 <ul>
 <li><a href="/docs/tutorial">Tutorial</a> - <em>hands-on with <code>dcl</code></em></li>
@@ -113,22 +112,20 @@ mixins + AOP at both "class" and object level.</p>
 
 <h2>Module documentation</h2>
 
-<p><em>This documentation is a work in progress.</em></p>
-
 <ul>
 <li><a href="/docs/mini_js">mini.js</a> - <em>minimal <code>dcl</code> kernel, you might want to use it on browsers to conserve bandwidth</em>
 
 <ul>
 <li><a href="/docs/mini_js/dcl">dcl()</a> - <em>the composition engine</em></li>
-<li><a href="/docs/mini_js/supercall">superCall()</a> - <em>super call decorator</em></li>
+<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> - <em>super call decorator</em></li>
 </ul>
 </li>
 <li><a href="/docs/dcl_js">dcl.js</a> - <em>full <code>dcl</code> kernel that includes chaining control and AOP support</em>
 
 <ul>
-<li><a href="/docs/dcl_js/advise">advise()</a> - <em>general advice decorator</em></li>
-<li><a href="/docs/dcl_js/chainbefore">chainBefore()</a> - <em>"before" chaining directive</em></li>
-<li><a href="/docs/dcl_js/chainafter">chainAfter()</a> - <em>"after" chaining directive</em></li>
+<li><a href="/docs/dcl_js/advise">dcl.advise()</a> - <em>general advice decorator</em></li>
+<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> - <em>"before" chaining directive</em></li>
+<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> - <em>"after" chaining directive</em></li>
 </ul>
 </li>
 <li><a href="/docs/advise_js">advise.js</a> - <em>object-level AOP with dynamic advisement</em>
@@ -146,19 +143,33 @@ mixins + AOP at both "class" and object level.</p>
 <li><a href="/docs/debug_js">debug.js</a> - <em>error-checking and introspection facility</em>
 
 <ul>
-<li><a href="/docs/debug_js/log">log()</a> - <em>log information of classes and objects</em></li>
+<li><a href="/docs/debug_js/log">dclDebug.log()</a> - <em>log information of classes and objects</em></li>
 </ul>
 </li>
 </ul>
 
 
-<h2>Advanced topics</h2>
+<h2>Library documentation</h2>
 
-<p><em>This documentation is a work in progress.</em></p>
+<p><code>dcl</code> comes with a small library of useful advices, mixins, and base classes:</p>
 
 <ul>
-<li><a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> - <em>discussion of advanced OOP, its deficiencies, and
-ways to overcome its problems</em></li>
+<li><a href="/docs/advices">Advices</a> - <em>various debugging, cache, and AOP helpers</em></li>
+<li><a href="/docs/bases">Bases</a> - <em>constructor helpers</em></li>
+<li><a href="/docs/mixins">Mixins</a> - <em>life-cycle helpers</em></li>
+</ul>
+
+
+<h2>Advanced topics</h2>
+
+<ul>
+<li><a href="/docs/general/decorator">Decorator</a> - <em>explains the concept of decorators, and how they are used in <code>dcl</code></em></li>
+<li><a href="/docs/general/supercalls">Supercalls in JS</a> - <em>discussion of different methods to do supercalls in JavaScript,
+their pros and cons, and what was selected for <code>dcl</code> and why</em></li>
+<li><a href="/docs/genereal/constructors">Best practices for constructors</a> - <em>desigining robust mixin-aware constructors</em></li>
+<li><a href="/docs/general/mutli-stage-construction">Multi-stage construction</a> - <em>implementing multi-stage construction</em></li>
+<li><a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> - <em>discussion of advanced OOP, its deficiencies,
+and ways to overcome its problems</em></li>
 <li><a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS slides</a> - <em>my presentation at
 <a href="http://clubajax.org">ClubAjax</a> partially based on the blog post above; dcl was introduced as an experiement to create
 a balanced OOP + AOP package, which helps leverage mixin-based techniques</em></li>

@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" debug.js Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="debug.js Jul 21st, 2012 debug.js is a debug helper for dcl. It augments dcl() with enhanced error reporting, and
+provides debugging helpers. This &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +98,31 @@
 <time datetime="2012-07-21T13:21:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>debug.js</code> is a debug helper for <code>dcl</code>. It augments <a href="/docs/mini_js/dcl">dcl()</a> with enhanced error reporting, and
+provides debugging helpers. This module was designed primarily to be used during development.</p>
+
+<h2>Module API</h2>
+
+<p>The return value of this module is an object, which is called <code>dclDebug</code> in this documentation.</p>
+
+<p>Main properties:</p>
+
+<ul>
+<li><a href="/docs/debug_js/log">dclDebug.log()</a> - <em>logs class and/or object metainformation to <code>console.log</code></em></li>
+</ul>
+
+
+<p>Auxiliary properties:</p>
+
+<ul>
+<li><a href="/docs/debug_js/error">dclDebug.Error</a> - <em>the base for all errors</em></li>
+<li><a href="/docs/debug_js/chainingerror">dclDebug.ChainingError</a> - <em>thrown when composing a class with different chaining
+directives for the same method</em></li>
+<li><a href="/docs/debug_js/setchainingerror">dclDebug.SetChainingError</a> - <em>thrown when setting a conflicting chaining</em></li>
+<li><a href="/docs/debug_js/cycleerror">dclDebug.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of
+declared bases</em></li>
+</ul>
+
 
   
     <footer>
