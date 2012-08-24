@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.superCall() Jul 21st, 2012 dcl.superCall() is a light-weight way to call a method with the same name from the base "class", if any. Essentially &hellip;">
+  <meta name="description" content="dcl.superCall() Jul 21st, 2012 dcl.superCall() is a light-weight way to call a method with the same name from the base &#8220;class&#8221;, if any. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +98,7 @@
 <time datetime="2012-07-21T13:53:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  <p><code>dcl.superCall()</code> is a light-weight way to call a method with the same name from the base "class", if any. Essentially
+  <p><code>dcl.superCall()</code> is a light-weight way to call a method with the same name from the base &#8220;class&#8221;, if any. Essentially
 it is a way to call a method that was overridden by the current method. It is used as a method
 <a href="/docs/general/decorator">decorator</a>.</p>
 
@@ -108,7 +108,7 @@ it is a way to call a method that was overridden by the current method. It is us
 
 <p>When you need to do a supercall, you decorate/wrap a method with <code>dcl.superCall()</code> using a double function pattern:</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Double function pattern  </span></figcaption>
+<figure class='code'><figcaption><span>Double function pattern  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -119,7 +119,7 @@ it is a way to call a method that was overridden by the current method. It is us
 </span><span class='line'>          <span class="p">...</span>
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>The outer function always have one argument: <code>sup</code> (any name is fine). It is used to inject a method of super class
@@ -128,27 +128,27 @@ in the inner function, which does the useful job. The outer function always retu
 <p>The inner function takes as many arguments as required and returns the actual value. It is the workhorse of the tandem.
 In doing its work it can optionally call its super method.</p>
 
-<p>It is possible that there is no super method to call (e.g., this "class" is the first one in line). In this case the
+<p>It is possible that there is no super method to call (e.g., this &#8220;class&#8221; is the first one in line). In this case the
 injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
 
 <p>The reason to use the double function pattern is desribed in <a href="/docs/general/supercalls">Supercalls in JS</a>.</p>
 
 <p>Transitioning from a regular method to a method, which can execute a supercall is very simple:</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Before applying a decorator  </span></figcaption>
+<figure class='code'><figcaption><span>Before applying a decorator  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">X</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span> <span class="o">*</span> <span class="nx">c</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>In the example above we transition a method called <code>method</code>, which is implemented by a function called <code>X</code>.
-Let's transition it to a supercalling method:</p>
+Let&#8217;s transition it to a supercalling method:</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>After applying a decorator  </span></figcaption>
+<figure class='code'><figcaption><span>After applying a decorator  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -159,7 +159,7 @@ Let's transition it to a supercalling method:</p>
 </span><span class='line'>          <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span> <span class="o">*</span> <span class="nx">c</span><span class="p">;</span>
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>As you can see our <code>X</code> function is completely preserved &mdash; all arguments are the same, its code, and its return
@@ -170,7 +170,7 @@ can take advantage of a supercall, which is injected using <code>sup</code> argu
 
 <p>More complete example:</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Example  </span></figcaption>
+<figure class='code'><figcaption><span>Example  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -225,7 +225,7 @@ can take advantage of a supercall, which is injected using <code>sup</code> argu
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>In the example above <code>B</code> can always expect that <code>A</code> comes before it, and <code>method()</code> in <code>B</code> always have a super method,
@@ -237,8 +237,8 @@ possible modifications/refactoring may subtly change your assumptions making the
 <ol>
 <li>If a method is present in an <code>Object</code>, it will be the last in line of potential super calls.</li>
 <li>It is not necessary to call a super method. This decision can be made dynamically.</li>
-<li>The funky double function pattern allows for static chaining of super calls. In this context "static" means "once at
-constructor definition".
+<li>The funky double function pattern allows for static chaining of super calls. In this context &#8220;static&#8221; means &#8220;once at
+constructor definition&#8221;.
 
 <ol>
 <li>It makes super calls as cheap as possible. No extra expences per call.</li>
@@ -249,7 +249,7 @@ an exception pointing directly to the site of failure without any intermediaries
 <li>Both functions should be unique and created dynamically exactly like in examples.</li>
 </ol>
 </li>
-<li>If a super method throw an exception, it is a programmer's responsibility to catch it, to ignore it, or to pass it
+<li>If a super method throw an exception, it is a programmer&#8217;s responsibility to catch it, to ignore it, or to pass it
 through.</li>
 </ol>
 
@@ -260,7 +260,7 @@ through.</li>
 
 <p>Yes.</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
+<figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -277,7 +277,7 @@ through.</li>
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>Is it possible to use a super call in a chained method?</h3>
@@ -285,7 +285,7 @@ through.</li>
 <p>Yes. In this case, if a super is not called, a chain is interrupted. It is one of the methods to interrupt chained
 constructors. <strong>Think twice before interrupting construction chains &mdash; usually it is a bad idea.</strong></p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Interrupting constructors  </span></figcaption>
+<figure class='code'><figcaption><span>Interrupting constructors  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -340,7 +340,7 @@ constructors. <strong>Think twice before interrupting construction chains &mdash
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
 </span><span class='line'><span class="c1">// C</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>The same can be done with any chained method. See <a href="/docs/dcl_js/chainbefore">chainBefore()</a> and
