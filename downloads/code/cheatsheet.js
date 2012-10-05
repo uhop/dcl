@@ -1,3 +1,3 @@
 // ## Future cheat sheet
-// This is a comment.
+// TBD
 console.log("Hello, world!");
