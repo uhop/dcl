@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Supercalls Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="Supercalls Jul 29th, 2012 Supercalls (calling a super method, which was inherited and overridden) are an essential part of any inheritance scheme. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/general/supercalls/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/general/supercalls/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org/" />
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,7 +98,332 @@
 <time datetime="2012-07-29T01:15:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>Supercalls (calling a super method, which was inherited and overridden) are an essential part of any inheritance scheme.
+This is a facility that allows us to augment behavior of existing objects, paving a way to decompose large monolithic
+objects into a collection of small incremental &#8220;classes&#8221;. If used correctly, such &#8220;classes&#8221; can provide a completely
+orthogonal set of building blocks, which will help us to keep an overall complexity down.</p>
+
+<p>While JavaScript provides means to delegate methods of one object to another, there is no native provisions for
+supercalls. It means that it should be provided by a helper.</p>
+
+<h2>Available solutions</h2>
+
+<p>Let&#8217;s take a look at different styles of possible supercalls in JavaScript.</p>
+
+<h3>Direct call</h3>
+
+<p>This is as native as it can be:</p>
+
+<figure class='code'><figcaption><span>Direct call  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// our basic constructor and a method</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...){...};</span>
+</span><span class='line'><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...){...};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// our derived class</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...){</span>
+</span><span class='line'>  <span class="c1">// let&#39;s construct our parent first</span>
+</span><span class='line'>  <span class="nx">A</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="c1">// the above line already calls a super method</span>
+</span><span class='line'>  <span class="c1">// now we can do our own thing</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="c1">// this is the delegation part</span>
+</span><span class='line'><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">(...);</span>
+</span><span class='line'><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">B</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// now we can call a super in our method</span>
+</span><span class='line'><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(...){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="c1">// time to call our super</span>
+</span><span class='line'>  <span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The whole thing looks like a clumsy pattern, and patterns are usually sure signs of a weakness of an underlying
+platform. Things like that are brittle, and any attempt to refactor something will involve a lot of editing.
+For example, if we are to change name of a class, it will involve hunting it down and changing it everywhere.</p>
+
+<p>Frequently mixins don&#8217;t know (and don&#8217;t care) about their immediate parents. It would be impossible to name super
+methods explicitly inside mixin&#8217;s methods. This consideration alone makes direct calls a poor choice for anything
+but small programs.</p>
+
+<p>An advantage of direct calls is obvious too &mdash; calling a super is practically static making it relatively fast:
+just 2 dictionary lookups and <code>apply()</code> or <code>call()</code> overhead per call.</p>
+
+<h3>Wrapper</h3>
+
+<p>The idea is simple: let&#8217;s wrap our super-calling methods with a functional wrapper, which will set up a supercall for
+us.</p>
+
+<figure class='code'><figcaption><span>Wrapper  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// let&#39;s write a function to generate a wrapper</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">addWithWrapper</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">method</span><span class="p">){</span>
+</span><span class='line'>  <span class="c1">// first let&#39;s find a super</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="nx">object</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+</span><span class='line'>  <span class="c1">// below is our wrapper, which will set this.sup to a correct value</span>
+</span><span class='line'>  <span class="nx">object</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Wrapper</span><span class="p">(){</span>
+</span><span class='line'>    <span class="c1">// save old super</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">oldSup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sup</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// set up a new super</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">sup</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// now let&#39;s call our method</span>
+</span><span class='line'>    <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">method</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">finally</span><span class="p">{</span>
+</span><span class='line'>        <span class="c1">// load old super back so we don&#39;t disturb other methods</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">sup</span> <span class="o">=</span> <span class="nx">oldSup</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// this is how we use it</span>
+</span><span class='line'><span class="nx">addWithWrapper</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="c1">// time to call our super</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">sup</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// or: this.sup.apply(this, arguments);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Obviously the above code is a simplified implementation of that idea. It can be implemented differently.</p>
+
+<p>We can see an advantage immediately: this method doesn&#8217;t force us to use <code>apply()</code> or <code>call()</code> for the sake of
+supplying the right object to a super method, which makes a supercall cheaper.</p>
+
+<p>Cons:</p>
+
+<ul>
+<li>It reserves a special name for a current super method. In the example above it was <code>this.sup</code>.</li>
+<li>The wrapper is called once per every call to the wrapped method.
+
+<ul>
+<li>The wrapper function doubles a number of method calls. It is a small price for big and complex methods, but for
+small yet frequently called methods the overhead of the setup wrapper can be significant.</li>
+<li>We &#8220;pay&#8221; for every call.</li>
+<li>Having a wrapper affects debugging in a negative way: we have to step over the same statements inside a wrapper
+when we are debugging super-calling methods. It becomes old very fast.</li>
+</ul>
+</li>
+<li>The setup code runs even if we don&#8217;t use a supercall (e.g., bypassing it dynamically).</li>
+</ul>
+
+
+<p>Nevertheless this is a very popular technique with OOP libraries. Some libraries apply it to every method when
+constructing objects/&#8221;classes&#8221;. This way we can call supers in any method without marking them up in any way.
+The downside is obvious too &mdash; all methods pay &#8220;wrapper taxes&#8221; listed above.</p>
+
+<p>Another popular trick is to inspect a method&#8217; source to deduce if it uses a supercall. It is a simple yet effective
+optimization, which is tolerant to false positives &mdash; if we made a mistake it will cost user a performance penalty,
+but doesn&#8217;t break her code. Some browsers do not keep function sources for memory conservation reasons, and this trick
+cannot work with them, yet such browsers are exceedingly rare nowadays.</p>
+
+<p>Automatic wrapping works only when objects/&#8221;classes&#8221; were produced by a special function. If this technique is to
+be used with manually created objects, it should be explicit like in the example above.</p>
+
+<p>Let&#8217;s spell out complexity of this method: an extra function call per a wrapped method call.</p>
+
+<h3><code>this.inherited()</code></h3>
+
+<p><a href="http://dojotoolkit.org">Dojo</a>&#8217;s <code>declare()</code> is famous for supporting such style. The idea is to have a function,
+which we can call to figure out our super method:</p>
+
+<figure class='code'><figcaption><span>this.inherited()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">declare</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(...){</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// calling a super</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Again the example above is over-simplified. Yet it highlights main properties of this extremely user-friendly technique:
+it doesn&#8217;t require any kind of special call to mark a method as super-calling, there is no mandatory wrapper,
+which simplifies debugging, no performance tax to pay if a super is not called.</p>
+
+<p>Cons:</p>
+
+<ul>
+<li>It reserves a special name. In the example above it was <code>this.inherited()</code>.</li>
+<li><code>this.inherited()</code> figures out a super method dynamically.
+
+<ul>
+<li>The algorithm is much more complex (and more expensive) than the wrapper&#8217;s one making it very expensive for small
+frequently called methods.</li>
+<li>JavaScript lacks required introspection mechanisms forcing to prepare a metadata, when creating an object or
+a &#8220;class&#8221;.
+
+<ul>
+<li>Just like with auto-wrapping above a special &#8220;class&#8221; creator function is required to produce such metadata.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Call to a super is effectively wrapped, which is a negative factor for debugging (more unrelated code to skip).</li>
+</ul>
+
+
+<p>The performance aspect can be relieved by elaborate caching mechanism, yet it cannot be more performant than a wrapper.</p>
+
+<p>The complexity: one extra function call with a non-trivial algorithm inside per supercall.</p>
+
+<h3>Double function/closure</h3>
+
+<p>So far we examined direct calls, calls using an object-wide global variable set by a wrapper, calls to an object-wide
+global method that figures out our super dynamically, the only thing left is pulling it from a closure.</p>
+
+<figure class='code'><figcaption><span>Double function  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(...){</span>
+</span><span class='line'>      <span class="p">...</span>
+</span><span class='line'>      <span class="c1">// calling a super</span>
+</span><span class='line'>      <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">...</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see the internal function pulls a super method from the outer function. It allows for the outer function
+to be called during &#8220;class&#8221;/object creation time, it returns its internal function, which is called as a method.</p>
+
+<p>Let&#8217;s count pros:</p>
+
+<ul>
+<li>No need to reserve a name like with wrappers and <code>this.inherited()</code> techniques.</li>
+<li>No price to pay for methods not using supercalls both statically and dynamically.</li>
+<li>No price to pay for supercalls.
+
+<ul>
+<li>No wrappers whatsoever.</li>
+<li>Debugging is completely straight-forward.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li>The pattern looks weird. It can be mistyped.</li>
+<li>All super-calling methods should be converted to it.
+
+<ul>
+<li>There is no automation like with other techniques.</li>
+</ul>
+</li>
+<li>Super-calling methods are not directly usable.
+
+<ul>
+<li>A &#8220;class&#8221; creator function is required that should instantiate necessary super-calling methods.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Discussion</h2>
+
+<p>All techniques have pros and cons. Usually a programmer makes a conscience decision selecting strong features and
+trade-offs, which are right for their application. A library writer cannot afford to make choices that penalize
+application developers. An example of such decision would be a performance.</p>
+
+<p>Out of last three techniques the double function one is virtually without a run-time penalty per call (only a small
+setup &#8220;fee&#8221; per &#8220;class&#8221; is expected), and makes debugging comfortable. Thus it was selected to be implemented as
+a major mechanism for supercalls: <a href="/docs/mini_js/supercall">dcl.superCall()</a>.</p>
+
+<p>Building on experience with <a href="http://dojotoolkit.org">Dojo</a> <code>this.inherited()</code> technique was selected for implementation too:
+<a href="/docs/inherited_js">inherited.js</a>. Its strong suit is user-friendliness, and known price per supercall,
+while method calls come always for free.</p>
+
+<p>Both implemented methods do not tax programmers, who do not use these facilities.</p>
+
+<p>The double function technique is recommended for all new code, while the <code>this.inherited()</code> technique is more suitable
+when refactoring legacy code because it doesn&#8217;t require much modification to call a super method. Working with
+an existing codebase a programmer can start by converting their &#8220;classes&#8221; to <a href="/docs/mini_js/dcl">dcl()</a> syntax, and
+calling super methods with <code>this.inherited()</code>, while the final product should use the double function technique.</p>
 
   
     <footer>
@@ -122,7 +447,7 @@
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/general/supercalls/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/general/supercalls/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/general/supercalls/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/general/supercalls/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

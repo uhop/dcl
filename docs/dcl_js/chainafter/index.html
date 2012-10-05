@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dcl.chainAfter() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dcl.chainAfter() Jul 29th, 2012 This function declares that methods with a certain name should be chained in the inheritance order
+(bottom-most &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/dcl_js/chainafter/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js/chainafter/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -62,7 +63,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org/" />
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,7 +99,42 @@
 <time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This function declares that methods with a certain name should be chained in the inheritance order
+(bottom-most method runs first).</p>
+
+<h2>Description</h2>
+
+<p>Use <code>dcl.chainAfter()</code> to set a chaining rule for a method.</p>
+
+<figure class='code'><figcaption><span>dcl.chainAfter()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(...){...},</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainAfter</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Following rules should be followed:</p>
+
+<ul>
+<li>It is impossible to &#8220;unchain&#8221; a chained method.</li>
+<li>It is impossible to change a chained method once it was set from &#8220;before&#8221; to &#8220;after&#8221; or in the opposite direction.</li>
+<li>Chaining can be declared only for base-less &#8220;classes&#8221;.</li>
+<li>It is an error to mix &#8220;classes&#8221; with different chaining rules for the same method.</li>
+</ul>
+
+
+<h2>Notes</h2>
+
+<p>By default, all constructors produced by <code>dcl</code> use &#8220;after&#8221; chaining.</p>
 
   
     <footer>
@@ -122,7 +158,7 @@
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/dcl_js/chainafter/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/dcl_js/chainafter/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/dcl_js/chainafter/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/dcl_js/chainafter/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

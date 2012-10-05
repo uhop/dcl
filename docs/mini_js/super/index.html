@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dcl.Super Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dcl.Super Jul 21st, 2012 This is a constructor, which serves as a foundation of method decorators used by dcl. It is not intended to be
+used by end- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/mini_js/super/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/super/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -62,7 +63,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org/" />
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,7 +99,36 @@
 <time datetime="2012-07-21T13:52:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a constructor, which serves as a foundation of method decorators used by <code>dcl</code>. It is not intended to be
+used by end-users, and useful only for extending <code>dcl</code> itself.</p>
+
+<h2>Description</h2>
+
+<p>Method decorators produce objects based on <code>dcl.Super</code>. It is only useful for extending <code>dcl</code>.</p>
+
+<p>By default a decorated method is exposed as a property <code>f</code> on a decorator object.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>Using dcl.Super  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">o</span><span class="p">){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">o</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">m</span> <span class="o">&amp;&amp;</span> <span class="nx">m</span> <span class="k">instanceof</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">Super</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is decorated.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;It has &quot;</span> <span class="o">+</span> <span class="nx">m</span><span class="p">.</span><span class="nx">f</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; arguments.&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>
@@ -122,7 +152,7 @@
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini_js/super/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini_js/super/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/mini_js/super/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/mini_js/super/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

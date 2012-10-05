@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dcl.delegate() Jul 21st, 2012 Jul 21st, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dcl.delegate() Jul 21st, 2012 This is a utility function that facilitates a delegation from one object to another bypassing a constructor.
+It is &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/mini_js/delegate/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/delegate/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -62,7 +63,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org/" />
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,7 +99,89 @@
 <time datetime="2012-07-21T13:52:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a utility function that facilitates a delegation from one object to another bypassing a constructor.
+It is used inside <code>dcl</code> and exposed because it is frequently required by user&#8217;s code.</p>
+
+<h2>Description</h2>
+
+<p>It creates an empty object with a desired prototypal inheritance. All missing properties will be delegated.</p>
+
+<p>The best way to describe <code>dcl.delegate()</code> is to give its definition:</p>
+
+<figure class='code'><figcaption><span>dcl.delegate()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">F</span><span class="p">(){}</span> <span class="c1">// private empty constructor function</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">delegate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">){</span>
+</span><span class='line'>  <span class="c1">// assigning the object as a prototype to an empty function</span>
+</span><span class='line'>  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">o</span><span class="p">;</span>
+</span><span class='line'>  <span class="c1">// creating new empty object with a desired prototype</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">F</span><span class="p">;</span>
+</span><span class='line'>  <span class="c1">// cleaning up our prototype to prevent a memory leak</span>
+</span><span class='line'>  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>  <span class="c1">// return our object</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">t</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>Delegation  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">delegate</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 1</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// 2</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// undefined</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 42</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">delete</span> <span class="nx">x</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 1</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="s2">&quot;hello!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// hello!</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">delete</span> <span class="nx">x</span><span class="p">.</span><span class="nx">c</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// undefined</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Notes</h2>
+
+<p><code>dcl.delegate()</code> is a first half of
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/create">Object.create()</a>,
+which is defined in ECMAScript 5, and supported by all modern browsers. Unfortunately IE supports it starting from IE9,
+so <code>dcl</code> carries this manual implementation to support previous IE browsers.</p>
 
   
     <footer>
@@ -122,7 +205,7 @@
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini_js/delegate/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini_js/delegate/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/mini_js/delegate/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/mini_js/delegate/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

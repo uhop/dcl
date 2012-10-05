@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org//docs/mini_js/supercall/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/supercall/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -62,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org/" />
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -128,10 +128,63 @@ in the inner function, which does the useful job. The outer function always retu
 <p>The inner function takes as many arguments as required and returns the actual value. It is the workhorse of the tandem.
 In doing its work it can optionally call its super method.</p>
 
+<p>It is worth noting that <code>sup</code> is an unadorned super method. Most probably you want to call it in context of a current
+object. Do not forget to use standard <code>apply()</code> or <code>call()</code> methods to supply an object, and/or arguments:</p>
+
+<figure class='code'><figcaption><span>Calling a super  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">calcPrice</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// let&#39;s inflate price by 200%</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>          <span class="c1">// asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// now let&#39;s return it tripled</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>It is possible that there is no super method to call (e.g., this &#8220;class&#8221; is the first one in line). In this case the
 injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
 
-<p>The reason to use the double function pattern is desribed in <a href="/docs/general/supercalls">Supercalls in JS</a>.</p>
+<figure class='code'><figcaption><span>Handling possibly missing super  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">log</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">newMsg</span> <span class="o">=</span> <span class="s2">&quot;LOG: &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">;</span>
+</span><span class='line'>          <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>              <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">newMsg</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newMsg</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The reason to use the double function pattern is described in <a href="/docs/general/supercalls">Supercalls in JS</a>.</p>
 
 <p>Transitioning from a regular method to a method, which can execute a supercall is very simple:</p>
 
@@ -368,7 +421,7 @@ constructors. <strong>Think twice before interrupting construction chains &mdash
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org//docs/mini_js/supercall/index.html" data-via="uhop" data-counturl="http://www.dcljs.org//docs/mini_js/supercall/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/mini_js/supercall/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/mini_js/supercall/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
