@@ -1,3 +1,6 @@
+// For our examples we will need the main `dcl` module:
+var dcl = require("dcl");
+
 // ## Inheritance, and constructors
 
 // Let's declare a class derived from Object:
@@ -203,7 +206,7 @@ var OfficeWorker = dcl([
     {}
 );
 
-var ethel = OfficeWorker();
+var ethel = new OfficeWorker();
 
 // Ethel's morning ritual:<br>
 // `turn on lights`<br>

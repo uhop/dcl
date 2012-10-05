@@ -9,8 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Tutorial Jul 29th, 2012 Inheritance, and constructors Let&#8217;s declare a class derived from Object: file.js 1
-var Person = dcl(null, { Name of &hellip;">
+  <meta name="description" content="Tutorial Jul 29th, 2012 For our examples we will need the main dcl module: file.js 1
+var dcl = require(&quot;dcl&quot;); Inheritance, and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,7 +99,20 @@ var Person = dcl(null, { Name of &hellip;">
 <time datetime="2012-07-29T00:01:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <h2>Inheritance, and constructors</h2>
+  <p>For our examples we will need the main <code>dcl</code> module:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Inheritance, and constructors</h2>
 
 <p>Let&#8217;s declare a class derived from Object:</p>
 
@@ -697,7 +710,7 @@ methods, and event-like methods.</p>
 </span><span class='line'>    <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">ethel</span> <span class="o">=</span> <span class="nx">OfficeWorker</span><span class="p">();</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">ethel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OfficeWorker</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
