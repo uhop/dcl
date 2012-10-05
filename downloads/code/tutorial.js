@@ -1,3 +1,6 @@
+// While `dcl` works in great in browsers using an AMD loader or even simple `<script>`, this tutorial is assumed
+// to be run with [node.js](http://nodejs.org).
+
 // For our examples we will need the main `dcl` module:
 var dcl = require("dcl");
 
