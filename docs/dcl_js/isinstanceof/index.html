@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dcl.isInstanceOf() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dcl.isInstanceOf() Jul 29th, 2012 While instanceof operator works only for linear prototypal inheritance, dcl.isInstanceOf() is
+its counterpart for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,57 @@
 <time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>While <code>instanceof</code> operator works only for linear prototypal inheritance, <code>dcl.isInstanceOf()</code> is
+its counterpart for mixins.</p>
+
+<h2>Description</h2>
+
+<p>JavaScript provides <code>instanceof</code> operator to check if an object was produced with a certain constructor or its delegate.
+Unfortunately this functionality works only for a linear delegation. Mixins are by necessity mixed in, so they cannot be
+detected by <code>instanceof</code>. This functionality is provided by <code>dcl.isInstanceOf()</code> function, which takes an object and
+a constructor as parameters, and returns a Boolean value.</p>
+
+<figure class='code'><figcaption><span>dcl.isInstanceOf()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">ABC</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">A</span><span class="p">,</span> <span class="nx">B</span><span class="p">,</span> <span class="nx">C</span><span class="p">],</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">abc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ABC</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">abc</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">abc</span> <span class="k">instanceof</span> <span class="nx">B</span><span class="p">);</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">abc</span> <span class="k">instanceof</span> <span class="nx">C</span><span class="p">);</span> <span class="c1">// false</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">abc</span> <span class="k">instanceof</span> <span class="nx">D</span><span class="p">);</span> <span class="c1">// false</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceof</span><span class="p">(</span><span class="nx">abc</span><span class="p">,</span> <span class="nx">A</span><span class="p">));</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceof</span><span class="p">(</span><span class="nx">abc</span><span class="p">,</span> <span class="nx">B</span><span class="p">));</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceof</span><span class="p">(</span><span class="nx">abc</span><span class="p">,</span> <span class="nx">C</span><span class="p">));</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceof</span><span class="p">(</span><span class="nx">abc</span><span class="p">,</span> <span class="nx">D</span><span class="p">));</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Notes</h2>
+
+<p>This function has a linear complexity on a number of mixins.</p>
 
   
     <footer>

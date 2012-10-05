@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dcl.Advice Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dcl.Advice Jul 29th, 2012 This is a constructor, which serves as a foundation of method decorators used by dcl.advise().
+It is not intended to be &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,43 @@
 <time datetime="2012-07-29T00:06:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a constructor, which serves as a foundation of method decorators used by <code>dcl.advise()</code>.
+It is not intended to be used by end-users, and useful only for extending <code>dcl</code> itself.</p>
+
+<h2>Description</h2>
+
+<p><code>dcl.advise()</code> produces objects based on <code>dcl.Advice</code>, which, in turn, is derived from <a href="/docs/mini_js/super">dcl.Super</a>.
+It is only useful for extending <code>dcl</code>.</p>
+
+<p>By default a &#8220;before&#8221; advice (if present) is exposed as a property <code>b</code> on a decorator object, an &#8220;after&#8221; advice as
+a property <code>a</code>, and an &#8220;around&#8221; advice as a property <code>f</code>.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>Using dcl.Advice  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">o</span><span class="p">){</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">o</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">m</span> <span class="o">&amp;&amp;</span> <span class="nx">m</span> <span class="k">instanceof</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">Advice</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method &quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is decorated with AOP advices.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Before advice is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">b</span> <span class="o">?</span> <span class="s2">&quot;present&quot;</span> <span class="o">:</span> <span class="s2">&quot;not present&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;After  advice is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">a</span> <span class="o">?</span> <span class="s2">&quot;present&quot;</span> <span class="o">:</span> <span class="s2">&quot;not present&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Around advice is &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">f</span> <span class="o">?</span> <span class="s2">&quot;present&quot;</span> <span class="o">:</span> <span class="s2">&quot;not present&quot;</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The example above is not going to work on fully constructed objects because by that time all <code>dcl.Super</code> objects
+would be replaced by generated functions.</p>
 
   
     <footer>
