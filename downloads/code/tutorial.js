@@ -375,6 +375,9 @@ dclDebug.log(george);
 
 // Now you know what `dcl` can do for you. For more details, please read the documentation.
 
+// This file is written using a literate JavaScript. You can download [this tutorial](/downloads/code/tutorial.js)
+// to use as a local reference or to run it with [node.js](http://nodejs.org) locally.
+
 // Additionally `dcl` provides a small library of predefined base classes, mixins, and useful advices.
 // Check them out too.
 
