@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" advise.Node Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="advise.Node Jul 29th, 2012 This is a constructor, which serves as a foundation of method weaving used by advise().
+It is not intended to be used by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,13 @@
 <time datetime="2012-07-29T00:04:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a constructor, which serves as a foundation of method weaving used by <a href="/docs/advise_js/advise">advise()</a>.
+It is not intended to be used by end-users, and useful only for extending <code>dcl</code> itself.</p>
+
+<h2>Description</h2>
+
+<p><a href="/docs/advise_js/advise">advise()</a> produces objects based on <code>advise.Node</code>. It is only useful for extending <code>dcl</code>.
+Object with such prototype are used to build fast chains to weave advices.</p>
 
   
     <footer>

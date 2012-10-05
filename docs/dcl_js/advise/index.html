@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.advise() Jul 29th, 2012 This is a decorator, which is used to weave AOP advices. Description dcl.advise() is a decorator function, which takes &hellip;">
+  <meta name="description" content="dcl.advise() Jul 29th, 2012 This is a decorator, which is used to weave AOP advices while building new &#8220;classes&#8221;. Description dcl.advise &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,12 +98,12 @@
 <time datetime="2012-07-29T00:06:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>This is a decorator, which is used to weave AOP advices.</p>
+  <p>This is a decorator, which is used to weave AOP advices while building new &#8220;classes&#8221;.</p>
 
 <h2>Description</h2>
 
 <p><code>dcl.advise()</code> is a decorator function, which takes an object with properties <code>before</code>, <code>around</code>, and/or <code>after</code> and
-combines an existing method with supplied examples.</p>
+combines an existing method with supplied advices.</p>
 
 <figure class='code'><figcaption><span>dcl.advise()  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -188,7 +188,7 @@ result values would be distinct.</p>
 <h3>Around</h3>
 
 <p>Essentially it is the same as <a href="/docs/mini_js/supercall">dcl.superCall()</a>. It uses the same double function pattern,
-and its behavior the same.</p>
+and its behavior is the same.</p>
 
 <h3>Order of advices</h3>
 
@@ -438,7 +438,8 @@ It doesn&#8217;t matter in what order advices were declared.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In general the relative order of different advices will depend on their definition order, while in true AOP it is rigid.</p>
+<p>In general the relative order of different wrapper-based advices will depend on their definition order,
+while in true AOP it is rigid.</p>
 
 <p>While the order difference looks harmless, it prevents from using some important AOP techniques. For example,
 it prevents setting up a hook function (an after advice) that runs after all &#8220;normal&#8221; methods.

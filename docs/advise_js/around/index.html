@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" advise.around() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="advise.around() Jul 29th, 2012 This is a convenience function to weave an around advice based on advise(). Description This is a shortcut function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +98,75 @@
 <time datetime="2012-07-29T00:04:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a convenience function to weave an <code>around</code> advice based on <a href="/docs/advise_js/advise">advise()</a>.</p>
+
+<h2>Description</h2>
+
+<p>This is a shortcut function to weave one <code>around</code> advice with an object&#8217;s method. Logically it is defined as:</p>
+
+<figure class='code'><figcaption><span>dcl.around()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">around</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">advice</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">around</span><span class="o">:</span> <span class="nx">advice</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It means that instead of:</p>
+
+<figure class='code'><figcaption><span>Long  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">adv</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="nx">advice</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is possible to write a shorter version:</p>
+
+<figure class='code'><figcaption><span>Short  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">adv</span> <span class="o">=</span> <span class="nx">advice</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">advice</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Advice function</h3>
+
+<p>Essentially it is the same as <a href="/docs/mini_js/supercall">dcl.superCall()</a>. It uses the same double function pattern,
+and its behavior is the same.</p>
+
+<h3>Returned value</h3>
+
+<p>Just like <a href="/docs/advise_js/advise">advise()</a> it is based on, it returns an opaque object with a single method:
+<code>unadvise()</code>. Calling it without parameters removes all advices set with that call to <code>advise()</code>.</p>
+
+<p>In order to be compatible with general destruction mechanisms it defines one more method: <code>destroy()</code>, which is
+an alias to <code>unadvise()</code>.</p>
+
+<h2>Notes</h2>
+
+<p>Don&#8217;t forget that <strong>around advices always follow the double function pattern</strong>:</p>
+
+<figure class='code'><figcaption><span>Around advice  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">aroundAdvice</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(...){...};</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>See details in <a href="/docs/mini_js/supercall">dcl.superCall()</a>, <a href="/docs/dcl_js/advise">dcl.advise()</a>. and
+<a href="/docs/advise_js/advise">advise()</a>.</p>
 
   
     <footer>

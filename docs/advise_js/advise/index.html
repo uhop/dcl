@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" advise() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="advise() Jul 29th, 2012 This is a function that weaves AOP advices dynamically. Unlike [dcl.advise()][/docs/dcl_js/advise]
+it is works on objects, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,194 @@
 <time datetime="2012-07-29T00:04:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This is a function that weaves AOP advices dynamically. Unlike [dcl.advise()][/docs/dcl_js/advise]
+it is works on objects, rather than &#8220;classes&#8221;. All advices can be &#8220;unadvised&#8221; at any moment.</p>
+
+<h2>Description</h2>
+
+<p><code>advise()</code> is a function, which takes an object with properties <code>before</code>, <code>around</code>, and/or <code>after</code>, and
+combines an existing method with supplied advices.</p>
+
+<figure class='code'><figcaption><span>dcl.advise()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">methodAdv</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method was called with msg = &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method has finished.&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// let&#39;s ignore our parameter</span>
+</span><span class='line'>      <span class="nx">sub</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;Canned response no matter what.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">method</span><span class="p">(</span><span class="s2">&quot;Hey!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Method was called with msg = Hey!</span>
+</span><span class='line'><span class="c1">// MSG: Canned response no matter what.</span>
+</span><span class='line'><span class="c1">// Method has finished.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">methodAdv</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// Now all previous advices are removed from the object.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Advices are functions with following properties.</p>
+
+<h3>Before</h3>
+
+<p>This is a regular function. It is called with the same context and the same arguments as an advised method.
+Its return value is ignored.</p>
+
+<p>It is not recommended to modify parameters inside <code>before</code> advice. Use <code>around</code> advice for that.</p>
+
+<h3>After</h3>
+
+<p>This is a regular function. It is called with the same context as an advised method. It takes two parameters: <code>args</code> is
+an <code>arguments</code> object (a pseudo-array) used to call an advised method, and <code>result</code>, which is a returned value or
+a thrown exception object. Its returned value is ignored.</p>
+
+<p>It is not recommended to modify parameters or a returned value inside <code>after</code> advice. Use <code>around</code> advice for that.</p>
+
+<p>It is recommended to derive all exception objects from the standard <code>Error</code> object, so erroneous and normal
+result values would be distinct.</p>
+
+<h3>Around</h3>
+
+<p>Essentially this advice is the same as <a href="/docs/mini_js/supercall">dcl.superCall()</a>. It uses the same double
+function pattern, and its behavior is the same.</p>
+
+<h3>Order of advices</h3>
+
+<p>Advices are always applied in the following order regardless of their declaration order:</p>
+
+<ol>
+<li>Advices created with [dcl.advise()][/docs/dcl_js/advise] and <code>advise()</code> are equivalent in all respects.</li>
+<li>All <code>before</code> advices go first in the reverse chronological order (the last one goes first).</li>
+<li>All <code>around</code> advices go next in the reverse chronological order (the last one goes first). The next <code>around</code> advice
+is called only if its previous <code>around</code> advice yielded control explicitly by calling its super method.</li>
+<li>All <code>after</code> advices go last in the chronological order (the first one goes first).</li>
+</ol>
+
+
+<h3>Return value</h3>
+
+<p><code>advise()</code> returns an opaque object with a single method: <code>unadvise()</code>. Calling it without parameters removes all
+advices set with that call to <code>advise()</code>.</p>
+
+<p>In order to be compatible with general destruction mechanisms it defines one more method: <code>destroy()</code>, which is
+an alias to <code>unadvise()</code>.</p>
+
+<h2>Notes</h2>
+
+<h3>Shortcuts</h3>
+
+<p>If you want to weave just one advice, you may want to use a shortcut:</p>
+
+<figure class='code'><figcaption><span>AOP shortcuts  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method was called with msg = &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// is equivalent to</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method was called with msg = &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method has finished.&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// is equivalent to</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Method has finished.&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// let&#39;s ignore our parameter</span>
+</span><span class='line'>    <span class="nx">sub</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;Canned response no matter what.&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// is equivalent to</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// let&#39;s ignore our parameter</span>
+</span><span class='line'>      <span class="nx">sub</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;Canned response no matter what.&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can find those methods documented respectively in <a href="/docs/advise_js/before">advise.before()</a>,
+<a href="/docs/advise_js/after">advise.after()</a>, and <a href="/docs/advise_js/around">advise.around()</a>.</p>
 
   
     <footer>

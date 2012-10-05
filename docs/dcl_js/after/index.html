@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.after() Jul 29th, 2012 This is a convenience decorator to define a after advice. Description This is a shortcut function to define one after &hellip;">
+  <meta name="description" content="dcl.after() Jul 29th, 2012 This is a convenience decorator to define a after advice based on dcl.advise(). Description This is a shortcut function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +98,7 @@
 <time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>This is a convenience decorator to define a <code>after</code> advice.</p>
+  <p>This is a convenience decorator to define a <code>after</code> advice based on <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 
 <h2>Description</h2>
 
@@ -138,7 +138,16 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>Advice function</h3>
 
+<p>This type of advice is a regular function. It is called with the same context as an advised method. It takes
+two parameters: <code>args</code> is an <code>arguments</code> object (a pseudo-array) used to call an advised method, and <code>result</code>,
+which is a returned value or a thrown exception object. Its returned value is ignored.</p>
+
+<p>It is not recommended to modify parameters or a returned value inside <code>after</code> advice. Use <code>around</code> advice for that.</p>
+
+<p>It is recommended to derive all exception objects from the standard <code>Error</code> object, so erroneous and normal
+result values would be distinct.</p>
 
   
     <footer>

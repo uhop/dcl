@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.around() Jul 29th, 2012 This is a convenience decorator to define a around advice. Description This is a shortcut function to define one around &hellip;">
+  <meta name="description" content="dcl.around() Jul 29th, 2012 This is a convenience decorator to define a around advice based on dcl.advise(). Description This is a shortcut function &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,14 +98,14 @@
 <time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>This is a convenience decorator to define a <code>around</code> advice.</p>
+  <p>This is a convenience decorator to define a <code>around</code> advice based on <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 
 <h2>Description</h2>
 
 <p>This is a shortcut function to define one <code>around</code> advice. Logically it is defined as a synonym for
 <a href="/docs/mini_js/supercall">dcl.superCall()</a>:</p>
 
-<figure class='code'><figcaption><span>dcl.before()  </span></figcaption>
+<figure class='code'><figcaption><span>dcl.around()  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -142,6 +142,11 @@
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="nx">advice</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<h3>Advice function</h3>
+
+<p>Essentially it is the same as <a href="/docs/mini_js/supercall">dcl.superCall()</a>. It uses the same double function pattern,
+and its behavior is the same.</p>
 
 <h2>Notes</h2>
 
