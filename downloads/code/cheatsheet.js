@@ -15,10 +15,10 @@ var dcl = require("dcl");
 var D = dcl(null, {
   declaredClass: "D",
   constructor: function(a, b, c){
-  	console.log("something");
+    console.log("something");
   },
   method: function(x, y){
-  	return x + y;
+    return x + y;
   }
 });
 
@@ -225,7 +225,7 @@ var M = dcl(D, {
 // Make a super call with `getInherited()` (works in both strict and non-strict modes):
 var N = dcl(D, {
   method: function(x, y){
-  	var sup = this.getInherited(N, "method");
+    var sup = this.getInherited(N, "method");
     if(sup){
       return sup.call(this, x + 1, y - 1);
     }

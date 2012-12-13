@@ -139,10 +139,10 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
 </span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;something&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;something&quot;</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">},</span>
 </span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -708,7 +708,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">N</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">N</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
 </span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 </span><span class='line'>    <span class="p">}</span>
