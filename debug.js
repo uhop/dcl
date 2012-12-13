@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory(require("./mini"), require("./advise"));
 	}else{
-		dcl_debug = factory(dcl, advise);
+		dclDebug = factory(dcl, advise);
 	}
 })(function(dcl, advise){
 	function DclError(message){
@@ -29,9 +29,10 @@
 		SuperError = dcl(DclError, {declaredClass: "dcl/debug/SuperError"}),
 		SuperResultError = dcl(DclError, {declaredClass: "dcl/debug/SuperResultError"});
 
-	var chainNames = ["UNCHAINED BUT CONTAINS ADVICE(S)", "CHAINED BEFORE", "CHAINED AFTER"];
+	var chainNames = ["UNCHAINED BUT CONTAINS ADVICE(S)", "CHAINED BEFORE", "CHAINED AFTER",
+			"ERRONEOUSLY CHAINED BEFORE AND AFTER"];
 	function chainName(id){
-		return id >= 0 && id <= 2 ? chainNames[id] : "UNKNOWN";
+		return id >= 0 && id <= 3 ? chainNames[id] : "UNKNOWN (" + id + ")";
 	}
 
 	var noDecls = "(specify 'declaredClass' string in your classes to get better diagnostics)";
@@ -54,38 +55,38 @@
 							c[name] = 1;
 						}
 					}
-					throw new CycleError("dcl: base class cycle found" + (cName ? " in " + cName : "") +
+					throw new CycleError("dcl: base class cycle found in: " + (cName || "UNNAMED") +
 						" - bases: " + names.join(", ") + " are mutually dependent" +
 						(someUnknown ? noDecls : ""));
 				case "chain":
 					cName = a2.prototype.hasOwnProperty("declaredClass") && a2.prototype.declaredClass;
 					name = a4.prototype.hasOwnProperty("declaredClass") && a4.prototype.declaredClass;
 					someUnknown = !(cName && name);
-					throw new ChainingError("dcl: conflicting chain directives found" + (cName ? " in " + cName: "") +
-						" for method " + a1 + " - it is presumed to be " + chainName(a3) + " yet class " +
-						(name || ("UNNAMED_" + a4._u)) + "assumes it to be " + chainName(a5) +
+					throw new ChainingError("dcl: conflicting chain directives from bases found in: " + (cName || ("UNNAMED_" + a2._u)) +
+						", method: " + a1 + " - it was " + chainName(a3) + " yet " +
+						(name || ("UNNAMED_" + a4._u)) + " sets it to " + chainName(a5) +
 						(someUnknown ? noDecls : ""));
 				case "set chaining":
 					cName = a2.prototype.hasOwnProperty("declaredClass") && a2.prototype.declaredClass;
 					someUnknown = !cName;
-					throw new SetChainingError("dcl: attempt to set conflicting chain directive" + (cName ? " in " + cName: "") +
-						" for method " + a1 + " - it is " + chainName(a3) + " now yet being changed to " + chainName(a4) +
+					throw new SetChainingError("dcl: attempt to set conflicting chain directives in: " + (cName || ("UNNAMED_" + a2._u)) +
+						", method: " + a1 + " - it was " + chainName(a4) + " yet being changed to " + chainName(a3) +
 						(someUnknown ? noDecls : ""));
 				case "wrong super call":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
-					throw new SuperCallError("dcl: wrong argument of an around advice or supercall" +
-						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
+					throw new SuperCallError("dcl: argument of around advice or supercall decorator should be a function in: " +
+						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 				case "wrong super":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
-					throw new SuperError("dcl: super method should be a function" +
-						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
+					throw new SuperError("dcl: super method should be a function in: " +
+						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 				case "wrong super result":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
-					throw new SuperResultError("dcl: around advice or supercall should return a function" +
-						(cName ? " in " + cName: "") + " for method " + a2 + (someUnknown ? noDecls : ""));
+					throw new SuperResultError("dcl: around advice or supercall should return a function in: " +
+						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 			}
 			throw new DclError("dcl: " + reason);
 		};
