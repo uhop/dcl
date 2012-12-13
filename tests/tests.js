@@ -16,7 +16,7 @@ if(typeof out == "undefined"){
 	dcl = require("../dcl");
 	advise = require("../advise");
 	inherited = require("../inherited");
-	dcl_debug = require("../debug");
+	dclDebug = require("../debug");
 }
 
 function submit(msg, success){
@@ -923,6 +923,131 @@ var tests = [
 			var a = new A;
 			submit("strict inherited-calling intrinsics", a.toString() === "PRE-[object Object]-POST");
 		}
+	},
+	// debug tests
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			var A = dcl(null, {
+				declaredClass: "A"
+			});
+
+			var B = dcl(null, {
+				declaredClass: "B"
+			});
+
+			var AB = dcl([A, B], {
+				declaredClass: "AB"
+			});
+
+			var BA = dcl([B, A], {
+				declaredClass: "BA"
+			});
+
+			try{
+				var Impossible = dcl([AB, BA], {
+					declaredClass: "Impossible"
+				});
+				submit("cycle error is triggered", false);
+			}catch(e){
+				submit("cycle error is DclError", e instanceof dclDebug.DclError);
+				submit("cycle error is CycleError", e instanceof dclDebug.CycleError);
+			}
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			var A = dcl(null, {
+				declaredClass: "A"
+			});
+			dcl.chainAfter(A, "m");
+
+			var B = dcl(null, {
+				declaredClass: "B"
+			});
+			dcl.chainBefore(B, "m");
+
+			try{
+				var ChainConflict = dcl([A, B], {
+					declaredClass: "ChainConflict"
+				});
+				submit("chain error is triggered", false);
+			}catch(e){
+				submit("chain error is DclError", e instanceof dclDebug.DclError);
+				submit("chain error is ChainingError", e instanceof dclDebug.ChainingError);
+			}
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			var A = dcl(null, {
+				declaredClass: "A"
+			});
+			dcl.chainAfter(A, "m");
+
+			try{
+				dcl.chainBefore(A, "m");
+				submit("set chaining error is triggered", false);
+			}catch(e){
+				submit("set chaining error is DclError", e instanceof dclDebug.DclError);
+				submit("set chaining error is ChainingError", e instanceof dclDebug.SetChainingError);
+			}
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			try{
+				var A = dcl(null, {
+					declaredClass: "A",
+					m: dcl.superCall("Should be a function, but it is a string.")
+				});
+				submit("supercall error is triggered", false);
+			}catch(e){
+				submit("supercall error is DclError", e instanceof dclDebug.DclError);
+				submit("supercall error is SuperCallError", e instanceof dclDebug.SuperCallError);
+			}
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			var A = dcl(null, {
+				declaredClass: "A",
+				m: 42 // not a function
+			});
+			try{
+				var B = dcl(A, {
+					declaredClass: "B",
+					m: dcl.superCall(function(sup){
+						return sup ? sup.call(this) : 0;
+					})
+				});
+				submit("super error is triggered", false);
+			}catch(e){
+				submit("super error is DclError", e instanceof dclDebug.DclError);
+				submit("super error is SuperCallError", e instanceof dclDebug.SuperError);
+			}
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclDebug != "undefined"){
+			try{
+				var A = dcl(null, {
+					declaredClass: "A",
+					m: dcl.superCall(function(sup){
+						return "Instead of a function I return a string.";
+					})
+				});
+				submit("super result error is triggered", false);
+			}catch(e){
+				submit("super result error is DclError", e instanceof dclDebug.DclError);
+				submit("super result error is SuperCallError", e instanceof dclDebug.SuperResultError);
+			}
+		}
 	}
 ];
 
@@ -934,8 +1059,8 @@ function runTests(){
 		try{
 			tests[i]();
 		}catch(e){
-			if(isError){
-				exceptionFlag = true;
+			exceptionFlag = true;
+			if(typeof console != "undefined"){	// IE < 9 :-(
 				console.log("Unhandled exception in test #" + i + ": " + e.message);
 			}
 		}
