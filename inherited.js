@@ -38,9 +38,9 @@
 					break;
 				}
 			}
-			if(i >= 0){	// intentional assignments
+			if(i >= 0){
 				for(++i, l = bases.length; i < l; ++i){
-					if((meta = (base = bases[i])._m)){	// intentional assignment
+					if((meta = (base = bases[i])._m)){	// intentional assignments
 						if((meta = meta.h).hasOwnProperty(name)){	// intentional assignment
 							return meta[name];
 						}
@@ -71,8 +71,9 @@
 			}
 		}
 		ctor.prototype.inherited = inherited;
+		ctor.prototype.getInherited = get;
 	});
 
-	inherited.get = get;
+	dcl.getInherited = inherited.get = get;
 	return dcl.inherited = inherited;   // intentional assignment
 });
