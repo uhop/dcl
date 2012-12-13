@@ -40,9 +40,9 @@ var x = new (dcl([B, M], {}))(1, 2, 3);
 // Make a super call passing through arguments:
 var E = dcl(D, {
   method: dcl.superCall(function(sup){
-  	return function(x, y){
+    return function(x, y){
       if(sup){
-      	return sup.apply(this, arguments);
+        return sup.apply(this, arguments);
       }
       return 0;
     };
@@ -52,9 +52,9 @@ var E = dcl(D, {
 // Make a super call with different arguments:
 var F = dcl(D, {
   method: dcl.superCall(function(sup){
-  	return function(x, y){
+    return function(x, y){
       if(sup){
-      	return sup.call(this, x + 1, y - 1);
+        return sup.call(this, x + 1, y - 1);
       }
       return 0;
     };
@@ -204,21 +204,21 @@ var inherited = require("dcl/inherited");
 // Make a super call passing through arguments:
 var K = dcl(D, {
   method: function(x, y){
-  	return this.inherited(arguments);
+    return this.inherited(arguments);
   }
 });
 
 // Make a super call with different arguments:
 var L = dcl(D, {
   method: function(x, y){
-  	return this.inherited(arguments, [x + 1, y - 1]);
+    return this.inherited(arguments, [x + 1, y - 1]);
   }
 });
 
 // Make a super call (works in both strict and non-strict modes):
 var M = dcl(D, {
   method: function(x, y){
-  	return this.inherited(M, "method", arguments);
+    return this.inherited(M, "method", arguments);
   }
 });
 

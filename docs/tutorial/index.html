@@ -141,7 +141,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -154,7 +154,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Anonymous&quot;</span><span class="p">,</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Anonymous&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -173,12 +173,12 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
-</span><span class='line'>            <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Person &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is created&quot;</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Person &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is created&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -194,7 +194,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Bureaucrat</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Person</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Bureaucrat&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Bureaucrat&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -214,13 +214,13 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Bureaucrat &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is created&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">},</span>
-</span><span class='line'>    <span class="nx">approve</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nb">document</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Rejected by &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// NEVER!</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Bureaucrat &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; is created&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">approve</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nb">document</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Rejected by &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// NEVER!</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -278,9 +278,9 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Speaker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">speak</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="nx">speak</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -308,7 +308,7 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="p">{}</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -367,8 +367,8 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -389,11 +389,11 @@ on Speaker meaning it will be always pulled in.</p>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>                <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'>    <span class="p">})</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -421,7 +421,7 @@ on Speaker meaning it will be always pulled in.</p>
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'>    <span class="p">{}</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -509,14 +509,14 @@ calls, and it greatly simplifies debugging.</p>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Sick</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Person</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">({</span>
-</span><span class='line'>        <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: *hiccup* *hiccup*&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">},</span>
-</span><span class='line'>        <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
-</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: *sniffle* I am sick!&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: *hiccup* *hiccup*&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: *sniffle* I am sick!&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -586,13 +586,13 @@ the same double function technique to inject a method from a super class.</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Martian</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Speaker</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
-</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>                <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;beep-beep-beep&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;beep-beep-beep&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -685,16 +685,16 @@ methods, and event-like methods.</p>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">SwitchOperator</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn on lights&quot;</span><span class="p">);</span> <span class="p">},</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn off lights&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn on lights&quot;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn off lights&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">TeethBrusher</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth&quot;</span><span class="p">);</span> <span class="p">},</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth again&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth&quot;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth again&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">SmartDresser</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;dress up for work&quot;</span><span class="p">);</span> <span class="p">},</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;switch to pajamas&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;dress up for work&quot;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;switch to pajamas&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -717,7 +717,7 @@ methods, and event-like methods.</p>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">OfficeWorker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span>
 </span><span class='line'>    <span class="nx">BioOrganism</span><span class="p">,</span> <span class="nx">SwitchOperator</span><span class="p">,</span>
 </span><span class='line'>    <span class="nx">TeethBrusher</span><span class="p">,</span> <span class="nx">SmartDresser</span><span class="p">],</span>
-</span><span class='line'>    <span class="p">{}</span>
+</span><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">ethel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OfficeWorker</span><span class="p">();</span>
@@ -800,18 +800,18 @@ For that we need to use a new module:</p>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">fred</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* nothing */</span> <span class="p">},</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* nothing */</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">wakeUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* nothing */</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(){</span> <span class="cm">/* nothing */</span> <span class="p">}</span>
 </span><span class='line'><span class="p">}))();</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">wakeAd1</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;wakeUp&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn on lights&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn on lights&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">wakeAd2</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;wakeUp&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">wakeAd3</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;wakeUp&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;dress up for work&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;dress up for work&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -834,13 +834,13 @@ For that we need to use a new module:</p>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">sleepAd1</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;switch to pajamas&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;switch to pajamas&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">sleepAd2</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth again&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;brush my teeth again&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">sleepAd3</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">fred</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn off lights&quot;</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;turn off lights&quot;</span><span class="p">);</span> <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -976,7 +976,7 @@ All you need is to require it, and it will plug right in:</p>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">OurClass</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;OurClass&quot;</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;OurClass&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -1030,22 +1030,22 @@ Yes, logs. The debug module can log constructors and objects created by those co
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*zzzzzzzzzzzzz*&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*zzzzzzzzzzzzz*&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">sleep</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Time to hit the pillow!&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Time to hit the pillow!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">george</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
 </span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">george</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*ZzZzZzZzZzZzZ*&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*ZzZzZzZzZzZzZ*&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 

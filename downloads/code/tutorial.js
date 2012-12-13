@@ -13,30 +13,30 @@ var dcl = require("dcl");
 
 // Let's declare a class derived from Object:
 var Person = dcl(null, {
-    // Name of class. It is optional, but highly recommended, because it will help while debugging your objects.
-    declaredClass: "Person",
-    // A default name as a class-level constant:
-    name: "Anonymous",
-    // A constructor is a method named ... `constructor`
-    constructor: function(name){
-        if(name){
-            this.name = name;
-        }
-        console.log("Person " + this.name + " is created");
+  // Name of class. It is optional, but highly recommended, because it will help while debugging your objects.
+  declaredClass: "Person",
+  // A default name as a class-level constant:
+  name: "Anonymous",
+  // A constructor is a method named ... `constructor`
+  constructor: function(name){
+    if(name){
+      this.name = name;
     }
+    console.log("Person " + this.name + " is created");
+  }
 });
 
 // We can derive more classes from it using single inheritance. Let's define a bureaucrat (yes, it is a person too!):
 var Bureaucrat = dcl(Person, {
-    declaredClass: "Bureaucrat",
-    // Remember that all inherited constructors are chained in automatically!
-    constructor: function(name){
-        console.log("Bureaucrat " + this.name + " is created");
-    },
-    approve: function(document){
-        console.log("Rejected by " + this.name); // NEVER!
-        return false;
-    }
+  declaredClass: "Bureaucrat",
+  // Remember that all inherited constructors are chained in automatically!
+  constructor: function(name){
+    console.log("Bureaucrat " + this.name + " is created");
+  },
+  approve: function(document){
+    console.log("Rejected by " + this.name); // NEVER!
+    return false;
+  }
 });
 
 // Now we can create a typical anonymous clerk:
@@ -60,15 +60,15 @@ clerk.approve(123);
 
 // Let's declare one more class that will be used as a mixin. Any normal class would do.
 var Speaker = dcl(null, {
-    speak: function(msg){
-        console.log(this.name + ": " + msg);
-    }
+  speak: function(msg){
+    console.log(this.name + ": " + msg);
+  }
 });
 
 // Now we are ready to create Talker from Person + Speaker:
 var Talker = dcl([Person, Speaker],
-    // It has no own methods for simplicity.
-    {}
+  // It has no own methods for simplicity.
+  {}
 );
 
 // Let's create Alice, who is a Talker:
@@ -83,25 +83,25 @@ alice.speak("hello!");
 
 // Let's declare another mixin, this time using a super call:
 var Shouter = dcl(Speaker, {
-    // Here we use the double function technique to inject
-    // `sup` --- a method from a super class.
-    speak: dcl.superCall(function(sup){
-        return function(msg){
-            // Theoretically it is possible that
-            // there is no super method --- we can be last in line;
-            // not in this case, though --- we are based
-            // on Speaker meaning it will be always pulled in.
-            if(sup){
-                sup.call(this, msg.toUpperCase());
-            }
-        };
-    })
+  // Here we use the double function technique to inject
+  // `sup` --- a method from a super class.
+  speak: dcl.superCall(function(sup){
+    return function(msg){
+      // Theoretically it is possible that
+      // there is no super method --- we can be last in line;
+      // not in this case, though --- we are based
+      // on Speaker meaning it will be always pulled in.
+      if(sup){
+        sup.call(this, msg.toUpperCase());
+      }
+    };
+  })
 });
 
 // Let's create a Shouter called Sarge.
 var Sarge = dcl([Talker, Shouter],
-    // It has no own methods for simplicity.
-    {}
+  // It has no own methods for simplicity.
+  {}
 );
 
 // `Person Bob is created`
@@ -130,14 +130,14 @@ loudBob.speak("Anybody home?");
 
 // Let's create one more mixin:
 var Sick = dcl(Person, {
-    speak: dcl.advise({
-        before: function(msg){
-            console.log(this.name + ": *hiccup* *hiccup*");
-        },
-        after: function(args, result){
-            console.log(this.name + ": *sniffle* I am sick!");
-        }
-    })
+  speak: dcl.advise({
+    before: function(msg){
+      console.log(this.name + ": *hiccup* *hiccup*");
+    },
+    after: function(args, result){
+      console.log(this.name + ": *sniffle* I am sick!");
+    }
+  })
 });
 
 // Now we can create Sick Talker.
@@ -159,13 +159,13 @@ clara.speak("I want a glass of water!");
 
 // One more mixin:
 var Martian = dcl(Speaker, {
-    speak: dcl.around(function(sup){
-        return function(msg){
-            if(sup){
-                sup.call(this, "beep-beep-beep");
-            }
-        };
-    })
+  speak: dcl.around(function(sup){
+    return function(msg){
+      if(sup){
+        sup.call(this, "beep-beep-beep");
+      }
+    };
+  })
 });
 
 // Now we are ready for...
@@ -195,23 +195,23 @@ dcl.chainBefore(BioOrganism, "sleep");
 
 // Our handy mixins:
 var SwitchOperator = dcl(null, {
-    wakeUp: function(){ console.log("turn on lights"); },
-    sleep:  function(){ console.log("turn off lights"); }
+  wakeUp: function(){ console.log("turn on lights"); },
+  sleep:  function(){ console.log("turn off lights"); }
 });
 var TeethBrusher = dcl(null, {
-    wakeUp: function(){ console.log("brush my teeth"); },
-    sleep:  function(){ console.log("brush my teeth again"); }
+  wakeUp: function(){ console.log("brush my teeth"); },
+  sleep:  function(){ console.log("brush my teeth again"); }
 });
 var SmartDresser = dcl(null, {
-    wakeUp: function(){ console.log("dress up for work"); },
-    sleep:  function(){ console.log("switch to pajamas"); }
+  wakeUp: function(){ console.log("dress up for work"); },
+  sleep:  function(){ console.log("switch to pajamas"); }
 });
 
 // All together now:
 var OfficeWorker = dcl([
     BioOrganism, SwitchOperator,
     TeethBrusher, SmartDresser],
-    {}
+  {}
 );
 
 var ethel = new OfficeWorker();
@@ -241,29 +241,29 @@ var advise = require("dcl/advise");
 
 // Let's use a one-off class this time:
 var fred = new (dcl(null, {
-    wakeUp: function(){ /* nothing */ },
-    sleep:  function(){ /* nothing */ }
+  wakeUp: function(){ /* nothing */ },
+  sleep:  function(){ /* nothing */ }
 }))();
 
 var wakeAd1 = advise(fred, "wakeUp", {
-    before: function(){ console.log("turn on lights"); }
+  before: function(){ console.log("turn on lights"); }
 });
 var wakeAd2 = advise(fred, "wakeUp", {
-    before: function(){ console.log("brush my teeth"); }
+  before: function(){ console.log("brush my teeth"); }
 });
 var wakeAd3 = advise(fred, "wakeUp", {
-    before: function(){ console.log("dress up for work"); }
+  before: function(){ console.log("dress up for work"); }
 });
 
 // Notice that after advices attached in the reverse order.
 var sleepAd1 = advise(fred, "sleep", {
-    after: function(){ console.log("switch to pajamas"); }
+  after: function(){ console.log("switch to pajamas"); }
 });
 var sleepAd2 = advise(fred, "sleep", {
-    after: function(){ console.log("brush my teeth again"); }
+  after: function(){ console.log("brush my teeth again"); }
 });
 var sleepAd3 = advise(fred, "sleep", {
-    after: function(){ console.log("turn off lights"); }
+  after: function(){ console.log("turn off lights"); }
 });
 
 // Outputs:<br>
@@ -308,8 +308,8 @@ var dclDebug = require("dcl/debug");
 // In order to use it to its fullest, we should include a static class id in our "class" definitions like so:
 
 var OurClass = dcl(null, {
-    declaredClass: "OurClass"
-    // The rest of definitions goes there. It is skipped here for simplicity.
+  declaredClass: "OurClass"
+  // The rest of definitions goes there. It is skipped here for simplicity.
 });
 
 // It is strongly suggested to specify `declaredClass` for every declaration in every real project.
@@ -325,22 +325,22 @@ var OurClass = dcl(null, {
 // Yes, logs. The debug module can log constructors and objects created by those constructors.
 
 var A = dcl(null, {
-    declaredClass: "A",
-    sleep: dcl.after(function(){
-        console.log("*zzzzzzzzzzzzz*");
-    })
+  declaredClass: "A",
+  sleep: dcl.after(function(){
+    console.log("*zzzzzzzzzzzzz*");
+  })
 });
 
 var B = dcl(A, {
-    declaredClass: "B",
-    sleep: function(){
-        console.log("Time to hit the pillow!");
-    }
+  declaredClass: "B",
+  sleep: function(){
+    console.log("Time to hit the pillow!");
+  }
 });
 
 var george = new B();
 advise.after(george, "sleep", function(){
-    console.log("*ZzZzZzZzZzZzZ*")
+  console.log("*ZzZzZzZzZzZzZ*")
 });
 
 // Outputs:<br>
