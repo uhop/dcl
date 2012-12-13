@@ -1,5 +1,10 @@
-// While `dcl` works in great in browsers using an AMD loader or even simple `<script>`, this tutorial is assumed
-// to be run with [node.js](http://nodejs.org).
+// *This file is written using a literate JavaScript. You can download
+// [this tutorial](/downloads/code/tutorial.js) to use as a local reference
+// or to run it locally.*
+
+// *While `dcl` works great in browsers using an AMD loader or
+// even simple `<script>`, this tutorial is assumed to be run with
+// [node.js](http://nodejs.org).*
 
 // For our examples we will need the main `dcl` module:
 var dcl = require("dcl");
@@ -377,9 +382,6 @@ dclDebug.log(george);
 // ## Summary
 
 // Now you know what `dcl` can do for you. For more details, please read the documentation.
-
-// This file is written using a literate JavaScript. You can download [this tutorial](/downloads/code/tutorial.js)
-// to use as a local reference or to run it with [node.js](http://nodejs.org) locally.
 
 // Additionally `dcl` provides a small library of predefined base classes, mixins, and useful advices.
 // Check them out too.

@@ -2,215 +2,219 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://www.dcljs.org/blog/archives/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/about/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/counter/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/flow/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/memoize/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/time/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/trace/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advices/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mixins/cleanup/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mixins/destroyable/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mixins/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/bases/mixer/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/bases/replacer/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/bases/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T19:45:27-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T18:37:48-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/advise/</loc>
-        <lastmod>2012-10-05T17:19:52-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/after/</loc>
-        <lastmod>2012-10-05T17:06:36-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/around/</loc>
-        <lastmod>2012-10-05T17:07:19-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/before/</loc>
-        <lastmod>2012-10-05T17:06:19-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/node/</loc>
-        <lastmod>2012-10-05T17:12:15-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/</loc>
-        <lastmod>2012-10-05T16:04:25-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/advice/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/advise/</loc>
-        <lastmod>2012-10-05T16:24:35-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/after/</loc>
-        <lastmod>2012-10-05T17:03:19-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/around/</loc>
-        <lastmod>2012-10-05T17:05:32-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/before/</loc>
-        <lastmod>2012-10-05T17:02:13-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/chainafter/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T17:48:45-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/chainbefore/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T17:48:40-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/isinstanceof/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/dcl_js/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/log/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T17:24:06-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/chainingerror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:31:16-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/cycleerror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:30:11-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/setchainingerror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:31:43-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/dclerror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T17:31:29-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/supercallerror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:28:10-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/supererror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:28:40-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/superresulterror/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-12T21:29:15-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/debug_js/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T16:10:44-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/inherited/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T13:46:06-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/get/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T13:47:04-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T13:13:39-06:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org/docs/inherited_js/getInherited/</loc>
+        <lastmod>2012-12-11T13:41:02-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/mix/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/delegate/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/super/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/dcl/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/supercall/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T13:01:54-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/decorator/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T19:39:34-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/supercalls/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/constructors/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/multi-stage-construction/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/cheatsheet/</loc>
-        <lastmod>2012-10-05T15:26:51-05:00</lastmod>
+        <lastmod>2012-12-11T15:43:52-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/tutorial/</loc>
@@ -218,6 +222,6 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/</loc>
-        <lastmod>2012-10-05T15:15:22-05:00</lastmod>
+        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
     </url>
 </urlset>

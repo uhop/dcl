@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dclDebug.log() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dclDebug.log() Jul 29th, 2012 The main method of this module logs on console debugging details about an object.
+Provided details includes an ordered &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,109 @@
 <time datetime="2012-07-29T00:12:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>The main method of this module logs on console debugging details about an object.
+Provided details includes an ordered list of dependencies, super calls, and
+both class-level and object-level AOP advises.</p>
+
+<h2>Description</h2>
+
+<p>Working with non-trivial inheritance chains can be puzzling. While the C3 MRO algorithm
+used by <code>dcl</code> takes care of duplicates and ordering of mixins, in some cases programmer
+needs to know exact details of such linearization.</p>
+
+<p>Even more puzzling can be ordering of call chains, and/or advices both static and dynamic.</p>
+
+<p><code>dclDebug.log()</code> provides both types of information, and inspects what constructor was used
+to create an object.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>dclDebug.log()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span>      <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">advise</span>   <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">dclDebug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// A defines an &quot;after&quot; advise</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*zzzzzzzzzzzzz*&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// B provides an &quot;around&quot; method</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">sleep</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Time to hit the pillow!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">george</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
+</span><span class='line'><span class="c1">// we add to the variable one more &quot;after&quot; advise</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">george</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*ZzZzZzZzZzZzZ*&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">george</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The snippet above will produce a following output on console:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*** object of class B
+</span><span class='line'>*** class B depends on 1 classes
+</span><span class='line'>    dependencies: A
+</span><span class='line'>    class method constructor is CHAINED AFTER (length: 0)
+</span><span class='line'>    class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),
+</span><span class='line'>      and has an AOP stub (before: 0, around: 1, after: 1)
+</span><span class='line'>    object method sleep has an AOP stub (before: 0, around: 1, after: 2)</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Notes</h2>
+
+<ol>
+<li>It is always a good idea to specify a property called <code>declaredClass</code>,
+which can be any readable text used to identify your &#8220;class&#8221; definition.
+It is used by <code>dclDebug</code> facilities to provide a human-readable information.
+Common convention is to specify a name to reflect its logical &#8220;path&#8221;, like
+&#8220;dcl/debug&#8221; or &#8220;dcl/debug/CycleError&#8221;.</li>
+</ol>
+
 
   
     <footer>

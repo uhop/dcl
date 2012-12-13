@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>inherited.get() - DCL</title>
+  <title>getInherited() - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="inherited.get() Jul 29th, 2012 This function is an alias for getInherited(). Description See getInherited() for details. Examples inherited.get() 1 &hellip;">
+  <meta name="description" content="getInherited() Jul 29th, 2012 This function determines a super method dynamically. It returns it as result, but unlike
+inherited() it doesn&#8217;t &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/get/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/getInherited/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -82,7 +83,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">inherited.get()</h1>
+    <h1 class="entry-title">getInherited()</h1>
     <p class="meta">
 
 
@@ -98,15 +99,30 @@
 <time datetime="2012-07-29T00:15:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>This function is an alias for <a href="/docs/inherited_js/getInherited">getInherited()</a>.</p>
+  <p>This function determines a super method dynamically. It returns it as result, but unlike
+<a href="/docs/inherited_js/inherited">inherited()</a> it doesn&#8217;t call it immediately. If there is
+no super method, a falsy value is returned.</p>
+
+<p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&#8217;t require to modify
+a method according to the double function pattern, and can be applied to
+undecorated methods, which makes it suitable for fast prototyping, and
+transitioning legacy code.</p>
+
+<p>As soon as <code>inherited.js</code> is included, it mixes in <code>getInherited()</code> as a method to all
+newly created objects, so you don&#8217;t need to use the result of the module directly.</p>
+
+<p><code>getInherited()</code> works in strict mode.</p>
 
 <h2>Description</h2>
 
-<p>See <a href="/docs/inherited_js/getInherited">getInherited()</a> for details.</p>
+<p>This is a companion method for <a href="/docs/inherited_js/inherited">inherited()</a>. In fact,
+it is used in its implementation. Just like <a href="/docs/inherited_js/inherited">inherited()</a>,
+it doesn&#8217;t require to decorate a method, and can be used to add a supercall to any
+arbitrary method, which makes it suitable for transitioning legacy code or fast
+prototyping:</p>
 
-<h2>Examples</h2>
-
-<figure class='code'><figcaption><span>inherited.get()  </span></figcaption>
+<figure class='code'><figcaption><span>getInherited()  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -143,23 +159,21 @@
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// The inherited.get() way:</span>
-</span><span class='line'>  <span class="nx">calcPrice1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">.</span><span class="nx">get</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">);</span>
-</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>          <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
-</span><span class='line'>      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-</span><span class='line'>          <span class="c1">// There is no super method.</span>
-</span><span class='line'>          <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">},</span>
-</span><span class='line'>
 </span><span class='line'>  <span class="c1">// The getInherited() way:</span>
-</span><span class='line'>  <span class="nx">calcPrice2</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice2&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">calcPrice1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">);</span>
 </span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>          <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// Let&#39;s inflate price by 200%.</span>
+</span><span class='line'>          <span class="c1">// Asking for a real price in three different</span>
+</span><span class='line'>          <span class="c1">// yet equivalent ways:</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// Now let&#39;s return it tripled:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
 </span><span class='line'>      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
 </span><span class='line'>          <span class="c1">// There is no super method.</span>
 </span><span class='line'>          <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -167,11 +181,17 @@
 </span><span class='line'>  <span class="p">},</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="c1">// Compare it with dcl.superCall() example:</span>
-</span><span class='line'>  <span class="nx">calcPrice3</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">calcPrice2</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
 </span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
 </span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
 </span><span class='line'>          <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
-</span><span class='line'>              <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>              <span class="c1">// Asking for a real price in three different</span>
+</span><span class='line'>              <span class="c1">// yet equivalent ways:</span>
+</span><span class='line'>              <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>              <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>              <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>              <span class="c1">// Now let&#39;s return it tripled:</span>
+</span><span class='line'>              <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
 </span><span class='line'>          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
 </span><span class='line'>              <span class="c1">// There is no super method.</span>
 </span><span class='line'>              <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -182,12 +202,35 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>As you can see both <code>getInherited()</code> and <a href="/docs/mini_js/supercall">dcl.superCall()</a> look
+almost identical. The difference is:</p>
+
+<ul>
+<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> works statically and does not incur run-time penalties.</li>
+<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> requires a double function pattern described in <a href="/docs/general/supercalls">Supercalls in JS</a>.</li>
+</ul>
+
+
+<p>For more details please take a look <a href="/docs/inherited_js/inherited">inherited()</a>.</p>
+
 <h2>FAQ</h2>
 
-<h3>When should I use <code>inherited.get()</code>?</h3>
+<h3>When should I use <code>getInherited()</code>?</h3>
 
-<p>It is there mostly for legacy reasons. In general it is recommended to use
-<a href="/docs/inherited_js/getInherited">getInherited()</a>.</p>
+<p>There are three common scenarios when using <code>getInherited()</code> is beneficial:</p>
+
+<ol>
+<li>A method should make several calls to its super method. By using <code>getInherited()</code>
+and reusing its result, you save CPU ticks making the whole method faster. For even
+faster results consider using <a href="/docs/mini_js/supercall">dcl.superCall()</a>.</li>
+<li>Your code behaves differently when there is no super method, and the default
+provided by <a href="/docs/inherited_js/inherited">inherited()</a> just doesn&#8217;t work for you.</li>
+<li>While debugging, you don&#8217;t want to go inside <a href="/docs/inherited_js/inherited">inherited()</a>
+(it is debugging-friendly, yet you may want to skip it completely while debugging).
+In this case you step over calls to <code>getInherited()</code> and debug your super methods
+directly.</li>
+</ol>
+
 
   
     <footer>
@@ -211,7 +254,7 @@
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/inherited_js/get/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/inherited_js/get/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/inherited_js/getInherited/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/inherited_js/getInherited/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

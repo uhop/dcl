@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" inherited() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="inherited() Jul 29th, 2012 This function calls a super method dynamically. While it is slower than the normal way to do supercalls with dcl (see the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +98,236 @@
 <time datetime="2012-07-29T00:15:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>This function calls a super method dynamically.</p>
+
+<p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&#8217;t require to modify
+a method according to the double function pattern, and can be applied to
+undecorated methods, which makes it suitable for fast prototyping, and
+transitioning legacy code.</p>
+
+<p>As soon as <code>inherited.js</code> is included, it mixes in <code>inherited()</code> as a method to all
+newly created objects, so you don&#8217;t need to use the result of the module directly.</p>
+
+<p><code>inherited()</code> can be used in strict mode.</p>
+
+<h2>Description</h2>
+
+<p>Unlike the decorator <a href="/docs/mini_js/supercall">dcl.superCall()</a>, which supplies
+a supercall method statically, <code>inherited()</code> does the same dynamically at some
+run-time expense. While doing so, it doesn&#8217;t require to decorate a method, and
+can be used to add a supercall to any arbitrary method, which makes it suitable
+for transitioning legacy code or fast prototyping:</p>
+
+<figure class='code'><figcaption><span>inherited()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// The inherited() way:</span>
+</span><span class='line'>  <span class="nx">calcPrice1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
+</span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>      <span class="c1">// Now let&#39;s return it tripled.</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Compare it with dcl.superCall() example:</span>
+</span><span class='line'>  <span class="nx">calcPrice2</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>          <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
+</span><span class='line'>          <span class="c1">// imagine that we know that statically.</span>
+</span><span class='line'>          <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// Now let&#39;s return it tripled:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Another alternative is to use inherited.get():</span>
+</span><span class='line'>  <span class="nx">calcPrice3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice3&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
+</span><span class='line'>      <span class="c1">// imagine that we know that statically.</span>
+</span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
+</span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>      <span class="c1">// Now let&#39;s return it tripled:</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see <code>calcPrice1()</code> is a simple undecorated method, <code>calcPrice2()</code> is
+the fastest way to do supercalls, and <code>calcPrice3()</code> is similar to <code>calcPrice1()</code>
+yet employs a simple optimization technique: determines a supercall once instead
+of three times and reuses its result.</p>
+
+<p>The example above demonstrates three possible ways to use <code>inherited()</code>:</p>
+
+<ol>
+<li><code>this.inherited(arguments)</code> is probably the most common case: it calls a super method
+with the same arguments as the current methods. Effectively it is a pass-through.
+This style of code <strong>cannot be used in strict mode</strong>.</li>
+<li><code>this.inherited(arguments, [x])</code> uses <code>arguments</code> only to figure out a super method,
+which will be called with following array of arguments: <code>[x]</code>. It is a way to call
+a super with a custom list of arguments. This style of code <strong>cannot be used in
+strict mode</strong>.</li>
+<li><code>this.inherited(B, "calcPrice3", [x])</code> is a direct way to identify what super method
+should be used. In this example <code>B</code> is a constructor object for a class with
+our method, <code>"calcPrice3"</code> is a name of that method, and <code>[x]</code> is an arbitrary array
+of parameters we want to pass. This style of code <strong>works perfectly in strict mode</strong>.
+
+<ul>
+<li>The downside of this method is a necessity to specify method&#8217;s name explicitly.
+Usually it is known statically, so it is not a problem, yet it may make method
+renaming error-prone.</li>
+<li><strong>Remember</strong>: a constructor and a name specify a method that calls its super,
+not its super method. It cannot name a method different from a current method!</li>
+</ul>
+</li>
+</ol>
+
+
+<p><code>inherited()</code> returns a result returned by a super method, whatever it may be.
+If there is no super method, the call is essentially a no-op and returns <code>undefined</code>.
+If you want to check for an existance of a super method,
+use <a href="/docs/inherited_js/getInherited">getInherited()</a>.</p>
+
+<h2>Notes</h2>
+
+<ol>
+<li>If a method is present in an <code>Object</code>, it will be the last in line of potential
+super calls.</li>
+<li>If a super method throws an exception, it is a programmer&#8217;s responsibility to catch it,
+to ignore it, or to pass it through.</li>
+</ol>
+
+
+<h2>FAQ</h2>
+
+<h3>Can I call built-in functions like that?</h3>
+
+<p>Yes.</p>
+
+<figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// non-strict mode</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// strict mode</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;toString&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Can I use <code>inherited()</code> in a chained method?</h3>
+
+<p>No. It is meant mostly for legacy scenarios. While it doesn&#8217;t fail, <code>inherited()</code>
+will not break a chain, and your chained method can be called twice.</p>
+
+<h3>How can I organize pass-through in strict mode?</h3>
+
+<p>If you want to call a super method with the same array of arguments as you received,
+just pass <code>arguments</code> object as your array of arguments:</p>
+
+<figure class='code'><figcaption><span>Calling Pass-through  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// non-strict mode</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// strict mode</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">C</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>

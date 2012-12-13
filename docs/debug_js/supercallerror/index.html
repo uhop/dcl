@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dclDebug.SuperCallError Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dclDebug.SuperCallError Jul 29th, 2012 dclDebug.SuperCallError is present only when dcl/debug is required. It is thrown when
+an argument is not a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,43 @@
 <time datetime="2012-07-29T14:32:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>dclDebug.SuperCallError</code> is present only when <code>dcl/debug</code> is required. It is thrown when
+an argument is not a function. It works for supercalls, and class-level and object-level
+advices.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>Wrong supercalling method  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">dclDebug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="s2">&quot;Should be a function, but it is a string.&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// At this point dclError.SuperCallError will be thrown.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You will see the following exception:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dcl: argument of around advice or supercall decorator
+</span><span class='line'>should be a function in: A, method: m</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>

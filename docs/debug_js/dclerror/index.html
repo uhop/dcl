@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" dclDebug.DclError Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="dclDebug.DclError Jul 29th, 2012 dclDebug.DclError serves as a base class for all other exceptions thrown by
+dcl. It can be used to identify dcl- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,51 @@
 <time datetime="2012-07-29T00:12:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>dclDebug.DclError</code> serves as a base class for all other exceptions thrown by
+<code>dcl</code>. It can be used to identify <code>dcl</code>-produced errors.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>dclDebug.DclError  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dclDebug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">try</span><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// ... dcl-related code</span>
+</span><span class='line'><span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">dclDebug</span><span class="p">.</span><span class="nx">DclError</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// special treatment</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Other exceptions are based on it:</p>
+
+<ul>
+<li><a href="/docs/debug_js/cycleerror">dclDebug.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of
+declared bases</em></li>
+<li><a href="/docs/debug_js/chainingerror">dclDebug.ChainingError</a> - <em>thrown when composing a class with different chaining
+directives for the same method</em></li>
+<li><a href="/docs/debug_js/setchainingerror">dclDebug.SetChainingError</a> - <em>thrown when setting a conflicting chaining</em></li>
+<li><a href="/docs/debug_js/supercallerror">dclDebug.SuperCallError</a> - <em>thrown when an argument of
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators is not a function</em></li>
+<li><a href="/docs/debug_js/supererror">dclDebug.SuperError</a> - <em>thrown when the next-in-line property is not a function, and
+a super call cannot be made</em></li>
+<li><a href="/docs/debug_js/superresulterror">dclDebug.SuperResultError</a> - <em>thrown when an argument of
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators does not return
+a function (likely the double function pattern was not followed &mdash; see <a href="/docs/mini_js/supercall">dcl.superCall()</a>
+for details)</em></li>
+</ul>
+
 
   
     <footer>
