@@ -93,9 +93,9 @@
 			}
 		}
 
-		// create stubs
+		// create stubs with fake constructor
 		o = {b: bases, h: props, w: r, c: {}};
-		bases[0] = {_m: o}; // fake constructor (only meta is available)
+		bases[0] = {_m: o, prototype: proto};
 		buildStubs(o, proto);
 		ctor = proto[cname];
 
@@ -161,7 +161,7 @@
 		_ss: stubSuper = function(chain, name){
 			var i = 0, f, p = empty[name];
 			for(; f = chain[i]; ++i){
-				if(isSuper(f)){  // intentional assignment
+				if(isSuper(f)){
 					p = chain[i] = dcl._f(f, p, name);
 				}else{
 					p = f;
