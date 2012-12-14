@@ -23,6 +23,21 @@ stub between your methods.
 The main hub of everything `dcl`-related is [dcljs.org](http://www.dcljs.org/),
 which hosts [extensive documentation](http://www.dcljs.org/docs/).
 
+## How to install
+
+If you plan to use it in your [node.js](http://nodejs.org) project install it
+like this:
+
+```
+npm install dcl
+```
+
+For your browser-based projects I suggest to use [volo.js](http://volojs.org):
+
+```
+volo install uhop/dcl
+```
+
 ## How to use
 
 ```js
