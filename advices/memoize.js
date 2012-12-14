@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory();
 	}else{
-		dcl_advices_memoize = factory();
+		dclAdvicesMemoize = factory();
 	}
 })(function(){
 	"use strict";

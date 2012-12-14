@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory(require("../dcl"));
 	}else{
-		dcl_advices_counter = factory(dcl);
+		dclAdvicesCounter = factory(dcl);
 	}
 })(function(dcl){
 	"use strict";
@@ -22,8 +22,8 @@
 				before: function(){
 					++self.calls;
 				},
-				after: function(r){
-					if(r instanceof Error){
+				after: function(args, result){
+					if(result instanceof Error){
 						++self.errors;
 					}
 				}

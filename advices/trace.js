@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory();
 	}else{
-		dcl_advices_trace = factory();
+		dclAdvicesTrace = factory();
 	}
 })(function(){
 	"use strict";
@@ -12,7 +12,7 @@
 	function rep(ch, n){
 		if(n < 1){ return ""; }
 		if(n == 1){ return ch; }
-		var h = rep(Math.floor(n / 2));
+		var h = rep(ch, Math.floor(n / 2));
 		return h + h + ((n & 1) ? ch : "");
 
 	}
@@ -27,9 +27,10 @@
 				console.log((level ? pad(lvl, 2 * lvl) : "") + this + " => " +
 					name + "(" + Array.prototype.join.call(arguments, ", ") + ")");
 			},
-			after: function(r){
+			after: function(args, result){
 				console.log((level ? pad(lvl, 2 * lvl) : "") + this + " => " +
-					name + (r && r instanceof Error ? " throws" : " returns") + " " + r);
+					name + (result && result instanceof Error ? " throws" : " returns") +
+					" " + result);
 				--lvl;
 			}
 		};

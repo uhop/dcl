@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory();
 	}else{
-		dcl_advices_time = factory();
+		dclAdvicesTime = factory();
 	}
 })(function(){
 	"use strict";

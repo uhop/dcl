@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory(require("../mini"));
 	}else{
-		Replacer = factory(dcl);
+		dclBasesReplacer = factory(dcl);
 	}
 })(function(dcl){
 	"use strict";

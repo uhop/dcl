@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory(require("../mini"));
 	}else{
-		Mixer = factory(dcl);
+		dclBasesMixer = factory(dcl);
 	}
 })(function(dcl){
 	"use strict";

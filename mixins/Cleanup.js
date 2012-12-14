@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory(require("../dcl"), require("./Destroyable"));
 	}else{
-		Cleanup = factory(dcl, Destroyable);
+		dclMixinsCleanup = factory(dcl, dclMixinsDestroyable);
 	}
 })(function(dcl, Destroyable){
 	"use strict";
