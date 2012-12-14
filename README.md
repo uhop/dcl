@@ -1,11 +1,12 @@
 # DCL [![Build Status](https://secure.travis-ci.org/uhop/dcl.png?branch=master)](http://travis-ci.org/uhop/dcl)
 
-A minimalistic yet complete JavaScript package for [node.js][] and browsers that
-implements OOP with mixins + AOP at both "class" and object level. Implements
-[C3 MRO][] to support a Python-like multiple inheritance, efficient supercalls,
-chaining, full set of advices, and provides some useful generic building blocks.
-The whole package comes with an extensive test set (85 tests at the time of writing)
-and fully compatible with the strict mode.
+A minimalistic yet complete JavaScript package for [node.js](http://nodejs.org)
+and modern browsers that implements OOP with mixins + AOP at both "class" and
+object level. Implements [C3 MRO](http://www.python.org/download/releases/2.3/mro/)
+to support a Python-like multiple inheritance, efficient supercalls, chaining,
+full set of advices, and provides some useful generic building blocks. The whole
+package comes with an extensive test set (111 tests at the time of writing) and
+fully compatible with the strict mode.
 
 The package was written with debuggability of your code in mind. It comes with
 a special debug module that explains mistakes, verifies created objects, and helps
@@ -182,7 +183,8 @@ clara.speak("I want a glass of water!");
 
 Hmm, both `Talker` and `Sick` require the same "class" `Person`. How is it going
 to work? Don't worry, all duplicates are going to be eliminated by the underlying
-[C3 MRO][] algorithm. Read all about it in the documentation.
+[C3 MRO](http://www.python.org/download/releases/2.3/mro/) algorithm. Read all
+about it in [the documentation](http://dcljs.org/docs/).
 
 Of course we can use an "around" advice as well, and it will behave just like
 a super call above. It will require the same double function technique to inject
@@ -434,6 +436,3 @@ Additionally `dcl` provides a small library of predefined
 and [useful advices](http://www.dcljs.org/docs/advices/). Check them out too.
 
 Happy hacking!
-
-[C3 MRO]:    http://www.python.org/download/releases/2.3/mro/   C3 MRO
-[node.js]:   http://nodejs.org   node.js
