@@ -4,7 +4,7 @@
 	}else if(typeof module != "undefined"){
 		module.exports = factory();
 	}else{
-		dcl_advices_flow = factory();
+		dclAdvicesFlow = factory();
 	}
 })(function(){
 	"use strict";
