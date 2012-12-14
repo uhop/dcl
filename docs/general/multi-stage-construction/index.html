@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Multi-stage construction Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts 1.0 is public ">
+  <meta name="description" content="Multi-stage construction Jul 29th, 2012 In some cases it would be beneficial to run some code after all constructors,
+but before an object is ready &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +72,7 @@
   <li><a href="/">Home</a></li>
 	<li><a href="/about">What is dcl?</a></li>
 	<li><a href="/docs">Documentation</a></li>
+	<li><a href="/support">Support</a></li>
 	<li><a href="http://github.com/uhop/dcl">Code</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
 </ul>
@@ -98,7 +100,174 @@
 <time datetime="2012-07-29T01:23:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>In some cases it would be beneficial to run some code after all constructors,
+but before an object is ready for use. Some valid examples:</p>
+
+<ul>
+<li>Deleting objects and freeing resources, which were required for initialization,
+but have no use after that.</li>
+<li>Creating new objects and allocating new resources, which depend on combined work
+of other constructors.</li>
+</ul>
+
+
+<p>The problem here is that with mixins we have no idea when constructors stop running: after
+any given constructor another one can be weaved.</p>
+
+<p>Let&#8217;s illustrate it with a simple example: templating. Imagine that our object has
+a template, which should be populated by properties on an instance. Those properties
+are added by constructors. So let&#8217;s create a mixin for that:</p>
+
+<figure class='code'><figcaption><span>Template</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Template&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">template</span><span class="o">:</span> <span class="s2">&quot;Hello, ${fullName}!&quot;</span><span class="p">,</span> <span class="c1">// our template string</span>
+</span><span class='line'>  <span class="nx">populateTemplate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\$\{([^\}]+)\}/g</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">prop</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">self</span><span class="p">[</span><span class="nx">prop</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Looks perfect: simple yet flexible. If <code>fullName</code> is &#8220;Robert Smith&#8221;, following
+result will be created:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Hello, Robert Smith!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The only question is when to call it.</p>
+
+<h2>Solution #1 (fail)</h2>
+
+<p>Let&#8217;s call it from our constructor:</p>
+
+<figure class='code'><figcaption><span>Solution #1 (fail)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">populateTemplate</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While it looks okay, it will fail: a template may contain calculated properties (e.g.,
+<code>fullName</code> can be a combination of <code>firstName</code> and <code>lastName</code>), and there is no guarantee
+that their values are calculated in constructors that run before our <code>Template</code>. Chances
+are we will look at &#8220;Hello, undefined!&#8221;.</p>
+
+<h2>Solution #2 (epic fail!)</h2>
+
+<p>Let&#8217;s be uber-smart and call the method using <code>setTimeout()</code>:</p>
+
+<figure class='code'><figcaption><span>Solution #2 (epic fail!)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// NEVER DO THAT!!!</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">self</span><span class="p">.</span><span class="nx">populateTemplate</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The thinking goes like that:</p>
+
+<blockquote><p>Constructors run and at some point they all finish. So if we schedule our call
+for a next time slice, we are guaranteed to run after all constructors.</p>
+
+<p>What time slice? JavaScript systems are usually event-driven and
+as such operate asynchronously responding to external events.</p>
+
+<p>Next time slice? I set a timer for 0ms, so my code will be called immediately
+without any wait.</p></blockquote>
+
+<p>Unfortunately this thinking, while prevalent, fails on several accounts:</p>
+
+<ul>
+<li>&#8220;0ms timeout&#8221; is not free, and not exactly equals to &#8220;next time slice&#8221;. Read all
+about it in
+<a href="http://lazutkin.com/blog/2012/jul/28/more-on-0ms-timeouts/">More on 0ms timeouts</a>.</li>
+<li>What if as soon as we constructed an object we started to use it without waiting
+for time slices? Making this condition part of a constract (e.g., by documenting it)
+makes use of such objects cumbersome.
+
+<ul>
+<li>This problem is present even if we use something like <a href="http://nodejs.org/docs/v0.4.7/api/process.html#process.nextTick">nextTick()</a> of <a href="http://nodejs.org">node.js</a>
+instead of <code>setTimeout()</code>.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Solution #3 (just works)</h2>
+
+<p>Use AOP. Schedule to run the method using &#8220;after&#8221; advice:</p>
+
+<figure class='code'><figcaption><span>Solution #3 (just works)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">populateTemplate</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way it is guaranteed that it will run <em>after</em> all other constructors, and
+without any delay. <code>Template</code> can be mixed in any order with other mixins, yet
+its code will always run after &#8220;proper&#8221; constructors.</p>
+
+<h2>Summary</h2>
+
+<p>Never underestimate the power of AOP techniques. They are here to make programmer&#8217;s life
+easier. That&#8217;s why <code>dcl</code> supports both dynamic (object-level) and static (class-level)
+AOP advices.</p>
+
+<p>Just like with an &#8220;after&#8221; advice, it is possible to prepare for construction with
+&#8220;before&#8221; advices, or use similar techniques with regular methods. Frequently an AOP
+solution is much more elegant and robust than alternative hacks.</p>
 
   
     <footer>

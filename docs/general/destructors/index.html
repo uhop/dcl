@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>About - DCL</title>
+  <title>Destructors - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="About Jul 21st, 2012 A minimalistic yet complete JavaScript package for node.js and browsers that implements OOP with
-mixins + AOP at both &#8220; &hellip;">
+  <meta name="description" content="Destructors Jul 29th, 2012 (This page is a reworked excerpt from OOP and JS.) There is a lot of confusion about destructors in JavaScript and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ mixins + AOP at both &#8220; &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/about/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/general/destructors/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -84,7 +83,7 @@ mixins + AOP at both &#8220; &hellip;">
 <article role="article">
   
   <header>
-    <h1 class="entry-title">About</h1>
+    <h1 class="entry-title">Destructors</h1>
     <p class="meta">
 
 
@@ -97,105 +96,51 @@ mixins + AOP at both &#8220; &hellip;">
   
 
 
-<time datetime="2012-07-21T13:03:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
+<time datetime="2012-07-29T01:16:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>A minimalistic yet complete JavaScript package for <a href="http://nodejs.org">node.js</a> and browsers that implements OOP with
-mixins + AOP at both &#8220;class&#8221; and object level.</p>
+  <p><em>(This page is a reworked excerpt from <a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a>.)</em></p>
 
-<p>It is written by <a href="http://lazutkin.com/blog/">Eugene Lazutkin</a>, and publicly available in
-<a href="https://github.com/uhop/dcl">repository on GitHub</a>.</p>
+<p>There is a lot of confusion about <a href="http://en.wikipedia.org/wiki/Destructor_(computer_programming)">destructors</a> in JavaScript and garbage-collected languages in general. The main idea is to have a counterpart to a constructor, which will &#8220;destroy&#8221; an object. Why do we need it? It should ensure that all resources allocated to an object are properly disposed of: memory is freed, files are closed, network sockets are released, event sources are unsubscribed for, and so on.</p>
 
-<h2>Overview</h2>
+<p>Modern languages are usually garbage collected, so we don&#8217;t need to worry about memory per se in most cases, but other resources are still there and should be dealt with appropriately. Java has it in a form of <a href="http://en.wikipedia.org/wiki/Finalizer">finalizers</a>.</p>
 
-<ul>
-<li>Works in <a href="http://nodejs.org">node.js</a> and browsers, fully supports AMD.
+<p>One misconception about destructors is that many programmers think that in our garbage-collected world only physical resources (files, network, USB devices, and so on) should be released. Unfortunately it is not so.</p>
 
-<ul>
-<li>Fully compatible with the strict mode.</li>
-</ul>
-</li>
-<li>Small codebase.
+<p>There are several categories of resources, which are pure memory, yet should be taken care of. Examples:</p>
 
 <ul>
-<li>Easy to learn, easy to use.</li>
-<li>Intentionally small set of orthogonal features.</li>
-</ul>
-</li>
-<li>Extensively tested
-
-<ul>
-<li>Uses <a href="http://travis-ci.org/uhop/dcl">continuous integration</a> running 85 automated tests.</li>
-</ul>
-</li>
-<li>Liberally licensed.
-
-<ul>
-<li>Available under new BSD or AFLv2 &mdash; your choice.</li>
-</ul>
-</li>
-<li>Legally clean code.
-
-<ul>
-<li>Developed in the open.</li>
-<li>All contributions are covered by CLA.</li>
-</ul>
-</li>
+<li>Some objects insert themselves in lists/structures kept by other objects. Imagine that you don&#8217;t need your object anymore, yet its included an a long-lived list &#8211; your object will not be garbage-collected until that list dies. If your object did some event processing with events coming from that list, it will continue to do so consuming resources and potentially breaking your program.</li>
+<li>Some objects employ buffering techniques to accumulate data before passing it to physical objects (files, network sockets), or memory-based entities. Garbage-collecting such object without flushing a buffer may lead to data corruption.</li>
 </ul>
 
 
-<h2>Highlights</h2>
+<p>&#8220;But JS doesn&#8217;t have a concept of finalizer/destructor?&#8221; True. With garbage-collected languages the moment of collection is not well defined, so in many cases we cannot rely on a finalizer &#8211; we have to do it manually. Imagine that we &#8220;lost&#8221; a file object relying on the fact that its finalizer closes the file, and it does, but 2 days later. Not what we expected. So in many cases we have to call such finalizer manually.</p>
 
-<ul>
-<li>Targets OOP with mixins technology.
+<p>Just like constructors destructors should be chained but in a reverse order &#8211; the only way to preserve object invariants. Again, JS doesn&#8217;t help here (ditto Java with its finalizers), and we have to chain inherited finalizers manually. Obviously this process is error-prone, yet stupidly simple, and can be easily automated.</p>
 
-<ul>
-<li>Supports a Python-like multiple inheritance (implements the same
-<a href="http://www.python.org/download/releases/2.3/mro/">C3 MRO algorithm</a>).</li>
-<li>Efficient supercalls &mdash; no run-time penalty, ultimate debuggability.</li>
-<li>Automatic constructor chaining, and you can specify chaining for any method.</li>
-</ul>
-</li>
-<li>Full support for AOP (before, around, after returning, and after throwing advices).</li>
-<li>Comes with a mini library of useful generic building blocks.</li>
-</ul>
+<p>With <code>dcl</code> you can always chain your life-cycle methods with <a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> for destructor-like methods and <a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> for constructor-like methods.</p>
 
+<p>Additionally <code>dcl</code> offers two library components: mixins
+<a href="/docs/mixins/destroyable">Destroyable</a> to automatically chain <code>destroy()</code> method,
+and <a href="/docs/mixins/cleanup">Cleanup</a>, which leverages
+<a href="/docs/mixins/destroyable">Destroyable</a> to provide a foundation for an elaborate
+integrated life-cycle management.</p>
 
-<h2>Stress on debuggability</h2>
+<h2>Note on specialized cleanup methods</h2>
 
-<p>The package was written with debuggability of your code in mind. It comes with
-a special debug module that verifies created objects, explains mistakes, and helps
-to keep track of AOP advices. Because the package uses direct static calls
-to super methods, you don&#8217;t need to step over unnecessary stubs. In places
-where stubs are unavoidable (chains or advices) they are small, and intuitive.</p>
+<p>What if I already have a method to do a cleanup? For example, in my file object I have <code>close()</code> method. Is it OK to have both? Do I need to call <code>close()</code> or a destructor (whatever it is called in your system)?</p>
 
-<h2>Installation</h2>
+<p>I would say that both can be present, but personally I would expect that after <code>close()</code> I can still use the object, e.g., call <code>open()</code> on it, while after calling a destructor that object is as good as dead.</p>
 
-<p>If you plan to use it in your <a href="http://nodejs.org">node.js</a> project install it
-like this:</p>
+<p>Nevertheless one can be an alias for another, e.g, <code>destroy()</code> can (and should) call <code>close()</code>.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>npm install dcl</span></code></pre></td></tr></table></div></figure>
+<p>Having a common destructor (e.g., a method named <code>destroy()</code>) helps people &#8211; no need to remember object-specific verbs. It helps to create a reusable components like various containers, which may destroy its content when required without going into details about contained objects.</p>
 
+<h2>Summary</h2>
 
-<p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!--
-If you migrate your code from a legacy framework that implements dynamic
-(rather than static) supercalls, take a look at the module [inherited](/docs/inherited_js)
-that dispatches supercalls dynamically trading off the simplicity of the code
-for some run-time CPU use, and a little bit less convenient debugging of such calls
-due to an extra stub between your methods.
--->
-
-
-
+<p>Always evaluate if your objects need an explicit destruction. Provide a unified method
+to do that. Leverage helpers provided by <code>dcl</code>.</p>
 
   
     <footer>
@@ -213,13 +158,13 @@ due to an extra stub between your methods.
   
 
 
-<time datetime="2012-07-21T13:03:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+<time datetime="2012-07-29T01:16:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
         
       </p>
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/about/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/about/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/general/destructors/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/general/destructors/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>

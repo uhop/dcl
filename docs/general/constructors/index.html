@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Constructors Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts 1.0 is public ">
+  <meta name="description" content="Constructors Jul 29th, 2012 When you design your mixins and classes for a project, one question arises quite
+frequently: how to deal with &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +72,7 @@
   <li><a href="/">Home</a></li>
 	<li><a href="/about">What is dcl?</a></li>
 	<li><a href="/docs">Documentation</a></li>
+	<li><a href="/support">Support</a></li>
 	<li><a href="http://github.com/uhop/dcl">Code</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
 </ul>
@@ -98,7 +100,502 @@
 <time datetime="2012-07-29T01:16:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p>When you design your mixins and classes for a project, one question arises quite
+frequently: how to deal with constructors and their parameters?</p>
+
+<p>Obviously it is not a problem for mixins without constructors, or for mixins,
+which constructors do not require parameters. But what if they do?</p>
+
+<h2>Slot-based assignment</h2>
+
+<p>One possible solution to separate parameters for different components is to assign
+different slots for different mixins. For example, we may reserve an argument #1
+for a class itself, #2 for <code>Mixin1</code>, and #3 for <code>Mixin2</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Base</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Base&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">param</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// use param to initialize the instance</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Mixin1</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Mixin1&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">param</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// use param to initialize the instance</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Mixin2</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Mixin2&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">param</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// use param to initialize the instance</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Example1</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Base</span><span class="p">,</span> <span class="nx">Mixin1</span><span class="p">,</span> <span class="nx">Mixin2</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{}</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Example1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;seven&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While this techniques works, <strong>it doesn&#8217;t scale well</strong> for real-life projects with
+dozens mixins, and it is extremely error prone (both assigning slots, and specifying
+parameter values). It can be used only on small scale.</p>
+
+<p>But what if our constructor needs more than one value, or a variable number of values?</p>
+
+<h3>Put it in a bag</h3>
+
+<p>One solution is to put all required parameters in a bag switching from positional parameters to named parameters:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Mixin3</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Mixin3&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s2">&quot;Anonymous&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">age</span>  <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">age</span>  <span class="o">||</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="s2">&quot;secret&quot;</span> <span class="k">in</span> <span class="nx">args</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">secret</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">secret</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">secret</span> <span class="o">=</span> <span class="s2">&quot;unspecified&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Example2</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Base</span><span class="p">,</span> <span class="nx">Mixin1</span><span class="p">,</span> <span class="nx">Mixin2</span><span class="p">,</span> <span class="nx">Mixin3</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{}</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Example2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;seven&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">age</span><span class="o">:</span>  <span class="mi">99</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Another potential problem is that sometimes we don&#8217;t know what slot is available,
+or don&#8217;t like the default placement.</p>
+
+<h2>Parameterized mixins</h2>
+
+<p>Given a dynamic nature of <code>dcl</code> it is super-easy to parameterized any mixin:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">mixinN</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;MixinN&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">param</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span>
+</span><span class='line'>      <span class="c1">// use param to initialize the instance</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Example3</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Base</span><span class="p">,</span> <span class="nx">Mixin1</span><span class="p">,</span> <span class="nx">Mixin2</span><span class="p">,</span> <span class="nx">Mixin3</span><span class="p">,</span> <span class="nx">mixinN</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span>
+</span><span class='line'>  <span class="p">{}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Global bag</h2>
+
+<p>While we learned valuable techniques from above sections, the slot allocation has
+a lot of problems making it unsuitable as a generic solution:</p>
+
+<ul>
+<li>It doesn&#8217;t scale up well, if we insist that every mixin has its own parameter slot.</li>
+<li>It is error-prone to design, and to specify constructor parameters.</li>
+<li>What if different mixins require the same or similar parameter?
+Should we duplicate them?</li>
+<li>Mixing three mixins that require just 5th, 50th, and 100th slots are ridiculous.</li>
+</ul>
+
+
+<p>The simplest solution is to mandate that all our bases and mixins use the only one
+parameter, which is a key-value dictionary (a bag). Each participant takes named
+values it knows about ignoring others. Essentially it is a recreation of <code>kwargs</code>
+parameters of Python.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>  <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">lastName</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">FullName</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;FullName&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="nx">args</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Age</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">age</span> <span class="o">||</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">HRRecord</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Person</span><span class="p">,</span> <span class="nx">FullName</span><span class="p">,</span> <span class="nx">Age</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;HRRecord&quot;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way when designing mixins, we can carefully select names for our named parameters
+and ensure that our mixins are consistent with naming and using data.</p>
+
+<p>The only problem is a possible data duplication. For example, several mixins need to know
+<code>name</code>. It appears that the best way to do that is to save the parameter, which may lead
+to several mixins storing the same information again and again. Is there a solution
+for that?</p>
+
+<h3>Mixer</h3>
+
+<p>One possible solution is to mix in all parameters from a bag on instance, and take all
+of them directly from there:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Mixer</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">dcl</span><span class="p">.</span><span class="nx">mix</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way we can rewrite our HR classes like that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">FullName</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;FullName&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Age</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">HRRecord</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Person</span><span class="p">,</span> <span class="nx">FullName</span><span class="p">,</span> <span class="nx">Age</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;HRRecord&quot;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We based all our classes on <code>Mixer</code> to make sure that it is included before them.</p>
+
+<p>As you can see nobody accesses arguments directly, and now <code>Person</code> has an empty
+constructor, because all it did before it copied arguments to instance. Now it is
+done automatically. And we don&#8217;t need to worry about duplicating information in
+different mixins &#8211; they all use the same source (an instance).</p>
+
+<p>What if our bag contains some extra properties, which are unused, or clash with
+existing instance properties, or even methods? It can be a good or bad side-effect.</p>
+
+<p>The good part is that it allows us to customize individual objects:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HRRecord</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Robert&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">salut</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;Hi, &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">salut</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can override existing behavior, add new, or add more properties. Obviously
+for this to work, a parameter bag should be sanitized. It cannot contain random
+properties. Usually it is not a problem.</p>
+
+<p>One obvious drawback is copying properties that should not be copied, e.g.,
+they are used as a source data for some other properties, but never used directly.
+And keeping them around just in case can be troublesome, especially if they take up
+a lot of space or consume other precious resources. This problem can be easily solved
+with <a href="/docs/general/multi-stage-construction">multi-stage construction</a>.</p>
+
+<p><code>Mixer</code> above is a very helpful class, which is provided with <code>dcl</code>.
+Read all about it in documentation on <a href="/docs/bases/mixer">Mixer</a>.</p>
+
+<h3>Replacer</h3>
+
+<p><code>Replacer</code> is a variation on <a href="/docs/bases/mixer">Mixer</a>, which replaces properties
+on an instance ignoring new properties. This is a form of automatic sanitation of
+&#8220;dirty&#8221; parameter bags. With <code>Replacer</code> we statically define what properties are
+available on an instance and will be copied automatically. Let&#8217;s rewrite our HR
+mixins again:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">replacer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="c1">// our parameters:</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">FullName</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;FullName&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Age</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="c1">// our parameters:</span>
+</span><span class='line'>  <span class="nx">age</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span><span class='line'>  <span class="c1">// our constructor</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">HRRecord</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>  <span class="p">[</span><span class="nx">Person</span><span class="p">,</span> <span class="nx">FullName</span><span class="p">,</span> <span class="nx">Age</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;HRRecord&quot;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This time all stray parameters will be ignored, yet we still can override existing
+properties and methods:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HRRecord</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Robert&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">salut</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;Hi, &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="k">typeof</span> <span class="nx">x</span><span class="p">.</span><span class="nx">salut</span><span class="p">;</span> <span class="c1">// undefined</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Replacer</code> is provided with <code>dcl</code>. Read all about it in documentation on
+<a href="/docs/bases/replacer">Replacer</a>.</p>
+
+<h3>More on mixers</h3>
+
+<p>This concept can be extended to suit particual needs. One notable extension is to
+check types of instance properties, and enforce that copied properties are of
+the same type, or coerce it to that type. For example, <code>firstName</code> property above is
+defined as a string, so we san check that <code>firsName</code> parameter is a string too.</p>
+
+<p>Additionally we can implement some restrictions too, e.g., skip all function parameters,
+or skip all parameters that start with <code>_</code>.</p>
+
+<h2>Summary</h2>
+
+<p>Techniques described above are simple yet powerful. They go beyond constructors,
+and can be used for methods as well. Always take them into account while designing
+mixins and base classes for your project.</p>
 
   
     <footer>
