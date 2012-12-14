@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Mixer Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="Mixer Jul 29th, 2012 Mixer is a simple base class that mixes properties from its only argument
+directly on its instance. It can be used to add new &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,156 @@
 <time datetime="2012-07-29T13:55:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>Mixer</code> is a simple base class that mixes properties from its only argument
+directly on its instance. It can be used to add new properties, or override
+existing properties on an instance including methods. <code>Mixer</code> is very simple
+yet extremely powerful, when used correctly.</p>
+
+<p>It can be included with following commands:</p>
+
+<figure class='code'><figcaption><span>Include Mixer  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Mixer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/bases/Mixer&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/bases/Mixer&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/bases/Mixer&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Description</h2>
+
+<p>Here is its definition:</p>
+
+<figure class='code'><figcaption><span>Mixer  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Mixer</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;dcl/bases/Mixer&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">dcl</span><span class="p">.</span><span class="nx">mix</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see that in a nutshell it is a one-liner that uses
+<a href="/docs/mini_js/mix">dcl.mix()</a> to do the work. <code>Mixer</code> can be used
+as a base, or as a mixin, but usually it serves as the most deepest
+base to take care of parameters.</p>
+
+<p>Refer to <a href="/docs/general/constructors">Best practices for constructors</a>
+for discussion on constructor&#8217; signatures.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>Mixer example  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span>  <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">middleName</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>   <span class="s2">&quot;&quot;</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="c1">// no need to deal with parameters - they are already copied</span>
+</span><span class='line'>    <span class="c1">// on this instance by Mixer</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">getFullName</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">middleName</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">middleName</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">name</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">name</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span>   <span class="s2">&quot;Robert&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>    <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">dateOfBirth</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">shortName</span><span class="o">:</span>   <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">getAge</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+</span><span class='line'>    <span class="c1">// not really, just an estimate</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span> <span class="o">-</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">dateOfBirth</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bob</span><span class="p">.</span><span class="nx">getFullName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; is &quot;</span> <span class="o">+</span> <span class="nx">bob</span><span class="p">.</span><span class="nx">getAge</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>
@@ -145,6 +295,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
     
   </ul>
 </section>

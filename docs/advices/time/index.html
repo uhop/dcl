@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" time() Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="time() Jul 29th, 2012 time() creates a named timer using a standard console interface:
+console.time(name) and console.timeEnd(name). It can be &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,123 @@
 <time datetime="2012-07-29T13:55:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>time()</code> creates a named timer using a standard <code>console</code> interface:
+<code>console.time(name)</code> and <code>console.timeEnd(name)</code>.</p>
+
+<p>It can be included with following commands:</p>
+
+<figure class='code'><figcaption><span>Include time()  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advices/time&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/advices/time&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/advices/time&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">time</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Description</h2>
+
+<p>The result value of <code>time</code> module is a function, which takes a string parameter
+<code>name</code>, and returns an advice object, which can be used directly
+with <a href="/docs/dcl_js/advise">dcl.advise()</a> or <a href="/docs/advise_js/advise">advise()</a>.</p>
+
+<p>The advice prints on console when a method was invoked, and when it finished.
+Recursive calls are allowed, but only first invokation is printed.</p>
+
+<p>If <code>name</code> is not specified, a unique name is generated.</p>
+
+<h2>Examples</h2>
+
+<figure class='code'><figcaption><span>time() example  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Stack&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">stack</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">push</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">pop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sum</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">init</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// expensive, yet frequently called method</span>
+</span><span class='line'>    <span class="c1">// it has a linear complexity on stack size</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">acc</span> <span class="o">=</span> <span class="nx">init</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">acc</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">acc</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stack</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="nx">time</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">x</span><span class="p">.</span><span class="nx">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The example above will print something like that:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sum: 0.089ms</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>
@@ -145,6 +262,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
     
   </ul>
 </section>

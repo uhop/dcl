@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>dcl.around() - DCL</title>
+  <title>Category: announce - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.around() Jul 29th, 2012 This is a convenience decorator to define a around advice based on dcl.advise(). Description This is a shortcut function &hellip;">
+  <meta name="description" content="Category: announce">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js/around/">
+  <link rel="canonical" href="http://www.dcljs.orgblog/categories/announce/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -82,109 +82,31 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">dcl.around()</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
+    <h1 class="entry-title">Category: announce</h1>
+    
   </header>
   
-  <p>This is a convenience decorator to define a <code>around</code> advice based on <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
-
-<h2>Description</h2>
-
-<p>This is a shortcut function to define one <code>around</code> advice. Logically it is defined as a synonym for
-<a href="/docs/mini_js/supercall">dcl.superCall()</a>:</p>
-
-<figure class='code'><figcaption><span>dcl.around()  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">around</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">advice</span><span class="p">){</span>
-</span><span class='line'>  <span class="k">return</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="nx">advice</span><span class="p">);</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It means that instead of:</p>
-
-<figure class='code'><figcaption><span>Long  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">({</span>
-</span><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="nx">advice</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It is possible to write a shorter version:</p>
-
-<figure class='code'><figcaption><span>Short  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="nx">advice</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Of course you can always do it like that too:</p>
-
-<figure class='code'><figcaption><span>Supercall  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="nx">advice</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Advice function</h3>
-
-<p>Essentially it is the same as <a href="/docs/mini_js/supercall">dcl.superCall()</a>. It uses the same double function pattern,
-and its behavior is the same.</p>
-
-<h2>Notes</h2>
-
-<p>Do not forget to use the double function pattern for an <code>around</code> advice. See details in
-<a href="/docs/mini_js/supercall">dcl.superCall()</a> and in <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
-
-  
-    <footer>
-      <p class="meta">
-        
-        
-
-
-
-
-
+  <div id="blog-archives" class="category">
 
 
 
   
+  <h2>2012</h2>
+
+<article>
+  
+<h1><a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a></h1>
+<time datetime="2012-10-05T21:40:00-05:00" pubdate><span class='month'>Oct</span> <span class='day'>05</span> <span class='year'>2012</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/announce/'>announce</a></span>
+</footer>
 
 
-<time datetime="2012-07-29T00:07:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
-        
-      </p>
-      
-        <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/dcl_js/around/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/dcl_js/around/index.html" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
+</article>
+
 </div>
 
-      
-    </footer>
   
 </article>
 

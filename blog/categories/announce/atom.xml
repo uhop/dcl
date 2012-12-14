@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[DCL]]></title>
-  <link href="http://www.dcljs.org/atom.xml" rel="self"/>
+  <title><![CDATA[Category: announce | DCL]]></title>
+  <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
   <updated>2012-12-13T22:23:41-06:00</updated>
   <id>http://www.dcljs.org/</id>
@@ -31,22 +31,20 @@ in the open.</p>
 <p>If you plan to use it in your <a href="http://nodejs.org">node.js</a> project install it
 like this:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>npm install dcl</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>It is licensed under BSD or AFLv2 (your choice), all contribution
 are legally clean and covered by CLA, so you can use it not only
 for pet projects, but at work too.</p>
 
-<p>For more information hop on <a href="http://www.dcljs.org/about">what is dcl?</a> and learn more.
-Do not forget to look at extensive <a href="http://www.dcljs.org/docs">documentation</a>, or
+<p>For more information hop on <a href="/about">what is dcl?</a> and learn more.
+Do not forget to look at extensive <a href="/docs">documentation</a>, or
 <a href="mailto:eugene@dcljs.org">shoot me an email</a>, if you still have
 more questions.</p>
 ]]></content>

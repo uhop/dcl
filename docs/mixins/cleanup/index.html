@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content=" Cleanup Jul 29th, 2012 Jul 29th, 2012 Tweet Current Status Recent Posts ">
+  <meta name="description" content="Cleanup Jul 29th, 2012 Cleanup is an elaborate facility to handle cleanups for multiple
+dependent objects even in completely dynamic environments. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +99,230 @@
 <time datetime="2012-07-29T13:56:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  
+  <p><code>Cleanup</code> is an elaborate facility to handle cleanups for multiple
+dependent objects even in completely dynamic environments. It is built on
+<a href="/docs/mixins/destroyable">Destroyable</a>, and can consume other objects,
+which support <a href="/docs/mixins/destroyable">Destroyable</a> protocol
+(define <code>destroy()</code> method).</p>
+
+<p>It can be included with following commands:</p>
+
+<figure class='code'><figcaption><span>Include Cleanup  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Cleanup</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/mixins/Cleanup&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/mixins/Cleanup&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Cleanup</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/mixins/Cleanup&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Cleanup</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Description</h2>
+
+<p><code>Cleanup</code> defines following API:</p>
+
+<figure class='code'><figcaption><span>Cleanup  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Cleanup</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Destroyable</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;dcl/mixins/Cleanup&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){...},</span>
+</span><span class='line'>  <span class="nx">pushCleanup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">resource</span><span class="p">,</span> <span class="nx">cleanup</span><span class="p">){...},</span>
+</span><span class='line'>  <span class="nx">popCleanup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dontRun</span><span class="p">){...},</span>
+</span><span class='line'>  <span class="nx">removeCleanup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">f</span><span class="p">){...},</span>
+</span><span class='line'>  <span class="nx">cleanup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){...},</span>
+</span><span class='line'>  <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">cleanup</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The whole system operates in a stack-like fashion reflecting common embedded states.</p>
+
+<h3>Constructor</h3>
+
+<p>Constructor initializes an internal state required for <code>Cleranup</code> to function.
+It creates a single property on an instance called <code>__cleanupStack</code>.</p>
+
+<h3><code>pushCleanup(resource, cleanup)</code></h3>
+
+<p><code>pushCleanup()</code> and <code>popCleanup()</code> operate in a <a href="http://en.wikipedia.org/wiki/LIFO">LIFO</a>
+fashion. <code>resource</code> is any resource you want to keep track of. <code>cleanup</code> is an optional
+function, which can be used to dispose of <code>resource</code>. During the cleanup phase:</p>
+
+<ol>
+<li>If <code>cleanup</code> was present, it is called passing <code>resource</code> as the only parameter.</li>
+<li>If <code>cleanup</code> was not present, it is assumed that <code>resource</code> supports
+<a href="/docs/mixins/destroyable">Destroyable</a> protocol, and its <code>destroy()</code> method
+will be called.</li>
+</ol>
+
+
+<p><code>pushCleanup()</code> returns a function object that uniquely identifies the pushed
+resource. It can be used later with <code>removeCleanup()</code>.</p>
+
+<p>Additionally it can be called without parameters to clean up the resource.
+Please do so only after it was successfully removed with <code>removeCleanup()</code>.</p>
+
+<h3><code>popCleanup(dontRun)</code></h3>
+
+<p><code>popCleanup()</code> is a counterpart of <code>pushCleanup()</code>. It runs a cleanup code for
+the last pushed resource. If <code>dontRun</code> is a truthy value, the cleanup run is skipped,
+and the last object is simply removed from stack.</p>
+
+<h3><code>removeCleanup(f)</code></h3>
+
+<p>This method is used to remove a reference to a resource from the stack. It can be
+anywhere. The cleanup code for that resource is not run.</p>
+
+<p>The only parameter for this method is a value returned by <code>pushCleanup()</code>.</p>
+
+<p>The method returns a truthy value, if the resource was found, and a falsy value
+otherwise. If you know that resource was pushed, but it is not there, usually
+it means that it was already cleaned up.</p>
+
+<p>If you removed a cleanup resource manually with this method, you are responsible
+for cleaning it up manually. One way to do it is to call a parameter as
+a function with no parameters.</p>
+
+<h3><code>cleanup()</code></h3>
+
+<p>Cleans up all accumulated resources removing them from the stack.</p>
+
+<h3><code>destroy()</code></h3>
+
+<p>A required method for <a href="/docs/mixins/destroyable">Destroyable</a> protocol.
+It simply calls <code>cleanup()</code>.</p>
+
+<h3>Examples</h3>
+
+<figure class='code'><figcaption><span>Cleanup example  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">ManagedNode</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Destroyable</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;ManagedNode&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Fragment</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Cleanup</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Fragment&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ManagedNode</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">pushCleanup</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// this.root is automatically removed</span>
+</span><span class='line'>    <span class="c1">// when object is destroyed by destroy()</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">node</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">flashText</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">rawNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;h1&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">rawNode</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">rawNode</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pushCleanup</span><span class="p">(</span><span class="nx">rawNode</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="c1">// remove our resource manually,</span>
+</span><span class='line'>      <span class="c1">// if it is still there</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">removeCleanup</span><span class="p">(</span><span class="nx">f</span><span class="p">)){</span>
+</span><span class='line'>        <span class="nx">f</span><span class="p">();</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">fragment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fragment</span><span class="p">();</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="nx">fragment</span><span class="p">.</span><span class="nx">flashText</span><span class="p">(</span><span class="s2">&quot;Hello!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="nx">fragment</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
   
     <footer>
@@ -145,6 +369,10 @@
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
     
   </ul>
 </section>

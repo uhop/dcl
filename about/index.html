@@ -162,16 +162,35 @@ mixins + AOP at both &#8220;class&#8221; and object level.</p>
 
 <h2>Stress on debuggability</h2>
 
-<p>The package was written with debuggability of your code in mind. It comes with a special debug module that verifies
-created objects, explains mistakes, and helps to keep track of AOP advices. Because the package uses direct static calls
-to super methods, you don&#8217;t need to step over unnecessary stubs. In places where stubs are unavoidable (chains or
-advices) they are small, and intuitive.</p>
+<p>The package was written with debuggability of your code in mind. It comes with
+a special debug module that verifies created objects, explains mistakes, and helps
+to keep track of AOP advices. Because the package uses direct static calls
+to super methods, you don&#8217;t need to step over unnecessary stubs. In places
+where stubs are unavoidable (chains or advices) they are small, and intuitive.</p>
+
+<h2>Installation</h2>
+
+<p>If you plan to use it in your <a href="http://nodejs.org">node.js</a> project install it
+like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install dcl</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 <!--
-If you migrate your code from a legacy framework that implements dynamic (rather than static) supercalls, take a look at
-the module [inherited](/docs/inherited_js) that dispatches supercalls dynamically trading off the simplicity of the code
-for some run-time CPU use, and a little bit less convenient debugging of such calls due to an extra stub between your
-methods.
+If you migrate your code from a legacy framework that implements dynamic
+(rather than static) supercalls, take a look at the module [inherited](/docs/inherited_js)
+that dispatches supercalls dynamically trading off the simplicity of the code
+for some run-time CPU use, and a little bit less convenient debugging of such calls
+due to an extra stub between your methods.
 -->
 
 
@@ -222,6 +241,10 @@ methods.
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
     
   </ul>
 </section>

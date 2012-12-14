@@ -102,6 +102,38 @@ to weave &hellip;">
   <p><code>advise.js</code> provides general AOP facilities to advise object methods dynamically. Unlike <a href="/docs/dcl_js">dcl.js</a> it is not used
 to weave methods of &#8220;classes&#8221;, but works with objects.</p>
 
+<p>It can be included with following commands:</p>
+
+<figure class='code'><figcaption><span>Include advise  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">advise</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">advise</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>Module API</h2>
 
 <p>The return value of this module is a function, which is called <code>advise()</code> in this documentation.</p>
@@ -169,6 +201,10 @@ to weave methods of &#8220;classes&#8221;, but works with objects.</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
     
   </ul>
 </section>
