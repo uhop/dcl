@@ -17,6 +17,10 @@ if(typeof out == "undefined"){
 	advise = require("../advise");
 	inherited = require("../inherited");
 	dclDebug = require("../debug");
+	dclBasesMixer = require("../bases/Mixer");
+	dclBasesReplacer = require("../bases/Replacer");
+	dclBasesReplacer = require("../bases/Replacer");
+	dclMixinsCleanup = require("../mixins/Cleanup");
 }
 
 function submit(msg, success){
@@ -25,18 +29,6 @@ function submit(msg, success){
 	}else{
 		res("Failed: " + msg, true);
 	}
-}
-
-function eqArrays(a, b){
-	if(a.length != b.length){
-		return false;
-	}
-	for(var i = 0, l = a.length; i < l; ++i){
-		if(a[i] !== b[i]){
-			return false;
-		}
-	}
-	return true;
 }
 
 function getNames(ctor){
@@ -1047,6 +1039,119 @@ var tests = [
 				submit("super result error is DclError", e instanceof dclDebug.DclError);
 				submit("super result error is SuperCallError", e instanceof dclDebug.SuperResultError);
 			}
+		}
+	},
+	// dcl/bases tests
+	function(){
+		"use strict";
+		if(typeof dclBasesMixer != "undefined"){
+			var Mixer = dclBasesMixer;
+
+			var f = function(){}
+
+			var A = dcl(Mixer, {
+				declaredClass: "A",
+				a: 1,
+				b: "two",
+				c: null,
+				d: f
+			});
+
+			var x = new A({
+				a: 5,
+				b: false,
+				f: f
+			});
+
+			submit("Mixer: a is 5",     x.a === 5);
+			submit("Mixer: b is false", x.b === false);
+			submit("Mixer: c is null",  x.c === null);
+			submit("Mixer: d is f",     x.d === f);
+			submit("Mixer: f is f",     x.f === f);
+		}
+	},
+	function(){
+		"use strict";
+		if(typeof dclBasesReplacer != "undefined"){
+			var Replacer = dclBasesReplacer;
+
+			var f = function(){}
+
+			var A = dcl(Replacer, {
+				declaredClass: "A",
+				a: 1,
+				b: "two",
+				c: null,
+				d: f
+			});
+
+			var x = new A({
+				a: 5,
+				b: false,
+				f: f
+			});
+
+			submit("Replacer: a is 5",        x.a === 5);
+			submit("Replacer: b is false",    x.b === false);
+			submit("Replacer: c is null",     x.c === null);
+			submit("Replacer: d is f",        x.d === f);
+			submit("Replacer: there is no f", !("f" in x));
+		}
+	},
+	// dcl/mixins tests
+	function(){
+		"use strict";
+		if(typeof dclMixinsCleanup != "undefined"){
+			var Cleanup = dclMixinsCleanup;
+
+			var msgs = [];
+
+			var A = dcl(null, {
+				constructor: function(n){
+					this.n = n;
+					msgs.push(this.n);
+				},
+				destroy: function(){
+					msgs.push(-this.n);
+				}
+			});
+
+			var cleanup = function(n){
+				msgs.push(-n);
+			};
+
+			var B = dcl(Cleanup, {
+				constructor: function(){
+					var  f1 = this.pushCleanup(new A(1));
+					this.f2 = this.pushCleanup(2, cleanup);
+					this.pushCleanup(new A(3));
+					this.pushCleanup(new A(4));
+					this.removeCleanup(f1);
+					f1();
+					this.popCleanup();
+				},
+				remove2: function(){
+					if(this.removeCleanup(this.f2)){
+						this.f2();
+						this.f2 = null;
+					}
+				},
+				destroy: function(){
+					msgs.push(-99);
+				}
+			});
+
+			var b = new B();
+			submit("Cleanup #1", msgs.join(",") == "1,3,4,-1,-4");
+
+			b.remove2();
+			submit("Cleanup #2", msgs.join(",") == "1,3,4,-1,-4,-2");
+
+			b.remove2();
+			submit("Cleanup #3", msgs.join(",") == "1,3,4,-1,-4,-2");
+
+			b.destroy();
+			submit("Cleanup #4", msgs.join(",") == "1,3,4,-1,-4,-2,-99,-3");
 		}
 	}
 ];
