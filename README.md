@@ -1,10 +1,26 @@
 # DCL [![Build Status](https://secure.travis-ci.org/uhop/dcl.png?branch=master)](http://travis-ci.org/uhop/dcl)
 
-A minimalistic yet complete JavaScript package for node.js and browsers that implements OOP with mixins + AOP at both "class" and object level. Implements C3 MRO to support a Python-like multiple inheritance, efficient supercalls, chaining, full set of advices, and provides some useful generic building blocks. The whole package comes with an extensive test set (85 tests at the time of writing) and fully compatible with the strict mode.
+A minimalistic yet complete JavaScript package for [node.js][] and browsers that
+implements OOP with mixins + AOP at both "class" and object level. Implements
+[C3 MRO][] to support a Python-like multiple inheritance, efficient supercalls,
+chaining, full set of advices, and provides some useful generic building blocks.
+The whole package comes with an extensive test set (85 tests at the time of writing)
+and fully compatible with the strict mode.
 
-The package was written with debuggability of your code in mind. It comes with a special debug module that explains mistakes, verifies created objects, and helps to keep track of AOP advices. Because the package uses direct static calls to super methods, you don't need to step over unnecessary stubs. In places where stubs are unavoidable (chains or advices) they are small, and intuitive.
+The package was written with debuggability of your code in mind. It comes with
+a special debug module that explains mistakes, verifies created objects, and helps
+to keep track of AOP advices. Because the package uses direct static calls to super
+methods, you don't need to step over unnecessary stubs. In places where stubs are
+unavoidable (chains or advices) they are small, and intuitive.
 
-If you migrate your code from a legacy framework that implements dynamic (rather than static) supercalls, take a look at the module "inherited" that dispatches supercalls dynamically trading off the simplicity of the code for some run-time CPU use, and a little bit less convenient debugging of such calls due to an extra stub between your methods.
+If you migrate your code from a legacy framework that implements dynamic (rather
+than static) supercalls, take a look at the module "inherited" that dispatches
+supercalls dynamically trading off the simplicity of the code for some run-time
+CPU use, and a little bit less convenient debugging of such calls due to an extra
+stub between your methods.
+
+The main hub of everything `dcl`-related is [dcljs.org](http://www.dcljs.org/),
+which hosts [extensive documentation](http://www.dcljs.org/docs/).
 
 ## How to use
 
@@ -63,7 +79,10 @@ clerk.approve(123);
 // Rejected by Anonymous
 ```
 
-As you can see it is trivial to define "classes" and derive them using single inheritance. Constructors are automatically chained and called from the farthest to the closest with the same arguments. Our Bureaucrat constructor ignores name, because it knows that Person will take care of it.
+As you can see it is trivial to define "classes" and derive them using
+single inheritance. Constructors are automatically chained and called from
+the farthest to the closest with the same arguments. Our Bureaucrat constructor
+ignores name, because it knows that Person will take care of it.
 
 Now let's do a mixin.
 
@@ -118,7 +137,10 @@ bob.speak("give me twenty!");
 // Bob: GIVE ME TWENTY!
 ```
 
-The double function technique for a super call allows you to work directly with a next method in chain --- no intermediaries means that this call is as fast as it can be, no run-time penalties are involved during method calls, and it greatly simplifies debugging.
+The double function technique for a super call allows you to work directly with
+a next method in chain --- no intermediaries means that this call is as fast as
+it can be, no run-time penalties are involved during method calls, and it greatly
+simplifies debugging.
 
 And, of course, our "classes" can be absolutely anonymous, like in this one-off "class":
 
@@ -158,9 +180,13 @@ clara.speak("I want a glass of water!");
 // Clara: *sniffle* I am so-o-o sick!
 ```
 
-Hmm, both `Talker` and `Sick` require the same "class" `Person`. How is it going to work? Don't worry, all duplicates are going to be eliminated by the underlying C3 MRO algorithm. Read all about it in the documentation.
+Hmm, both `Talker` and `Sick` require the same "class" `Person`. How is it going
+to work? Don't worry, all duplicates are going to be eliminated by the underlying
+[C3 MRO][] algorithm. Read all about it in the documentation.
 
-Of course we can use an "around" advice as well, and it will behave just like a super call above. It will require the same double function technique to inject a method from a super class.
+Of course we can use an "around" advice as well, and it will behave just like
+a super call above. It will require the same double function technique to inject
+a method from a super class.
 
 ```js
 // One more mixin
@@ -198,7 +224,8 @@ dcl.after (f) == dcl.advise({after:  f})
 
 ## Chaining
 
-While constructors are chained by default you can chain any methods you like. Usually it works well for lifecycle methods, and event-like methods.
+While constructors are chained by default you can chain any methods you like.
+Usually it works well for lifecycle methods, and event-like methods.
 
 ```js
 // waker-upper and sleeper
@@ -240,7 +267,8 @@ ethel.sleep();
 
 ## Advising objects
 
-While class-level AOP is static, we can always advise any method dynamically, and unadvise it at will:
+While class-level AOP is static, we can always advise any method dynamically,
+and unadvise it at will:
 
 ```js
 // let's implement previous example with object-level AOP
@@ -307,17 +335,21 @@ advise.around(obj, methodName, f) == advise(obj, methodName, {around: f})
 advise.after (obj, methodName, f) == advise(obj, methodName, {after:  f})
 ```
 
-Naturally "around" advices use the same double function technique to be super light-weight.
+Naturally "around" advices use the same double function technique to be super
+light-weight.
 
 ## Debugging helpers
 
-There is a special module `dcl/debug` that adds better error checking and reporting for your "classes" and objects. All you need is to require it, and it will plug right in:
+There is a special module `dcl/debug` that adds better error checking and reporting
+for your "classes" and objects. All you need is to require it, and it will plug
+right in:
 
 ```js
 var dclDebug = require("dcl/debug");
 ```
 
-In order to use it to its fullest, we should include a static class id in our "class" definitions like so:
+In order to use it to its fullest, we should include a static class id in our
+"class" definitions like so:
 
 ```js
 var OurClass = dcl(null, {
@@ -326,11 +358,18 @@ var OurClass = dcl(null, {
 });
 ```
 
-It is strongly suggested to specify `declaredClass` for every declaration in every real project.
+It is strongly suggested to specify `declaredClass` for every declaration in every
+real project.
 
-This `declaredClass` can be any unique string, but by convention it should be a human-readable name of your "class", which possibly indicate where this class can be found. For example, if you follow the convention "one class per file it can be something like `"myProject/aSubDir/aFileName"`. If you define several "classes" per file you can use a following schema: `"myProject/SubDirs/FileName/ClassName"`. Remember that this name is for you, it will be reported in error messages and logs.
+This `declaredClass` can be any unique string, but by convention it should be
+a human-readable name of your "class", which possibly indicate where this class can
+be found. For example, if you follow the convention "one class per file it can be
+something like `"myProject/aSubDir/aFileName"`. If you define several "classes"
+per file you can use a following schema: `"myProject/SubDirs/FileName/ClassName"`.
+Remember that this name is for you, it will be reported in error messages and logs.
 
-Yes, logs. The debug module can log constructors and objects created by those constructors:
+Yes, logs. The debug module can log constructors and objects created by
+those constructors:
 
 ```js
 var A = dcl(null, {
@@ -381,12 +420,20 @@ dclDebug.log(fred);
 //     object method sleep has an AOP stub (before: 0, around: 1, after: 2)
 ```
 
-This way we can always know that we generated correct classes, inspect static chaining and advices, and even can monitor dynamically attached/removed advices.
+This way we can always know that we generated correct classes, inspect static
+chaining and advices, and even can monitor dynamically attached/removed advices.
 
 ## Summary
 
-Obviously this is a simple readme that was supposed to give an overview of `dcl`. For more details, please read the docs.
+Obviously this is a simple readme that was supposed to give an overview of `dcl`.
+For more details, please read [the docs](http://www.dcljs.org/docs/).
 
-Additionally `dcl` provides a small library of predefined base classes, mixins, and useful advices. Check them out too.
+Additionally `dcl` provides a small library of predefined
+[base classes](http://www.dcljs.org/docs/bases/),
+[mixins](http://www.dcljs.org/docs/mixins/),
+and [useful advices](http://www.dcljs.org/docs/advices/). Check them out too.
 
 Happy hacking!
+
+[C3 MRO]:    http://www.python.org/download/releases/2.3/mro/   C3 MRO
+[node.js]:   http://nodejs.org   node.js
