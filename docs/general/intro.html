@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Intro - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="Intro Dec 17th, 2012 dcl is a minimalistic yet complete JavaScript package for
+node.js and modern browsers. It implements OOP
+with mixins + AOP at &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/docs/general/intro.html">
+  <link href="/favicon.ico" rel="shortcut icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.dcljs.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+	<li><a href="/about">What is dcl?</a></li>
+	<li><a href="/docs">Documentation</a></li>
+	<li><a href="/support">Support</a></li>
+	<li><a href="http://github.com/uhop/dcl">Code</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Intro</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T01:16:00-06:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time></p>
+  </header>
+  
+  <p><code>dcl</code> is a minimalistic yet complete JavaScript package for
+<a href="http://nodejs.org">node.js</a> and modern browsers. It implements OOP
+with mixins + AOP at both &#8220;class&#8221; and object level, and works in strict
+and non-strict modes.</p>
+
+<p>The simplest way to learn something is to dive right in. Let&#8217;s implement a simple
+widget based on reactive templating: when we change parameters of a widget, they
+are immeditely reflected in a web page.</p>
+
+<p>Assuming that we run our code using AMD format in browser, our &#8220;code shell&#8221;
+will look like that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">require</span><span class="p">(</span>
+</span><span class='line'>  <span class="s2">&quot;dcl&quot;</span><span class="p">,</span> <span class="s2">&quot;dcl/bases/Mixer&quot;</span><span class="p">,</span> <span class="s2">&quot;dcl/mixins/Cleanup&quot;</span><span class="p">,</span> <span class="s2">&quot;dcl/advices/memoize&quot;</span>
+</span><span class='line'>  <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">,</span> <span class="nx">Mixer</span><span class="p">,</span> <span class="nx">Cleanup</span><span class="p">,</span> <span class="nx">memoize</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// our code goes here</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As the first step let&#8217;s code our data model:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Data</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Mixer</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Data&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">updateData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">dcl</span><span class="p">.</span><span class="nx">mix</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We derived our class using single inheritance from
+<a href="http://www.dcljs.org/docs/bases/mixer/">Mixer</a>, which comes with <code>dcl</code>.
+<code>Mixer</code> is a very simple base. All it does is it copies properties of
+the first constructor argument to an instance.</p>
+
+<p>Obviously in this simple example we could just call <code>updateData()</code> from our
+constructor, but let&#8217;s assume that a constructor and an updater can do
+(slightly) different things and we want to keep them separately.</p>
+
+<p><code>declaredClass</code> is completely optional, yet recommended to be specified
+(any unique human-readable name is fine), because it is used by debugging
+helpers included with <code>dcl</code>.</p>
+
+<p>Now let&#8217;s code our nano-sized template engine, which substitutes strings
+like this: &#8220;${abc}&#8221; with properties taken directly from an instance
+(<code>this.abc</code> in this case). Something like that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Template&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">templateName</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="nx">templateName</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\$\{([^\}]+)\}/g</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_</span><span class="p">,</span> <span class="nx">prop</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">self</span><span class="p">[</span><span class="nx">prop</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We specify what template to use by name, which is a property name on
+an object instance, and it fills out a template string using properties
+specified on an object.</p>
+
+<p>This is another demonstration of single inheritance: our <code>Template</code> is based
+on a plain vanilla <code>Object</code>, like any JavaScript&#8217;s object, which is indicated
+by using <code>null</code> as a base.</p>
+
+<p>What else do we need? We need a way to manage our DOM node:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Node</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Mixer</span><span class="p">,</span> <span class="nx">Cleanup</span><span class="p">],</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">text</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">destroy</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code above provides a way to show some HTML, and clears out its presentation
+when we <code>destroy()</code> a widget.</p>
+
+<p>It uses two bases: already mentioned <code>Mixer</code> is used to get a property in
+during initialization (<code>node</code> in this case), and
+<a href="http://www.dcljs.org/docs/mixins/cleanup/">Cleanup</a>, which again comes with <code>dcl</code>.
+The latter chains all <code>destroy()</code> methods together and provides a simple
+foundation for clean up management, so all resources can be properly disposed of.</p>
+
+<p>What we did up to this point is we came up with very small manageable orthogonal
+components, which reflect different sides of our widget, and can be combined
+together in different configurations. Let&#8217;s put them all together now:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">NameWidget0</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Data</span><span class="p">,</span> <span class="nx">Template</span><span class="p">,</span> <span class="nx">Node</span><span class="p">],</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;NameWidget0&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">template</span><span class="o">:</span> <span class="s2">&quot;Hello, ${firstName} ${lastName}!&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NameWidget0</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">node</span><span class="o">:</span>      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">&quot;template&quot;</span><span class="p">));</span> <span class="c1">// Hello, Bob Smith!</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">updateData</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Jill&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">&quot;template&quot;</span><span class="p">));</span> <span class="c1">// Hello, Jill Smith!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It works, but it is not very coherent, and way too verbose. Don&#8217;t worry,
+we will fix it soon.</p>
+
+<p>Some readers probably noticed that we have three bases now: <code>Data</code>, <code>Template</code>,
+and <code>Node</code>, and two of them (<code>Data</code>, and <code>Node</code>) are based on <code>Mixer</code>.
+How does it work? It works fine, because underneath <code>dcl</code> uses
+<a href="http://en.wikipedia.org/wiki/C3_linearization">C3 superclass linearization algorithm</a>
+(the same one used by Python), which removes duplicates, and sorts bases
+to ensure that their requested order is correct. In this case a single
+copy of <code>Mixin</code> should go before both <code>Data</code> and <code>Node</code>. Read more on
+that topic in <a href="http://www.dcljs.org/docs/mini_js/dcl/">dcl() documentation</a>.</p>
+
+<p>Now let&#8217;s address deficiencies of our implementation #0:</p>
+
+<ul>
+<li>As soon as a widget is constructed, we should show text.</li>
+<li>As soon as data is updated, we should show text.</li>
+</ul>
+
+
+<p>Both requirements are simple and seem to call for good old-fashioned supercalls:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">NameWidget1</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Data</span><span class="p">,</span> <span class="nx">Template</span><span class="p">,</span> <span class="nx">Node</span><span class="p">],</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;NameWidget1&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">template</span><span class="o">:</span> <span class="s2">&quot;Hello, ${firstName} ${lastName}!&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">showData</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">updateData</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">this</span><span class="p">.</span><span class="nx">showData</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>  <span class="nx">showData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">&quot;template&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NameWidget1</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">node</span><span class="o">:</span>      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// Hello, Bob Smith!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">updateData</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Jill&quot;</span><span class="p">});</span> <span class="c1">// Hello, Jill Smith!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Much better!</p>
+
+<p>Let&#8217;s take a look at two new things: constructor and a supercall. Both
+are supposed to be supercalls, yet look differently. For example,
+constructor doesn&#8217;t call its super method. Why? Because <code>dcl</code> chains
+constructors automatically.</p>
+
+<p><code>updateData()</code> is straightforward: it calls a super first, then a method
+to update a visual. But it is declared using a double function pattern.
+Why? For two reasons: run-time efficience, and ease of debugging. Read all
+about it in <a href="http://www.dcljs.org/docs/mini_js/supercall/">dcl.superCall() documentation</a>,
+and <a href="http://www.dcljs.org/docs/general/supercalls/">Supercalls in JS</a>.</p>
+
+<p>While this implementation looks fine, it is far from &#8220;fine&#8221;. Let&#8217;s be smart
+and look forward: in real life our implementation will be modified and
+augmented by generations of developers. Some will try to build on top of it.</p>
+
+<ul>
+<li>Our call to <code>showData()</code> in construct is not going to be the last code
+executed, as we expected. Constructors of derived classes will be called
+after it.</li>
+<li><code>updateData()</code> will be overwritten, and some programmers may forget
+to call a super. Again, they may update data in their code after
+our code called <code>showData()</code> resulting in stale data shown.</li>
+</ul>
+
+
+<p>Obviously we can write lengthy comments documenting our &#8220;implementation decisions&#8221;,
+and suggesting future programmers ways to do it right, but who reads docs and
+comments especially when writing &#8220;industrial&#8221; code in a crunch time?</p>
+
+<p>It would be nice to solve those problems in a clean elegant way. Is it even possible?
+Of course. That&#8217;s why we have AOP.</p>
+
+<p>Let&#8217;s rewrite our attempt #1:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">NameWidget2</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Data</span><span class="p">,</span> <span class="nx">Template</span><span class="p">,</span> <span class="nx">Node</span><span class="p">],</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;NameWidget2&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">template</span><span class="o">:</span> <span class="s2">&quot;Hello, ${firstName} ${lastName}!&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">showData</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>  <span class="nx">updateData</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">showData</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>  <span class="nx">showData</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">&quot;template&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NameWidget2</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">node</span><span class="o">:</span>      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// Hello, Bob Smith!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">x</span><span class="p">.</span><span class="nx">updateData</span><span class="p">({</span><span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Jill&quot;</span><span class="p">});</span> <span class="c1">// Hello, Jill Smith!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Not only we got a (slightly) smaller code, now we are guaranteed, that
+<code>showData()</code> is called after all possible constructors, and after every
+invokation of <code>updateData()</code>, which can be completely replaced with code
+that may use supercalls. We don&#8217;t really care &#8212; we just specified
+code, which will be executed <em>after</em> whatever was put there by other
+programmers.</p>
+
+<p>Now imagine that our user wants to click on a name, and get a pop-up with
+more detailed information, e.g., an HR record of that person. It would make
+sense to keep the information in one place, yet render it differently.
+And we already have a provision for that: we can add another template
+property, and call <code>render()</code> with its name:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">PersonWidget1</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">NameWidget2</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;PersonWidget1&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">detailedTemplate</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PersonWidget1</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">node</span><span class="o">:</span>      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
+</span><span class='line'>  <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">lastName</span><span class="o">:</span>  <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">position</span><span class="o">:</span>  <span class="s2">&quot;Programmer&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">hired</span><span class="o">:</span>     <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// 1/1/2012</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="c1">// Hello, Bob Smith!</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">detailed</span> <span class="o">=</span> <span class="nx">x</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s2">&quot;detailedTemplate&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the example above I skipped the definition of a detailed template
+for brevity. But you can see that we can add more information about
+person, and we can define different templates when a need arises.</p>
+
+<p>Imagine that we profiled our new implementation and it turned out
+that we call <code>render()</code> method directly and indirectly very frequently,
+and it introduces some measurable delays. We can pre-render a template
+eagerly on every data update, yet it sounds like a lot of work for several
+complex templates, and some of them are not even going to be used. Better
+solution is to implement some kind of lazy caching: we will invalidate cache
+on every update, yet we will build a string only when requested.</p>
+
+<p>Obviously such changes involve both <code>Data</code> and <code>Template</code>. Or it can be done
+downstream in <code>NameWidget</code> or <code>PersonWidget</code>. Now look above and please
+refrain from doing those changes: so far we tried to keep our &#8220;classes&#8221;
+orthogonal, and caching is clearly an orthogonal business.</p>
+
+<p><code>dcl</code> already provides a simple solution:
+<a href="http://www.dcljs.org/docs/advices/memoize/">memoize advice</a>.
+Let&#8217;s use it in our example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">PersonWidget2</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">NameWidget2</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;PersonWidget2&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">detailedTemplate</span><span class="o">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="c1">// memoization section:</span>
+</span><span class='line'>  <span class="nx">render</span><span class="o">:</span>     <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;render&quot;</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nx">updateData</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">guard</span> <span class="p">(</span><span class="s2">&quot;render&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With these two lines added our <code>render()</code> result is cached for every
+first parameter value (&#8220;template&#8221; or &#8220;detailedTemplate&#8221; in our case),
+and the cache will be invalidated every time we call <code>updateData()</code>.</p>
+
+<h2>Summary</h2>
+
+<p>In this article we presented <code>dcl</code> package. If you plan to use it
+in your [node.js][] project install it like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">dcl</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">volo</span> <span class="nx">install</span> <span class="nx">uhop</span><span class="o">/</span><span class="nx">dcl</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The code is an open source on <a href="https://github.com/uhop/dcl">github.com/uhop/dcl</a>
+under New BSD and AFL v2 licenses.</p>
+
+<p>This article didn&#8217;t cover a lot of other things provided by <code>dcl</code>:</p>
+
+<ul>
+<li>Avoid the double function pattern in your legacy projects using <code>inherited()</code>
+supercalls.</li>
+<li>Use AOP on object-level &#8212; add and remove advices dynamically in any order.</li>
+<li>Specify &#8220;before&#8221; and &#8220;after&#8221; automatic chaining for any method.</li>
+<li>Use debug helpers that come with <code>dcl</code>.</li>
+<li>Leverage a small library of canned advices and mixins provided by <code>dcl</code>.</li>
+</ul>
+
+
+<p>If you want to learn more about it, or just curious, you can find a lot of
+information in <a href="http://www.dcljs.org/docs/">the documentation</a>.</p>
+
+<p>Happy <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> coding!</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T01:16:00-06:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/general/intro.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/general/intro.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h1>Current Status</h1>
+	<p><a href="http://travis-ci.org/uhop/dcl"><img src="https://secure.travis-ci.org/uhop/dcl.png?branch=master" alt="Build Status"></a></p>
+</section><section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+  <div><a href="https://github.com/uhop/dcl"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a></div>
+</body>
+</html>
