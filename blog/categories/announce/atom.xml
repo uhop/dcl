@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2012-12-18T02:59:45-06:00</updated>
+  <updated>2012-12-18T03:01:16-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[1.0.1 is out]]></title>
+    <link href="http://www.dcljs.org/blog/2012/12/18/1-dot-0-1-is-out/"/>
+    <updated>2012-12-18T02:43:00-06:00</updated>
+    <id>http://www.dcljs.org/blog/2012/12/18/1-dot-0-1-is-out</id>
+    <content type="html"><![CDATA[<p>1.0.1 is a minor update. This version has following changes:</p>
+
+<ul>
+<li>Added <a href="/docs/inherited_js/getInherited">getInherited()</a> as an alias for
+<a href="/docs/inherited_js/get">inherited.get()</a> to simplify its use. Now
+there is no need to use <code>call()</code> or <code>apply()</code> to specify its instance.</li>
+<li>Added tests for <code>dcl</code> exceptions.</li>
+<li>Added tests for canned advices and mixins.</li>
+<li>Changed export names for <code>&lt;script&gt;</code> inclusion.</li>
+<li>Error messages are better formatted.</li>
+<li>Minor clean up, better comments, documentation updates.</li>
+</ul>
+
+
+<p>So far <code>dcl</code> has proved to be fairly stable, no major bugs were found.
+Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
+should be transparent.</p>
+
+<p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
+which are not recommended anyway --- when in browser please use an AMD
+loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[1.0 is public]]></title>
