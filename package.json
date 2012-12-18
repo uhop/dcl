@@ -1,6 +1,6 @@
 {
   "name": "dcl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
   "main": "dcl.js",
   "directories": {
