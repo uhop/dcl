@@ -6,11 +6,15 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/blog/2012/12/18/1-dot-0-1-is-out/</loc>
-        <lastmod>2012-12-18T03:01:10-06:00</lastmod>
+        <lastmod>2012-12-21T01:31:14-06:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org/blog/2012/12/21/inroduction-to-dcl/</loc>
+        <lastmod>2012-12-21T01:31:22-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/blog/archives/</loc>
-        <lastmod>2012-12-18T03:01:10-06:00</lastmod>
+        <lastmod>2012-12-21T01:31:22-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/about/</loc>
@@ -42,7 +46,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mixins/cleanup/</loc>
-        <lastmod>2012-12-14T16:10:04-06:00</lastmod>
+        <lastmod>2012-12-21T01:04:18-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mixins/destroyable/</loc>
@@ -214,7 +218,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/supercalls/</loc>
-        <lastmod>2012-12-11T11:38:09-06:00</lastmod>
+        <lastmod>2012-12-21T01:29:05-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/constructors/</loc>
@@ -229,10 +233,6 @@
         <lastmod>2012-12-14T16:07:17-06:00</lastmod>
     </url>
     <url>
-        <loc>http://www.dcljs.org/docs/general/intro.html</loc>
-        <lastmod>2012-12-18T02:21:15-06:00</lastmod>
-    </url>
-    <url>
         <loc>http://www.dcljs.org/docs/cheatsheet/</loc>
         <lastmod>2012-12-11T15:43:52-06:00</lastmod>
     </url>
@@ -242,7 +242,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/</loc>
-        <lastmod>2012-12-18T03:01:10-06:00</lastmod>
+        <lastmod>2012-12-21T01:31:22-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/support/</loc>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2012-12-18T03:01:16-06:00</updated>
+  <updated>2012-12-21T01:35:23-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Inroduction to dcl]]></title>
+    <link href="http://www.dcljs.org/blog/2012/12/21/inroduction-to-dcl/"/>
+    <updated>2012-12-21T01:05:00-06:00</updated>
+    <id>http://www.dcljs.org/blog/2012/12/21/inroduction-to-dcl</id>
+    <content type="html"><![CDATA[<p><a href="http://davidwalsh.name/about-david-walsh">David Walsh</a> has asked me
+to do a guest blog post. When I offered him to write about <code>dcl</code>,
+he agreed, and here we go:
+<a href="http://davidwalsh.name/intro-dcl">Introduction to dcl</a>.</p>
+
+<p>If you don't read <a href="http://davidwalsh.name/">David's blog</a> regularly,
+and you are serious about web applications, you are missing out.
+He frequently publishes very interesting articles on JavaScript, CSS,
+new development in browsers, and so on. Check out his tutorials,
+demos, and in-depth articles. Get yourself in the know.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[1.0.1 is out]]></title>

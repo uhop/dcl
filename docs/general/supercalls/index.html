@@ -320,24 +320,39 @@ which simplifies debugging, no performance tax to pay if a super is not called.<
 <li><code>this.inherited()</code> figures out a super method dynamically.
 
 <ul>
-<li>The algorithm is much more complex (and more expensive) than the wrapper&#8217;s one making it very expensive for small
-frequently called methods.</li>
-<li>JavaScript lacks required introspection mechanisms forcing to prepare a metadata, when creating an object or
-a &#8220;class&#8221;.
+<li>The algorithm is much more complex (and more expensive) than the wrapper&#8217;s
+one making it very expensive for small frequently called methods.</li>
+<li>JavaScript lacks required introspection mechanisms forcing to prepare
+a metadata, when creating an object or a &#8220;class&#8221;.
 
 <ul>
-<li>Just like with auto-wrapping above a special &#8220;class&#8221; creator function is required to produce such metadata.</li>
+<li>Just like with auto-wrapping above a special &#8220;class&#8221; creator function
+is required to produce such metadata.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Call to a super is effectively wrapped, which is a negative factor for debugging (more unrelated code to skip).</li>
+<li>Call to a super is effectively wrapped, which is a negative factor for
+debugging (more unrelated code to skip).</li>
+<li><code>this.inherited()</code> as in the example above does not work in strict mode.
+It needs to know its caller to figure out what to call next, and it takes
+a caller from <code>arguments</code> using <code>arguments.callee</code>. This is a smart
+move, which simplifies life of a programmer, yet it is prohibited in
+strict mode.
+
+<ul>
+<li>This can be remedied by specifying the caller (itself) explicitly.
+It does the job, but the elegance is lost.</li>
+</ul>
+</li>
 </ul>
 
 
-<p>The performance aspect can be relieved by elaborate caching mechanism, yet it cannot be more performant than a wrapper.</p>
+<p>The performance aspect can be relieved by an elaborate caching mechanism,
+yet it cannot be more performant than a wrapper.</p>
 
-<p>The complexity: one extra function call with a non-trivial algorithm inside per supercall.</p>
+<p>The complexity: one extra function call with a non-trivial algorithm inside
+per supercall.</p>
 
 <h3>Double function/closure</h3>
 
@@ -368,14 +383,21 @@ global method that figures out our super dynamically, the only thing left is pul
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As you can see the internal function pulls a super method from the outer function. It allows for the outer function
-to be called during &#8220;class&#8221;/object creation time, it returns its internal function, which is called as a method.</p>
+<p>As you can see the internal function pulls a super method from the outer
+function. It allows for the outer function to be called during &#8220;class&#8221;/object
+creation time, it returns its internal function, which is called as a method.</p>
+
+<p>The outer function is called once per &#8220;class&#8221; creation, and returns
+the closure (the inner function) with its super bound. After that its never
+called, and all calls to super methods are done directly to the inner function.
+This way we have no performance penalty per call.</p>
 
 <p>Let&#8217;s count pros:</p>
 
 <ul>
 <li>No need to reserve a name like with wrappers and <code>this.inherited()</code> techniques.</li>
-<li>No price to pay for methods not using supercalls both statically and dynamically.</li>
+<li>No price to pay for methods not using supercalls both statically and
+dynamically.</li>
 <li>No price to pay for supercalls.
 
 <ul>
@@ -389,7 +411,7 @@ to be called during &#8220;class&#8221;/object creation time, it returns its int
 <p>Cons:</p>
 
 <ul>
-<li>The pattern looks weird. It can be mistyped.</li>
+<li>The pattern looks weird. Like all patterns it can be mistyped.</li>
 <li>All super-calling methods should be converted to it.
 
 <ul>
@@ -399,7 +421,8 @@ to be called during &#8220;class&#8221;/object creation time, it returns its int
 <li>Super-calling methods are not directly usable.
 
 <ul>
-<li>A &#8220;class&#8221; creator function is required that should instantiate necessary super-calling methods.</li>
+<li>A &#8220;class&#8221; creator function is required that should instantiate necessary
+super-calling methods.</li>
 </ul>
 </li>
 </ul>
@@ -407,24 +430,31 @@ to be called during &#8220;class&#8221;/object creation time, it returns its int
 
 <h2>Discussion</h2>
 
-<p>All techniques have pros and cons. Usually a programmer makes a conscience decision selecting strong features and
-trade-offs, which are right for their application. A library writer cannot afford to make choices that penalize
+<p>All techniques have pros and cons. Usually a programmer makes a conscience
+decision selecting strong features and trade-offs, which are right for their
+application. A library writer cannot afford to make choices that penalize
 application developers. An example of such decision would be a performance.</p>
 
-<p>Out of last three techniques the double function one is virtually without a run-time penalty per call (only a small
-setup &#8220;fee&#8221; per &#8220;class&#8221; is expected), and makes debugging comfortable. Thus it was selected to be implemented as
+<p>Out of last three techniques the double function one is virtually without
+a run-time penalty per call (only a small setup &#8220;fee&#8221; per &#8220;class&#8221; is expected),
+and makes debugging comfortable. Thus it was selected to be implemented as
 a major mechanism for supercalls: <a href="/docs/mini_js/supercall">dcl.superCall()</a>.</p>
 
-<p>Building on experience with <a href="http://dojotoolkit.org">Dojo</a> <code>this.inherited()</code> technique was selected for implementation too:
-<a href="/docs/inherited_js">inherited.js</a>. Its strong suit is user-friendliness, and known price per supercall,
-while method calls come always for free.</p>
+<p>Building on experience with <a href="http://dojotoolkit.org">Dojo</a> <code>this.inherited()</code> technique was selected
+for implementation too: <a href="/docs/inherited_js">inherited.js</a>. Its strong suit is
+user-friendliness, and known price per supercall, while method calls come
+always for free. Both Dojo-like and strict mode friendly versions are
+implemented.</p>
 
 <p>Both implemented methods do not tax programmers, who do not use these facilities.</p>
 
-<p>The double function technique is recommended for all new code, while the <code>this.inherited()</code> technique is more suitable
-when refactoring legacy code because it doesn&#8217;t require much modification to call a super method. Working with
-an existing codebase a programmer can start by converting their &#8220;classes&#8221; to <a href="/docs/mini_js/dcl">dcl()</a> syntax, and
-calling super methods with <code>this.inherited()</code>, while the final product should use the double function technique.</p>
+<p>The double function technique is recommended for all new code, while the <code>this.
+inherited()</code> technique is more suitable when refactoring legacy code because it
+doesn&#8217;t require much modification to call a super method. Working with
+an existing codebase a programmer can start by converting their &#8220;classes&#8221; to
+<a href="/docs/mini_js/dcl">dcl()</a> syntax, and calling super methods with
+<code>this.inherited()</code>, while the final product should use the double function
+technique.</p>
 
   
     <footer>
@@ -471,6 +501,10 @@ calling super methods with <code>this.inherited()</code>, while the final produc
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/21/inroduction-to-dcl/">Inroduction to dcl</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/12/18/1-dot-0-1-is-out/">1.0.1 is out</a>
