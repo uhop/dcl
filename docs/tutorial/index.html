@@ -106,11 +106,14 @@ or to run it &hellip;">
 <a href="/downloads/code/tutorial.js">this tutorial</a> to use as a local reference
 or to run it locally.</em></p>
 
+<p><em>If you prefer to see text as inline comments, just click on a sidebar
+handle at the far left.</em></p>
+
 <p><em>While <code>dcl</code> works great in browsers using an AMD loader or
 even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <a href="http://nodejs.org">node.js</a>.</em></p>
 
-<p>For our examples we will need the main <code>dcl</code> module:</p>
+<p>For our examples we will need the main <a href="/docs/dcl_js">dcl</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -138,7 +141,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Name of class. It is optional, but highly recommended, because it will help while debugging your objects.</p>
+<p>Name of class. It is optional, but highly recommended,
+because it will help while debugging your objects.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -189,7 +193,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>We can derive more classes from it using single inheritance. Let&#8217;s define a bureaucrat (yes, it is a person too!):</p>
+<p>We can derive more classes from it using single inheritance.
+Let&#8217;s define a bureaucrat (yes, it is a person too!):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -233,10 +238,6 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <p>Now we can create a typical anonymous clerk:</p>
 
-<p>Output:<br>
-<code>Person Anonymous is created</code><br>
-<code>Bureaucrat Anonymous is created</code></p>
-
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">clerk</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bureaucrat</span><span class="p">();</span>
@@ -248,9 +249,11 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Let&#8217;s ask him to approve something:</p>
+<p>Output:<br>
+<code>Person Anonymous is created</code><br>
+<code>Bureaucrat Anonymous is created</code></p>
 
-<p>Output:<br><code>Rejected by Anonymous</code></p>
+<p>Let&#8217;s ask him to approve something:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -263,14 +266,20 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>As you can see it is trivial to define &#8220;classes&#8221; and derive them using single inheritance.</p>
+<p>Output:<br><code>Rejected by Anonymous</code></p>
 
-<p>Constructors are automatically chained and called from the farthest to the closest with the same arguments.
-Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person will take care of it.</p>
+<p>As you can see it is trivial to define &#8220;classes&#8221;,
+and derive them using single inheritance.</p>
+
+<p>Constructors are automatically chained and called
+from the farthest to the closest with the same arguments.
+Our Bureaucrat&#8217;s constructor ignores name, because
+it knows that Person will take care of it.</p>
 
 <h2>Mixins</h2>
 
-<p>Let&#8217;s declare one more class that will be used as a mixin. Any normal class would do.</p>
+<p>Let&#8217;s declare one more class that will be used as a mixin.
+Any normal class would do.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -319,9 +328,8 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 <div class='docco-section-end'></div>
 
 
-<p>Let&#8217;s create Alice, who is a Talker:</p>
-
-<p>Output:<br><code>Person Alice is created</code></p>
+<p>Let&#8217;s create Alice, who is a Talker:
+<code>Person Alice is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -334,7 +342,7 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 <div class='docco-section-end'></div>
 
 
-<p>Output:<br><code>Alice: hello!</code></p>
+<p><code>Alice: hello!</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -379,7 +387,7 @@ Our Bureaucrat&#8217;s constructor ignores name, because it knows that Person wi
 
 
 <p>Theoretically it is possible that
-there is no super method &#8212; we can be last in line;
+there is no super method &#8212; we can be the last in line;
 not in this case, though &#8212; we are based
 on Speaker meaning it will be always pulled in.</p>
 
@@ -458,8 +466,10 @@ on Speaker meaning it will be always pulled in.</p>
 <div class='docco-section-end'></div>
 
 
-<p>The double function technique for a super call allows you to work directly with a next method in chain &#8212;
-no intermediaries means that this call is as fast as it can be, no run-time penalties are involved during method
+<p>The double function technique for a super call allows you
+to work directly with a next method in chain &#8212;
+no intermediaries means that this call is as fast as
+it can be, no run-time penalties are involved during method
 calls, and it greatly simplifies debugging.</p>
 
 <h2>Anonymous one-off classes</h2>
@@ -494,7 +504,8 @@ calls, and it greatly simplifies debugging.</p>
 
 <h2>AOP</h2>
 
-<p>We can use aspect-oriented advices to create our &#8220;classes&#8221;.</p>
+<p>We can use aspect-oriented advices to create our &#8220;classes&#8221;
+using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 
 <p>Let&#8217;s create one more mixin:</p>
 
@@ -568,13 +579,19 @@ calls, and it greatly simplifies debugging.</p>
 <div class='docco-section-end'></div>
 
 
-<p>Hmm, both <code>Talker</code> and <code>Sick</code> require the same &#8220;class&#8221; <code>Person</code>. How is it going to work? Don&#8217;t worry,
-all duplicates are going to be eliminated by the underlying C3 MRO algorithm. Read all about it in the documentation.</p>
+<p>Hmm, both <code>Talker</code> and <code>Sick</code> require the same &#8220;class&#8221;
+<code>Person</code>. How is it going to work? Don&#8217;t worry,
+all duplicates are going to be eliminated by
+the underlying C3 MRO algorithm. Read all about it in
+the documentation.</p>
 
-<p>Of course we can use an &#8220;around&#8221; advice as well, and it will behave just like a super call above. It will require
-the same double function technique to inject a method from a super class.</p>
+<p>Of course we can use an &#8220;around&#8221; advice as well, and
+it will behave just like a super call above. It will require
+the same double function technique to inject a method
+from a super class.</p>
 
-<p>One more mixin:</p>
+<p>One more mixin, this time using a shortcut
+<a href="/docs/dcl_js/around">dcl.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -644,12 +661,16 @@ the same double function technique to inject a method from a super class.</p>
 <div class='docco-section-end'></div>
 
 
-<p>For convenience, <code>dcl</code> provides shortcuts for singular advices. Read all about it in documentation.</p>
+<p>For convenience, <code>dcl</code> provides shortcuts for
+all singular advices. Read all about it in
+<a href="/docs/dcl_js">the documentation</a>.</p>
 
 <h2>Chaining</h2>
 
-<p>While constructors are chained by default you can chain any method you like. Usually it works well for lifecycle
-methods, and event-like methods.</p>
+<p>While constructors are chained by default,
+you can chain any method you like. Usually
+it works well for lifecycle methods,
+and event-like methods.</p>
 
 <p>Waker-upper and sleeper:</p>
 
@@ -669,6 +690,9 @@ methods, and event-like methods.</p>
 
 
 <p>Now <code>wakeUp()</code> and <code>sleep()</code> are automatically chained.</p>
+
+<p>Note that we don&#8217;t need to define methods to declare
+them chained.</p>
 
 <p>Our handy mixins:</p>
 
@@ -715,9 +739,9 @@ methods, and event-like methods.</p>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">OfficeWorker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span>
-</span><span class='line'>    <span class="nx">BioOrganism</span><span class="p">,</span> <span class="nx">SwitchOperator</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">TeethBrusher</span><span class="p">,</span> <span class="nx">SmartDresser</span><span class="p">],</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">OfficeWorker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span>
+</span><span class='line'>    <span class="p">[</span><span class="nx">BioOrganism</span><span class="p">,</span> <span class="nx">SwitchOperator</span><span class="p">,</span>
+</span><span class='line'>     <span class="nx">TeethBrusher</span><span class="p">,</span> <span class="nx">SmartDresser</span><span class="p">],</span>
 </span><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
 </span><span class='line'>
@@ -762,15 +786,17 @@ methods, and event-like methods.</p>
 <div class='docco-section-end'></div>
 
 
-<p>As you can see chaining allows to do our ritual actions in the correct order. So we don&#8217;t need to worry for Ethel
+<p>As you can see chaining allows to do our ritual actions
+in the correct order. So we don&#8217;t need to worry for Ethel
 to brush her teeth in a dark.</p>
 
 <h2>Advising objects</h2>
 
-<p>While class-level AOP is static, we can always advise any method dynamically, and unadvise it at will.</p>
+<p>While class-level AOP is static, we can always advise
+any method dynamically, and unadvise it at will.</p>
 
 <p>Let&#8217;s implement the previous example with object-level AOP.
-For that we need to use a new module:</p>
+For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -822,7 +848,7 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Notice that after advices attached in the reverse order.</p>
+<p>Notice that after advices attached in the reverse order:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -851,8 +877,7 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>turn on lights</code><br>
+<p><code>turn on lights</code><br>
 <code>brush my teeth</code><br>
 <code>dress up for work</code></p>
 
@@ -867,8 +892,7 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>switch to pajamas</code><br>
+<p><code>switch to pajamas</code><br>
 <code>brush my teeth again</code><br>
 <code>turn off lights</code></p>
 
@@ -922,8 +946,7 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>brush my teeth</code></p>
+<p><code>brush my teeth</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -936,8 +959,7 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>switch to pajamas</code><br>
+<p><code>switch to pajamas</code><br>
 <code>turn off lights</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
@@ -951,14 +973,18 @@ For that we need to use a new module:</p>
 <div class='docco-section-end'></div>
 
 
-<p>Again, for convenience, <code>dcl/advise</code> provides shortcuts for singular advices. Read all about it in the documentation.</p>
+<p>Again, for convenience, <a href="/docs/advise_js">dcl/advise</a>
+provides shortcuts for singular advices.</p>
 
-<p>Naturally &#8220;around&#8221; advices use the same double function technique to be super light-weight.</p>
+<p>Naturally &#8220;around&#8221; advices use the same double function
+technique to be super light-weight.</p>
 
 <h2>Debugging helpers</h2>
 
-<p>There is a special module <code>dcl/debug</code> that adds better error checking and reporting for your &#8220;classes&#8221; and objects.
-All you need is to require it, and it will plug right in:</p>
+<p>There is a special module <a href="/docs/debug_js">dcl/debug</a>
+that adds better error checking and reporting for
+your &#8220;classes&#8221; and objects. All you need is to require it,
+and it will plug right in:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -971,7 +997,8 @@ All you need is to require it, and it will plug right in:</p>
 <div class='docco-section-end'></div>
 
 
-<p>In order to use it to its fullest, we should include a static class id in our &#8220;class&#8221; definitions like so:</p>
+<p>In order to use it to its fullest, we should include
+a static class id in our &#8220;class&#8221; definitions like so:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -986,7 +1013,8 @@ All you need is to require it, and it will plug right in:</p>
 <div class='docco-section-end'></div>
 
 
-<p>The rest of definitions goes there. It is skipped here for simplicity.</p>
+<p>The rest of definitions goes there.
+It is skipped here for simplicity.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -999,17 +1027,25 @@ All you need is to require it, and it will plug right in:</p>
 <div class='docco-section-end'></div>
 
 
-<p>It is strongly suggested to specify <code>declaredClass</code> for every declaration in every real project.</p>
+<p>It is strongly suggested to specify <code>declaredClass</code>
+for every declaration in every real project.</p>
 
-<p>This <code>declaredClass</code> can be any unique string, but by convention it should be a human-readable name of your &#8220;class&#8221;,
-which possibly indicate where this class can be found.</p>
+<p>This <code>declaredClass</code> can be any unique string,
+but by convention it should be a human-readable
+name of your &#8220;class&#8221;, which possibly indicates
+where this class can be found.</p>
 
-<p>For example, if you follow the convention &#8220;one class per file&#8221; it can be something like
-<code>"myProject/SubDir/FileName"</code>. If you define several &#8220;classes&#8221; per file you can use
-a following schema: <code>"myProject/SubDir/FileName/ClassName"</code>.</p>
+<p>For example, if you follow the convention
+&#8220;one class per file&#8221; it can be something like
+<code>"myProject/SubDir/FileName"</code>. If you define
+several &#8220;classes&#8221; per file you can use
+a following schema:
+<code>"myProject/SubDir/FileName/ClassName"</code>.</p>
 
-<p>Remember that this name is for you and users of your code, it will be reported in error messages and logs.
-Yes, logs. The debug module can log constructors and objects created by those constructors.</p>
+<p>Remember that this name is for you and users of your code,
+it will be reported in error messages and logs.
+The debug module can log constructors and objects created
+by those constructors.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1056,8 +1092,7 @@ Yes, logs. The debug module can log constructors and objects created by those co
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>Time to hit the pillow!</code><br>
+<p><code>Time to hit the pillow!</code><br>
 <code>*zzzzzzzzzzzzz*</code><br>
 <code>*ZzZzZzZzZzZzZ*</code></p>
 
@@ -1074,8 +1109,7 @@ Yes, logs. The debug module can log constructors and objects created by those co
 
 <p>Now we can inspect all our objects:</p>
 
-<p>Outputs:<br>
-<code>*** class A depends on 0 classes</code><br>
+<p><code>*** class A depends on 0 classes</code><br>
 <code>   class method constructor is CHAINED AFTER (length: 0)</code><br>
 <code>   class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),</code><br>
 <code>     and has an AOP stub (before: 0, around: 0, after: 1)</code></p>
@@ -1091,8 +1125,7 @@ Yes, logs. The debug module can log constructors and objects created by those co
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>*** class B depends on 1 classes</code><br>
+<p><code>*** class B depends on 1 classes</code><br>
 <code>   dependencies: A</code><br>
 <code>   class method constructor is CHAINED AFTER (length: 0)</code><br>
 <code>   class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),</code><br>
@@ -1109,8 +1142,7 @@ Yes, logs. The debug module can log constructors and objects created by those co
 <div class='docco-section-end'></div>
 
 
-<p>Outputs:<br>
-<code>*** object of class B</code><br>
+<p><code>*** object of class B</code><br>
 <code>*** class B depends on 1 classes</code><br>
 <code>   dependencies: A</code><br>
 <code>   class method constructor is CHAINED AFTER (length: 0)</code><br>
@@ -1129,17 +1161,23 @@ Yes, logs. The debug module can log constructors and objects created by those co
 <div class='docco-section-end'></div>
 
 
-<p>This way we can always know that we generated correct classes, inspect static chaining and advices,
+<p>This way we can always know that we generated
+correct classes, inspect static chaining and advices,
 and even can monitor dynamically attached/removed advices.</p>
 
 <h2>Summary</h2>
 
-<p>Now you know what <code>dcl</code> can do for you. For more details, please read the documentation.</p>
+<p>The ultimate goal of <code>dcl</code> is to provide a solid OOP/AOP foundation
+for your projects. Using mixins you can decompose a project into
+a small set of simple orthogonal pieces, and glue them together
+with supercalls, chains, and advices reducing the overall codebase.</p>
 
-<p>Additionally <code>dcl</code> provides a small library of predefined base classes, mixins, and useful advices.
-Check them out too.</p>
+<p>This tutorial just scratched the surface of what <code>dcl</code> can do.
+You will find more examples, explanations, and new features
+in <a href="/docs">the documentation</a>.</p>
 
-<p>Happy hacking!</p>
+<p>Happy hacking! Go small and keep your code
+<a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>!</p>
 
   </div>
   

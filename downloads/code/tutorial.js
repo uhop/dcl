@@ -2,18 +2,22 @@
 // [this tutorial](/downloads/code/tutorial.js) to use as a local reference
 // or to run it locally.*
 
+// *If you prefer to see text as inline comments, just click on a sidebar
+// handle at the far left.*
+
 // *While `dcl` works great in browsers using an AMD loader or
 // even simple `<script>`, this tutorial is assumed to be run with
 // [node.js](http://nodejs.org).*
 
-// For our examples we will need the main `dcl` module:
+// For our examples we will need the main [dcl](/docs/dcl_js) module:
 var dcl = require("dcl");
 
 // ## Inheritance, and constructors
 
 // Let's declare a class derived from Object:
 var Person = dcl(null, {
-  // Name of class. It is optional, but highly recommended, because it will help while debugging your objects.
+  // Name of class. It is optional, but highly recommended,
+  // because it will help while debugging your objects.
   declaredClass: "Person",
   // A default name as a class-level constant:
   name: "Anonymous",
@@ -26,7 +30,8 @@ var Person = dcl(null, {
   }
 });
 
-// We can derive more classes from it using single inheritance. Let's define a bureaucrat (yes, it is a person too!):
+// We can derive more classes from it using single inheritance.
+// Let's define a bureaucrat (yes, it is a person too!):
 var Bureaucrat = dcl(Person, {
   declaredClass: "Bureaucrat",
   // Remember that all inherited constructors are chained in automatically!
@@ -40,25 +45,28 @@ var Bureaucrat = dcl(Person, {
 });
 
 // Now we can create a typical anonymous clerk:
-
+var clerk = new Bureaucrat();
 // Output:<br>
 // `Person Anonymous is created`<br>
 // `Bureaucrat Anonymous is created`
-var clerk = new Bureaucrat();
 
 // Let's ask him to approve something:
 
-// Output:<br>`Rejected by Anonymous`
 clerk.approve(123);
+// Output:<br>`Rejected by Anonymous`
 
-// As you can see it is trivial to define "classes" and derive them using single inheritance.
+// As you can see it is trivial to define "classes",
+// and derive them using single inheritance.
 
-// Constructors are automatically chained and called from the farthest to the closest with the same arguments.
-// Our Bureaucrat's constructor ignores name, because it knows that Person will take care of it.
+// Constructors are automatically chained and called
+// from the farthest to the closest with the same arguments.
+// Our Bureaucrat's constructor ignores name, because
+// it knows that Person will take care of it.
 
 // ## Mixins
 
-// Let's declare one more class that will be used as a mixin. Any normal class would do.
+// Let's declare one more class that will be used as a mixin.
+// Any normal class would do.
 var Speaker = dcl(null, {
   speak: function(msg){
     console.log(this.name + ": " + msg);
@@ -72,11 +80,10 @@ var Talker = dcl([Person, Speaker],
 );
 
 // Let's create Alice, who is a Talker:
-
-// Output:<br>`Person Alice is created`
+// `Person Alice is created`
 var alice = new Talker("Alice");
 
-// Output:<br>`Alice: hello!`
+// `Alice: hello!`
 alice.speak("hello!");
 
 // ## Supercalls
@@ -88,7 +95,7 @@ var Shouter = dcl(Speaker, {
   speak: dcl.superCall(function(sup){
     return function(msg){
       // Theoretically it is possible that
-      // there is no super method --- we can be last in line;
+      // there is no super method --- we can be the last in line;
       // not in this case, though --- we are based
       // on Speaker meaning it will be always pulled in.
       if(sup){
@@ -110,8 +117,10 @@ var bob = new Sarge("Bob");
 // `Bob: GIVE ME TWENTY!`
 bob.speak("give me twenty!");
 
-// The double function technique for a super call allows you to work directly with a next method in chain ---
-// no intermediaries means that this call is as fast as it can be, no run-time penalties are involved during method
+// The double function technique for a super call allows you
+// to work directly with a next method in chain ---
+// no intermediaries means that this call is as fast as
+// it can be, no run-time penalties are involved during method
 // calls, and it greatly simplifies debugging.
 
 // ## Anonymous one-off classes
@@ -126,7 +135,8 @@ loudBob.speak("Anybody home?");
 
 // ## AOP
 
-// We can use aspect-oriented advices to create our "classes".
+// We can use aspect-oriented advices to create our "classes"
+// using [dcl.advise()](/docs/dcl_js/advise).
 
 // Let's create one more mixin:
 var Sick = dcl(Person, {
@@ -151,13 +161,19 @@ var clara = new SickTalker("Clara");
 // `Clara: *sniffle* I am sick!`
 clara.speak("I want a glass of water!");
 
-// Hmm, both `Talker` and `Sick` require the same "class" `Person`. How is it going to work? Don't worry,
-// all duplicates are going to be eliminated by the underlying C3 MRO algorithm. Read all about it in the documentation.
+// Hmm, both `Talker` and `Sick` require the same "class"
+// `Person`. How is it going to work? Don't worry,
+// all duplicates are going to be eliminated by
+// the underlying C3 MRO algorithm. Read all about it in
+// the documentation.
 
-// Of course we can use an "around" advice as well, and it will behave just like a super call above. It will require
-// the same double function technique to inject a method from a super class.
+// Of course we can use an "around" advice as well, and
+// it will behave just like a super call above. It will require
+// the same double function technique to inject a method
+// from a super class.
 
-// One more mixin:
+// One more mixin, this time using a shortcut
+// [dcl.around()](/docs/dcl_js/around):
 var Martian = dcl(Speaker, {
   speak: dcl.around(function(sup){
     return function(msg){
@@ -179,12 +195,16 @@ var don = new SickMartianSarge("Don");
 // `Don: *sniffle* I am sick!`
 don.speak("Doctor? Nurse? Anybody?");
 
-// For convenience, `dcl` provides shortcuts for singular advices. Read all about it in documentation.
+// For convenience, `dcl` provides shortcuts for
+// all singular advices. Read all about it in
+// [the documentation](/docs/dcl_js).
 
 // ## Chaining
 
-// While constructors are chained by default you can chain any method you like. Usually it works well for lifecycle
-// methods, and event-like methods.
+// While constructors are chained by default,
+// you can chain any method you like. Usually
+// it works well for lifecycle methods,
+// and event-like methods.
 
 // Waker-upper and sleeper:
 var BioOrganism = dcl(null, {});
@@ -192,6 +212,9 @@ dcl.chainAfter(BioOrganism, "wakeUp");
 dcl.chainBefore(BioOrganism, "sleep");
 
 // Now `wakeUp()` and `sleep()` are automatically chained.
+
+// Note that we don't need to define methods to declare
+// them chained.
 
 // Our handy mixins:
 var SwitchOperator = dcl(null, {
@@ -208,9 +231,9 @@ var SmartDresser = dcl(null, {
 });
 
 // All together now:
-var OfficeWorker = dcl([
-    BioOrganism, SwitchOperator,
-    TeethBrusher, SmartDresser],
+var OfficeWorker = dcl(
+    [BioOrganism, SwitchOperator,
+     TeethBrusher, SmartDresser],
   {}
 );
 
@@ -228,15 +251,17 @@ ethel.wakeUp();
 // `turn off lights`
 ethel.sleep();
 
-// As you can see chaining allows to do our ritual actions in the correct order. So we don't need to worry for Ethel
+// As you can see chaining allows to do our ritual actions
+// in the correct order. So we don't need to worry for Ethel
 // to brush her teeth in a dark.
 
 // ## Advising objects
 
-// While class-level AOP is static, we can always advise any method dynamically, and unadvise it at will.
+// While class-level AOP is static, we can always advise
+// any method dynamically, and unadvise it at will.
 
 // Let's implement the previous example with object-level AOP.
-// For that we need to use a new module:
+// For that we need to use a new module [dcl/advise](/docs/advise_js):
 var advise = require("dcl/advise");
 
 // Let's use a one-off class this time:
@@ -255,7 +280,7 @@ var wakeAd3 = advise(fred, "wakeUp", {
   before: function(){ console.log("dress up for work"); }
 });
 
-// Notice that after advices attached in the reverse order.
+// Notice that after advices attached in the reverse order:
 var sleepAd1 = advise(fred, "sleep", {
   after: function(){ console.log("switch to pajamas"); }
 });
@@ -266,13 +291,11 @@ var sleepAd3 = advise(fred, "sleep", {
   after: function(){ console.log("turn off lights"); }
 });
 
-// Outputs:<br>
 // `turn on lights`<br>
 // `brush my teeth`<br>
 // `dress up for work`
 fred.wakeUp();
 
-// Outputs:<br>
 // `switch to pajamas`<br>
 // `brush my teeth again`<br>
 // `turn off lights`
@@ -285,44 +308,56 @@ sleepAd1.unadvise();
 // No need to dress up for work either --- our Fred is CEO!
 wakeAd3.unadvise();
 
-// Outputs:<br>
 // `brush my teeth`
 fred.wakeUp();
 
-// Outputs:<br>
 // `switch to pajamas`<br>
 // `turn off lights`
 fred.sleep();
 
-// Again, for convenience, `dcl/advise` provides shortcuts for singular advices. Read all about it in the documentation.
+// Again, for convenience, [dcl/advise](/docs/advise_js)
+// provides shortcuts for singular advices.
 
-// Naturally "around" advices use the same double function technique to be super light-weight.
+// Naturally "around" advices use the same double function
+// technique to be super light-weight.
 
 // ## Debugging helpers
 
-// There is a special module `dcl/debug` that adds better error checking and reporting for your "classes" and objects.
-// All you need is to require it, and it will plug right in:
+// There is a special module [dcl/debug](/docs/debug_js)
+// that adds better error checking and reporting for
+// your "classes" and objects. All you need is to require it,
+// and it will plug right in:
 
 var dclDebug = require("dcl/debug");
 
-// In order to use it to its fullest, we should include a static class id in our "class" definitions like so:
+// In order to use it to its fullest, we should include
+// a static class id in our "class" definitions like so:
 
 var OurClass = dcl(null, {
   declaredClass: "OurClass"
-  // The rest of definitions goes there. It is skipped here for simplicity.
+  // The rest of definitions goes there.
+  // It is skipped here for simplicity.
 });
 
-// It is strongly suggested to specify `declaredClass` for every declaration in every real project.
+// It is strongly suggested to specify `declaredClass`
+// for every declaration in every real project.
 
-// This `declaredClass` can be any unique string, but by convention it should be a human-readable name of your "class",
-// which possibly indicate where this class can be found.
+// This `declaredClass` can be any unique string,
+// but by convention it should be a human-readable
+// name of your "class", which possibly indicates
+// where this class can be found.
 
-// For example, if you follow the convention "one class per file" it can be something like
-// `"myProject/SubDir/FileName"`. If you define several "classes" per file you can use
-// a following schema: `"myProject/SubDir/FileName/ClassName"`.
+// For example, if you follow the convention
+// "one class per file" it can be something like
+// `"myProject/SubDir/FileName"`. If you define
+// several "classes" per file you can use
+// a following schema:
+// `"myProject/SubDir/FileName/ClassName"`.
 
-// Remember that this name is for you and users of your code, it will be reported in error messages and logs.
-// Yes, logs. The debug module can log constructors and objects created by those constructors.
+// Remember that this name is for you and users of your code,
+// it will be reported in error messages and logs.
+// The debug module can log constructors and objects created
+// by those constructors.
 
 var A = dcl(null, {
   declaredClass: "A",
@@ -343,7 +378,6 @@ advise.after(george, "sleep", function(){
   console.log("*ZzZzZzZzZzZzZ*")
 });
 
-// Outputs:<br>
 // `Time to hit the pillow!`<br>
 // `*zzzzzzzzzzzzz*`<br>
 // `*ZzZzZzZzZzZzZ*`
@@ -351,14 +385,12 @@ george.sleep();
 
 // Now we can inspect all our objects:
 
-// Outputs:<br>
 // `*** class A depends on 0 classes`<br>
 // `    class method constructor is CHAINED AFTER (length: 0)`<br>
 // `    class method sleep is UNCHAINED BUT CONTAINS ADVICE(S),`<br>
 // `      and has an AOP stub (before: 0, around: 0, after: 1)`
 dclDebug.log(A);
 
-// Outputs:<br>
 // `*** class B depends on 1 classes`<br>
 // `    dependencies: A`<br>
 // `    class method constructor is CHAINED AFTER (length: 0)`<br>
@@ -366,7 +398,6 @@ dclDebug.log(A);
 // `      and has an AOP stub (before: 0, around: 1, after: 1)`
 dclDebug.log(B);
 
-// Outputs:<br>
 // `*** object of class B`<br>
 // `*** class B depends on 1 classes`<br>
 // `    dependencies: A`<br>
@@ -376,14 +407,20 @@ dclDebug.log(B);
 // `    object method sleep has an AOP stub (before: 0, around: 1, after: 2)`
 dclDebug.log(george);
 
-// This way we can always know that we generated correct classes, inspect static chaining and advices,
+// This way we can always know that we generated
+// correct classes, inspect static chaining and advices,
 // and even can monitor dynamically attached/removed advices.
 
 // ## Summary
 
-// Now you know what `dcl` can do for you. For more details, please read the documentation.
+// The ultimate goal of `dcl` is to provide a solid OOP/AOP foundation
+// for your projects. Using mixins you can decompose a project into
+// a small set of simple orthogonal pieces, and glue them together
+// with supercalls, chains, and advices reducing the overall codebase.
 
-// Additionally `dcl` provides a small library of predefined base classes, mixins, and useful advices.
-// Check them out too.
+// This tutorial just scratched the surface of what `dcl` can do.
+// You will find more examples, explanations, and new features
+// in [the documentation](/docs).
 
-// Happy hacking!
+// Happy hacking! Go small and keep your code
+// [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)!

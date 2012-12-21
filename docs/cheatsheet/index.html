@@ -106,11 +106,15 @@ or to run &hellip;">
 <a href="/downloads/code/cheatsheet.js">this cheatsheet</a> to use as a local reference
 or to run it locally.</em></p>
 
+<p><em>If you prefer to see text as inline comments, just click on a sidebar
+handle at the far left.</em></p>
+
 <p><em>While <code>dcl</code> works great in browsers using an AMD loader or
 even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <a href="http://nodejs.org">node.js</a>.</em></p>
 
-<p>For our examples we will need the main <code>dcl</code> module:</p>
+<p>For our examples we will need the main
+<a href="/docs/dcl_js">dcl</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -125,7 +129,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Declaring &#8220;classes&#8221;.</h2>
 
-<p>Declaring properties, constructors and methods:</p>
+<p>Declaring properties, constructors and methods
+with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -210,7 +215,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Supercalls</h2>
 
-<p>Make a super call passing through arguments:</p>
+<p>Make a super call passing through arguments
+with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -274,7 +280,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Class-level AOP</h2>
 
-<p>Advise &#8220;before&#8221;:</p>
+<p>Advise &#8220;before&#8221; with <a href="/docs/dcl_js/before">dcl.before()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -295,7 +301,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Advise &#8220;after&#8221;:</p>
+<p>Advise &#8220;after&#8221; with <a href="/docs/dcl_js/after">dcl.after()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -316,7 +322,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Advise &#8220;around&#8221;:</p>
+<p>Advise &#8220;around&#8221; with <a href="/docs/dcl_js/around">dcl.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -361,7 +367,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Full-blown advising:</p>
+<p>Full-blown advising with <a href="/docs/dcl_js/advise">dcl.advise()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -424,7 +430,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Chaining</h2>
 
-<p>Chain after:</p>
+<p>Chain after with <a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -437,7 +443,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Chain before:</p>
+<p>Chain before <a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -455,7 +461,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Object-level AOP</h2>
 
-<p>We need <code>advise</code> module:</p>
+<p>We need <a href="/docs/advise_js">advise</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -472,7 +478,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Advise &#8220;before&#8221;:</p>
+<p>Advise &#8220;before&#8221; with <a href="/docs/advise_js/before">advise.before()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -489,7 +495,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Advise &#8220;after&#8221;:</p>
+<p>Advise &#8220;after&#8221; with <a href="/docs/advise_js/after">advise.after()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -506,7 +512,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Advise &#8220;around&#8221;:</p>
+<p>Advise &#8220;around&#8221; with <a href="/docs/advise_js/around">advise.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -547,7 +553,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Full-blown advising:</p>
+<p>Full-blown advising with <a href="/docs/advise_js/advise">advise()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -619,7 +625,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Inherited</h2>
 
-<p>We need <code>inherited</code> module (its value is actually not used):</p>
+<p>We need <a href="/docs/inherited_js">inherited</a>
+module (its value is actually not used):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -632,7 +639,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Make a super call passing through arguments:</p>
+<p>Make a super call passing through arguments
+with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -695,7 +703,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Make a super call with <code>getInherited()</code> (works in both strict and non-strict modes):</p>
+<p>Make a super call with <a href="/docs/inherited_js/getinherited">getInherited()</a>
+(works in both strict and non-strict modes):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -726,7 +735,8 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <h2>Debugging</h2>
 
-<p>We need <code>debug</code> module (its inclusion adds enhanced error reporting automatically):</p>
+<p>We need <a href="/docs/debug_js">debug</a> module (its inclusion adds
+enhanced error reporting automatically):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -740,7 +750,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 </span><span class='line'><span class="kd">var</span> <span class="nx">O</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;O&quot;</span>
 </span><span class='line'><span class="p">});</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">O</span><span class="p">();</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">O</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -749,7 +759,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class='docco-section-end'></div>
 
 
-<p>Log a class:</p>
+<p>Log a class with <a href="/docs/debug_js/log">dclDebug.log()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -766,7 +776,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
