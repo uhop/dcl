@@ -10,7 +10,8 @@
 
   
   <meta name="description" content="About Jul 21st, 2012 A minimalistic yet complete JavaScript package for node.js and modern browsers.
-It implements OOP with mixins + AOP at both &# &hellip;">
+It implements OOP with mixins + AOP
+at both &# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,18 +102,27 @@ It implements OOP with mixins + AOP at both &# &hellip;">
   </header>
   
   <p>A minimalistic yet complete JavaScript package for <a href="http://nodejs.org">node.js</a> and modern browsers.
-It implements OOP with mixins + AOP at both &#8220;class&#8221; and object level.</p>
+It implements <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">OOP</a> with <a href="http://en.wikipedia.org/wiki/Mixins">mixins</a> + <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a>
+at both &#8220;class&#8221; and object level.</p>
 
-<p>It is written by <a href="http://lazutkin.com/blog/">Eugene Lazutkin</a>, and publicly available in
-<a href="https://github.com/uhop/dcl">repository on GitHub</a>.</p>
+<p>The goal of <code>dcl</code> is to provide a sound <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">OOP</a>/<a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a> foundation for
+projects of all sizes, while promoting the best practices to
+keep user&#8217;s codebase small and <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.</p>
+
+<p>It is a tool to structure a project as a set of small orthogonal mixins
+glued together with supercalls, chaining, and advices leading to reducing
+the overall codebase, and clear path to refactor the resulting project.</p>
+
+<p>It is started by <a href="http://lazutkin.com/blog/">Eugene Lazutkin</a>,
+and publicly available <a href="https://github.com/uhop/dcl">on GitHub</a>.</p>
 
 <h2>Overview</h2>
 
 <ul>
-<li>Works in <a href="http://nodejs.org">node.js</a> and browsers, fully supports AMD.
+<li>Works in <a href="http://nodejs.org">node.js</a> and browsers, fully supports <a href="http://en.wikipedia.org/wiki/Asynchronous_module_definition">AMD</a>.
 
 <ul>
-<li>Fully compatible with the strict mode.</li>
+<li>Fully compatible with strict mode.</li>
 </ul>
 </li>
 <li>Small codebase.
@@ -122,16 +132,18 @@ It implements OOP with mixins + AOP at both &#8220;class&#8221; and object level
 <li>Intentionally small set of orthogonal features.</li>
 </ul>
 </li>
-<li>Extensively tested
+<li>Extensively tested.
 
 <ul>
-<li>Uses <a href="http://travis-ci.org/uhop/dcl">continuous integration</a> running 85 automated tests.</li>
+<li>Uses <a href="http://travis-ci.org/uhop/dcl">continuous integration</a> running
+111 automated tests.</li>
 </ul>
 </li>
 <li>Liberally licensed.
 
 <ul>
-<li>Available under new BSD or AFLv2 &mdash; your choice.</li>
+<li>Available under new <a href="http://en.wikipedia.org/wiki/New_BSD">BSD</a> or <a href="http://en.wikipedia.org/wiki/Academic_Free_License">AFL</a> v2 &mdash; your choice.</li>
+<li>Free for commercial and non-commercial use.</li>
 </ul>
 </li>
 <li>Legally clean code.
@@ -147,16 +159,25 @@ It implements OOP with mixins + AOP at both &#8220;class&#8221; and object level
 <h2>Highlights</h2>
 
 <ul>
-<li>Targets OOP with mixins technology.
+<li>Targets <a href="http://en.wikipedia.org/wiki/Object-oriented_programming">OOP</a> with mixins technology.
 
 <ul>
 <li>Supports a Python-like multiple inheritance (implements the same
 <a href="http://www.python.org/download/releases/2.3/mro/">C3 MRO algorithm</a>).</li>
-<li>Efficient supercalls &mdash; no run-time penalty, ultimate debuggability.</li>
+<li>Efficient <a href="/docs/mini_js/supercall">supercalls</a> &mdash; no run-time penalty,
+ultimate debuggability.</li>
 <li>Automatic constructor chaining, and you can specify chaining for any method.</li>
 </ul>
 </li>
-<li>Full support for AOP (before, around, after returning, and after throwing advices).</li>
+<li>Full support for <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a> (before, around, after returning, and
+after throwing advices).
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a> can be applied at &#8220;class&#8221; level (statically) or
+at object level (dynamically).</li>
+<li>Dynamic advices can be unadvised at any time.</li>
+</ul>
+</li>
 <li>Comes with a mini library of useful generic building blocks.</li>
 </ul>
 
@@ -165,9 +186,11 @@ It implements OOP with mixins + AOP at both &#8220;class&#8221; and object level
 
 <p>The package was written with debuggability of your code in mind. It comes with
 a special debug module that verifies created objects, explains mistakes, and helps
-to keep track of AOP advices. Because the package uses direct static calls
-to super methods, you don&#8217;t need to step over unnecessary stubs. In places
-where stubs are unavoidable (chains or advices) they are small, and intuitive.</p>
+to keep track of <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">AOP</a> advices.</p>
+
+<p>Because <code>dcl</code> uses direct static calls to super methods, you don&#8217;t need
+to step over unnecessary stubs. In places where stubs are unavoidable
+(chains or advices) they are small, and intuitive.</p>
 
 <h2>Installation</h2>
 
@@ -184,18 +207,7 @@ like this:</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure>
 
 
-
-
-<!--
-If you migrate your code from a legacy framework that implements dynamic
-(rather than static) supercalls, take a look at the module [inherited](/docs/inherited_js)
-that dispatches supercalls dynamically trading off the simplicity of the code
-for some run-time CPU use, and a little bit less convenient debugging of such calls
-due to an extra stub between your methods.
--->
-
-
-
+<p>Happy coding!</p>
 
   
     <footer>
