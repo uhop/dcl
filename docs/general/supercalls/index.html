@@ -385,11 +385,11 @@ global method that figures out our super dynamically, the only thing left is pul
 
 <p>As you can see the internal function pulls a super method from the outer
 function. It allows for the outer function to be called during &#8220;class&#8221;/object
-creation time, it returns its internal function, which is called as a method.</p>
+creation time, which returns its internal function to be called as a method.</p>
 
 <p>The outer function is called once per &#8220;class&#8221; creation, and returns
 the closure (the inner function) with its super bound. After that its never
-called, and all calls to super methods are done directly to the inner function.
+called, and all calls to super methods go directly to the inner function.
 This way we have no performance penalty per call.</p>
 
 <p>Let&#8217;s count pros:</p>
@@ -448,11 +448,11 @@ implemented.</p>
 
 <p>Both implemented methods do not tax programmers, who do not use these facilities.</p>
 
-<p>The double function technique is recommended for all new code, while the <code>this.
-inherited()</code> technique is more suitable when refactoring legacy code because it
-doesn&#8217;t require much modification to call a super method. Working with
-an existing codebase a programmer can start by converting their &#8220;classes&#8221; to
-<a href="/docs/mini_js/dcl">dcl()</a> syntax, and calling super methods with
+<p>The double function technique is recommended for all new code, while
+<code>this.inherited()</code> technique is more suitable when refactoring legacy code
+because it doesn&#8217;t require much modifications to call a super method. Working
+with an existing codebase a programmer can start by converting their &#8220;classes&#8221;
+to <a href="/docs/mini_js/dcl">dcl()</a> syntax, and calling super methods with
 <code>this.inherited()</code>, while the final product should use the double function
 technique.</p>
 
