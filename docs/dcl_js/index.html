@@ -119,6 +119,18 @@ and supercalls, <code>dcl.js</code> adds AOP, chaining, and more utilities.</p>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="p">...</span>
@@ -130,6 +142,18 @@ and supercalls, <code>dcl.js</code> adds AOP, chaining, and more utilities.</p>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// AMD (definition)</span>
 </span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// or you can call the file directly:</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
 </span><span class='line'>  <span class="p">...</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>

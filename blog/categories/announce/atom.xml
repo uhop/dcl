@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2012-12-21T18:10:18-06:00</updated>
+  <updated>2012-12-22T12:59:17-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -84,7 +84,7 @@ like this:</p>
 <p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>volo install uhop/dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>volo install -amd dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>It is licensed under BSD or AFLv2 (your choice), all contribution
 are legally clean and covered by CLA, so you can use it not only
