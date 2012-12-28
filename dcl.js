@@ -90,7 +90,7 @@
 				b = dcl._ec(bases, name, "b").reverse(),
 				a = dcl._ec(bases, name, "a");
 			f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc, name) : dcl._ss(f, name);
-			return !b.length && !a.length ? f || new Function : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
+			return !b.length && !a.length ? f || function(){} : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
 		}
 	});
 

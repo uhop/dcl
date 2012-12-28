@@ -9,8 +9,9 @@
 })(function(){
 	"use strict";
 
-	var counter = 0, cname = "constructor", pname = "prototype", F = new Function, empty = {},
-		mix, extractChain, stubSuper, stubChain, stubChainSuper, post;
+	var counter = 0, cname = "constructor", pname = "prototype",
+		F = function(){}, empty = {}, mix, extractChain,
+		stubSuper, stubChain, stubChainSuper, post;
 
 	function dcl(superClass, props){
 		var bases = [0], proto, base, ctor, m, o, r, b, i, j = 0, n;
@@ -183,7 +184,7 @@
 		},
 		_sb: /*stub*/ function(id, bases, name, chains){
 			var f = chains[name] = extractChain(bases, name, "f");
-			return (id ? stubChainSuper(f, stubChain, name) : stubSuper(f, name)) || new Function;
+			return (id ? stubChainSuper(f, stubChain, name) : stubSuper(f, name)) || function(){};
 		}
 	});
 
