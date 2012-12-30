@@ -9,10 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="David Walsh has asked me
-to do a guest blog post. When I offered him to write about dcl,
-he agreed, and here we go:
-Introduction to dcl. If you don&# &hellip;">
+  <meta name="description" content="New update was pushed out. Changes: Some instances of new Function were replaced with function(){}
+to bypass Content Security Policy restrictions, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +82,53 @@ Introduction to dcl. If you don&# &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-30T14:20:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
+to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
+because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
+(???), and triggers a necesity to allow <code>eval</code> globally.</li>
+</ul>
+
+
+<p>This update doesn&#8217;t affect any functionality, and can be safely skipped, if you
+don&#8217;t work with security-constrained environments.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -246,6 +291,10 @@ in the open.</p>
 </section><section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/12/21/inroduction-to-dcl/">Inroduction to dcl</a>
