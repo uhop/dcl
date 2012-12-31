@@ -169,7 +169,7 @@ for transitioning legacy code or fast prototyping:</p>
 </span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
 </span><span class='line'>      <span class="c1">// Now let&#39;s return it tripled.</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">},</span>
@@ -189,7 +189,7 @@ for transitioning legacy code or fast prototyping:</p>
 </span><span class='line'>      <span class="p">};</span>
 </span><span class='line'>  <span class="p">}),</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="c1">// Another alternative is to use inherited.get():</span>
+</span><span class='line'>  <span class="c1">// Another alternative is to use getInherited():</span>
 </span><span class='line'>  <span class="nx">calcPrice3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice3&quot;</span><span class="p">);</span>
 </span><span class='line'>      <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
@@ -247,14 +247,14 @@ use <a href="/docs/inherited_js/getInherited">getInherited()</a>.</p>
 <ol>
 <li>If a method is present in an <code>Object</code>, it will be the last in line of potential
 super calls.</li>
-<li>If a super method throws an exception, it is a programmer&#8217;s responsibility to catch it,
-to ignore it, or to pass it through.</li>
+<li>If a super method throws an exception, it is a programmer&#8217;s responsibility
+to catch it, to ignore it, or to pass it through.</li>
 </ol>
 
 
 <h2>FAQ</h2>
 
-<h3>Can I call built-in functions like that?</h3>
+<h3>Can I call built-in functions with <code>inherited()</code>?</h3>
 
 <p>Yes.</p>
 
