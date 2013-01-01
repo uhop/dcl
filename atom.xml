@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2012-12-31T03:41:52-06:00</updated>
+  <updated>2013-01-01T00:37:14-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -24,7 +24,7 @@
 <li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
 to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
 because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
-(???), and triggers a necesity to allow <code>eval</code> globally.</li>
+(???), and forces to allow <code>eval</code> globally.</li>
 </ul>
 
 

@@ -114,7 +114,7 @@ to bypass Content Security Policy restrictions, &hellip;">
 <li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
 to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
 because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
-(???), and triggers a necesity to allow <code>eval</code> globally.</li>
+(???), and forces to allow <code>eval</code> globally.</li>
 </ul>
 
 
@@ -211,7 +211,7 @@ don&#8217;t work with security-constrained environments.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Eugene Lazutkin -
+  Copyright &copy; 2013 - Eugene Lazutkin -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
