@@ -276,7 +276,7 @@ or don&#8217;t like the default placement.</p>
 a lot of problems making it unsuitable as a generic solution:</p>
 
 <ul>
-<li>It doesn&#8217;t scale up well, if we insist that every mixin has its own parameter slot.</li>
+<li>It doesn&#8217;t scale up well, if we insist that every mixin had its own parameter slot.</li>
 <li>It is error-prone to design, and to specify constructor parameters.</li>
 <li>What if different mixins require the same or similar parameter?
 Should we duplicate them?</li>
@@ -466,7 +466,7 @@ existing instance properties, or even methods? It can be a good or bad side-effe
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>We can override existing behavior, add new, or add more properties. Obviously
+<p>We can override existing behavior and properties, or add new properties. Obviously
 for this to work, a parameter bag should be sanitized. It cannot contain random
 properties. Usually it is not a problem.</p>
 
@@ -477,7 +477,7 @@ a lot of space or consume other precious resources. This problem can be easily s
 with <a href="/docs/general/multi-stage-construction">multi-stage construction</a>.</p>
 
 <p><code>Mixer</code> above is a very helpful class, which is provided with <code>dcl</code>.
-Read all about it in documentation on <a href="/docs/bases/mixer">Mixer</a>.</p>
+Read all about it in the documentation on <a href="/docs/bases/mixer">Mixer</a>.</p>
 
 <h3>Replacer</h3>
 
@@ -578,24 +578,24 @@ properties and methods:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>Replacer</code> is provided with <code>dcl</code>. Read all about it in documentation on
+<p><code>Replacer</code> is provided with <code>dcl</code>. Read all about it in the documentation on
 <a href="/docs/bases/replacer">Replacer</a>.</p>
 
 <h3>More on mixers</h3>
 
-<p>This concept can be extended to suit particual needs. One notable extension is to
+<p>This concept can be extended to suit particular needs. One notable extension is to
 check types of instance properties, and enforce that copied properties are of
 the same type, or coerce it to that type. For example, <code>firstName</code> property above is
 defined as a string, so we san check that <code>firsName</code> parameter is a string too.</p>
 
-<p>Additionally we can implement some restrictions too, e.g., skip all function parameters,
-or skip all parameters that start with <code>_</code>.</p>
+<p>And we can implement some additional restrictions too, e.g., skip all function
+parameters, or skip all parameters that start with <code>_</code>.</p>
 
 <h2>Summary</h2>
 
 <p>Techniques described above are simple yet powerful. They go beyond constructors,
-and can be used for methods as well. Always take them into account while designing
-mixins and base classes for your project.</p>
+and can be used for methods as well. Always take practical scalability
+into account while designing mixins and base classes for your project.</p>
 
   
     <footer>
