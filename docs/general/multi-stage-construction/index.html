@@ -195,8 +195,8 @@ are we will look at &#8220;Hello, undefined!&#8221;.</p>
 </span><span class='line'><span class="kd">var</span> <span class="nx">Template</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="p">...</span>
 </span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-</span><span class='line'>      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>      <span class="nx">self</span><span class="p">.</span><span class="nx">populateTemplate</span><span class="p">();</span>
 </span><span class='line'>    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">},</span>
@@ -223,7 +223,7 @@ without any wait.</p></blockquote>
 about it in
 <a href="http://lazutkin.com/blog/2012/jul/28/more-on-0ms-timeouts/">More on 0ms timeouts</a>.</li>
 <li>What if as soon as we constructed an object we started to use it without waiting
-for time slices? Making this condition part of a constract (e.g., by documenting it)
+for time slices? Making this condition part of a contract (e.g., by documenting it)
 makes use of such objects cumbersome.
 
 <ul>
