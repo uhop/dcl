@@ -2,6 +2,8 @@
   "name": "dcl",
   "version": "1.0.2",
   "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
+  "homepage": "http://www.dcljs.org",
+  "bugs": "http://github.com/uhop/dcl/issues",
   "main": "dcl.js",
   "directories": {
     "test": "tests"
@@ -11,6 +13,7 @@
   "scripts": {
     "test": "node tests/tests.js"
   },
+  "github": "http://github.com/uhop/dcl",
   "repository": {
     "type": "git",
     "url": "git://github.com/uhop/dcl.git"
@@ -24,5 +27,14 @@
     "OO"
   ],
   "author": "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://lazutkin.com/)",
-  "license": "BSD"
+  "licenses": [
+    {
+      "type": "New BSD",
+      "url": "http://github.com/uhop/dcl/blob/master/LICENSE"
+    },
+    {
+      "type": "AFL 2.1",
+      "url": "http://github.com/uhop/dcl/blob/master/LICENSE"
+    }
+  ]
 }
