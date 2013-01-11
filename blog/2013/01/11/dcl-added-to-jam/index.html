@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>mini.js - DCL</title>
+  <title>dcl added to jam - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="mini.js Jul 21st, 2012 mini.js is a minimal kernel of dcl. It implements OOP facilities for single and
-multiple inheritance using mixins, and super &hellip;">
+  <meta name="description" content="dcl was added to jam &#8212; the RequireJS-based package manager
+for front-end projects. If you use jam to manage your project dependencies, you can &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ multiple inheritance using mixins, and super &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/">
+  <link rel="canonical" href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -81,96 +81,15 @@ multiple inheritance using mixins, and super &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">mini.js</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
-  </header>
-  
-  <p><code>mini.js</code> is a minimal kernel of <code>dcl</code>. It implements OOP facilities for single and
-multiple inheritance using mixins, and super calls. Additionally it provides useful
-utilities to work with objects.</p>
-
-<p>It can be included with following commands:</p>
-
-<figure class='code'><figcaption><span>Include mini  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/mini&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">...</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (code)</span>
-</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/mini&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (definition)</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/mini&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Module API</h2>
-
-<p>The return value of this module is a function, which is called <code>dcl()</code> in this documentation.</p>
-
-<p><a href="/docs/mini_js/dcl">dcl()</a> is the main &#8220;class&#8221; composition engine. While it is important by itself, it hosts a number of
-public properties.</p>
-
-<p>Main properties:</p>
-
-<ul>
-<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> - <em>super call decorator</em></li>
-</ul>
-
-
-<p>Utilities:</p>
-
-<ul>
-<li><a href="/docs/mini_js/mix">dcl.mix()</a> - <em>mix in one object with another</em></li>
-<li><a href="/docs/mini_js/delegate">dcl.delegate()</a> - <em>delegate from one object to another</em></li>
-</ul>
-
-
-<p>Auxiliary properties:</p>
-
-<ul>
-<li><a href="/docs/mini_js/super">dcl.Super</a> - <em>constructor used by <a href="/docs/mini_js/supercall">dcl.superCall()</a>
-to create a decorator</em></li>
-</ul>
-
-
-  
-    <footer>
+    
+      <h1 class="entry-title">dcl added to jam</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -182,13 +101,58 @@ to create a decorator</em></li>
   
 
 
-<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+<time datetime="2013-01-11T15:39:00-06:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &#8212; the RequireJS-based package manager
+for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/mini_js/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/mini_js/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">Eugene Lazutkin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-11T15:39:00-06:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/announce/'>announce</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -198,9 +162,14 @@ to create a decorator</em></li>
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2012/12/30/micro-update-1-dot-0-2/" title="Previous Post: Micro update: 1.0.2">&laquo; Micro update: 1.0.2</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

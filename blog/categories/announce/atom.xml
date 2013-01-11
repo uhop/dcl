@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-01-02T09:26:28-06:00</updated>
+  <updated>2013-01-11T16:13:19-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[dcl added to jam]]></title>
+    <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
+    <updated>2013-01-11T15:39:00-06:00</updated>
+    <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
+    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> --- the RequireJS-based package manager
+for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro update: 1.0.2]]></title>
@@ -104,9 +117,9 @@ like this:</p>
 <p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>volo install -amd dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>volo install -amd uhop/dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>It is licensed under BSD or AFLv2 (your choice), all contribution
+<p>It is licensed under BSD or AFLv2 (your choice), all contributions
 are legally clean and covered by CLA, so you can use it not only
 for pet projects, but at work too.</p>
 
