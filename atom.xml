@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-01-11T16:13:19-06:00</updated>
+  <updated>2013-01-11T16:31:48-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -75,7 +75,7 @@ demos, and in-depth articles. Get yourself in the know.</p>
     <content type="html"><![CDATA[<p>1.0.1 is a minor update. This version has following changes:</p>
 
 <ul>
-<li>Added <a href="http://www.dcljs.org/docs/inherited_js/getInherited">getInherited()</a> as an alias for
+<li>Added <a href="http://www.dcljs.org/docs/inherited_js/getinherited">getInherited()</a> as an alias for
 <a href="http://www.dcljs.org/docs/inherited_js/get">inherited.get()</a> to simplify its use. Now
 there is no need to use <code>call()</code> or <code>apply()</code> to specify its instance.</li>
 <li>Added tests for <code>dcl</code> exceptions.</li>
