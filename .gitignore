@@ -1,4 +1,7 @@
 node_modules/*
 *.iml
 .idea
-*.sublime-workspace
+*.sublime-*
+report/*
+coverage/*
+
