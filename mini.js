@@ -124,10 +124,7 @@
 		// piblic API
 		mix: mix,
 		delegate: function(o){
-			F[pname] = o;
-			var t = new F;
-			F[pname] = null;
-			return t;
+			return Object.create(o);
 		},
 		Super: Super,
 		superCall: function(f){ return new Super(f); },
@@ -162,11 +159,7 @@
 		_ss: stubSuper = function(chain, name){
 			var i = 0, f, p = empty[name];
 			for(; f = chain[i]; ++i){
-				if(isSuper(f)){
-					p = chain[i] = dcl._f(f, p, name);
-				}else{
-					p = f;
-				}
+				p = isSuper(f) ? (chain[i] = dcl._f(f, p, name)) : f;
 			}
 			return name != cname ? p : function(){ p.apply(this, arguments); };
 		},
