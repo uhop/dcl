@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Mixins Jul 29th, 2012 For programmer&#8217;s convenience dcl provides following general mixins: Destroyable - mixin, which declares a chainable &hellip;">
+  <meta name="description" content="Mixins Jul 29th, 2012 For programmer&rsquo;s convenience dcl provides following general mixins: Destroyable &ndash; mixin, which declares a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,14 +18,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/mixins/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mixins">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -99,11 +100,11 @@
 <time datetime="2012-07-29T01:24:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>For programmer&#8217;s convenience <code>dcl</code> provides following general mixins:</p>
+  <p>For programmer&rsquo;s convenience <code>dcl</code> provides following general mixins:</p>
 
 <ul>
-<li><a href="/docs/mixins/destroyable">Destroyable</a> - <em>mixin, which declares a chainable method <code>destroy()</code></em></li>
-<li><a href="/docs/mixins/cleanup">Cleanup</a> - <em>mixin, which builds on <code>Destroyable</code> and adds an API to manage a cleanup on
+<li><a href="/docs/mixins/destroyable">Destroyable</a> &ndash; <em>mixin, which declares a chainable method <code>destroy()</code></em></li>
+<li><a href="/docs/mixins/cleanup">Cleanup</a> &ndash; <em>mixin, which builds on <code>Destroyable</code> and adds an API to manage a cleanup on
 destruction</em></li>
 </ul>
 
@@ -210,7 +211,7 @@ destruction</em></li>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

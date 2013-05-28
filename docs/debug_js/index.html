@@ -19,14 +19,15 @@ a concise picture of produced, yet it &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/debug_js/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/debug_js">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -110,7 +111,7 @@ designed primarily to be used during development.</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include debug  </span></figcaption>
+<figure class='code'><figcaption><span>Include debug </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -147,21 +148,21 @@ designed primarily to be used during development.</p>
 <p>Main property:</p>
 
 <ul>
-<li><a href="/docs/debug_js/log">dclDebug.log()</a> - <em>logs class and/or object metainformation to <code>console.log</code></em></li>
+<li><a href="/docs/debug_js/log">dclDebug.log()</a> &ndash; <em>logs class and/or object metainformation to <code>console.log</code></em></li>
 </ul>
 
 
 <p>General error object:</p>
 
 <ul>
-<li><a href="/docs/debug_js/dclerror">dclDebug.DclError</a> - <em>the base for all errors</em></li>
+<li><a href="/docs/debug_js/dclerror">dclDebug.DclError</a> &ndash; <em>the base for all errors</em></li>
 </ul>
 
 
-<p>&#8220;Class&#8221; composition error:</p>
+<p>&ldquo;Class&rdquo; composition error:</p>
 
 <ul>
-<li><a href="/docs/debug_js/cycleerror">dclDebug.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of
+<li><a href="/docs/debug_js/cycleerror">dclDebug.CycleError</a> &ndash; <em>thrown when there is an unresolvable cycle in list of
 declared bases</em></li>
 </ul>
 
@@ -169,11 +170,11 @@ declared bases</em></li>
 <p>Supercall and around advice errors:</p>
 
 <ul>
-<li><a href="/docs/debug_js/supercallerror">dclDebug.SuperCallError</a> - <em>thrown when an argument of
+<li><a href="/docs/debug_js/supercallerror">dclDebug.SuperCallError</a> &ndash; <em>thrown when an argument of
 <a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators is not a function</em></li>
-<li><a href="/docs/debug_js/supererror">dclDebug.SuperError</a> - <em>thrown when the next-in-line property is not a function, and
+<li><a href="/docs/debug_js/supererror">dclDebug.SuperError</a> &ndash; <em>thrown when the next-in-line property is not a function, and
 a super call cannot be made</em></li>
-<li><a href="/docs/debug_js/superresulterror">dclDebug.SuperResultError</a> - <em>thrown when an argument of
+<li><a href="/docs/debug_js/superresulterror">dclDebug.SuperResultError</a> &ndash; <em>thrown when an argument of
 <a href="/docs/mini_js/supercall">dcl.superCall()</a> or <a href="/docs/dcl_js/around">dcl.around()</a> decorators does not return
 a function (likely the double function pattern was not followed &mdash; see <a href="/docs/mini_js/supercall">dcl.superCall()</a>
 for details)</em></li>
@@ -183,9 +184,9 @@ for details)</em></li>
 <p>Chaining errors:</p>
 
 <ul>
-<li><a href="/docs/debug_js/chainingerror">dclDebug.ChainingError</a> - <em>thrown when composing a class with different chaining
+<li><a href="/docs/debug_js/chainingerror">dclDebug.ChainingError</a> &ndash; <em>thrown when composing a class with different chaining
 directives for the same method</em></li>
-<li><a href="/docs/debug_js/setchainingerror">dclDebug.SetChainingError</a> - <em>thrown when setting a conflicting chaining</em></li>
+<li><a href="/docs/debug_js/setchainingerror">dclDebug.SetChainingError</a> &ndash; <em>thrown when setting a conflicting chaining</em></li>
 </ul>
 
 
@@ -291,7 +292,7 @@ directives for the same method</em></li>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

@@ -19,14 +19,15 @@ to speed up calculations. It can be included &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/advices/memoize/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/advices/memoize">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -105,7 +106,7 @@ to speed up calculations.</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include memoize  </span></figcaption>
+<figure class='code'><figcaption><span>Include memoize </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -142,7 +143,7 @@ can defined a property on an instance called <code>__memoizerCache</code>.</p>
 
 <p>This is an API of the module:</p>
 
-<figure class='code'><figcaption><span>memoize  </span></figcaption>
+<figure class='code'><figcaption><span>memoize </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -193,7 +194,7 @@ is the same as used by <code>advice(name, keyMaker)</code>.</p>
 
 <p>Class-level example:</p>
 
-<figure class='code'><figcaption><span>memoize class-level example  </span></figcaption>
+<figure class='code'><figcaption><span>memoize class-level example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -267,7 +268,7 @@ is the same as used by <code>advice(name, keyMaker)</code>.</p>
 
 <p>Object-level example:</p>
 
-<figure class='code'><figcaption><span>memoize object-level example  </span></figcaption>
+<figure class='code'><figcaption><span>memoize object-level example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -337,7 +338,7 @@ is the same as used by <code>advice(name, keyMaker)</code>.</p>
 
 <p>More complex example with Ackermann function and <code>keyMaker</code>:</p>
 
-<figure class='code'><figcaption><span>memoize Ackermann example  </span></figcaption>
+<figure class='code'><figcaption><span>memoize Ackermann example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -503,7 +504,7 @@ is the same as used by <code>advice(name, keyMaker)</code>.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

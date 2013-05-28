@@ -19,14 +19,15 @@ and modern browsers that implements OOP with mixins + AOP at &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/">
+  <link rel="canonical" href="http://www.dcljs.org/docs">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -101,54 +102,54 @@ and modern browsers that implements OOP with mixins + AOP at &hellip;">
   </header>
   
   <p><code>dcl</code> is a micro library written in JavaScript for <a href="http://nodejs.org">node.js</a>
-and modern browsers that implements OOP with mixins + AOP at both &#8220;class&#8221; and
+and modern browsers that implements OOP with mixins + AOP at both &ldquo;class&rdquo; and
 object level.</p>
 
 <h2>Getting started</h2>
 
 <ul>
-<li><a href="/docs/installation">Installation</a> - <em>super-simple ways to install <code>dcl</code></em></li>
-<li><a href="/docs/tutorial">Tutorial</a> - <em>hands-on with <code>dcl</code></em></li>
-<li><a href="/docs/cheatsheet">Cheatsheet</a> - <em>look up common operations</em></li>
+<li><a href="/docs/installation">Installation</a> &ndash; <em>super-simple ways to install <code>dcl</code></em></li>
+<li><a href="/docs/tutorial">Tutorial</a> &ndash; <em>hands-on with <code>dcl</code></em></li>
+<li><a href="/docs/cheatsheet">Cheatsheet</a> &ndash; <em>look up common operations</em></li>
 </ul>
 
 
 <h2>Module documentation</h2>
 
 <ul>
-<li><a href="/docs/mini_js">mini.js</a> - <em>minimal <code>dcl</code> kernel, you might want to use it
+<li><a href="/docs/mini_js">mini.js</a> &ndash; <em>minimal <code>dcl</code> kernel, you might want to use it
 on browsers to conserve bandwidth</em>
 
 <ul>
-<li><a href="/docs/mini_js/dcl">dcl()</a> - <em>the composition engine</em></li>
-<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> - <em>super call decorator</em></li>
+<li><a href="/docs/mini_js/dcl">dcl()</a> &ndash; <em>the composition engine</em></li>
+<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> &ndash; <em>super call decorator</em></li>
 </ul>
 </li>
-<li><a href="/docs/dcl_js">dcl.js</a> - <em>full <code>dcl</code> kernel that includes chaining control and
+<li><a href="/docs/dcl_js">dcl.js</a> &ndash; <em>full <code>dcl</code> kernel that includes chaining control and
 AOP support</em>
 
 <ul>
-<li><a href="/docs/dcl_js/advise">dcl.advise()</a> - <em>general advice decorator</em></li>
-<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> - <em>&#8220;before&#8221; chaining directive</em></li>
-<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> - <em>&#8220;after&#8221; chaining directive</em></li>
+<li><a href="/docs/dcl_js/advise">dcl.advise()</a> &ndash; <em>general advice decorator</em></li>
+<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> &ndash; <em>&ldquo;before&rdquo; chaining directive</em></li>
+<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> &ndash; <em>&ldquo;after&rdquo; chaining directive</em></li>
 </ul>
 </li>
-<li><a href="/docs/advise_js">advise.js</a> - <em>object-level AOP with dynamic advisement</em>
+<li><a href="/docs/advise_js">advise.js</a> &ndash; <em>object-level AOP with dynamic advisement</em>
 
 <ul>
-<li><a href="/docs/advise_js/advise">advise()</a> - <em>general advice directive</em></li>
+<li><a href="/docs/advise_js/advise">advise()</a> &ndash; <em>general advice directive</em></li>
 </ul>
 </li>
-<li><a href="/docs/inherited_js">inherited.js</a> - <em>dynamic super calls without decorators</em>
+<li><a href="/docs/inherited_js">inherited.js</a> &ndash; <em>dynamic super calls without decorators</em>
 
 <ul>
-<li><a href="/docs/inherited_js/inherited">inherited()</a> - <em>super call</em></li>
+<li><a href="/docs/inherited_js/inherited">inherited()</a> &ndash; <em>super call</em></li>
 </ul>
 </li>
-<li><a href="/docs/debug_js">debug.js</a> - <em>error-checking and introspection facility</em>
+<li><a href="/docs/debug_js">debug.js</a> &ndash; <em>error-checking and introspection facility</em>
 
 <ul>
-<li><a href="/docs/debug_js/log">dclDebug.log()</a> - <em>log information of classes and objects</em></li>
+<li><a href="/docs/debug_js/log">dclDebug.log()</a> &ndash; <em>log information of classes and objects</em></li>
 </ul>
 </li>
 </ul>
@@ -159,24 +160,24 @@ AOP support</em>
 <p><code>dcl</code> comes with a small library of useful advices, mixins, and base classes:</p>
 
 <ul>
-<li><a href="/docs/advices">Advices</a> - <em>various debugging, cache, and AOP helpers</em></li>
-<li><a href="/docs/bases">Bases</a> - <em>constructor helpers</em></li>
-<li><a href="/docs/mixins">Mixins</a> - <em>life-cycle helpers</em></li>
+<li><a href="/docs/advices">Advices</a> &ndash; <em>various debugging, cache, and AOP helpers</em></li>
+<li><a href="/docs/bases">Bases</a> &ndash; <em>constructor helpers</em></li>
+<li><a href="/docs/mixins">Mixins</a> &ndash; <em>life-cycle helpers</em></li>
 </ul>
 
 
 <h2>Advanced topics</h2>
 
 <ul>
-<li><a href="/docs/general/decorator">Decorator</a> - <em>explains the concept of decorators, and how they are used in <code>dcl</code></em></li>
-<li><a href="/docs/general/supercalls">Supercalls in JS</a> - <em>discussion of different methods to do supercalls in JavaScript,
+<li><a href="/docs/general/decorator">Decorator</a> &ndash; <em>explains the concept of decorators, and how they are used in <code>dcl</code></em></li>
+<li><a href="/docs/general/supercalls">Supercalls in JS</a> &ndash; <em>discussion of different methods to do supercalls in JavaScript,
 their pros and cons, and what was selected for <code>dcl</code> and why</em></li>
-<li><a href="/docs/general/constructors">Constructors</a> - <em>desigining robust mixin-aware constructors</em></li>
-<li><a href="/docs/general/multi-stage-construction">Multi-stage construction</a> - <em>implementing multi-stage construction</em></li>
-<li><a href="/docs/general/destructors">Destructors</a> - <em>destructing objects and freeing its resources is a serious business</em></li>
-<li><a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> - <em>discussion of advanced OOP, its deficiencies,
+<li><a href="/docs/general/constructors">Constructors</a> &ndash; <em>desigining robust mixin-aware constructors</em></li>
+<li><a href="/docs/general/multi-stage-construction">Multi-stage construction</a> &ndash; <em>implementing multi-stage construction</em></li>
+<li><a href="/docs/general/destructors">Destructors</a> &ndash; <em>destructing objects and freeing its resources is a serious business</em></li>
+<li><a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> &ndash; <em>discussion of advanced OOP, its deficiencies,
 and ways to overcome its problems</em></li>
-<li><a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS slides</a> - <em>my presentation at
+<li><a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS slides</a> &ndash; <em>my presentation at
 <a href="http://clubajax.org">ClubAjax</a> partially based on the blog post above; <code>dcl</code> was introduced as an experiment
 to create a balanced OOP + AOP package, which helps leverage mixin-based techniques</em></li>
 </ul>
@@ -284,7 +285,7 @@ to create a balanced OOP + AOP package, which helps leverage mixin-based techniq
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

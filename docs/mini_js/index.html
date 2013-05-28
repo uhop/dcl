@@ -19,14 +19,15 @@ multiple inheritance using mixins, and super &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -106,7 +107,7 @@ utilities to work with objects.</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include mini  </span></figcaption>
+<figure class='code'><figcaption><span>Include mini </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -140,28 +141,28 @@ utilities to work with objects.</p>
 
 <p>The return value of this module is a function, which is called <code>dcl()</code> in this documentation.</p>
 
-<p><a href="/docs/mini_js/dcl">dcl()</a> is the main &#8220;class&#8221; composition engine. While it is important by itself, it hosts a number of
+<p><a href="/docs/mini_js/dcl">dcl()</a> is the main &ldquo;class&rdquo; composition engine. While it is important by itself, it hosts a number of
 public properties.</p>
 
 <p>Main properties:</p>
 
 <ul>
-<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> - <em>super call decorator</em></li>
+<li><a href="/docs/mini_js/supercall">dcl.superCall()</a> &ndash; <em>super call decorator</em></li>
 </ul>
 
 
 <p>Utilities:</p>
 
 <ul>
-<li><a href="/docs/mini_js/mix">dcl.mix()</a> - <em>mix in one object with another</em></li>
-<li><a href="/docs/mini_js/delegate">dcl.delegate()</a> - <em>delegate from one object to another</em></li>
+<li><a href="/docs/mini_js/mix">dcl.mix()</a> &ndash; <em>mix in one object with another</em></li>
+<li><a href="/docs/mini_js/delegate">dcl.delegate()</a> &ndash; <em>delegate from one object to another</em></li>
 </ul>
 
 
 <p>Auxiliary properties:</p>
 
 <ul>
-<li><a href="/docs/mini_js/super">dcl.Super</a> - <em>constructor used by <a href="/docs/mini_js/supercall">dcl.superCall()</a>
+<li><a href="/docs/mini_js/super">dcl.Super</a> &ndash; <em>constructor used by <a href="/docs/mini_js/supercall">dcl.superCall()</a>
 to create a decorator</em></li>
 </ul>
 
@@ -268,7 +269,7 @@ to create a decorator</em></li>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

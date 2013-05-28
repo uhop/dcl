@@ -19,14 +19,15 @@ to track how many times a method (or methods &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/advices/counter/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/advices/counter">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -108,7 +109,7 @@ it produced an error (thrown an exception based on <code>Error</code>).</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include counter()  </span></figcaption>
+<figure class='code'><figcaption><span>Include counter() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -143,7 +144,7 @@ it produced an error (thrown an exception based on <code>Error</code>).</p>
 <p>The value of this module is a factory function that returns an object used
 to provide an AOP advice to profile/debug methods. This is an API of that object:</p>
 
-<figure class='code'><figcaption><span>Counter  </span></figcaption>
+<figure class='code'><figcaption><span>Counter </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -189,7 +190,7 @@ directly with <a href="/docs/dcl_js/advise">dcl.advise()</a> or
 
 <p>We can use a counter to track calls for all instances at the same time:</p>
 
-<figure class='code'><figcaption><span>counter() class-level example  </span></figcaption>
+<figure class='code'><figcaption><span>counter() class-level example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -275,7 +276,7 @@ directly with <a href="/docs/dcl_js/advise">dcl.advise()</a> or
 
 <p>Or we can work with them on per-instance basis:</p>
 
-<figure class='code'><figcaption><span>counter() object-level example  </span></figcaption>
+<figure class='code'><figcaption><span>counter() object-level example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -457,7 +458,7 @@ directly with <a href="/docs/dcl_js/advise">dcl.advise()</a> or
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

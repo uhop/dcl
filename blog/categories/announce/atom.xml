@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-01-11T16:31:48-06:00</updated>
+  <updated>2013-05-28T11:22:46-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
     <updated>2013-01-11T15:39:00-06:00</updated>
     <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
-    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> --- the RequireJS-based package manager
+    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -41,8 +41,8 @@ because <code>new Function</code> even without any parameters is considered to b
 </ul>
 
 
-<p>This update doesn't affect any functionality, and can be safely skipped, if you
-don't work with security-constrained environments.</p>
+<p>This update doesn&rsquo;t affect any functionality, and can be safely skipped, if you
+don&rsquo;t work with security-constrained environments.</p>
 ]]></content>
   </entry>
   
@@ -56,7 +56,7 @@ to do a guest blog post. When I offered him to write about <code>dcl</code>,
 he agreed, and here we go:
 <a href="http://davidwalsh.name/intro-dcl">Introduction to dcl</a>.</p>
 
-<p>If you don't read <a href="http://davidwalsh.name/">David's blog</a> regularly,
+<p>If you don&rsquo;t read <a href="http://davidwalsh.name/">David&rsquo;s blog</a> regularly,
 and you are serious about web applications, you are missing out.
 He frequently publishes very interesting articles on JavaScript, CSS,
 new development in browsers, and so on. Check out his tutorials,
@@ -88,7 +88,7 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway --- when in browser please use an AMD
+which are not recommended anyway &mdash;&ndash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 ]]></content>
   </entry>

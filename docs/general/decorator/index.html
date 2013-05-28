@@ -19,14 +19,15 @@ dynamically adding new functionality to &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/general/decorator/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/general/decorator">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -112,7 +113,7 @@ meta-programming, and used extensively in different programming languages.</p>
 and return a new function (or the same but updated). The goal is to modify its behavior in
 a predictable generic way. So esentially a decorator looks like that:</p>
 
-<figure class='code'><figcaption><span>Generic method decorator  </span></figcaption>
+<figure class='code'><figcaption><span>Generic method decorator </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -134,10 +135,10 @@ a predictable generic way. So esentially a decorator looks like that:</p>
 
 <h3>Transaction</h3>
 
-<p>Let&#8217;s assume that there is a global transaction and we want to implement a simple
+<p>Let&rsquo;s assume that there is a global transaction and we want to implement a simple
 transaction management for our database-aware functions/methods:</p>
 
-<figure class='code'><figcaption><span>Transaction decorator  </span></figcaption>
+<figure class='code'><figcaption><span>Transaction decorator </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -191,7 +192,7 @@ transaction management for our database-aware functions/methods:</p>
 
 <h3>Tracing</h3>
 
-<figure class='code'><figcaption><span>Tracing decorator  </span></figcaption>
+<figure class='code'><figcaption><span>Tracing decorator </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -219,7 +220,7 @@ itself recursively directly or indirectly.</p>
 <p>We may want to normalize input or output of a function in a predictable way.
 A postprocessing example, which converts non-string objects to JSON:</p>
 
-<figure class='code'><figcaption><span>Postprocessing decorator 1  </span></figcaption>
+<figure class='code'><figcaption><span>Postprocessing decorator 1 </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -242,7 +243,7 @@ A postprocessing example, which converts non-string objects to JSON:</p>
 <p>Now we can build on this functionality. For example, we can add a JSONP callback,
 if it is requested in parameters:</p>
 
-<figure class='code'><figcaption><span>Postprocessing decorator 2  </span></figcaption>
+<figure class='code'><figcaption><span>Postprocessing decorator 2 </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -286,7 +287,7 @@ functions and methods.</p>
 
 <p>Now if you see a code like this:</p>
 
-<figure class='code'><figcaption><span>dcl decorators  </span></figcaption>
+<figure class='code'><figcaption><span>dcl decorators </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -415,7 +416,7 @@ functions and methods.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

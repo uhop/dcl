@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="advise() Jul 29th, 2012 This is a function that weaves AOP advices dynamically. Unlike dcl.advise()
-it works on objects, rather than &#8220;classes &hellip;">
+it works on objects, rather than &ldquo;classes& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,14 +19,15 @@ it works on objects, rather than &#8220;classes &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/advise_js/advise/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/advise_js/advise">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -101,14 +102,14 @@ it works on objects, rather than &#8220;classes &hellip;">
   </header>
   
   <p>This is a function that weaves AOP advices dynamically. Unlike <a href="/docs/dcl_js/advise">dcl.advise()</a>
-it works on objects, rather than &#8220;classes&#8221;. All advices can be &#8220;unadvised&#8221; at any moment.</p>
+it works on objects, rather than &ldquo;classes&rdquo;. All advices can be &ldquo;unadvised&rdquo; at any moment.</p>
 
 <h2>Description</h2>
 
 <p><code>advise()</code> is a function, which takes an object with properties <code>before</code>, <code>around</code>, and/or <code>after</code>, and
 combines an existing method with supplied advices.</p>
 
-<figure class='code'><figcaption><span>dcl.advise()  </span></figcaption>
+<figure class='code'><figcaption><span>dcl.advise() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -212,7 +213,7 @@ an alias to <code>unadvise()</code>.</p>
 
 <p>If you want to weave just one advice, you may want to use a shortcut:</p>
 
-<figure class='code'><figcaption><span>AOP shortcuts  </span></figcaption>
+<figure class='code'><figcaption><span>AOP shortcuts </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -391,7 +392,7 @@ an alias to <code>unadvise()</code>.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

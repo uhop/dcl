@@ -18,14 +18,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/inherited/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/inherited">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -102,13 +103,13 @@
   <p>This function calls a super method dynamically.</p>
 
 <p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
-<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&#8217;t require to modify
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
 a method according to the double function pattern, and can be applied to
 undecorated methods, which makes it suitable for fast prototyping, and
 transitioning legacy code.</p>
 
 <p>As soon as <code>inherited.js</code> is included, it mixes in <code>inherited()</code> as a method to all
-newly created objects, so you don&#8217;t need to use the result of the module directly.</p>
+newly created objects, so you don&rsquo;t need to use the result of the module directly.</p>
 
 <p><code>inherited()</code> can be used in strict mode.</p>
 
@@ -116,11 +117,11 @@ newly created objects, so you don&#8217;t need to use the result of the module d
 
 <p>Unlike the decorator <a href="/docs/mini_js/supercall">dcl.superCall()</a>, which supplies
 a supercall method statically, <code>inherited()</code> does the same dynamically at some
-run-time expense. While doing so, it doesn&#8217;t require to decorate a method, and
+run-time expense. While doing so, it doesn&rsquo;t require to decorate a method, and
 can be used to add a supercall to any arbitrary method, which makes it suitable
 for transitioning legacy code or fast prototyping:</p>
 
-<figure class='code'><figcaption><span>inherited()  </span></figcaption>
+<figure class='code'><figcaption><span>inherited() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -227,7 +228,7 @@ our method, <code>"calcPrice3"</code> is a name of that method, and <code>[x]</c
 of parameters we want to pass. This style of code <strong>works perfectly in strict mode</strong>.
 
 <ul>
-<li>The downside of this method is a necessity to specify method&#8217;s name explicitly.
+<li>The downside of this method is a necessity to specify method&rsquo;s name explicitly.
 Usually it is known statically, so it is not a problem, yet it may make method
 renaming error-prone.</li>
 <li><strong>Remember</strong>: a constructor and a name specify a method that calls its super,
@@ -247,7 +248,7 @@ use <a href="/docs/inherited_js/getinherited">getInherited()</a>.</p>
 <ol>
 <li>If a method is present in an <code>Object</code>, it will be the last in line of potential
 super calls.</li>
-<li>If a super method throws an exception, it is a programmer&#8217;s responsibility
+<li>If a super method throws an exception, it is a programmer&rsquo;s responsibility
 to catch it, to ignore it, or to pass it through.</li>
 </ol>
 
@@ -258,7 +259,7 @@ to catch it, to ignore it, or to pass it through.</li>
 
 <p>Yes.</p>
 
-<figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
+<figure class='code'><figcaption><span>Calling toString() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -290,7 +291,7 @@ to catch it, to ignore it, or to pass it through.</li>
 
 <h3>Can I use <code>inherited()</code> in a chained method?</h3>
 
-<p>No. It is meant mostly for legacy scenarios. While it doesn&#8217;t fail, <code>inherited()</code>
+<p>No. It is meant mostly for legacy scenarios. While it doesn&rsquo;t fail, <code>inherited()</code>
 will not break a chain, and your chained method can be called twice.</p>
 
 <h3>How can I organize pass-through in strict mode?</h3>
@@ -298,7 +299,7 @@ will not break a chain, and your chained method can be called twice.</p>
 <p>If you want to call a super method with the same array of arguments as you received,
 just pass <code>arguments</code> object as your array of arguments:</p>
 
-<figure class='code'><figcaption><span>Calling Pass-through  </span></figcaption>
+<figure class='code'><figcaption><span>Calling Pass-through </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -432,7 +433,7 @@ just pass <code>arguments</code> object as your array of arguments:</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

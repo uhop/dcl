@@ -19,14 +19,15 @@ The difference is that it is used to override only existing &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/bases/replacer/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/bases/replacer">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -101,12 +102,12 @@ The difference is that it is used to override only existing &hellip;">
   </header>
   
   <p><code>Replacer</code> is a simple base class, which is very similar to <a href="/docs/bases/mixer">Mixer</a>.
-The difference is that it is used to override only existing properties, it doesn&#8217;t
+The difference is that it is used to override only existing properties, it doesn&rsquo;t
 add new properties to instance.</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include Replacer  </span></figcaption>
+<figure class='code'><figcaption><span>Include Replacer </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -140,7 +141,7 @@ add new properties to instance.</p>
 
 <p>Here is its definition:</p>
 
-<figure class='code'><figcaption><span>Replacer  </span></figcaption>
+<figure class='code'><figcaption><span>Replacer </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -173,7 +174,7 @@ add new properties to instance.</p>
 
 
 <p>As you can see it overrides existing properties with non-default values.
-All other properties are ignored. It is a &#8220;tame&#8221; version of <a href="/docs/bases/mixer">Mixer</a>,
+All other properties are ignored. It is a &ldquo;tame&rdquo; version of <a href="/docs/bases/mixer">Mixer</a>,
 which can be used to keep instances clean of unwanted properties.
 <code>Replacer</code> can be used as a base, or as a mixin, but usually it serves as
 the most deepest base to take care of parameters.</p>
@@ -183,7 +184,7 @@ for discussion on constructor&#8217; signatures.</p>
 
 <h2>Examples</h2>
 
-<figure class='code'><figcaption><span>Mixer example  </span></figcaption>
+<figure class='code'><figcaption><span>Mixer example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -367,7 +368,7 @@ for discussion on constructor&#8217; signatures.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

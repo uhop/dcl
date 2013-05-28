@@ -19,14 +19,15 @@ frequently: how to deal with &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/general/constructors/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/general/constructors">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -173,7 +174,7 @@ for a class itself, #2 for <code>Mixin1</code>, and #3 for <code>Mixin2</code>:<
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>While this techniques works, <strong>it doesn&#8217;t scale well</strong> for real-life projects with
+<p>While this techniques works, <strong>it doesn&rsquo;t scale well</strong> for real-life projects with
 dozens mixins, and it is extremely error prone (both assigning slots, and specifying
 parameter values). It can be used only on small scale.</p>
 
@@ -232,8 +233,8 @@ parameter values). It can be used only on small scale.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Another potential problem is that sometimes we don&#8217;t know what slot is available,
-or don&#8217;t like the default placement.</p>
+<p>Another potential problem is that sometimes we don&rsquo;t know what slot is available,
+or don&rsquo;t like the default placement.</p>
 
 <h2>Parameterized mixins</h2>
 
@@ -276,7 +277,7 @@ or don&#8217;t like the default placement.</p>
 a lot of problems making it unsuitable as a generic solution:</p>
 
 <ul>
-<li>It doesn&#8217;t scale up well, if we insist that every mixin had its own parameter slot.</li>
+<li>It doesn&rsquo;t scale up well, if we insist that every mixin had its own parameter slot.</li>
 <li>It is error-prone to design, and to specify constructor parameters.</li>
 <li>What if different mixins require the same or similar parameter?
 Should we duplicate them?</li>
@@ -439,8 +440,8 @@ of them directly from there:</p>
 
 <p>As you can see nobody accesses arguments directly, and now <code>Person</code> has an empty
 constructor, because all it did before it copied arguments to instance. Now it is
-done automatically. And we don&#8217;t need to worry about duplicating information in
-different mixins &#8211; they all use the same source (an instance).</p>
+done automatically. And we don&rsquo;t need to worry about duplicating information in
+different mixins &mdash; they all use the same source (an instance).</p>
 
 <p>What if our bag contains some extra properties, which are unused, or clash with
 existing instance properties, or even methods? It can be a good or bad side-effect.</p>
@@ -483,8 +484,8 @@ Read all about it in the documentation on <a href="/docs/bases/mixer">Mixer</a>.
 
 <p><code>Replacer</code> is a variation on <a href="/docs/bases/mixer">Mixer</a>, which replaces properties
 on an instance ignoring new properties. This is a form of automatic sanitation of
-&#8220;dirty&#8221; parameter bags. With <code>Replacer</code> we statically define what properties are
-available on an instance and will be copied automatically. Let&#8217;s rewrite our HR
+&ldquo;dirty&rdquo; parameter bags. With <code>Replacer</code> we statically define what properties are
+available on an instance and will be copied automatically. Let&rsquo;s rewrite our HR
 mixins again:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -699,7 +700,7 @@ into account while designing mixins and base classes for your project.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

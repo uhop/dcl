@@ -19,14 +19,15 @@ and supercalls, dcl.js adds &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -105,7 +106,7 @@ and supercalls, <code>dcl.js</code> adds AOP, chaining, and more utilities.</p>
 
 <p>It can be included with following commands:</p>
 
-<figure class='code'><figcaption><span>Include dcl  </span></figcaption>
+<figure class='code'><figcaption><span>Include dcl </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -169,32 +170,32 @@ new public properties.</p>
 <p>Main properties:</p>
 
 <ul>
-<li><a href="/docs/dcl_js/advise">dcl.advise()</a> - <em>AOP advise decorator, used to weave methods</em></li>
-<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> - <em>function to declare chaining &#8220;before&#8221; for a method</em></li>
-<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> - <em>function to declare chaining &#8220;after&#8221; for a method</em></li>
+<li><a href="/docs/dcl_js/advise">dcl.advise()</a> &ndash; <em>AOP advise decorator, used to weave methods</em></li>
+<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> &ndash; <em>function to declare chaining &ldquo;before&rdquo; for a method</em></li>
+<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> &ndash; <em>function to declare chaining &ldquo;after&rdquo; for a method</em></li>
 </ul>
 
 
 <p>Helpers:</p>
 
 <ul>
-<li><a href="/docs/dcl_js/before">dcl.before()</a> - <em>shortcut for a &#8220;before&#8221; advice</em></li>
-<li><a href="/docs/dcl_js/around">dcl.around()</a> - <em>shortcut for an &#8220;around&#8221; advice</em></li>
-<li><a href="/docs/dcl_js/after">dcl.after()</a> - <em>shortcut for an &#8220;after&#8221; advice</em></li>
+<li><a href="/docs/dcl_js/before">dcl.before()</a> &ndash; <em>shortcut for a &ldquo;before&rdquo; advice</em></li>
+<li><a href="/docs/dcl_js/around">dcl.around()</a> &ndash; <em>shortcut for an &ldquo;around&rdquo; advice</em></li>
+<li><a href="/docs/dcl_js/after">dcl.after()</a> &ndash; <em>shortcut for an &ldquo;after&rdquo; advice</em></li>
 </ul>
 
 
 <p>Utilities:</p>
 
 <ul>
-<li><a href="/docs/dcl_js/isinstanceof">dcl.isInstanceOf()</a> - <em>checks if an object is an instance of a constructor</em></li>
+<li><a href="/docs/dcl_js/isinstanceof">dcl.isInstanceOf()</a> &ndash; <em>checks if an object is an instance of a constructor</em></li>
 </ul>
 
 
 <p>Auxiliary properties:</p>
 
 <ul>
-<li><a href="/docs/dcl_js/advice">dcl.Advice</a> - <em>constructor used by <a href="/docs/dcl_js/advise">dcl.advise()</a> to create a decorator</em></li>
+<li><a href="/docs/dcl_js/advice">dcl.Advice</a> &ndash; <em>constructor used by <a href="/docs/dcl_js/advise">dcl.advise()</a> to create a decorator</em></li>
 </ul>
 
 
@@ -300,7 +301,7 @@ new public properties.</p>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.superCall() Jul 21st, 2012 dcl.superCall() is a light-weight way to call a method with the same name from the base &#8220;class&#8221;, if any. &hellip;">
+  <meta name="description" content="dcl.superCall() Jul 21st, 2012 dcl.superCall() is a light-weight way to call a method with the same name from the base &ldquo;class&rdquo;, if any. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,14 +18,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/supercall/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/mini_js/supercall">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -99,7 +100,7 @@
 <time datetime="2012-07-21T13:53:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
   </header>
   
-  <p><code>dcl.superCall()</code> is a light-weight way to call a method with the same name from the base &#8220;class&#8221;, if any. Essentially
+  <p><code>dcl.superCall()</code> is a light-weight way to call a method with the same name from the base &ldquo;class&rdquo;, if any. Essentially
 it is a way to call a method that was overridden by the current method. It is used as a method
 <a href="/docs/general/decorator">decorator</a>.</p>
 
@@ -109,7 +110,7 @@ it is a way to call a method that was overridden by the current method. It is us
 
 <p>When you need to do a supercall, you decorate/wrap a method with <code>dcl.superCall()</code> using a double function pattern:</p>
 
-<figure class='code'><figcaption><span>Double function pattern  </span></figcaption>
+<figure class='code'><figcaption><span>Double function pattern </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -132,7 +133,7 @@ In doing its work it can optionally call its super method.</p>
 <p>It is worth noting that <code>sup</code> is an unadorned super method. Most probably you want to call it in context of a current
 object. Do not forget to use standard <code>apply()</code> or <code>call()</code> methods to supply an object, and/or arguments:</p>
 
-<figure class='code'><figcaption><span>Calling a super  </span></figcaption>
+<figure class='code'><figcaption><span>Calling a super </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -158,10 +159,10 @@ object. Do not forget to use standard <code>apply()</code> or <code>call()</code
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>It is possible that there is no super method to call (e.g., this &#8220;class&#8221; is the first one in line). In this case the
+<p>It is possible that there is no super method to call (e.g., this &ldquo;class&rdquo; is the first one in line). In this case the
 injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
 
-<figure class='code'><figcaption><span>Handling possibly missing super  </span></figcaption>
+<figure class='code'><figcaption><span>Handling possibly missing super </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -189,7 +190,7 @@ injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</c
 
 <p>Transitioning from a regular method to a method, which can execute a supercall is very simple:</p>
 
-<figure class='code'><figcaption><span>Before applying a decorator  </span></figcaption>
+<figure class='code'><figcaption><span>Before applying a decorator </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -200,9 +201,9 @@ injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</c
 
 
 <p>In the example above we transition a method called <code>method</code>, which is implemented by a function called <code>X</code>.
-Let&#8217;s transition it to a supercalling method:</p>
+Let&rsquo;s transition it to a supercalling method:</p>
 
-<figure class='code'><figcaption><span>After applying a decorator  </span></figcaption>
+<figure class='code'><figcaption><span>After applying a decorator </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -224,7 +225,7 @@ can take advantage of a supercall, which is injected using <code>sup</code> argu
 
 <p>More complete example:</p>
 
-<figure class='code'><figcaption><span>Example  </span></figcaption>
+<figure class='code'><figcaption><span>Example </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -291,8 +292,8 @@ possible modifications/refactoring may subtly change your assumptions making the
 <ol>
 <li>If a method is present in an <code>Object</code>, it will be the last in line of potential super calls.</li>
 <li>It is not necessary to call a super method. This decision can be made dynamically.</li>
-<li>The funky double function pattern allows for static chaining of super calls. In this context &#8220;static&#8221; means &#8220;once at
-constructor definition&#8221;.
+<li>The funky double function pattern allows for static chaining of super calls. In this context &ldquo;static&rdquo; means &ldquo;once at
+constructor definition&rdquo;.
 
 <ol>
 <li>It makes super calls as cheap as possible. No extra expences per call.</li>
@@ -303,7 +304,7 @@ an exception pointing directly to the site of failure without any intermediaries
 <li>Both functions should be unique and created dynamically exactly like in examples.</li>
 </ol>
 </li>
-<li>If a super method throws an exception, it is a programmer&#8217;s responsibility to catch it, to ignore it, or to pass it
+<li>If a super method throws an exception, it is a programmer&rsquo;s responsibility to catch it, to ignore it, or to pass it
 through.</li>
 </ol>
 
@@ -314,7 +315,7 @@ through.</li>
 
 <p>Yes.</p>
 
-<figure class='code'><figcaption><span>Calling toString()  </span></figcaption>
+<figure class='code'><figcaption><span>Calling toString() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -339,7 +340,7 @@ through.</li>
 <p>Yes. In this case, if a super is not called, a chain is interrupted. It is one of the methods to interrupt chained
 constructors. <strong>Think twice before interrupting construction chains &mdash; usually it is a bad idea.</strong></p>
 
-<figure class='code'><figcaption><span>Interrupting constructors  </span></figcaption>
+<figure class='code'><figcaption><span>Interrupting constructors </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -502,7 +503,7 @@ constructors. <strong>Think twice before interrupting construction chains &mdash
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="getInherited() Jul 29th, 2012 This function determines a super method dynamically. It returns it as result, but unlike
-inherited() it doesn&#8217;t &hellip;">
+inherited() it doesn&rsquo;t &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,14 +19,15 @@ inherited() it doesn&#8217;t &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/getinherited/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/inherited_js/getinherited">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -101,17 +102,17 @@ inherited() it doesn&#8217;t &hellip;">
   </header>
   
   <p>This function determines a super method dynamically. It returns it as result, but unlike
-<a href="/docs/inherited_js/inherited">inherited()</a> it doesn&#8217;t call it immediately. If there is
+<a href="/docs/inherited_js/inherited">inherited()</a> it doesn&rsquo;t call it immediately. If there is
 no super method, a falsy value is returned.</p>
 
 <p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
-<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&#8217;t require to modify
+<a href="/docs/mini_js/supercall">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
 a method according to the double function pattern, and can be applied to
 undecorated methods, which makes it suitable for fast prototyping, and
 transitioning legacy code.</p>
 
 <p>As soon as <code>inherited.js</code> is included, it mixes in <code>getInherited()</code> as a method to all
-newly created objects, so you don&#8217;t need to use the result of the module directly.</p>
+newly created objects, so you don&rsquo;t need to use the result of the module directly.</p>
 
 <p><code>getInherited()</code> works in strict mode.</p>
 
@@ -119,11 +120,11 @@ newly created objects, so you don&#8217;t need to use the result of the module d
 
 <p>This is a companion method for <a href="/docs/inherited_js/inherited">inherited()</a>. In fact,
 it is used in its implementation. Just like <a href="/docs/inherited_js/inherited">inherited()</a>,
-it doesn&#8217;t require to decorate a method, and can be used to add a supercall to any
+it doesn&rsquo;t require to decorate a method, and can be used to add a supercall to any
 arbitrary method, which makes it suitable for transitioning legacy code or fast
 prototyping:</p>
 
-<figure class='code'><figcaption><span>getInherited()  </span></figcaption>
+<figure class='code'><figcaption><span>getInherited() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -225,8 +226,8 @@ almost identical. The difference is:</p>
 and reusing its result, you save CPU ticks making the whole method faster. For even
 faster results consider using <a href="/docs/mini_js/supercall">dcl.superCall()</a>.</li>
 <li>Your code behaves differently when there is no super method, and the default
-provided by <a href="/docs/inherited_js/inherited">inherited()</a> just doesn&#8217;t work for you.</li>
-<li>While debugging, you don&#8217;t want to go inside <a href="/docs/inherited_js/inherited">inherited()</a>
+provided by <a href="/docs/inherited_js/inherited">inherited()</a> just doesn&rsquo;t work for you.</li>
+<li>While debugging, you don&rsquo;t want to go inside <a href="/docs/inherited_js/inherited">inherited()</a>
 (it is debugging-friendly, yet you may want to skip it completely while debugging).
 In this case you step over calls to <code>getInherited()</code> and debug your super methods
 directly.</li>
@@ -335,7 +336,7 @@ directly.</li>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>

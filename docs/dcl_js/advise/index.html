@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.advise() Jul 29th, 2012 This is a decorator, which is used to weave AOP advices while building new &#8220;classes&#8221;. Description dcl.advise &hellip;">
+  <meta name="description" content="dcl.advise() Jul 29th, 2012 This is a decorator, which is used to weave AOP advices while building new &ldquo;classes&rdquo;. Description dcl.advise &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,14 +18,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js/advise/">
+  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js/advise">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -99,14 +100,14 @@
 <time datetime="2012-07-29T00:06:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
   </header>
   
-  <p>This is a decorator, which is used to weave AOP advices while building new &#8220;classes&#8221;.</p>
+  <p>This is a decorator, which is used to weave AOP advices while building new &ldquo;classes&rdquo;.</p>
 
 <h2>Description</h2>
 
 <p><code>dcl.advise()</code> is a decorator function, which takes an object with properties <code>before</code>, <code>around</code>, and/or <code>after</code> and
 combines an existing method with supplied advices.</p>
 
-<figure class='code'><figcaption><span>dcl.advise()  </span></figcaption>
+<figure class='code'><figcaption><span>dcl.advise() </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -209,7 +210,7 @@ is called only if its previous <code>around</code> advice yielded control explic
 
 <p>If you want to weave just one advice, you may want to use a shortcut:</p>
 
-<figure class='code'><figcaption><span>AOP shortcuts  </span></figcaption>
+<figure class='code'><figcaption><span>AOP shortcuts </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -312,12 +313,12 @@ is called only if its previous <code>around</code> advice yielded control explic
 
 <h3>More on order of advices</h3>
 
-<p>The described order is followed to the letter. Specifically I want to stress &#8220;regardless of their declaration order&#8221;.
-It doesn&#8217;t matter in what order advices were declared.</p>
+<p>The described order is followed to the letter. Specifically I want to stress &ldquo;regardless of their declaration order&rdquo;.
+It doesn&rsquo;t matter in what order advices were declared.</p>
 
 <p>Which is not true for simple faux-AOP wrapper-based implementations. To wit:</p>
 
-<figure class='code'><figcaption><span>Wrapper-based faux-AOP  </span></figcaption>
+<figure class='code'><figcaption><span>Wrapper-based faux-AOP </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -443,7 +444,7 @@ It doesn&#8217;t matter in what order advices were declared.</p>
 while in true AOP it is rigid.</p>
 
 <p>While the order difference looks harmless, it prevents from using some important AOP techniques. For example,
-it prevents setting up a hook function (an after advice) that runs after all &#8220;normal&#8221; methods.
+it prevents setting up a hook function (an after advice) that runs after all &ldquo;normal&rdquo; methods.
 See <a href="/docs/general/multi-stage-construction">multi-stage construction</a> for an interesting use case.</p>
 
   
@@ -548,7 +549,7 @@ See <a href="/docs/general/multi-stage-construction">multi-stage construction</a
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
+  js = d.createElement(s); js.id = id; js.async = true;
   js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
