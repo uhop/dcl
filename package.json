@@ -9,7 +9,9 @@
     "test": "tests"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "heya-unit": ">=0.1"
+  },
   "scripts": {
     "test": "node tests/tests.js"
   },

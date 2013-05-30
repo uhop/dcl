@@ -1,43 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>Tests for DCL</title>
-		<script src="../mini.js"></script>
-		<script src="../dcl.js"></script>
-		<script src="../advise.js"></script>
-		<script src="../inherited.js"></script>
-		<script src="../debug.js"></script>
-		<script src="../bases/Mixer.js"></script>
-		<script src="../bases/Replacer.js"></script>
-		<script src="../mixins/Destroyable.js"></script>
-		<script src="../mixins/Cleanup.js"></script>
-		<!--
-		-->
-		<style>
-			.error {color: red; font-weight: bold;}
-		</style>
+		<title>heya-async test runner</title>
+		<!-- The next file is needed for Function.prototype.bind(),
+		which is missing in PhantomJS (and old IE). -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/1.2.4/es5-shim.min.js"></script>
+		<script src="http://requirejs.org/docs/release/2.1.5/minified/require.js"></script>
 		<script>
-			var _total = 0, _errors = 0;
-			function out(msg){
-				var div = document.createElement("div");
-				div.innerHTML = "<tt>" + msg + "</tt>";
-				document.getElementById("container").appendChild(div);
-			}
-			function res(msg, isError){
-				++_total;
-				var div = document.createElement("div");
-				if(isError){
-					++_errors;
-					div.className = "error";
-					div.innerHTML = "<tt>" + msg + "</tt>";
-					document.getElementById("container").appendChild(div);
+			require.config({
+				baseUrl: ".",
+				packages: [
+					{name: "heya-unit",
+					location: "../node_modules/heya-unit"},
+					{name: "heya-ice",
+					location: "../node_modules/heya-unit/node_modules/heya-ice"},
+					{name: "heya-unify",
+					location: "../node_modules/heya-unit/node_modules/heya-unify"}
+				],
+				paths: {
+					"domReady": "https://raw.github.com/requirejs/domReady/latest/domReady"
 				}
-			}
+			});
+			require(["require", "./tests", "domReady!"], function(require){
+				var test = require("./tests");
+			});
 		</script>
-		<script src="tests.js"></script>
 	</head>
-	<body onload="runTests()">
-		<h1>Tests for DCL</h1>
-		<div id="container"></div>
+	<body>
 	</body>
 </html>

@@ -1,5 +1,21 @@
 language: node_js
+
 node_js:
   - "0.6"
   - "0.8"
   - "0.10"
+
+env:
+  - PHANTOM=true
+  - PHANTOM=false
+
+matrix:
+  exclude:
+    - node_js: "0.6"
+      env: PHANTOM=true
+    - node_js: "0.8"
+      env: PHANTOM=true
+
+before_script: if [ "$PHANTOM" == "true" ]; then export RUN_TEST="phantomjs tests/phantom.js"; else export RUN_TEST="npm test"; fi
+
+script: $RUN_TEST
