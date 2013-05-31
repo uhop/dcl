@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-05-28T11:22:46-05:00</updated>
+  <updated>2013-05-30T20:24:01-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Update: 1.0.3]]></title>
+    <link href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/"/>
+    <updated>2013-05-30T20:02:00-05:00</updated>
+    <id>http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3</id>
+    <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
+it was not called when creating an object. This bug is fixed and relevant
+tests were added.</li>
+<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
+No more manual tests.</li>
+<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
+<li>Increased test coverage.</li>
+</ul>
+
+
+<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
+the fixed bug is quite exotic, this update can be skipped unless a code contains
+a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[dcl added to jam]]></title>
@@ -90,43 +114,6 @@ should be transparent.</p>
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
 which are not recommended anyway &mdash;&ndash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[1.0 is public]]></title>
-    <link href="http://www.dcljs.org/blog/2012/10/05/1-dot-0-is-public/"/>
-    <updated>2012-10-05T21:40:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2012/10/05/1-dot-0-is-public</id>
-    <content type="html"><![CDATA[<p>Finally after months of private use 1.0 version of <code>dcl</code> is out
-in the open.</p>
-
-<p>What is <code>dcl</code>? It is a micro library for OOP/AOP. It works in
-<a href="http://nodejs.org">node.js</a> and modern browsers, supports <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>, and completely
-<a href="http://github.com/uhop/dcl">open source</a>.</p>
-
-<!-- More -->
-
-
-<p>If you plan to use it in your <a href="http://nodejs.org">node.js</a> project install it
-like this:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>npm install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>For your browser-based projects I suggest to use <a href="http://volojs.org">volo.js</a>:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>volo install -amd uhop/dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>It is licensed under BSD or AFLv2 (your choice), all contributions
-are legally clean and covered by CLA, so you can use it not only
-for pet projects, but at work too.</p>
-
-<p>For more information hop on <a href="/about">what is dcl?</a> and learn more.
-Do not forget to look at extensive <a href="/docs">documentation</a>, or
-<a href="mailto:eugene@dcljs.org">shoot me an email</a>, if you still have
-more questions.</p>
 ]]></content>
   </entry>
   

@@ -9,8 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl was added to jam &mdash;&ndash; the RequireJS-based package manager
-for front-end projects. If you use jam to manage your project dependencies, &hellip;">
+  <meta name="description" content="New update was pushed out. Changes: Bugfix: in some cases when using a native constructor created without dcl
+it was not called when creating an &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,57 @@ for front-end projects. If you use jam to manage your project dependencies, &hel
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/30/update-1-dot-0-3/">Update: 1.0.3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T20:02:00-05:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
+it was not called when creating an object. This bug is fixed and relevant
+tests were added.</li>
+<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
+No more manual tests.</li>
+<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
+<li>Increased test coverage.</li>
+</ul>
+
+
+<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
+the fixed bug is quite exotic, this update can be skipped unless a code contains
+a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -348,6 +399,10 @@ in the open.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/30/update-1-dot-0-3/">Update: 1.0.3</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/01/11/dcl-added-to-jam/">dcl added to jam</a>
       </li>
     
@@ -361,10 +416,6 @@ in the open.</p>
     
       <li class="post">
         <a href="/blog/2012/12/18/1-dot-0-1-is-out/">1.0.1 is out</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/05/1-dot-0-is-public/">1.0 is public</a>
       </li>
     
   </ul>

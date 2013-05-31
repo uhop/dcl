@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-05-28T11:22:46-05:00</updated>
+  <updated>2013-05-30T20:24:01-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Update: 1.0.3]]></title>
+    <link href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/"/>
+    <updated>2013-05-30T20:02:00-05:00</updated>
+    <id>http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3</id>
+    <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
+it was not called when creating an object. This bug is fixed and relevant
+tests were added.</li>
+<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
+No more manual tests.</li>
+<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
+<li>Increased test coverage.</li>
+</ul>
+
+
+<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
+the fixed bug is quite exotic, this update can be skipped unless a code contains
+a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[dcl added to jam]]></title>

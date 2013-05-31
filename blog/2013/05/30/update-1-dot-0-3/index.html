@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>dcl.js - DCL</title>
+  <title>Update: 1.0.3 - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.js Jul 21st, 2012 dcl.js is a standard kernel of dcl. It augments mini.js. While mini.js implements OOP facilities,
-and supercalls, dcl.js adds &hellip;">
+  <meta name="description" content="New update was pushed out. Changes: Bugfix: in some cases when using a native constructor created without dcl
+it was not called when creating an &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ and supercalls, dcl.js adds &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/docs/dcl_js">
+  <link rel="canonical" href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3">
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -82,128 +82,15 @@ and supercalls, dcl.js adds &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">dcl.js</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time></p>
-  </header>
-  
-  <p><code>dcl.js</code> is a standard kernel of <code>dcl</code>. It augments <a href="/docs/mini_js">mini.js</a>. While <a href="/docs/mini_js">mini.js</a> implements OOP facilities,
-and supercalls, <code>dcl.js</code> adds AOP, chaining, and more utilities.</p>
-
-<p>It can be included with following commands:</p>
-
-<figure class='code'><figcaption><span>Include dcl </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">...</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (code)</span>
-</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (definition)</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// or you can call the file directly:</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (code)</span>
-</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// AMD (definition)</span>
-</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/dcl&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
-</span><span class='line'>  <span class="p">...</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Module API</h2>
-
-<p>The return value of this module is a function, which is called <code>dcl()</code> in this documentation.</p>
-
-<p><a href="/docs/mini_js/dcl">dcl()</a> is the same function returned by <a href="/docs/mini_js">mini.js</a>, but augmented with new functionality and
-new public properties.</p>
-
-<p>Main properties:</p>
-
-<ul>
-<li><a href="/docs/dcl_js/advise">dcl.advise()</a> &ndash; <em>AOP advise decorator, used to weave methods</em></li>
-<li><a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a> &ndash; <em>function to declare chaining &ldquo;before&rdquo; for a method</em></li>
-<li><a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a> &ndash; <em>function to declare chaining &ldquo;after&rdquo; for a method</em></li>
-</ul>
-
-
-<p>Helpers:</p>
-
-<ul>
-<li><a href="/docs/dcl_js/before">dcl.before()</a> &ndash; <em>shortcut for a &ldquo;before&rdquo; advice</em></li>
-<li><a href="/docs/dcl_js/around">dcl.around()</a> &ndash; <em>shortcut for an &ldquo;around&rdquo; advice</em></li>
-<li><a href="/docs/dcl_js/after">dcl.after()</a> &ndash; <em>shortcut for an &ldquo;after&rdquo; advice</em></li>
-</ul>
-
-
-<p>Utilities:</p>
-
-<ul>
-<li><a href="/docs/dcl_js/isinstanceof">dcl.isInstanceOf()</a> &ndash; <em>checks if an object is an instance of a constructor</em></li>
-</ul>
-
-
-<p>Auxiliary properties:</p>
-
-<ul>
-<li><a href="/docs/dcl_js/advice">dcl.Advice</a> &ndash; <em>constructor used by <a href="/docs/dcl_js/advise">dcl.advise()</a> to create a decorator</em></li>
-</ul>
-
-
-  
-    <footer>
+    
+      <h1 class="entry-title">Update: 1.0.3</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -215,13 +102,66 @@ new public properties.</p>
   
 
 
-<time datetime="2012-07-21T13:20:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2012</time>
+<time datetime="2013-05-30T20:02:00-05:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
+it was not called when creating an object. This bug is fixed and relevant
+tests were added.</li>
+<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
+No more manual tests.</li>
+<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
+<li>Increased test coverage.</li>
+</ul>
+
+
+<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
+the fixed bug is quite exotic, this update can be skipped unless a code contains
+a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/dcl_js/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/dcl_js/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">Eugene Lazutkin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T20:02:00-05:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/announce/'>announce</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -231,9 +171,14 @@ new public properties.</p>
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2013/01/11/dcl-added-to-jam/" title="Previous Post: dcl added to jam">&laquo; dcl added to jam</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

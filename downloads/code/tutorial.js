@@ -91,12 +91,12 @@ alice.speak("hello!");
 // Let's declare another mixin, this time using a super call:
 var Shouter = dcl(Speaker, {
   // Here we use the double function technique to inject
-  // `sup` --- a method from a super class.
+  // `sup` -- a method from a super class.
   speak: dcl.superCall(function(sup){
     return function(msg){
       // Theoretically it is possible that
-      // there is no super method --- we can be the last in line;
-      // not in this case, though --- we are based
+      // there is no super method -- we can be the last in line;
+      // not in this case, though -- we are based
       // on Speaker meaning it will be always pulled in.
       if(sup){
         sup.call(this, msg.toUpperCase());
@@ -118,7 +118,7 @@ var bob = new Sarge("Bob");
 bob.speak("give me twenty!");
 
 // The double function technique for a super call allows you
-// to work directly with a next method in chain ---
+// to work directly with a next method in chain --
 // no intermediaries means that this call is as fast as
 // it can be, no run-time penalties are involved during method
 // calls, and it greatly simplifies debugging.
@@ -305,7 +305,7 @@ fred.sleep();
 wakeAd1.unadvise();
 // Brushing teeth more than once a day is overrated, right?
 sleepAd1.unadvise();
-// No need to dress up for work either --- our Fred is CEO!
+// No need to dress up for work either -- our Fred is CEO!
 wakeAd3.unadvise();
 
 // `brush my teeth`
