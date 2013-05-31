@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-05-30T20:24:01-05:00</updated>
+  <updated>2013-05-30T20:27:46-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -32,7 +32,7 @@ No more manual tests.</li>
 
 
 <p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
-the fixed bug is quite exotic, this update can be skipped unless a code contains
+the fixed bug is quite exotic, this update can be skipped unless your code contains
 a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
 ]]></content>
   </entry>
