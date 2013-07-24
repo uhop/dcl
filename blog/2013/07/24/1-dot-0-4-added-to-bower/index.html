@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Micro update: 1.0.2 - DCL</title>
+  <title>1.0.4: added to Bower - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="New update was pushed out. Changes: Some instances of new Function were replaced with function(){}
-to bypass Content Security Policy restrictions, &hellip;">
+  <meta name="description" content="This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it. The version bump was required in order &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ to bypass Content Security Policy restrictions, &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2">
+  <link rel="canonical" href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower">
   <link href="/favicon.ico" rel="icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -86,7 +85,7 @@ to bypass Content Security Policy restrictions, &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Micro update: 1.0.2</h1>
+      <h1 class="entry-title">1.0.4: added to Bower</h1>
     
     
       <p class="meta">
@@ -102,25 +101,22 @@ to bypass Content Security Policy restrictions, &hellip;">
   
 
 
-<time datetime="2012-12-30T14:20:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2012</time>
+<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>New update was pushed out. Changes:</p>
+<div class="entry-content"><p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
-<ul>
-<li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
-to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
-because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
-(???), and forces to allow <code>eval</code> globally.</li>
-</ul>
+<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure>
 
 
-<p>This update doesn&rsquo;t affect any functionality, and can be safely skipped, if you
-don&rsquo;t work with security-constrained environments.</p>
+
 </div>
 
 
@@ -143,7 +139,7 @@ don&rsquo;t work with security-constrained environments.</p>
   
 
 
-<time datetime="2012-12-30T14:20:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2012</time>
+<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -157,7 +153,7 @@ don&rsquo;t work with security-constrained environments.</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -170,10 +166,8 @@ don&rsquo;t work with security-constrained environments.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/21/inroduction-to-dcl/" title="Previous Post: Inroduction to dcl">&laquo; Inroduction to dcl</a>
+        <a class="basic-alignment left" href="/blog/2013/05/30/update-1-dot-0-3/" title="Previous Post: Update: 1.0.3">&laquo; Update: 1.0.3</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/11/dcl-added-to-jam/" title="Next Post: dcl added to jam">dcl added to jam &raquo;</a>
       
     </p>
   </footer>

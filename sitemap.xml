@@ -25,8 +25,12 @@
         <lastmod>2013-07-12T09:38:54-05:00</lastmod>
     </url>
     <url>
+        <loc>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/</loc>
+        <lastmod>2013-07-24T10:09:25-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.dcljs.org/blog/archives/</loc>
-        <lastmod>2013-07-12T09:38:54-05:00</lastmod>
+        <lastmod>2013-07-24T10:09:25-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/about/</loc>
@@ -86,7 +90,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/installation/</loc>
-        <lastmod>2013-07-12T09:38:54-05:00</lastmod>
+        <lastmod>2013-07-24T10:13:00-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/advise/</loc>
@@ -258,7 +262,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/</loc>
-        <lastmod>2013-07-12T09:38:54-05:00</lastmod>
+        <lastmod>2013-07-24T10:09:25-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/robots.txt</loc>
