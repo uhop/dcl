@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-07-24T12:42:26-05:00</updated>
+  <updated>2013-07-24T12:56:39-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -22,8 +22,9 @@
 
 <p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock %}
+bower install dcl
+{% endcodeblock %}</p>
 ]]></content>
   </entry>
   
@@ -59,8 +60,9 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
     <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>{% codeblock %}
+jam install dcl
+{% endcodeblock %}</p>
 ]]></content>
   </entry>
   
