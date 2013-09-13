@@ -38,5 +38,7 @@
       "type": "AFL 2.1",
       "url": "http://github.com/uhop/dcl/blob/master/LICENSE"
     }
-  ]
+  ],
+  "icon": "http://www.dcljs.org/fav144.png",
+  "dojoBuild": "package.js"
 }
