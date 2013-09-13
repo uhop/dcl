@@ -94,25 +94,27 @@ function(module, unit, dcl, advise, counter, flow, time, memoize, trace){
 
 			// TODO: redirect console to ice
 
-			var x = new Ackermann();
+			if(console.time && console.timeEnd){
+				var x = new Ackermann();
 
-			advise(x, "a", time("x.a"));
+				advise(x, "a", time("x.a"));
 
-			x.a(3, 3);
-			x.a(3, 3);
+				x.a(3, 3);
+				x.a(3, 3);
 
-			var y = new Ackermann();
+				var y = new Ackermann();
 
-			advise(y, "m0", memoize.advice("m0"));
-			advise(y, "n0", memoize.advice("n0"));
-			advise(y, "a",  memoize.advice("a", function(self, args){
-				return args[0] + "-" + args[1];
-			}));
+				advise(y, "m0", memoize.advice("m0"));
+				advise(y, "n0", memoize.advice("n0"));
+				advise(y, "a",  memoize.advice("a", function(self, args){
+					return args[0] + "-" + args[1];
+				}));
 
-			advise(y, "a", time("y.a"));
+				advise(y, "a", time("y.a"));
 
-			y.a(3, 3);
-			y.a(3, 3);
+				y.a(3, 3);
+				y.a(3, 3);
+			}
 		},
 		function test_trace(t){
 			"use strict";
