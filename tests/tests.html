@@ -18,7 +18,11 @@
 					location: "../node_modules/heya-unit/node_modules/heya-unify"}
 				],
 				paths: {
-					"domReady": "https://raw.github.com/requirejs/domReady/latest/domReady"
+					/*@cc_on
+					"../mini": "../legacy",
+					"dcl/mini": "dcl/legacy",
+					@*/
+					domReady: "https://raw.github.com/requirejs/domReady/latest/domReady"
 				}
 			});
 			require(["require", "./tests", "domReady!"], function(require){
