@@ -19,7 +19,7 @@
 			this.f = this.f.around;
 		}
 	});
-	function advise(f){ return new Advice(f); }
+	function advise(f){ return dcl._mk(f, Advice); }
 
 	function makeAOPStub(b, a, f){
 		var sb = b || nop,
@@ -64,8 +64,8 @@
 		Advice: Advice,
 		advise: advise,
 		// expose helper methods
-		before: function(f){ return new Advice({before: f}); },
-		after: function(f){ return new Advice({after: f}); },
+		before: function(f){ return dcl.advise({before: f}); },
+		after: function(f){ return dcl.advise({after: f}); },
 		around: dcl.superCall,
 		// chains
 		chainBefore: chain(1),
@@ -85,7 +85,7 @@
 			return false;
 		},
 		// protected API starts with _ (don't use it!)
-		_sb: /*stub*/ function(id, bases, name, chains){
+		_sb: /*generic stub*/ function(id, bases, name, chains){
 			var f = chains[name] = dcl._ec(bases, name, "f"),
 				b = dcl._ec(bases, name, "b").reverse(),
 				a = dcl._ec(bases, name, "a");

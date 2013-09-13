@@ -113,13 +113,13 @@
 
 	advise.around(dcl, "_f", function(/*sup*/){
 		return function(f, a, n){
-			if(typeof f.f != "function"){
+			if(!f || !f.super || typeof f.super.f != "function"){
 				dcl._e("wrong super call", f.ctr, n);
 			}
 			if(a && typeof a != "function"){
 				dcl._e("wrong super", f.ctr, n);
 			}
-			var t = f.f(a);
+			var t = f.super.f(a);
 			if(typeof t != "function"){
 				dcl._e("wrong super result", f.ctr, n);
 			}
@@ -176,7 +176,7 @@
 						f = dcl._ec(bases, name, "f").length,
 						a = dcl._ec(bases, name, "a").length;
 				}
-				console.log("    class method " + name + " is " + chainName(i) + 
+				console.log("    class method " + name + " is " + chainName(i) +
 					(hasStub ?
 						", and has an AOP stub (before: " + b + ", around: " + f + ", after: " + a + ")" :
 						" (length: " + chains[name].length + ")" ));
