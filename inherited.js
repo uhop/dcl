@@ -60,14 +60,14 @@
 			base = bases[i];
 			if((meta = base._m)){ // intentional assignment
 				meta = meta.h;
-				for(name in meta){
+				dcl.allKeys(meta).some(function(name){
 					f = meta[name];
 					if(typeof f == "function"){
-						if(f.nom === name){ break; }
+						if(f.nom === name){ return 1; }
 						f.nom = name;
 						f.ctr = base;
 					}
-				}
+				});
 			}
 		}
 		ctor.prototype.inherited = inherited;

@@ -12,11 +12,11 @@
 			Error.captureStackTrace(this, DclError);
 		}
 		var e = Error.call(this, message), name;
-		for(name in e){
+		dcl.allKeys(e).forEach(function(name){
 			if(e.hasOwnProperty(name)){
 				this[name] = e[name];
 			}
-		}
+		});
 		this.message = message;
 	}
 	DclError.prototype = dcl.delegate(Error.prototype);
@@ -96,7 +96,7 @@
 		// validate that chaining is consistent
 		var meta = ctor._m, weaver = meta.w, bases = meta.b,
 			name, chain, base, i, c;
-		for(name in weaver){
+		dcl.allKeys(weaver).forEach(function(name){
 			chain = (+weaver[name] || 0);
 			for(i = bases.length - 1; i >= 0; --i){
 				base = bases[i];
@@ -108,7 +108,7 @@
 					}
 				}
 			}
-		}
+		});
 	});
 
 	advise.around(dcl, "_f", function(/*sup*/){
@@ -167,7 +167,7 @@
 		if(someUnknown){
 			console.log("    " + noDecls);
 		}
-		for(name in weaver){
+		dcl.allKeys(weaver).forEach(function(name){
 			i = +weaver[name];
 			if(!isNaN(i)){
 				var hasStub = typeof ctor.prototype[name].advices == "object";
@@ -181,7 +181,7 @@
 						", and has an AOP stub (before: " + b + ", around: " + f + ", after: " + a + ")" :
 						" (length: " + chains[name].length + ")" ));
 			}
-		}
+		});
 	}
 
 	function countAdvices(node, chain){
@@ -206,7 +206,7 @@
 					logCtor(base);
 				}
 				// log methods
-				for(name in o){
+				dcl.allKeys(o).forEach(function(name){
 					var f = o[name], b, r, a;
 					if(typeof f == "function"){
 						if(f.adviceNode && f.adviceNode instanceof advise.Node){
@@ -217,7 +217,7 @@
 								b + ", around: " + r + ", after: " + a + ")");
 						}
 					}
-				}
+				});
 				return;
 		}
 		console.log(o);

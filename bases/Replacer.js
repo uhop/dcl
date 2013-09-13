@@ -12,14 +12,14 @@
 		declaredClass: "dcl/bases/Replacer",
 		constructor: function(x){
 			var empty = {};
-			for(var name in x){
+			dcl.allKeys(x).forEach(function(name){
 				if(name in this){
 					var t = x[name], e = empty[name];
 					if(t !== e){
 						this[name] = t;
 					}
 				}
-			}
+			}, this);
 		}
 	});
 });

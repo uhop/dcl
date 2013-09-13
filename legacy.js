@@ -9,6 +9,29 @@
 })(function(){
 	"use strict";
 
+	var shadowedNames = ["hasOwnProperty", "valueOf", "isPrototypeOf", "propertyIsEnumerable",
+		"toLocaleString", "toString", "constructor"], op = Object.prototype;
+	for(var post in {toString: 1}){
+		shadowedNames = [];
+	}
+
+	function allKeys(o){
+		var keys = [];
+		for(var name in o){
+			var t = o[name];
+			if(t !== op[name] || !(name in op)){
+				keys.push(name);
+			}
+		}
+		for(var i = 0, n = shadowedNames.length; i < n; ++i){
+			var t = o[name];
+			if(t !== op[name] || !(name in op)){
+				keys.push(name);
+			}
+		}
+		return keys;
+	}
+
 	var counter = 0, cname = "constructor", pname = "prototype",
 		F = function(){}, empty = {}, mix, extractChain,
 		stubSuper, stubChain, stubChainSuper, post;
@@ -83,18 +106,18 @@
 			meta = base._m;
 			mix(proto, meta && meta.h || base[pname]);
 			if(meta){
-				for(n in (superClasses = meta.w)){    // intentional assignment
+				allKeys(superClasses = meta.w).forEach(function(n){	// intentional assignment
 					vector[n] = (+vector[n] || 0) | superClasses[n];
-				}
+				});
 			}
 		}
-		for(n in props){
+		allKeys(props).forEach(function(n){
 			if(isSuper(meta = props[n])){  // intentional assignment
 				vector[n] = +vector[n] || 0;
 			}else{
 				proto[n] = meta;
 			}
-		}
+		});
 
 		// create stubs with fake constructor
 		//
@@ -129,25 +152,16 @@
 
 	// utilities
 
-	function allKeys(o){
-		var keys = [];
-		for(var name in o){
-			keys.push(name);
-		}
-		return keys;
-	}
-
 	(mix = function(a, b){
-		for(var n in b){
+		allKeys(b).forEach(function(n){
 			a[n] = b[n];
-		}
+		});
 	})(dcl, {
 		// piblic API
 		mix: mix,
 		delegate: function(o){
 			return Object.create(o);
 		},
-		allKeys: allKeys,
 		Super: Super,
 		superCall: function superCall(f){ return dcl._mk(f); },
 
@@ -217,9 +231,9 @@
 
 	function buildStubs(meta, proto){
 		var weaver = meta.w, bases = meta.b, chains = meta.c;
-		for(var name in weaver){
+		allKeys(weaver).forEach(function(name){
 			proto[name] = dcl._sb(weaver[name], bases, name, chains);
-		}
+		});
 	}
 
 	return dcl;
