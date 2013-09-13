@@ -113,13 +113,13 @@
 
 	advise.around(dcl, "_f", function(/*sup*/){
 		return function(f, a, n){
-			if(!f || !f.super || typeof f.super.f != "function"){
+			if(!f || !f.spr || typeof f.spr.f != "function"){
 				dcl._e("wrong super call", f.ctr, n);
 			}
 			if(a && typeof a != "function"){
 				dcl._e("wrong super", f.ctr, n);
 			}
-			var t = f.super.f(a);
+			var t = f.spr.f(a);
 			if(typeof t != "function"){
 				dcl._e("wrong super result", f.ctr, n);
 			}

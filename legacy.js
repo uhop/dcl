@@ -23,7 +23,7 @@
 				keys.push(name);
 			}
 		}
-		for(var i = 0, n = shadowedNames.length; i < n; ++i){
+		for(var i = 0; name = shadowedNames[i]; ++i){	// intentional assignment
 			var t = o[name];
 			if(t !== op[name] || !(name in op)){
 				keys.push(name);
@@ -148,7 +148,7 @@
 	// decorators
 
 	function Super(f){ this.f = f; }
-	function isSuper(f){ return f && f.super instanceof Super; }
+	function isSuper(f){ return f && f.spr instanceof Super; }
 
 	// utilities
 
@@ -162,13 +162,14 @@
 		delegate: function(o){
 			return Object.create(o);
 		},
+		allKeys: allKeys,
 		Super: Super,
 		superCall: function superCall(f){ return dcl._mk(f); },
 
 		// protected API starts with _ (don't use it!)
 
 		// make a Super marker
-		_mk: function makeSuper(f, S){ var fn = function(){}; fn.super = new (S || Super)(f); return fn; },
+		_mk: function makeSuper(f, S){ var fn = function(){}; fn.spr = new (S || Super)(f); return fn; },
 
 		// post-processor for a constructor, can be used to add more functionality
 		// or augment its behavior
@@ -178,14 +179,14 @@
 		_e: function(msg){ throw Error("dcl: " + msg); },
 
 		// supercall instantiation, augmented by debug.js
-		_f: function(f, a, n){ var t = f.super.f(a); t.ctr = f.ctr; return t; },
+		_f: function(f, a, n){ var t = f.spr.f(a); t.ctr = f.ctr; return t; },
 
 		// the "buildStubs()" helpers, can be overwritten
 		_ec: extractChain = function(bases, name, advice){
 			var i = bases.length - 1, chain = [], base, f, around = advice == "f";
 			for(; base = bases[i]; --i){
 				// next line contains 5 intentional assignments
-				if((f = base._m) ? (f = f.h).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.super.f : (f = f.super[advice])) : around) : around && (f = name == cname ? base : base[pname][name]) && f !== empty[name]){
+				if((f = base._m) ? (f = f.h).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.spr.f : (f = f.spr[advice])) : around) : around && (f = name == cname ? base : base[pname][name]) && f !== empty[name]){
 					f.ctr = base;
 					chain.push(f);
 				}
