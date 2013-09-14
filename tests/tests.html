@@ -7,24 +7,29 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/1.2.4/es5-shim.min.js"></script>
 		<script src="http://requirejs.org/docs/release/2.1.5/minified/require.js"></script>
 		<script>
-			require.config({
-				baseUrl: ".",
-				packages: [
-					{name: "heya-unit",
-					location: "../node_modules/heya-unit"},
-					{name: "heya-ice",
-					location: "../node_modules/heya-unit/node_modules/heya-ice"},
-					{name: "heya-unify",
-					location: "../node_modules/heya-unit/node_modules/heya-unify"}
-				],
-				paths: {
-					/*@cc_on
-					"../mini": "../legacy",
-					"dcl/mini": "dcl/legacy",
-					@*/
+			(function(){
+				var paths = {
 					domReady: "https://raw.github.com/requirejs/domReady/latest/domReady"
+				};
+				/*@cc_on
+				if(@_jscript_version < 9){
+					paths["../mini"]  = "../legacy";
+					paths["dcl/mini"] = "dcl/legacy";
 				}
-			});
+				@*/
+				require.config({
+					baseUrl: ".",
+					packages: [
+						{name: "heya-unit",
+						location: "../node_modules/heya-unit"},
+						{name: "heya-ice",
+						location: "../node_modules/heya-unit/node_modules/heya-ice"},
+						{name: "heya-unify",
+						location: "../node_modules/heya-unit/node_modules/heya-unify"}
+					],
+					paths: paths
+				});
+			})();
 			require(["require", "./tests", "domReady!"], function(require){
 				var test = require("./tests");
 			});
