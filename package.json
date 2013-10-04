@@ -1,6 +1,6 @@
 {
   "name": "dcl",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
   "homepage": "http://www.dcljs.org",
   "bugs": "http://github.com/uhop/dcl/issues",
