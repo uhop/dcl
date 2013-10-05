@@ -29,8 +29,12 @@
         <lastmod>2013-10-02T17:14:45-05:00</lastmod>
     </url>
     <url>
+        <loc>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/</loc>
+        <lastmod>2013-10-04T23:58:58-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.dcljs.org/blog/archives/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T23:58:58-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/about/</loc>
@@ -86,11 +90,19 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T22:51:12-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/installation/</loc>
         <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org/docs/legacy_js/</loc>
+        <lastmod>2013-10-04T23:56:45-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.dcljs.org/docs/changelog/</loc>
+        <lastmod>2013-10-04T23:45:13-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/advise_js/advise/</loc>
@@ -190,11 +202,11 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/inherited/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:49:59-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/get/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:47:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/</loc>
@@ -202,7 +214,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/inherited_js/getinherited/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:49:16-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/mini_js/mix/</loc>
@@ -230,7 +242,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/decorator/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:50:25-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/supercalls/</loc>
@@ -238,11 +250,11 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/constructors/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:44:53-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/multi-stage-construction/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T19:46:23-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/docs/general/destructors/</loc>
@@ -262,7 +274,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/</loc>
-        <lastmod>2013-10-02T17:14:45-05:00</lastmod>
+        <lastmod>2013-10-04T23:58:58-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/robots.txt</loc>

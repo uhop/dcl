@@ -168,40 +168,40 @@ for transitioning legacy code or fast prototyping:</p>
 </span><span class='line'>  <span class="nx">calcPrice1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
 </span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
 </span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
-</span><span class='line'>      <span class="c1">// Now let&#39;s return it tripled.</span>
-</span><span class='line'>      <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>    <span class="c1">// Now let&#39;s return it tripled.</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">},</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="c1">// Compare it with dcl.superCall() example:</span>
 </span><span class='line'>  <span class="nx">calcPrice2</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
 </span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
-</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
-</span><span class='line'>          <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
-</span><span class='line'>          <span class="c1">// imagine that we know that statically.</span>
-</span><span class='line'>          <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
-</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
-</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
-</span><span class='line'>          <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
-</span><span class='line'>          <span class="c1">// Now let&#39;s return it tripled:</span>
-</span><span class='line'>          <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">};</span>
-</span><span class='line'>  <span class="p">}),</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// Another alternative is to use getInherited():</span>
-</span><span class='line'>  <span class="nx">calcPrice3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
-</span><span class='line'>      <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice3&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
 </span><span class='line'>      <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
 </span><span class='line'>      <span class="c1">// imagine that we know that statically.</span>
-</span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
-</span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>        <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
 </span><span class='line'>      <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
 </span><span class='line'>      <span class="c1">// Now let&#39;s return it tripled:</span>
 </span><span class='line'>      <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">}),</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// Another alternative is to use getInherited():</span>
+</span><span class='line'>  <span class="nx">calcPrice3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;calcPrice3&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// In this example we don&#39;t check if `sup` is truthy:</span>
+</span><span class='line'>    <span class="c1">// imagine that we know that statically.</span>
+</span><span class='line'>      <span class="c1">// Let&#39;s inflate price by 200%.</span>
+</span><span class='line'>      <span class="c1">// Asking for a real price in three different yet equivalent ways:</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice1</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice2</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span><span class="p">]);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">realPrice3</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// Now let&#39;s return it tripled:</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">realPrice1</span> <span class="o">+</span> <span class="nx">realPrice2</span> <span class="o">+</span> <span class="nx">realPrice3</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -276,14 +276,14 @@ to catch it, to ignore it, or to pass it through.</li>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// non-strict mode</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// strict mode</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">toString</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;toString&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;prefix-&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="s2">&quot;toString&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-postfix&quot;</span><span class="p">;</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -316,14 +316,14 @@ just pass <code>arguments</code> object as your array of arguments:</p>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// non-strict mode</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// strict mode</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">C</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">C</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -391,6 +391,10 @@ just pass <code>arguments</code> object as your array of arguments:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/24/1-dot-0-4-added-to-bower/">1.0.4: added to Bower</a>
       </li>
     
@@ -404,10 +408,6 @@ just pass <code>arguments</code> object as your array of arguments:</p>
     
       <li class="post">
         <a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/21/inroduction-to-dcl/">Inroduction to dcl</a>
       </li>
     
   </ul>

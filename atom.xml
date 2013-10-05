@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-10-02T18:53:40-05:00</updated>
+  <updated>2013-10-05T00:01:59-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[1.1: legacy]]></title>
+    <link href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/"/>
+    <updated>2013-10-04T23:11:00-05:00</updated>
+    <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
+    <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
+
+<p><a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
+
+<!-- more -->
+
+
+<p>Changes:</p>
+
+<ul>
+<li>Added metadata for an extended Dojo release.</li>
+<li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
+<li>Added <a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="http://www.dcljs.org/docs/mini_js">mini.js</a> in legacy environments.</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[1.0.4: added to Bower]]></title>

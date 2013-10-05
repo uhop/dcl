@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>1.0.4: added to Bower - DCL</title>
+  <title>ChangeLog - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it. The version bump was required in order &hellip;">
+  <meta name="description" content="ChangeLog Oct 4th, 2013 1.1.0 Major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower">
+  <link rel="canonical" href="http://www.dcljs.org/docs/changelog">
   <link href="/favicon.ico" rel="icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -81,15 +81,96 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">1.0.4: added to Bower</h1>
-    
-    
+    <h1 class="entry-title">ChangeLog</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-04T22:46:00-05:00" pubdate data-updated="true">Oct 4<span>th</span>, 2013</time></p>
+  </header>
+  
+  <h2>1.1.0</h2>
+
+<p>Major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications.</p>
+
+<ul>
+<li>Added metadata for an extended Dojo release.</li>
+<li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
+<li>Added <a href="/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="/docs/mini_js">mini.js</a> in legacy environments.</li>
+</ul>
+
+
+<p>Blog entry: <a href="/blog/2013/10/04/1-dot-1-legacy">1.1: legacy</a>.</p>
+
+<h2>1.0.4</h2>
+
+<p>Technical release. No functional changes, just a new tag and new file with metadata for <a href="http://bower.io/">Bower</a>.</p>
+
+<p>Blog entry: <a href="/blog/2013/07/24/1-dot-0-4-added-to-bower/">1.0.4: added to Bower</a>.</p>
+
+<h2>1.0.3</h2>
+
+<p>Minor update, which includes a bug fix, and improved testing.</p>
+
+<ul>
+<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code> it was not called when creating an object. This bug is fixed and relevant tests were added.</li>
+<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>. No more manual tests.</li>
+<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
+<li>Increased test coverage.</li>
+</ul>
+
+
+<p>Blog entry: <a href="/blog/2013/05/30/update-1-dot-0-3">Update: 1.0.3</a>.</p>
+
+<h2>1.0.2</h2>
+
+<p>An update to accommodate some security restrictive embedded environments.</p>
+
+<ul>
+<li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code> to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions, because <code>new Function</code> even without any parameters is considered to be <code>eval</code> (???), and forces to allow <code>eval</code> globally.</li>
+</ul>
+
+
+<p>Blog entry: <a href="/blog/2012/12/30/micro-update-1-dot-0-2">Micro update: 1.0.2</a>.</p>
+
+<h2>1.0.1</h2>
+
+<p>Minor update, mostly housekeeping.</p>
+
+<ul>
+<li>Added <a href="/docs/inherited_js/getinherited">getInherited()</a> as an alias for <a href="/docs/inherited_js/get">inherited.get()</a> to simplify its use. Now there is no need to use <code>call()</code> or <code>apply()</code> to specify its instance.</li>
+<li>Added tests for <code>dcl</code> exceptions.</li>
+<li>Added tests for canned advices and mixins.</li>
+<li>Changed export names for <code>&lt;script&gt;</code> inclusion.</li>
+<li>Error messages are better formatted.</li>
+<li>Minor clean up, better comments, documentation updates.</li>
+</ul>
+
+
+<p>Blog entry: <a href="/blog/2012/12/18/1-dot-0-1-is-out">1.0.1 is out</a>.</p>
+
+<h2>1.0.0</h2>
+
+<p>The initial public release.</p>
+
+<p>Blog entry: <a href="/blog/2012/10/05/1-dot-0-is-public">1.0 is public</a>.</p>
+
+  
+    <footer>
       <p class="meta">
         
+        
 
 
 
@@ -101,59 +182,13 @@
   
 
 
-<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+<time datetime="2013-10-04T22:46:00-05:00" pubdate data-updated="true">Oct 4<span>th</span>, 2013</time>
         
       </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
-
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-
-
-  <footer>
-    <p class="meta">
       
+        <div class="sharing">
   
-
-<span class="byline author vcard">Posted by <span class="fn">Eugene Lazutkin</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/announce/'>announce</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/docs/changelog/index.html" data-via="uhop" data-counturl="http://www.dcljs.org/docs/changelog/index.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -163,16 +198,9 @@
   
 </div>
 
-    
-    <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/05/30/update-1-dot-0-3/" title="Previous Post: Update: 1.0.3">&laquo; Update: 1.0.3</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2013/10/04/1-dot-1-legacy/" title="Next Post: 1.1: legacy">1.1: legacy &raquo;</a>
-      
-    </p>
-  </footer>
+    </footer>
+  
 </article>
 
 </div>

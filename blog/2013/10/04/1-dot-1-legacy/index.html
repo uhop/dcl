@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>1.0.4: added to Bower - DCL</title>
+  <title>1.1: legacy - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it. The version bump was required in order &hellip;">
+  <meta name="description" content="This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower">
+  <link rel="canonical" href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy">
   <link href="/favicon.ico" rel="icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -85,7 +85,7 @@
   
   <header>
     
-      <h1 class="entry-title">1.0.4: added to Bower</h1>
+      <h1 class="entry-title">1.1: legacy</h1>
     
     
       <p class="meta">
@@ -101,21 +101,27 @@
   
 
 
-<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+<time datetime="2013-10-04T23:11:00-05:00" pubdate data-updated="true">Oct 4<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
+<div class="entry-content"><p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
+<p>Changes:</p>
+
+<ul>
+<li>Added metadata for an extended Dojo release.</li>
+<li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
+<li>Added <a href="/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="/docs/mini_js">mini.js</a> in legacy environments.</li>
+</ul>
 
 </div>
 
@@ -139,7 +145,7 @@
   
 
 
-<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+<time datetime="2013-10-04T23:11:00-05:00" pubdate data-updated="true">Oct 4<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -153,7 +159,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -166,10 +172,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/05/30/update-1-dot-0-3/" title="Previous Post: Update: 1.0.3">&laquo; Update: 1.0.3</a>
+        <a class="basic-alignment left" href="/blog/2013/07/24/1-dot-0-4-added-to-bower/" title="Previous Post: 1.0.4: added to Bower">&laquo; 1.0.4: added to Bower</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/10/04/1-dot-1-legacy/" title="Next Post: 1.1: legacy">1.1: legacy &raquo;</a>
       
     </p>
   </footer>
