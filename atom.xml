@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[DCL]]></title>
-  <link href="http://www.dcljs.org/atom.xml" rel="self"/>
-  <link href="http://www.dcljs.org/"/>
-  <updated>2013-10-05T00:01:59-05:00</updated>
-  <id>http://www.dcljs.org/</id>
+  <link href="http://www.dcljs.org//atom.xml" rel="self"/>
+  <link href="http://www.dcljs.org//"/>
+  <updated>2013-10-17T15:30:59-05:00</updated>
+  <id>http://www.dcljs.org//</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
     
@@ -15,12 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[1.1: legacy]]></title>
-    <link href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/"/>
+    <link href="http://www.dcljs.org//blog/2013/10/04/1-dot-1-legacy/"/>
     <updated>2013-10-04T23:11:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
+    <id>http://www.dcljs.org//blog/2013/10/04/1-dot-1-legacy</id>
     <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
+<p><a href="http://www.dcljs.org//docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 <!-- more -->
 
@@ -30,7 +30,7 @@
 <ul>
 <li>Added metadata for an extended Dojo release.</li>
 <li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
-<li>Added <a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="http://www.dcljs.org/docs/mini_js">mini.js</a> in legacy environments.</li>
+<li>Added <a href="http://www.dcljs.org//docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="http://www.dcljs.org//docs/mini_js">mini.js</a> in legacy environments.</li>
 </ul>
 
 ]]></content>
@@ -38,9 +38,9 @@
   
   <entry>
     <title type="html"><![CDATA[1.0.4: added to Bower]]></title>
-    <link href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/"/>
+    <link href="http://www.dcljs.org//blog/2013/07/24/1-dot-0-4-added-to-bower/"/>
     <updated>2013-07-24T10:05:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower</id>
+    <id>http://www.dcljs.org//blog/2013/07/24/1-dot-0-4-added-to-bower</id>
     <content type="html"><![CDATA[<p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
 <p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
@@ -55,9 +55,9 @@
   
   <entry>
     <title type="html"><![CDATA[Update: 1.0.3]]></title>
-    <link href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/"/>
+    <link href="http://www.dcljs.org//blog/2013/05/30/update-1-dot-0-3/"/>
     <updated>2013-05-30T20:02:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3</id>
+    <id>http://www.dcljs.org//blog/2013/05/30/update-1-dot-0-3</id>
     <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
 
 <ul>
@@ -79,9 +79,9 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
   
   <entry>
     <title type="html"><![CDATA[dcl added to jam]]></title>
-    <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
+    <link href="http://www.dcljs.org//blog/2013/01/11/dcl-added-to-jam/"/>
     <updated>2013-01-11T15:39:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
+    <id>http://www.dcljs.org//blog/2013/01/11/dcl-added-to-jam</id>
     <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
@@ -95,9 +95,9 @@ for front-end projects. If you use jam to manage your project dependencies, you 
   
   <entry>
     <title type="html"><![CDATA[Micro update: 1.0.2]]></title>
-    <link href="http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2/"/>
+    <link href="http://www.dcljs.org//blog/2012/12/30/micro-update-1-dot-0-2/"/>
     <updated>2012-12-30T14:20:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2</id>
+    <id>http://www.dcljs.org//blog/2012/12/30/micro-update-1-dot-0-2</id>
     <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
 
 <ul>
@@ -115,9 +115,9 @@ don&rsquo;t work with security-constrained environments.</p>
   
   <entry>
     <title type="html"><![CDATA[Inroduction to dcl]]></title>
-    <link href="http://www.dcljs.org/blog/2012/12/21/inroduction-to-dcl/"/>
+    <link href="http://www.dcljs.org//blog/2012/12/21/inroduction-to-dcl/"/>
     <updated>2012-12-21T01:05:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2012/12/21/inroduction-to-dcl</id>
+    <id>http://www.dcljs.org//blog/2012/12/21/inroduction-to-dcl</id>
     <content type="html"><![CDATA[<p><a href="http://davidwalsh.name/about-david-walsh">David Walsh</a> has asked me
 to do a guest blog post. When I offered him to write about <code>dcl</code>,
 he agreed, and here we go:
@@ -133,14 +133,14 @@ demos, and in-depth articles. Get yourself in the know.</p>
   
   <entry>
     <title type="html"><![CDATA[1.0.1 is out]]></title>
-    <link href="http://www.dcljs.org/blog/2012/12/18/1-dot-0-1-is-out/"/>
+    <link href="http://www.dcljs.org//blog/2012/12/18/1-dot-0-1-is-out/"/>
     <updated>2012-12-18T02:43:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2012/12/18/1-dot-0-1-is-out</id>
+    <id>http://www.dcljs.org//blog/2012/12/18/1-dot-0-1-is-out</id>
     <content type="html"><![CDATA[<p>1.0.1 is a minor update. This version has following changes:</p>
 
 <ul>
-<li>Added <a href="http://www.dcljs.org/docs/inherited_js/getinherited">getInherited()</a> as an alias for
-<a href="http://www.dcljs.org/docs/inherited_js/get">inherited.get()</a> to simplify its use. Now
+<li>Added <a href="http://www.dcljs.org//docs/inherited_js/getinherited">getInherited()</a> as an alias for
+<a href="http://www.dcljs.org//docs/inherited_js/get">inherited.get()</a> to simplify its use. Now
 there is no need to use <code>call()</code> or <code>apply()</code> to specify its instance.</li>
 <li>Added tests for <code>dcl</code> exceptions.</li>
 <li>Added tests for canned advices and mixins.</li>
@@ -155,16 +155,16 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway &mdash;&ndash; when in browser please use an AMD
+which are not recommended anyway &mdash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[1.0 is public]]></title>
-    <link href="http://www.dcljs.org/blog/2012/10/05/1-dot-0-is-public/"/>
+    <link href="http://www.dcljs.org//blog/2012/10/05/1-dot-0-is-public/"/>
     <updated>2012-10-05T21:40:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2012/10/05/1-dot-0-is-public</id>
+    <id>http://www.dcljs.org//blog/2012/10/05/1-dot-0-is-public</id>
     <content type="html"><![CDATA[<p>Finally after months of private use 1.0 version of <code>dcl</code> is out
 in the open.</p>
 
@@ -192,8 +192,8 @@ like this:</p>
 are legally clean and covered by CLA, so you can use it not only
 for pet projects, but at work too.</p>
 
-<p>For more information hop on <a href="http://www.dcljs.org/about">what is dcl?</a> and learn more.
-Do not forget to look at extensive <a href="http://www.dcljs.org/docs">documentation</a>, or
+<p>For more information hop on <a href="http://www.dcljs.org//about">what is dcl?</a> and learn more.
+Do not forget to look at extensive <a href="http://www.dcljs.org//docs">documentation</a>, or
 <a href="mailto:eugene@dcljs.org">shoot me an email</a>, if you still have
 more questions.</p>
 ]]></content>

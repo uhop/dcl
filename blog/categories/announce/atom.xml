@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: announce | DCL]]></title>
-  <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
-  <link href="http://www.dcljs.org/"/>
-  <updated>2013-10-05T00:01:59-05:00</updated>
-  <id>http://www.dcljs.org/</id>
+  <link href="http://www.dcljs.org//blog/categories/announce/atom.xml" rel="self"/>
+  <link href="http://www.dcljs.org//"/>
+  <updated>2013-10-17T15:30:59-05:00</updated>
+  <id>http://www.dcljs.org//</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
     
@@ -15,12 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[1.1: legacy]]></title>
-    <link href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/"/>
+    <link href="http://www.dcljs.org//blog/2013/10/04/1-dot-1-legacy/"/>
     <updated>2013-10-04T23:11:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
+    <id>http://www.dcljs.org//blog/2013/10/04/1-dot-1-legacy</id>
     <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
+<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 <!-- more -->
 
@@ -38,9 +38,9 @@
   
   <entry>
     <title type="html"><![CDATA[1.0.4: added to Bower]]></title>
-    <link href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/"/>
+    <link href="http://www.dcljs.org//blog/2013/07/24/1-dot-0-4-added-to-bower/"/>
     <updated>2013-07-24T10:05:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower</id>
+    <id>http://www.dcljs.org//blog/2013/07/24/1-dot-0-4-added-to-bower</id>
     <content type="html"><![CDATA[<p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
 <p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
@@ -52,9 +52,9 @@
   
   <entry>
     <title type="html"><![CDATA[Update: 1.0.3]]></title>
-    <link href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/"/>
+    <link href="http://www.dcljs.org//blog/2013/05/30/update-1-dot-0-3/"/>
     <updated>2013-05-30T20:02:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3</id>
+    <id>http://www.dcljs.org//blog/2013/05/30/update-1-dot-0-3</id>
     <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
 
 <ul>
@@ -76,9 +76,9 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
   
   <entry>
     <title type="html"><![CDATA[dcl added to jam]]></title>
-    <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
+    <link href="http://www.dcljs.org//blog/2013/01/11/dcl-added-to-jam/"/>
     <updated>2013-01-11T15:39:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
+    <id>http://www.dcljs.org//blog/2013/01/11/dcl-added-to-jam</id>
     <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
@@ -89,9 +89,9 @@ for front-end projects. If you use jam to manage your project dependencies, you 
   
   <entry>
     <title type="html"><![CDATA[Micro update: 1.0.2]]></title>
-    <link href="http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2/"/>
+    <link href="http://www.dcljs.org//blog/2012/12/30/micro-update-1-dot-0-2/"/>
     <updated>2012-12-30T14:20:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2012/12/30/micro-update-1-dot-0-2</id>
+    <id>http://www.dcljs.org//blog/2012/12/30/micro-update-1-dot-0-2</id>
     <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
 
 <ul>
