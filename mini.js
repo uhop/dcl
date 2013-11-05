@@ -81,7 +81,7 @@
 		for(; j > 0; --j){
 			base = bases[j];
 			meta = base._m;
-			mix(proto, meta && meta.h || base[pname]);
+			dcl.mix(proto, meta && meta.h || base[pname]);
 			if(meta){
 				for(n in (superClasses = meta.w)){    // intentional assignment
 					vector[n] = (+vector[n] || 0) | superClasses[n];
