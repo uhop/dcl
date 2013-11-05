@@ -111,7 +111,7 @@ it is a way to call a method that was overridden by the current method. It is us
 <p>When you need to do a supercall, you decorate/wrap a method with <code>dcl.superCall()</code> using a double function pattern:</p>
 
 <figure class='code'><figcaption><span>Double function pattern </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -134,7 +134,7 @@ In doing its work it can optionally call its super method.</p>
 object. Do not forget to use standard <code>apply()</code> or <code>call()</code> methods to supply an object, and/or arguments:</p>
 
 <figure class='code'><figcaption><span>Calling a super </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -163,7 +163,7 @@ object. Do not forget to use standard <code>apply()</code> or <code>call()</code
 injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</code> for presence.</p>
 
 <figure class='code'><figcaption><span>Handling possibly missing super </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -191,7 +191,7 @@ injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</c
 <p>Transitioning from a regular method to a method, which can execute a supercall is very simple:</p>
 
 <figure class='code'><figcaption><span>Before applying a decorator </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>   <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span> <span class="nx">X</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
@@ -204,7 +204,7 @@ injected <code>sup</code> will be falsy. It is a good idea to check <code>sup</c
 Let&rsquo;s transition it to a supercalling method:</p>
 
 <figure class='code'><figcaption><span>After applying a decorator </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -226,7 +226,7 @@ can take advantage of a supercall, which is injected using <code>sup</code> argu
 <p>More complete example:</p>
 
 <figure class='code'><figcaption><span>Example </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -316,7 +316,7 @@ through.</li>
 <p>Yes.</p>
 
 <figure class='code'><figcaption><span>Calling toString() </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -341,7 +341,7 @@ through.</li>
 constructors. <strong>Think twice before interrupting construction chains &mdash; usually it is a bad idea.</strong></p>
 
 <figure class='code'><figcaption><span>Interrupting constructors </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>

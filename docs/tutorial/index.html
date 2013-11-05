@@ -117,7 +117,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <p>For our examples we will need the main <a href="/docs/dcl_js">dcl</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -132,7 +132,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <p>Let&rsquo;s declare a class derived from Object:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -146,7 +146,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 because it will help while debugging your objects.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -159,7 +159,7 @@ because it will help while debugging your objects.</p>
 <p>A default name as a class-level constant:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Anonymous&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -172,7 +172,7 @@ because it will help while debugging your objects.</p>
 <p>A constructor is a method named &hellip; <code>constructor</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -198,7 +198,7 @@ because it will help while debugging your objects.</p>
 Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Bureaucrat</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Person</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Bureaucrat&quot;</span><span class="p">,</span>
@@ -213,7 +213,7 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 <p>Remember that all inherited constructors are chained in automatically!</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -240,7 +240,7 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 <p>Now we can create a typical anonymous clerk:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">clerk</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bureaucrat</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -257,7 +257,7 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 <p>Let&rsquo;s ask him to approve something:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">clerk</span><span class="p">.</span><span class="nx">approve</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -283,7 +283,7 @@ it knows that Person will take care of it.</p>
 Any normal class would do.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -304,7 +304,7 @@ Any normal class would do.</p>
 <p>Now we are ready to create Talker from Person + Speaker:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Talker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Person</span><span class="p">,</span> <span class="nx">Speaker</span><span class="p">],</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -317,7 +317,7 @@ Any normal class would do.</p>
 <p>It has no own methods for simplicity.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
@@ -333,7 +333,7 @@ Any normal class would do.</p>
 <code>Person Alice is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">alice</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Talker</span><span class="p">(</span><span class="s2">&quot;Alice&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -346,7 +346,7 @@ Any normal class would do.</p>
 <p><code>Alice: hello!</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">alice</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -361,7 +361,7 @@ Any normal class would do.</p>
 <p>Let&rsquo;s declare another mixin, this time using a super call:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Shouter</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Speaker</span><span class="p">,</span> <span class="p">{</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -375,7 +375,7 @@ Any normal class would do.</p>
 <code>sup</code> &mdash; a method from a super class.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">speak</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
 </span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">){</span>
@@ -393,7 +393,7 @@ not in this case, though &mdash; we are based
 on Speaker meaning it will be always pulled in.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -416,7 +416,7 @@ on Speaker meaning it will be always pulled in.</p>
 <p>Let&rsquo;s create a Shouter called Sarge.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Sarge</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Talker</span><span class="p">,</span> <span class="nx">Shouter</span><span class="p">],</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -429,7 +429,7 @@ on Speaker meaning it will be always pulled in.</p>
 <p>It has no own methods for simplicity.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="p">{}</span>
 </span><span class='line'><span class="p">);</span>
@@ -444,7 +444,7 @@ on Speaker meaning it will be always pulled in.</p>
 <p><code>Person Bob is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sarge</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -457,7 +457,7 @@ on Speaker meaning it will be always pulled in.</p>
 <p><code>Bob: GIVE ME TWENTY!</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">bob</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;give me twenty!&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -480,7 +480,7 @@ calls, and it greatly simplifies debugging.</p>
 <p><code>Person Loud Bob is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">loudBob</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">dcl</span><span class="p">([</span><span class="nx">Talker</span><span class="p">,</span> <span class="nx">Shouter</span><span class="p">],</span> <span class="p">{}))(</span><span class="s2">&quot;Loud Bob&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -493,7 +493,7 @@ calls, and it greatly simplifies debugging.</p>
 <p><code>Loud Bob: ANYBODY HOME?</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">loudBob</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;Anybody home?&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -511,7 +511,7 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <p>Let&rsquo;s create one more mixin:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -542,7 +542,7 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <p>Now we can create Sick Talker.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">SickTalker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Talker</span><span class="p">,</span> <span class="nx">Sick</span><span class="p">],</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -555,7 +555,7 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <p><code>Person Clara is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">clara</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SickTalker</span><span class="p">(</span><span class="s2">&quot;Clara&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -570,7 +570,7 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <code>Clara: *sniffle* I am sick!</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">clara</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;I want a glass of water!&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -595,7 +595,7 @@ from a super class.</p>
 <a href="/docs/dcl_js/around">dcl.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -624,7 +624,7 @@ from a super class.</p>
 <p>Now we are ready for&hellip;</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">SickMartianSarge</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Sarge</span><span class="p">,</span> <span class="nx">Sick</span><span class="p">,</span> <span class="nx">Martian</span><span class="p">],</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -637,7 +637,7 @@ from a super class.</p>
 <p><code>Person Don is created</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">don</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SickMartianSarge</span><span class="p">(</span><span class="s2">&quot;Don&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -652,7 +652,7 @@ from a super class.</p>
 <code>Don: *sniffle* I am sick!</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">don</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;Doctor? Nurse? Anybody?&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -676,7 +676,7 @@ and event-like methods.</p>
 <p>Waker-upper and sleeper:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">BioOrganism</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
@@ -698,7 +698,7 @@ them chained.</p>
 <p>Our handy mixins:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -733,7 +733,7 @@ them chained.</p>
 <p>All together now:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -761,7 +761,7 @@ them chained.</p>
 <code>dress up for work</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">ethel</span><span class="p">.</span><span class="nx">wakeUp</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -777,7 +777,7 @@ them chained.</p>
 <code>turn off lights</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">ethel</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -800,7 +800,7 @@ any method dynamically, and unadvise it at will.</p>
 For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -813,7 +813,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p>Let&rsquo;s use a one-off class this time:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -852,7 +852,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p>Notice that after advices attached in the reverse order:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -883,7 +883,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <code>dress up for work</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">wakeUp</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -898,7 +898,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <code>turn off lights</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -911,7 +911,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p>Let&rsquo;s save on electricity:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">wakeAd1</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -924,7 +924,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p>Brushing teeth more than once a day is overrated, right?</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">sleepAd1</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -937,7 +937,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p>No need to dress up for work either &mdash; our Fred is CEO!</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">wakeAd3</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -950,7 +950,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <p><code>brush my teeth</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">wakeUp</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -964,7 +964,7 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <code>turn off lights</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -988,7 +988,7 @@ your &ldquo;classes&rdquo; and objects. All you need is to require it,
 and it will plug right in:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dclDebug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1002,7 +1002,7 @@ and it will plug right in:</p>
 a static class id in our &ldquo;class&rdquo; definitions like so:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">OurClass</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;OurClass&quot;</span>
@@ -1018,7 +1018,7 @@ a static class id in our &ldquo;class&rdquo; definitions like so:</p>
 It is skipped here for simplicity.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1049,7 +1049,7 @@ The debug module can log constructors and objects created
 by those constructors.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1098,7 +1098,7 @@ by those constructors.</p>
 <code>*ZzZzZzZzZzZzZ*</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">george</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1116,7 +1116,7 @@ by those constructors.</p>
 <code>     and has an AOP stub (before: 0, around: 0, after: 1)</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">A</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1133,7 +1133,7 @@ by those constructors.</p>
 <code>     and has an AOP stub (before: 0, around: 1, after: 1)</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">B</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1152,7 +1152,7 @@ by those constructors.</p>
 <code>   object method sleep has an AOP stub (before: 0, around: 1, after: 2)</code></p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">george</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 

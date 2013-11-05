@@ -118,7 +118,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <a href="/docs/dcl_js">dcl</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -134,7 +134,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -163,7 +163,7 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <p>No base class:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -176,7 +176,7 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <p>Single inheritance:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -189,7 +189,7 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <p>Mixins:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">M</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">M</span><span class="p">],</span> <span class="p">{});</span>
@@ -204,7 +204,7 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <p>Disposable one-off &ldquo;class&rdquo;:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">M</span><span class="p">],</span> <span class="p">{}))(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -220,7 +220,7 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -251,7 +251,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Make a super call with different arguments:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -284,7 +284,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;before&rdquo; with <a href="/docs/dcl_js/before">dcl.before()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -305,7 +305,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;after&rdquo; with <a href="/docs/dcl_js/after">dcl.after()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -326,7 +326,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;around&rdquo; with <a href="/docs/dcl_js/around">dcl.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -371,7 +371,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Full-blown advising with <a href="/docs/dcl_js/advise">dcl.advise()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -434,7 +434,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Chain after with <a href="/docs/dcl_js/chainafter">dcl.chainAfter()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainAfter</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="s2">&quot;method1&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -447,7 +447,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Chain before <a href="/docs/dcl_js/chainbefore">dcl.chainBefore()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainBefore</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="s2">&quot;method2&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -465,7 +465,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>We need <a href="/docs/advise_js">advise</a> module:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">);</span>
@@ -482,7 +482,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;before&rdquo; with <a href="/docs/advise_js/before">advise.before()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a1</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
@@ -499,7 +499,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;after&rdquo; with <a href="/docs/advise_js/after">advise.after()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a2</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
@@ -516,7 +516,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Advise &ldquo;around&rdquo; with <a href="/docs/advise_js/around">advise.around()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -557,7 +557,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Full-blown advising with <a href="/docs/advise_js/advise">advise()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -614,7 +614,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <p>Unadvise (in any order):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">a2</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -630,7 +630,7 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 module (its value is actually not used):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">inherited</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/inherited&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -644,7 +644,7 @@ module (its value is actually not used):</p>
 with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -665,7 +665,7 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 <p>Make a super call with different arguments:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -686,7 +686,7 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 <p>Make a super call (works in both strict and non-strict modes):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -708,7 +708,7 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 (works in both strict and non-strict modes):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -740,7 +740,7 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 enhanced error reporting automatically):</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -763,7 +763,7 @@ enhanced error reporting automatically):</p>
 <p>Log a class with <a href="/docs/debug_js/log">dclDebug.log()</a>:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">O</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -776,7 +776,7 @@ enhanced error reporting automatically):</p>
 <p>Log an object:</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
