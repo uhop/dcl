@@ -59,7 +59,7 @@ function(module, unit, dcl, advise, counter, flow, time, memoize, trace){
 						declaredName: "AdvisedAckermann",
 						m0: dcl.advise(flow.advice("m0")),
 						n0: dcl.advise(flow.advice("n0")),
-						a:  dcl.advise(flow.advice("a")),
+						a:  dcl.advise(flow.advice("a"))
 					});
 
 				// our instrumented version:
