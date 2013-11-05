@@ -104,6 +104,38 @@
 
 <p>While it is possible to use <code>legacy.js</code> instead of <a href="/docs/mini_js">mini.js</a> with <code>node.js</code> and modern browsers, it is not advised, because <code>legacy.js</code> is slower than <a href="/docs/mini_js">mini.js</a>.</p>
 
+<p>This module is meant to be used as a substitute for <a href="/docs/mini_js">mini.js</a>. But there is one scenario when it can be used on its own: as the only <code>dcl</code> module in a small project. In this case, when no other <code>dcl</code> modules are used, it can be included directly from JavaScript:</p>
+
+<figure class='code'><figcaption><span>Include legacy </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/legacy&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/legacy&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/legacy&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dcl</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <h2>Background</h2>
 
 <p>When <code>dcl</code> was released originally, it supported only modern environments. The major problem with legacy environments was not their obsolescence or backwardness, or lack of certain features, but shameful bugs in their implementation of JavaScript. The biggest of them is a <code>for in</code> loop bug, which skips some property names.</p>
@@ -298,6 +330,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
@@ -311,10 +347,6 @@
     
       <li class="post">
         <a href="/blog/2013/01/11/dcl-added-to-jam/">dcl added to jam</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a>
       </li>
     
   </ul>

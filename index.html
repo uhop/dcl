@@ -9,7 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t &hellip;">
+  <meta name="description" content="New release of dcl (1.1.1) includes two minor bug fixes: Bugfix: a stray comma in a test file, which acted up in legacy browsers.
+Bugfix: dcl.mix() &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +89,50 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-05T16:31:00-06:00" pubdate data-updated="true">Nov 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>New release of <code>dcl</code> (1.1.1) includes two minor bug fixes:</p>
+
+<ul>
+<li>Bugfix: a stray comma in a test file, which acted up in legacy browsers.</li>
+<li>Bugfix: <a href="/docs/mini_js/mix">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
+</ul>
+
+
+<p>Most users can safely skip this update, unless they are directly affected by the monkey-patch bug.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a></h1>
     
     
@@ -113,7 +158,7 @@
 
   <div class="entry-content"><p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
+<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 </div>
   
@@ -403,7 +448,7 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway &mdash;&ndash; when in browser please use an AMD
+which are not recommended anyway &mdash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 </div>
   
@@ -485,6 +530,10 @@ in the open.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
@@ -498,10 +547,6 @@ in the open.</p>
     
       <li class="post">
         <a href="/blog/2013/01/11/dcl-added-to-jam/">dcl added to jam</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a>
       </li>
     
   </ul>

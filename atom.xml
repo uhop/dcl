@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2013-10-05T00:01:59-05:00</updated>
+  <updated>2013-11-05T16:38:23-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -14,13 +14,30 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Micro update: 1.1.1]]></title>
+    <link href="http://www.dcljs.org/blog/2013/11/05/micro-update-1-dot-1-1/"/>
+    <updated>2013-11-05T16:31:00-06:00</updated>
+    <id>http://www.dcljs.org/blog/2013/11/05/micro-update-1-dot-1-1</id>
+    <content type="html"><![CDATA[<p>New release of <code>dcl</code> (1.1.1) includes two minor bug fixes:</p>
+
+<ul>
+<li>Bugfix: a stray comma in a test file, which acted up in legacy browsers.</li>
+<li>Bugfix: <a href="http://www.dcljs.org/docs/mini_js/mix">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
+</ul>
+
+
+<p>Most users can safely skip this update, unless they are directly affected by the monkey-patch bug.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[1.1: legacy]]></title>
     <link href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/"/>
     <updated>2013-10-04T23:11:00-05:00</updated>
     <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
     <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendation on how to use it in real projects.</p>
+<p><a href="http://www.dcljs.org/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 <!-- more -->
 
@@ -155,7 +172,7 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway &mdash;&ndash; when in browser please use an AMD
+which are not recommended anyway &mdash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 ]]></content>
   </entry>
