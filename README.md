@@ -305,7 +305,7 @@ var wakeAd1 = advise(ethel, "wakeUp", {
 var wakeAd2 = advise(ethel, "wakeUp", {
     before: function(){ console.log("brush my teeth"); }
 });
-var wakeAd2 = advise(ethel, "wakeUp", {
+var wakeAd3 = advise(ethel, "wakeUp", {
     before: function(){ console.log("dress up for work"); }
 });
 
@@ -332,7 +332,7 @@ ethel.sleep();
 // let's save on electricity
 wakeAd1.unadvise();
 // brushing teeth more than once a day is overrated, right?
-sleepAd1.unadvise();
+sleepAd2.unadvise();
 // no need to dress up for work either --- Ethel is CEO!
 wakeAd3.unadvise();
 
