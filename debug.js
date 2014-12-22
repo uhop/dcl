@@ -35,7 +35,7 @@
 		return id >= 0 && id <= 3 ? chainNames[id] : "UNKNOWN (" + id + ")";
 	}
 
-	var noDecls = "(specify 'declaredClass' string in your classes to get better diagnostics)";
+	var noDecls = " (specify 'declaredClass' string in your classes to get better diagnostics)";
 	advise.around(dcl, "_error", function(/*sup*/){
 		return function(reason, a1, a2, a3, a4, a5){
 			var cName, someUnknown, i, base, name, names = [], c = {};
@@ -95,16 +95,16 @@
 	advise.after(dcl, "_postprocess", function(args, ctor){
 		// validate that chaining is consistent
 		var meta = ctor._meta, weaver = meta.weaver, bases = meta.bases,
-			name, chain, base, i, c;
+			name, chain, base, i, rule;
 		dcl.allKeys(weaver).forEach(function(name){
 			chain = (+weaver[name] || 0);
 			for(i = bases.length - 1; i >= 0; --i){
 				base = bases[i];
 				meta = base._meta;
 				if(meta){
-					c = (+meta.weaver[name] || 0);
-					if(chain != c && (!chain || c)){
-						dcl._error("chain", name, ctor, chain, base, c);
+					rule = (+meta.weaver[name] || 0);
+					if(chain != rule && (!chain || rule)){
+						dcl._error("chain", name, ctor, chain, base, rule);
 					}
 				}
 			}
@@ -113,13 +113,13 @@
 
 	advise.around(dcl, "_instantiate", function(/*sup*/){
 		return function(f, a, n){
-			if(!f || !f.spr || typeof f.spr.f != "function"){
+			if(!f || !f.spr || typeof f.spr.around != "function"){
 				dcl._error("wrong super call", f.ctr, n);
 			}
 			if(a && typeof a != "function"){
 				dcl._error("wrong super", f.ctr, n);
 			}
-			var t = f.spr.f(a);
+			var t = f.spr.around(a);
 			if(typeof t != "function"){
 				dcl._error("wrong super result", f.ctr, n);
 			}
@@ -128,18 +128,18 @@
 		};
 	});
 
-	advise(advise, "_f", {
-		before: function(f, a, n){
-			if(typeof f != "function"){
-				dcl._error("wrong super call", n.i.constructor, n.n);
+	advise(advise, "_instantiate", {
+		before: function(current, previous, node){
+			if(typeof current != "function"){
+				dcl._error("wrong super call", node.instance.constructor, node.name);
 			}
-			if(a && typeof a != "function"){
-				dcl._error("wrong super", n.i.constructor, n.n);
+			if(previous && typeof previous != "function"){
+				dcl._error("wrong super", node.instance.constructor, node.name);
 			}
 		},
-		after: function(a, f){
-			if(typeof f != "function"){
-				dcl._error("wrong super result", a[2].i.constructor, a[2].n);
+		after: function(a, result){
+			if(typeof result != "function"){
+				dcl._error("wrong super result", a[2].instance.constructor, a[2].name);
 			}
 		}
 	});
@@ -185,8 +185,8 @@
 	}
 
 	function countAdvices(node, chain){
-		for(var c = 0, p = node[chain]; p != node; p = p[chain], ++c);
-		return c;
+		for(var counter = 0, p = node[chain]; p != node; p = p[chain], ++counter);
+		return counter;
 	}
 
 	function log(o, suppressCtor){

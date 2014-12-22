@@ -122,7 +122,7 @@
 
 	// decorators
 
-	function Super(f){ this.f = f; }
+	function Super(f){ this.around = f; }
 	function isSuper(f){ return f && f.spr instanceof Super; }
 
 	// utilities
@@ -162,14 +162,14 @@
 		_error: function(msg){ throw Error("dcl: " + msg); },
 
 		// supercall instantiation, augmented by debug.js
-		_instantiate: function(f, a, n){ var t = f.spr.f(a); t.ctr = f.ctr; return t; },
+		_instantiate: function(f, a, n){ var t = f.spr.around(a); t.ctr = f.ctr; return t; },
 
 		// the "buildStubs()" helpers, can be overwritten
 		_extractChain: function(bases, name, advice){
-			var i = bases.length - 1, chain = [], base, f, around = advice == "f";
+			var i = bases.length - 1, chain = [], base, f, around = advice == "around";
 			for(; base = bases[i]; --i){
 				// next line contains 5 intentional assignments
-				if((f = base._meta) ? (f = f.ownProps).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.spr.f : (f = f.spr[advice])) : around) : around && (f = name == cname ? base : base[pname][name]) && f !== empty[name]){
+				if((f = base._meta) ? (f = f.ownProps).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.spr.around : (f = f.spr[advice])) : around) : around && (f = name == cname ? base : base[pname][name]) && f !== empty[name]){
 					f.ctr = base;
 					chain.push(f);
 				}
@@ -208,7 +208,7 @@
 			return !diff ? 0 : diff == 1 && name != cname ? chain[pi] : stub(pi ? chain.slice(pi) : chain);
 		},
 		_stub: /*generic stub*/ function(id, bases, name, chains){
-			var f = chains[name] = dcl._extractChain(bases, name, "f");
+			var f = chains[name] = dcl._extractChain(bases, name, "around");
 			return (id ? dcl._stubChainSuper(f, dcl._stubChain, name) : dcl._stubSuper(f, name)) || function(){};
 		}
 	});

@@ -14,45 +14,46 @@
 	var Advice = dcl(dcl.Super, {
 		//declaredClass: "dcl.Advice",
 		constructor: function(){
-			this.b = this.f.before;
-			this.a = this.f.after;
-			this.f = this.f.around;
+			this.before = this.around.before;
+			this.after  = this.around.after;
+			this.around = this.around.around;
 		}
 	});
 	function advise(f){ return dcl._makeSuper(f, Advice); }
 
-	function makeAOPStub(b, a, f){
-		var sb = b || nop,
-			sa = a || nop,
-			sf = f || nop,
-			x = function(){
-				var r;
+	function makeAOPStub(before, after, around){
+		var beforeChain = before || nop,
+			afterChain  = after  || nop,
+			aroundChain = around || nop,
+			stub = function(){
+				var r, thrown;
 				// running the before chain
-				sb.apply(this, arguments);
+				beforeChain.apply(this, arguments);
 				// running the around chain
 				try{
-					r = sf.apply(this, arguments);
+					r = aroundChain.apply(this, arguments);
 				}catch(e){
 					r = e;
+					thrown = true;
 				}
 				// running the after chain
-				sa.call(this, arguments, r);
-				if(r instanceof Error){
+				afterChain.call(this, arguments, r);
+				if(thrown){
 					throw r;
 				}
 				return r;
 			};
-		x.advices = {b: b, a: a, f: f};
-		return x;
+		stub.advices = {before: before, after: after, around: around};
+		return stub;
 	}
 
 	function chain(id){
 		return function(ctor, name){
-			var m = ctor._meta, c;
+			var m = ctor._meta, rule;
 			if(m){
-				c = (+m.weaver[name] || 0);
-				if(c && c != id){
-					dcl._error("set chaining", name, ctor, id, c);
+				rule = +m.weaver[name] || 0;
+				if(rule && rule != id){
+					dcl._error("set chaining", name, ctor, id, rule);
 				}
 				m.weaver[name] = id;
 			}
@@ -65,7 +66,7 @@
 		advise: advise,
 		// expose helper methods
 		before: function(f){ return dcl.advise({before: f}); },
-		after: function(f){ return dcl.advise({after: f}); },
+		after:  function(f){ return dcl.advise({after:  f}); },
 		around: dcl.superCall,
 		// chains
 		chainBefore: chain(1),
@@ -86,9 +87,9 @@
 		},
 		// protected API starts with _ (don't use it!)
 		_stub: /*generic stub*/ function(id, bases, name, chains){
-			var f = chains[name] = dcl._extractChain(bases, name, "f"),
-				b = dcl._extractChain(bases, name, "b").reverse(),
-				a = dcl._extractChain(bases, name, "a");
+			var f = chains[name] = dcl._extractChain(bases, name, "around"),
+				b = dcl._extractChain(bases, name, "before").reverse(),
+				a = dcl._extractChain(bases, name, "after");
 			f = id ? dcl._stubChainSuper(f, id == 1 ? function(f){ return dcl._stubChain(f.reverse()); } : dcl._stubChain, name) : dcl._stubSuper(f, name);
 			return !b.length && !a.length ? f || function(){} : makeAOPStub(dcl._stubChain(b), dcl._stubChain(a), f);
 		}
