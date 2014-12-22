@@ -19,7 +19,7 @@
 			this.around = this.around.around;
 		}
 	});
-	function advise(f){ return dcl._makeSuper(f, Advice); }
+	function advise(advice){ return dcl._makeSuper(advice, Advice); }
 
 	function makeAOPStub(before, after, around){
 		var beforeChain = before || nop,
@@ -49,13 +49,13 @@
 
 	function chain(id){
 		return function(ctor, name){
-			var m = ctor._meta, rule;
-			if(m){
-				rule = +m.weaver[name] || 0;
+			var meta = ctor._meta, rule;
+			if(meta){
+				rule = +meta.weaver[name] || 0;
 				if(rule && rule != id){
 					dcl._error("set chaining", name, ctor, id, rule);
 				}
-				m.weaver[name] = id;
+				meta.weaver[name] = id;
 			}
 		};
 	}

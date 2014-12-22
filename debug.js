@@ -112,25 +112,25 @@
 	});
 
 	advise.around(dcl, "_instantiate", function(/*sup*/){
-		return function(f, a, n){
-			if(!f || !f.spr || typeof f.spr.around != "function"){
-				dcl._error("wrong super call", f.ctr, n);
+		return function(advice, previous, node){
+			if(!advice || !advice.spr || typeof advice.spr.around != "function"){
+				dcl._error("wrong super call", advice.ctr, node);
 			}
-			if(a && typeof a != "function"){
-				dcl._error("wrong super", f.ctr, n);
+			if(previous && typeof previous != "function"){
+				dcl._error("wrong super", advice.ctr, node);
 			}
-			var t = f.spr.around(a);
+			var t = advice.spr.around(previous);
 			if(typeof t != "function"){
-				dcl._error("wrong super result", f.ctr, n);
+				dcl._error("wrong super result", advice.ctr, node);
 			}
-			t.ctr = f.ctr;
+			t.ctr = advice.ctr;
 			return t;
 		};
 	});
 
 	advise(advise, "_instantiate", {
-		before: function(current, previous, node){
-			if(typeof current != "function"){
+		before: function(advice, previous, node){
+			if(typeof advice != "function"){
 				dcl._error("wrong super call", node.instance.constructor, node.name);
 			}
 			if(previous && typeof previous != "function"){

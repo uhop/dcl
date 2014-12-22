@@ -152,7 +152,7 @@
 		// protected API starts with _ (don't use it!)
 
 		// make a Super marker
-		_makeSuper: function makeSuper(f, S){ var fn = function(){}; fn.spr = new (S || Super)(f); return fn; },
+		_makeSuper: function makeSuper(advice, S){ var f = function(){}; f.spr = new (S || Super)(advice); return f; },
 
 		// post-processor for a constructor, can be used to add more functionality
 		// or augment its behavior
@@ -162,7 +162,7 @@
 		_error: function(msg){ throw Error("dcl: " + msg); },
 
 		// supercall instantiation, augmented by debug.js
-		_instantiate: function(f, a, n){ var t = f.spr.around(a); t.ctr = f.ctr; return t; },
+		_instantiate: function(advice, previous, node){ var t = advice.spr.around(previous); t.ctr = advice.ctr; return t; },
 
 		// the "buildStubs()" helpers, can be overwritten
 		_extractChain: function(bases, name, advice){
