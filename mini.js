@@ -10,7 +10,7 @@
 	"use strict";
 
 	var counter = 0, cname = "constructor", pname = "prototype",
-		F = function(){}, empty = {}, mix, extractChain,
+		empty = {}, mix, extractChain,
 		stubSuper, stubChain, stubChainSuper, post;
 
 	function dcl(superClass, props){
@@ -202,7 +202,7 @@
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){
 					diff = i - pi;
-					diff = chain[i] = dcl._f(f, !diff ? 0 : diff == 1 ? chain[pi] : stub(chain.slice(pi, i)), name);
+					chain[i] = dcl._f(f, !diff ? 0 : diff == 1 ? chain[pi] : stub(chain.slice(pi, i)), name);
 					pi = i;
 				}
 			}
