@@ -19,7 +19,7 @@
 			this.f = this.f.around;
 		}
 	});
-	function advise(f){ return dcl._mk(f, Advice); }
+	function advise(f){ return dcl._makeSuper(f, Advice); }
 
 	function makeAOPStub(b, a, f){
 		var sb = b || nop,
@@ -48,13 +48,13 @@
 
 	function chain(id){
 		return function(ctor, name){
-			var m = ctor._m, c;
+			var m = ctor._meta, c;
 			if(m){
-				c = (+m.w[name] || 0);
+				c = (+m.weaver[name] || 0);
 				if(c && c != id){
-					dcl._e("set chaining", name, ctor, id, c);
+					dcl._error("set chaining", name, ctor, id, c);
 				}
-				m.w[name] = id;
+				m.weaver[name] = id;
 			}
 		};
 	}
@@ -74,9 +74,9 @@
 			if(o instanceof ctor){
 				return true;
 			}
-			var t = o.constructor._m, i;
+			var t = o.constructor._meta, i;
 			if(t){
-				for(t = t.b, i = t.length - 1; i >= 0; --i){
+				for(t = t.bases, i = t.length - 1; i >= 0; --i){
 					if(t[i] === ctor){
 						return true;
 					}
@@ -85,12 +85,12 @@
 			return false;
 		},
 		// protected API starts with _ (don't use it!)
-		_sb: /*generic stub*/ function(id, bases, name, chains){
-			var f = chains[name] = dcl._ec(bases, name, "f"),
-				b = dcl._ec(bases, name, "b").reverse(),
-				a = dcl._ec(bases, name, "a");
-			f = id ? dcl._st(f, id == 1 ? function(f){ return dcl._sc(f.reverse()); } : dcl._sc, name) : dcl._ss(f, name);
-			return !b.length && !a.length ? f || function(){} : makeAOPStub(dcl._sc(b), dcl._sc(a), f);
+		_stub: /*generic stub*/ function(id, bases, name, chains){
+			var f = chains[name] = dcl._extractChain(bases, name, "f"),
+				b = dcl._extractChain(bases, name, "b").reverse(),
+				a = dcl._extractChain(bases, name, "a");
+			f = id ? dcl._stubChainSuper(f, id == 1 ? function(f){ return dcl._stubChain(f.reverse()); } : dcl._stubChain, name) : dcl._stubSuper(f, name);
+			return !b.length && !a.length ? f || function(){} : makeAOPStub(dcl._stubChain(b), dcl._stubChain(a), f);
 		}
 	});
 

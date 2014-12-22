@@ -4,7 +4,7 @@
 	"use strict";
 
 	function getNames(ctor){
-		var b = ctor._m.b, r = [];
+		var b = ctor._meta.bases, r = [];
 		for(var i = 0, l = b.length; i < l; ++i){
 			r.push(b[i].prototype.declaredClass);
 		}

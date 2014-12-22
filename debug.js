@@ -36,7 +36,7 @@
 	}
 
 	var noDecls = "(specify 'declaredClass' string in your classes to get better diagnostics)";
-	advise.around(dcl, "_e", function(/*sup*/){
+	advise.around(dcl, "_error", function(/*sup*/){
 		return function(reason, a1, a2, a3, a4, a5){
 			var cName, someUnknown, i, base, name, names = [], c = {};
 			switch(reason){
@@ -47,7 +47,7 @@
 						base = a2[i][0];
 						name = base.prototype.hasOwnProperty("declaredClass") && base.prototype.declaredClass;
 						if(!name){
-							name = "UNNAMED_" + base._u;
+							name = "UNNAMED_" + base._uniqueId;
 							someUnknown = true;
 						}
 						if(!c[name]){
@@ -62,66 +62,66 @@
 					cName = a2.prototype.hasOwnProperty("declaredClass") && a2.prototype.declaredClass;
 					name = a4.prototype.hasOwnProperty("declaredClass") && a4.prototype.declaredClass;
 					someUnknown = !(cName && name);
-					throw new ChainingError("dcl: conflicting chain directives from bases found in: " + (cName || ("UNNAMED_" + a2._u)) +
+					throw new ChainingError("dcl: conflicting chain directives from bases found in: " + (cName || ("UNNAMED_" + a2._uniqueId)) +
 						", method: " + a1 + " - it was " + chainName(a3) + " yet " +
-						(name || ("UNNAMED_" + a4._u)) + " sets it to " + chainName(a5) +
+						(name || ("UNNAMED_" + a4._uniqueId)) + " sets it to " + chainName(a5) +
 						(someUnknown ? noDecls : ""));
 				case "set chaining":
 					cName = a2.prototype.hasOwnProperty("declaredClass") && a2.prototype.declaredClass;
 					someUnknown = !cName;
-					throw new SetChainingError("dcl: attempt to set conflicting chain directives in: " + (cName || ("UNNAMED_" + a2._u)) +
+					throw new SetChainingError("dcl: attempt to set conflicting chain directives in: " + (cName || ("UNNAMED_" + a2._uniqueId)) +
 						", method: " + a1 + " - it was " + chainName(a4) + " yet being changed to " + chainName(a3) +
 						(someUnknown ? noDecls : ""));
 				case "wrong super call":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
 					throw new SuperCallError("dcl: argument of around advice or supercall decorator should be a function in: " +
-						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
+						(cName || ("UNNAMED_" + a1._uniqueId)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 				case "wrong super":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
 					throw new SuperError("dcl: super method should be a function in: " +
-						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
+						(cName || ("UNNAMED_" + a1._uniqueId)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 				case "wrong super result":
 					cName = a1.prototype.hasOwnProperty("declaredClass") && a1.prototype.declaredClass;
 					someUnknown = !cName;
 					throw new SuperResultError("dcl: around advice or supercall should return a function in: " +
-						(cName || ("UNNAMED_" + a1._u)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
+						(cName || ("UNNAMED_" + a1._uniqueId)) + ", method: " + a2 + (someUnknown ? noDecls : ""));
 			}
 			throw new DclError("dcl: " + reason);
 		};
 	});
 
-	advise.after(dcl, "_p", function(args, ctor){
+	advise.after(dcl, "_postprocess", function(args, ctor){
 		// validate that chaining is consistent
-		var meta = ctor._m, weaver = meta.w, bases = meta.b,
+		var meta = ctor._meta, weaver = meta.weaver, bases = meta.bases,
 			name, chain, base, i, c;
 		dcl.allKeys(weaver).forEach(function(name){
 			chain = (+weaver[name] || 0);
 			for(i = bases.length - 1; i >= 0; --i){
 				base = bases[i];
-				meta = base._m;
+				meta = base._meta;
 				if(meta){
-					c = (+meta.w[name] || 0);
+					c = (+meta.weaver[name] || 0);
 					if(chain != c && (!chain || c)){
-						dcl._e("chain", name, ctor, chain, base, c);
+						dcl._error("chain", name, ctor, chain, base, c);
 					}
 				}
 			}
 		});
 	});
 
-	advise.around(dcl, "_f", function(/*sup*/){
+	advise.around(dcl, "_instantiate", function(/*sup*/){
 		return function(f, a, n){
 			if(!f || !f.spr || typeof f.spr.f != "function"){
-				dcl._e("wrong super call", f.ctr, n);
+				dcl._error("wrong super call", f.ctr, n);
 			}
 			if(a && typeof a != "function"){
-				dcl._e("wrong super", f.ctr, n);
+				dcl._error("wrong super", f.ctr, n);
 			}
 			var t = f.spr.f(a);
 			if(typeof t != "function"){
-				dcl._e("wrong super result", f.ctr, n);
+				dcl._error("wrong super result", f.ctr, n);
 			}
 			t.ctr = f.ctr;
 			return t;
@@ -131,31 +131,31 @@
 	advise(advise, "_f", {
 		before: function(f, a, n){
 			if(typeof f != "function"){
-				dcl._e("wrong super call", n.i.constructor, n.n);
+				dcl._error("wrong super call", n.i.constructor, n.n);
 			}
 			if(a && typeof a != "function"){
-				dcl._e("wrong super", n.i.constructor, n.n);
+				dcl._error("wrong super", n.i.constructor, n.n);
 			}
 		},
 		after: function(a, f){
 			if(typeof f != "function"){
-				dcl._e("wrong super result", a[2].i.constructor, a[2].n);
+				dcl._error("wrong super result", a[2].i.constructor, a[2].n);
 			}
 		}
 	});
 
 	function logCtor(ctor){
-		var meta = ctor._m;
+		var meta = ctor._meta;
 		if(!meta){
 			console.log("*** class does not have meta information compatible with dcl");
 			return;
 		}
-		var weaver = meta.w, bases = meta.b, chains = meta.c, names = [], base, name, someUnknown, i;
+		var weaver = meta.weaver, bases = meta.bases, chains = meta.chains, names = [], base, name, someUnknown, i;
 		for(i = 0; i < bases.length; ++i){
 			base = bases[i];
 			name = base.prototype.hasOwnProperty("declaredClass") && base.prototype.declaredClass;
 			if(!name){
-				name = "UNNAMED_" + (base.hasOwnProperty("_u") ? base._u : "");
+				name = "UNNAMED_" + (base.hasOwnProperty("_uniqueId") ? base._uniqueId : "");
 				someUnknown = true;
 			}
 			names.push(name);
@@ -172,9 +172,9 @@
 			if(!isNaN(i)){
 				var hasStub = typeof ctor.prototype[name].advices == "object";
 				if(hasStub){
-					var b = dcl._ec(bases, name, "b").length,
-						f = dcl._ec(bases, name, "f").length,
-						a = dcl._ec(bases, name, "a").length;
+					var b = dcl._extractChain(bases, name, "b").length,
+						f = dcl._extractChain(bases, name, "f").length,
+						a = dcl._extractChain(bases, name, "a").length;
 				}
 				console.log("    class method " + name + " is " + chainName(i) +
 					(hasStub ?
@@ -198,7 +198,7 @@
 				var base = o.constructor,
 					name = base.prototype.hasOwnProperty("declaredClass") && base.prototype.declaredClass;
 				if(!name){
-					name = "UNNAMED_" + (base.hasOwnProperty("_u") ? base._u : "");
+					name = "UNNAMED_" + (base.hasOwnProperty("_uniqueId") ? base._uniqueId : "");
 				}
 				console.log("*** object of class " + name);
 				// log the constructor
