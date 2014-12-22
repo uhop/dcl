@@ -9,9 +9,7 @@
 })(function(){
 	"use strict";
 
-	var counter = 0, cname = "constructor", pname = "prototype",
-		empty = {}, mix, extractChain,
-		stubSuper, stubChain, stubChainSuper, post;
+	var counter = 0, cname = "constructor", pname = "prototype", empty = {}, mix;
 
 	function dcl(superClass, props){
 		var bases = [0], proto, base, ctor, meta, connectionMap,
@@ -167,7 +165,7 @@
 		_instantiate: function(f, a, n){ var t = f.spr.f(a); t.ctr = f.ctr; return t; },
 
 		// the "buildStubs()" helpers, can be overwritten
-		_extractChain: extractChain = function(bases, name, advice){
+		_extractChain: function(bases, name, advice){
 			var i = bases.length - 1, chain = [], base, f, around = advice == "f";
 			for(; base = bases[i]; --i){
 				// next line contains 5 intentional assignments
@@ -178,7 +176,7 @@
 			}
 			return chain;
 		},
-		_stubChain: stubChain = function(chain){ // this is "after" chain
+		_stubChain: function(chain){ // this is "after" chain
 			var l = chain.length, f;
 			return !l ? 0 : l == 1 ?
 				(f = chain[0], function(){
@@ -190,14 +188,14 @@
 					}
 				};
 		},
-		_stubSuper: stubSuper = function(chain, name){
+		_stubSuper: function(chain, name){
 			var i = 0, f, p = empty[name];
 			for(; f = chain[i]; ++i){
 				p = isSuper(f) ? (chain[i] = dcl._instantiate(f, p, name)) : f;
 			}
 			return name != cname ? p : function(){ p.apply(this, arguments); };
 		},
-		_stubChainSuper: stubChainSuper = function(chain, stub, name){
+		_stubChainSuper: function(chain, stub, name){
 			var i = 0, f, diff, pi = 0;
 			for(; f = chain[i]; ++i){
 				if(isSuper(f)){
@@ -210,8 +208,8 @@
 			return !diff ? 0 : diff == 1 && name != cname ? chain[pi] : stub(pi ? chain.slice(pi) : chain);
 		},
 		_stub: /*generic stub*/ function(id, bases, name, chains){
-			var f = chains[name] = extractChain(bases, name, "f");
-			return (id ? stubChainSuper(f, stubChain, name) : stubSuper(f, name)) || function(){};
+			var f = chains[name] = dcl._extractChain(bases, name, "f");
+			return (id ? dcl._stubChainSuper(f, dcl._stubChain, name) : dcl._stubSuper(f, name)) || function(){};
 		}
 	});
 
