@@ -10,9 +10,9 @@
 	var empty = {}, t;
 
 	function inherited(ctor, name, args){
-		var c = arguments.length < 3 && ctor.callee, // c is truthy if in non-strict mode.
-			f = get.call(this, c ? c.ctr : ctor, c ? c.nom : name);
-		if(f){ return f.apply(this, c ? ctor || name : args); }
+		var callee = arguments.length < 3 && ctor.callee, // callee is truthy if in non-strict mode.
+			f = get.call(this, callee ? callee.ctr : ctor, callee ? callee.nom : name);
+		if(f){ return f.apply(this, callee ? ctor || name : args); }
 		// intentionally no return
 	}
 
