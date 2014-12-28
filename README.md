@@ -1,12 +1,17 @@
-# DCL [![Build Status](https://secure.travis-ci.org/uhop/dcl.png?branch=master)](http://travis-ci.org/uhop/dcl)
+# DCL
+
+[![Build status][travis-image]][travis-url]
+[![Dependencies][deps-image]][deps-url]
+[![devDependencies][dev-deps-image]][dev-deps-url]
+[![NPM version][npm-image]][npm-url]
+
 
 A minimalistic yet complete JavaScript package for [node.js](http://nodejs.org)
 and modern browsers that implements OOP with mixins + AOP at both "class" and
 object level. Implements [C3 MRO](http://www.python.org/download/releases/2.3/mro/)
 to support a Python-like multiple inheritance, efficient supercalls, chaining,
 full set of advices, and provides some useful generic building blocks. The whole
-package comes with an extensive test set (111 tests at the time of writing) and
-fully compatible with the strict mode.
+package comes with an extensive test set, and it is fully compatible with the strict mode.
 
 The package was written with debuggability of your code in mind. It comes with
 a special debug module that explains mistakes, verifies created objects, and helps
@@ -25,7 +30,7 @@ which hosts [extensive documentation](http://www.dcljs.org/docs/).
 
 ## How to install
 
-If you plan to use it in your [node.js](http://nodejs.org) project install it
+If you plan to use it in your [node.js](http://nodejs.org) project, install it
 like this:
 
 ```
@@ -55,7 +60,7 @@ define(["dcl"], function(dcl){
 });
 ```
 
-## Inheritance, constructors, super calls
+### Inheritance, constructors, super calls
 
 Let's continue with our coding example:
 
@@ -167,7 +172,7 @@ loudBob.speak("Anybody home?");
 // Loud Bob: ANYBODY HOME?
 ```
 
-## AOP
+### AOP
 
 We can use aspect-oriented advices to create our "classes":
 
@@ -239,7 +244,7 @@ dcl.around(f) == dcl.advise({around: f})
 dcl.after (f) == dcl.advise({after:  f})
 ```
 
-## Chaining
+### Chaining
 
 While constructors are chained by default you can chain any methods you like.
 Usually it works well for lifecycle methods, and event-like methods.
@@ -282,7 +287,7 @@ ethel.sleep();
 // turn off lights
 ```
 
-## Advising objects
+### Advising objects
 
 While class-level AOP is static, we can always advise any method dynamically,
 and unadvise it at will:
@@ -355,7 +360,7 @@ advise.after (obj, methodName, f) == advise(obj, methodName, {after:  f})
 Naturally "around" advices use the same double function technique to be super
 light-weight.
 
-## Debugging helpers
+### Debugging helpers
 
 There is a special module `dcl/debug` that adds better error checking and reporting
 for your "classes" and objects. All you need is to require it, and it will plug
@@ -451,3 +456,12 @@ Additionally `dcl` provides a small library of predefined
 and [useful advices](http://www.dcljs.org/docs/advices/). Check them out too.
 
 Happy hacking!
+
+[npm-image]:      https://img.shields.io/npm/v/dcl.svg
+[npm-url]:        https://npmjs.org/package/dcl
+[deps-image]:     https://img.shields.io/david/uhop/dcl.svg
+[deps-url]:       https://david-dm.org/uhop/dcl
+[dev-deps-image]: https://img.shields.io/david/dev/uhop/dcl.svg
+[dev-deps-url]:   https://david-dm.org/uhop/dcl#info=devDependencies
+[travis-image]:   https://img.shields.io/travis/uhop/dcl.svg
+[travis-url]:     https://travis-ci.org/uhop/dcl
