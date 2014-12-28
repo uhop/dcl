@@ -37,6 +37,10 @@
         <lastmod>2014-05-07T00:49:40-05:00</lastmod>
     </url>
     <url>
+        <loc>http://www.dcljs.org/blog/2014/12/28/1-dot-1-2-technical-release/</loc>
+        <lastmod>2014-12-28T00:26:18-06:00</lastmod>
+    </url>
+    <url>
         <loc>http://www.dcljs.org/docs/tutorial/</loc>
         <lastmod>2014-05-07T00:49:40-05:00</lastmod>
     </url>
@@ -270,7 +274,7 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/</loc>
-        <lastmod>2014-05-07T00:49:40-05:00</lastmod>
+        <lastmod>2014-12-28T00:26:18-06:00</lastmod>
     </url>
     <url>
         <loc>http://www.dcljs.org/about/</loc>
@@ -282,6 +286,6 @@
     </url>
     <url>
         <loc>http://www.dcljs.org/blog/archives/</loc>
-        <lastmod>2014-05-07T00:49:40-05:00</lastmod>
+        <lastmod>2014-12-28T00:26:18-06:00</lastmod>
     </url>
 </urlset>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2014-05-27T18:43:01-05:00</updated>
+  <updated>2014-12-28T00:27:21-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[1.1.2: technical release]]></title>
+    <link href="http://www.dcljs.org/blog/2014/12/28/1-dot-1-2-technical-release/"/>
+    <updated>2014-12-28T00:16:43-06:00</updated>
+    <id>http://www.dcljs.org/blog/2014/12/28/1-dot-1-2-technical-release</id>
+    <content type="html"><![CDATA[<p>1.1.2 is an intermediate technical release. While the interface and the functionality were not affected,
+internals were refactored, and updated to improve their readability and maintainability.</p>
+
+<p>This update can be safely skipped by most users, yet I advise to test it against your codebase,
+because it will serve as a foundation for the upcoming major version.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Micro update: 1.1.1]]></title>
@@ -88,19 +101,6 @@ No more manual tests.</li>
 <p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
 the fixed bug is quite exotic, this update can be skipped unless your code contains
 a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[dcl added to jam]]></title>
-    <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
-    <updated>2013-01-11T15:39:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
-    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
-for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
