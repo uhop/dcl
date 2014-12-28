@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2014-12-28T00:57:47-06:00</updated>
+  <updated>2014-12-28T02:21:45-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -73,12 +73,10 @@ because it will serve as a foundation for the upcoming major version.</p>
     <id>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower</id>
     <content type="html"><![CDATA[<p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure>
-
-
 
 ]]></content>
   </entry>
@@ -112,13 +110,11 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
     <link href="http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam/"/>
     <updated>2013-01-11T15:39:00-06:00</updated>
     <id>http://www.dcljs.org/blog/2013/01/11/dcl-added-to-jam</id>
-    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
+    <content type="html"><![CDATA[<p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure>
-
-
 
 ]]></content>
   </entry>
@@ -185,7 +181,7 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway &mdash; when in browser please use an AMD
+which are not recommended anyway &ndash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 ]]></content>
   </entry>

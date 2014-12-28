@@ -9,9 +9,9 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Cheatsheet Jul 29th, 2012 This file is written using a literate JavaScript. You can download
+  <meta name="description" content="Cheatsheet Jul 29th, 2012 12:01 am This file is written using a literate JavaScript. You can download
 this cheatsheet to use as a local reference
-or to run &hellip;">
+or &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +27,7 @@ or to run &hellip;">
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -65,7 +65,7 @@ or to run &hellip;">
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org" />
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -92,14 +92,7 @@ or to run &hellip;">
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-07-29T00:01:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time></p>
   </header>
   
   <div class="docco">
@@ -121,8 +114,6 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -155,8 +146,6 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -168,8 +157,6 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -179,8 +166,6 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -196,8 +181,6 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -207,8 +190,6 @@ with <a href="/docs/mini_js/dcl">dcl()</a>:</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">M</span><span class="p">],</span> <span class="p">{}))(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -243,8 +224,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -274,8 +253,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -297,8 +274,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -316,8 +291,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -361,8 +334,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span><span class='line'>  <span class="p">})</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -424,8 +395,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -439,8 +408,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -450,8 +417,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainBefore</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="s2">&quot;method2&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -474,8 +439,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -491,8 +454,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -506,8 +467,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Returned result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -547,8 +506,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span><span class='line'>  <span class="p">};</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -606,8 +563,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -617,8 +572,6 @@ with <a href="/docs/mini_js/supercall">dcl/superCall()</a>:</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">a2</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -633,8 +586,6 @@ module (its value is actually not used):</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">inherited</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/inherited&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -657,8 +608,6 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -678,8 +627,6 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -697,8 +644,6 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 </span><span class='line'>  <span class="p">}</span>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -729,8 +674,6 @@ with <a href="/docs/inherited_js/inherited">inherited()</a>:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -755,8 +698,6 @@ enhanced error reporting automatically):</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -768,8 +709,6 @@ enhanced error reporting automatically):</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -779,8 +718,6 @@ enhanced error reporting automatically):</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -797,14 +734,7 @@ enhanced error reporting automatically):</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-07-29T00:01:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time>
         
       </p>
       

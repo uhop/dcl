@@ -9,9 +9,9 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="Tutorial Jul 29th, 2012 This file is written using a literate JavaScript. You can download
+  <meta name="description" content="Tutorial Jul 29th, 2012 12:01 am This file is written using a literate JavaScript. You can download
 this tutorial to use as a local reference
-or to run it &hellip;">
+or to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +27,7 @@ or to run it &hellip;">
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -65,7 +65,7 @@ or to run it &hellip;">
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org" />
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -92,14 +92,7 @@ or to run it &hellip;">
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-07-29T00:01:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time></p>
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time></p>
   </header>
   
   <div class="docco">
@@ -122,8 +115,6 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -135,8 +126,6 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -151,8 +140,6 @@ because it will help while debugging your objects.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -162,8 +149,6 @@ because it will help while debugging your objects.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Anonymous&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -189,8 +174,6 @@ because it will help while debugging your objects.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -203,8 +186,6 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Bureaucrat</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Person</span><span class="p">,</span> <span class="p">{</span>
 </span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Bureaucrat&quot;</span><span class="p">,</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -232,8 +213,6 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -243,8 +222,6 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">clerk</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bureaucrat</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -260,8 +237,6 @@ Let&rsquo;s define a bureaucrat (yes, it is a person too!):</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">clerk</span><span class="p">.</span><span class="nx">approve</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -296,8 +271,6 @@ Any normal class would do.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -307,8 +280,6 @@ Any normal class would do.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Talker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Person</span><span class="p">,</span> <span class="nx">Speaker</span><span class="p">],</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -324,8 +295,6 @@ Any normal class would do.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -338,8 +307,6 @@ Any normal class would do.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -349,8 +316,6 @@ Any normal class would do.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">alice</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -366,13 +331,11 @@ Any normal class would do.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
 <p>Here we use the double function technique to inject
-<code>sup</code> &mdash; a method from a super class.</p>
+<code>sup</code> &ndash; a method from a super class.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -382,14 +345,12 @@ Any normal class would do.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
 <p>Theoretically it is possible that
-there is no super method &mdash; we can be the last in line;
-not in this case, though &mdash; we are based
+there is no super method &ndash; we can be the last in line;
+not in this case, though &ndash; we are based
 on Speaker meaning it will be always pulled in.</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
@@ -408,8 +369,6 @@ on Speaker meaning it will be always pulled in.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -419,8 +378,6 @@ on Speaker meaning it will be always pulled in.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Sarge</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Talker</span><span class="p">,</span> <span class="nx">Shouter</span><span class="p">],</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -436,8 +393,6 @@ on Speaker meaning it will be always pulled in.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -447,8 +402,6 @@ on Speaker meaning it will be always pulled in.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">bob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sarge</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -462,13 +415,11 @@ on Speaker meaning it will be always pulled in.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
 <p>The double function technique for a super call allows you
-to work directly with a next method in chain &mdash;
+to work directly with a next method in chain &ndash;
 no intermediaries means that this call is as fast as
 it can be, no run-time penalties are involved during method
 calls, and it greatly simplifies debugging.</p>
@@ -485,8 +436,6 @@ calls, and it greatly simplifies debugging.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -496,8 +445,6 @@ calls, and it greatly simplifies debugging.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">loudBob</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;Anybody home?&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -534,8 +481,6 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -545,8 +490,6 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">SickTalker</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Talker</span><span class="p">,</span> <span class="nx">Sick</span><span class="p">],</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -560,8 +503,6 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -573,8 +514,6 @@ using <a href="/docs/dcl_js/advise">dcl.advise()</a>.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">clara</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;I want a glass of water!&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -616,8 +555,6 @@ from a super class.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -627,8 +564,6 @@ from a super class.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">SickMartianSarge</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">Sarge</span><span class="p">,</span> <span class="nx">Sick</span><span class="p">,</span> <span class="nx">Martian</span><span class="p">],</span> <span class="p">{});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -642,8 +577,6 @@ from a super class.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -655,8 +588,6 @@ from a super class.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">don</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s2">&quot;Doctor? Nurse? Anybody?&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -683,8 +614,6 @@ and event-like methods.</p>
 </span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainAfter</span><span class="p">(</span><span class="nx">BioOrganism</span><span class="p">,</span> <span class="s2">&quot;wakeUp&quot;</span><span class="p">);</span>
 </span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainBefore</span><span class="p">(</span><span class="nx">BioOrganism</span><span class="p">,</span> <span class="s2">&quot;sleep&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -725,8 +654,6 @@ them chained.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -750,8 +677,6 @@ them chained.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -766,8 +691,6 @@ them chained.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -780,8 +703,6 @@ them chained.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">ethel</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -803,8 +724,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -844,8 +763,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -873,8 +790,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -886,8 +801,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">wakeUp</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -903,8 +816,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -914,8 +825,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">wakeAd1</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -929,19 +838,15 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
-<p>No need to dress up for work either &mdash; our Fred is CEO!</p>
+<p>No need to dress up for work either &ndash; our Fred is CEO!</p>
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">wakeAd3</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -955,8 +860,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -967,8 +870,6 @@ For that we need to use a new module <a href="/docs/advise_js">dcl/advise</a>:</
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">fred</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -993,8 +894,6 @@ and it will plug right in:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -1009,8 +908,6 @@ a static class id in our &ldquo;class&rdquo; definitions like so:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -1021,8 +918,6 @@ It is skipped here for simplicity.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -1088,8 +983,6 @@ by those constructors.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -1101,8 +994,6 @@ by those constructors.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">george</span><span class="p">.</span><span class="nx">sleep</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -1121,8 +1012,6 @@ by those constructors.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
-
 <div class='docco-section-end'></div>
 
 
@@ -1136,8 +1025,6 @@ by those constructors.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">B</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -1155,8 +1042,6 @@ by those constructors.</p>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">george</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 
 <div class='docco-section-end'></div>
@@ -1191,14 +1076,7 @@ in <a href="/docs">the documentation</a>.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-07-29T00:01:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time>
         
       </p>
       

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2014-12-28T00:57:47-06:00</updated>
+  <updated>2014-12-28T02:21:45-06:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -73,10 +73,10 @@ because it will serve as a foundation for the upcoming major version.</p>
     <id>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower</id>
     <content type="html"><![CDATA[<p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   

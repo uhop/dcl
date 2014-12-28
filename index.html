@@ -26,7 +26,7 @@ internals were refactored, and updated to &hellip;">
   <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -64,7 +64,7 @@ internals were refactored, and updated to &hellip;">
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:www.dcljs.org" />
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,14 +98,7 @@ internals were refactored, and updated to &hellip;">
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-12-28T00:16:43-06:00" pubdate data-updated="true">Dec 28<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-12-28T00:16:43-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:16 am</span></time>
         
       </p>
     
@@ -138,14 +131,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-11-05T16:31:00-06:00" pubdate data-updated="true">Nov 5<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-11-05T16:31:00-06:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>4:31 pm</span></time>
         
       </p>
     
@@ -182,14 +168,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-10-04T23:11:00-05:00" pubdate data-updated="true">Oct 4<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-10-04T23:11:00-05:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>11:11 pm</span></time>
         
       </p>
     
@@ -225,14 +204,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T10:05:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-07-24T10:05:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>10:05 am</span></time>
         
       </p>
     
@@ -241,12 +213,10 @@ because it will serve as a foundation for the upcoming major version.</p>
 
   <div class="entry-content"><p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
 
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash;&ndash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
+<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
   
@@ -269,14 +239,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-05-30T20:02:00-05:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-05-30T20:02:00-05:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:02 pm</span></time>
         
       </p>
     
@@ -320,27 +283,18 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2013-01-11T15:39:00-06:00" pubdate data-updated="true">Jan 11<span>th</span>, 2013</time>
+<time class='entry-date' datetime='2013-01-11T15:39:00-06:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>3:39 pm</span></time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash;&ndash; the RequireJS-based package manager
+  <div class="entry-content"><p><code>dcl</code> was added to <a href="http://jamjs.org/">jam</a> &mdash; the RequireJS-based package manager
 for front-end projects. If you use jam to manage your project dependencies, you can install <code>dcl</code> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>jam install dcl</span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
   
@@ -363,14 +317,7 @@ for front-end projects. If you use jam to manage your project dependencies, you 
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-30T14:20:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-12-30T14:20:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:20 pm</span></time>
         
       </p>
     
@@ -410,14 +357,7 @@ don&rsquo;t work with security-constrained environments.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-21T01:05:00-06:00" pubdate data-updated="true">Dec 21<span>st</span>, 2012</time>
+<time class='entry-date' datetime='2012-12-21T01:05:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>1:05 am</span></time>
         
       </p>
     
@@ -455,14 +395,7 @@ demos, and in-depth articles. Get yourself in the know.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-18T02:43:00-06:00" pubdate data-updated="true">Dec 18<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-12-18T02:43:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:43 am</span></time>
         
       </p>
     
@@ -488,7 +421,7 @@ Almost all changes in 1.0.1 are backward-compatible, and upgrading to it
 should be transparent.</p>
 
 <p>The only non-compatible change is export names with <code>&lt;script&gt;</code> tags,
-which are not recommended anyway &mdash; when in browser please use an AMD
+which are not recommended anyway &ndash; when in browser please use an AMD
 loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 </div>
   
@@ -511,14 +444,7 @@ loader like <a href="http://requirejs.org/">RequireJS</a>.</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-10-05T21:40:00-05:00" pubdate data-updated="true">Oct 5<span>th</span>, 2012</time>
+<time class='entry-date' datetime='2012-10-05T21:40:00-05:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>9:40 pm</span></time>
         
       </p>
     
