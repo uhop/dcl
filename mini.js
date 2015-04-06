@@ -170,8 +170,12 @@
 			for(; base = bases[i]; --i){
 				// next line contains 5 intentional assignments
 				if((f = base._meta) ? (f = f.ownProps).hasOwnProperty(name) && (isSuper(f = f[name]) ? (around ? f.spr.around : (f = f.spr[advice])) : around) : around && (f = name == cname ? base : base[pname][name]) && f !== empty[name]){
-					f.ctr = base;
-					chain.push(f);
+					if(typeof f == "function"){
+						f.ctr = base;
+						chain.push(f);
+					}else{
+						dcl._error("wrong super", base, name);
+					}
 				}
 			}
 			return chain;
