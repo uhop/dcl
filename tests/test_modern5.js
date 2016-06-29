@@ -8,7 +8,7 @@ var A = dcl(null, {
 		a: function () { console.log('a'); },
 		z: function () { console.log('a'); }
 	});
-A._meta.before.z = 1;
+dcl.chainBefore(A, 'z');
 
 var B = dcl(null, {
 		b: function () { console.log('b'); },

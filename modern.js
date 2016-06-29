@@ -203,16 +203,6 @@
 		return f;
 	}
 
-	// utilities
-
-	function mixNames (a, b) {
-		Object.getOwnPropertyNames(b).forEach(function (name) {
-			if (b[name] === 1) {
-				a[name] = 1;
-			}
-		});
-	}
-
 
 	// build chains
 
@@ -220,93 +210,247 @@
 	// TODO: make sure that before/after advices work with chains
 	// TODO: add error information for illegal situations
 
-	function extractChain (name, bases, upTo) {
-		return bases.slice(0, upTo + 1).map(function (base) {
-			var value;
-			if (base[mname]) {
-				value = base[mname].props[name];
-				if (typeof value != 'object') {
-					return null;
-				}
-				value = value.value;
-			} else {
-				value = base[pname][name];
-				if (value === empty[name]) {
-					return null;
+	// populate properties with simple properties
+	function populateProps (props, mixins, special) {
+	    var newSpecial = {};
+	    mixins.forEach(function (base) {
+	        // copy properties for dcl objects
+	        if (base[mname]) {
+	            var baseProps = base[mname].props;
+	            Object.keys(baseProps).forEach(function (name) {
+	                if (special.hasOwnProperty(name)) {
+	                    newSpecial[name] = special[name];
+	                } else {
+	                    props[name] = baseProps[name];
+	                }
+	            });
+	            return;
+	        }
+	        // copy properties for regular objects
+	        var recorded = {}, proto = base[pname];
+
+			function recordProp (name) {
+				if (recorded[name] !== 1) {
+					recorded[name] = 1;
+					props[name] = Object.getOwnPropertyDescriptor(proto, name);
 				}
 			}
-			if (typeof value != 'function') {
-				dcl._error('chain has non-function');
-			}
-			return value;
-		}).filter(function (f) { return isSuper(f) ? f.spr.around : f; });
+
+	        for (; proto && proto !== Object; proto = Object.getPrototypeOf(proto)) {
+	            Object.getOwnPropertyNames(proto).forEach(recordProp);
+	        }
+	    });
+	    return newSpecial;
 	}
 
-	function buildChainStub (methods, from) {
-		from = from || 0;
-		if (from < methods.length) {
-			var f = methods[from];
-			if (isSuper(f)) {
-				return f.spr.around(buildChainStub(methods, from + 1));
-			}
-			for(var i = from + 1; i < methods.length && !isSuper(methods[i]); ++i);
-			var chain = methods.slice(from, i);
-			if (i < methods.length) {
-				chain.push(buildChainStub(methods, i));
-			}
-			var n = chain.length;
-			return n === 1 ? chain[0] : function chainStub () {
-				for (var i = 0; i < n; ++i) {
-					chain[i].apply(this, arguments);
-				}
-			};
-		}
-		return null;
+	function weaveProp (name, bases, weave) {
+	    var state = {prop: null};
+	    bases.forEach(function (base) {
+	        var prop;
+	        if (base[mname]) {
+	            var baseProps = base[mname].props;
+	            if (!baseProps.hasOwnProperty(name)) {
+	                return;
+	            }
+	            prop = baseProps[name];
+	        } else {
+	            prop = getPropertyDescriptor(base[pname], name);
+	        }
+	        weave(state, prop, name);
+	    });
+	    weave(state);
+	    return state.prop;
 	}
 
-	function collectChainAdvice (name, bases, from, propName, adviceName) {
-		return bases.slice(0, from + 1).map(function (base) {
-			if (base[mname]) {
-				var f = base[mname].props[name][propName];
-				return isSuper(f) && f.spr[adviceName];
-			}
-			return null;
-		}).filter(function (f) { return f; });
-	}
+	// function weavePlain (state, prop, name) {
+	//     if (prop) {
+	//         state.prop = prop;
+	//     }
+	// }
 
-	function buildAroundStub (name, bases, from, propName) {
-		var method;
-		if (from >= 0) {
-			var base = bases[from];
-			if (base[mname]) {
-				var f = base[mname].props[name][propName];
-				if (isSuper(f)) {
-					if (f.spr.around) {
-						return f.spr.around(buildAroundStub(name, bases, from - 1, propName));
+	function weaveSuper (state, prop, name) {
+	    if (!prop) {
+	        return;
+	    }
+	    var newProp = cloneDescriptor(prop);
+	    if (prop.get || prop.set) {
+	        // accessor
+	        if (prop.get) {
+	            if (isSuper(prop.get)) {
+					if (state.prop) {
+		                newProp.get = prop.get.spr.around(
+		                    state.prop.get || state.prop.set ?
+		                        state.prop.get : adaptValue(state.prop.value));
+					} else {
+						newProp.get = prop.get.spr.around(null);
 					}
-					return buildAroundStub(name, bases, from - 1, propName);
+	            }
+	        }
+	        if (prop.set) {
+	            if (isSuper(prop.set)) {
+	                newProp.set = prop.set.spr.around(state.prop && state.prop.set || null);
+	            }
+	        }
+	    } else {
+	        // data
+	        if (isSuper(prop.value)) {
+				if (state.prop) {
+		            newProp.value = prop.value.spr.around(
+		                state.prop.get || state.prop.set ?
+		                    adaptGet(state.prop.get) : state.prop.value);
+				} else {
+					newProp.value = prop.value.spr.around(name !== cname && empty[name] || null);
 				}
-				return f;
-			} else {
-				if (propName === 'value') {
-					method = base[pname][name];
-					if (method !== empty[name]) {
-						return method;
-					}
-					return buildAroundStub(name, bases, from - 1, propName);
+	        }
+	    }
+	    state.prop = newProp;
+	}
+
+	function weaveChain (state, prop, name) {
+	    state.backlog = state.backlog || [];
+	    if (!prop) {
+	        if (state.backlog.length) {
+	            state.backlog.push(convertToValue(state.prop));
+	            state.prop = stubChain(state.backlog);
+	        }
+	        return;
+	    }
+	    var newProp = cloneDescriptor(prop);
+	    if (prop.get || prop.set) {
+	        // accessor
+	        if (isSuper(prop.get)) {
+	            if (state.backlog.length) {
+	                state.backlog.push(convertToValue(state.prop));
+	                state.prop = stubChain(state.backlog);
+	                state.backlog = [];
+	            }
+				if (state.prop) {
+		            newProp.get = prop.get.spr.around(
+		                state.prop.get || state.prop.set ?
+		                    state.prop.get : adaptValue(state.prop.value));
+				} else {
+					newProp.get = prop.get.spr.around(null);
 				}
+	            state.prop = null;
+	        }
+	    } else {
+	        // data
+	        if (isSuper(prop.value)) {
+	            if (state.backlog.length) {
+	                state.backlog.push(convertToValue(state.prop));
+	                state.prop = stubChain(state.backlog);
+	                state.backlog = [];
+	            }
+				if (state.prop) {
+		            newProp.value = prop.value.spr.around(
+		                state.prop.get || state.prop.set ?
+		                    adaptGet(state.prop.get) : state.prop.value);
+				} else {
+					newProp.value = prop.value.spr.around(name !== cname && empty[name] || null);
+				}
+	            state.prop = null;
+	        }
+	    }
+	    if (state.prop) {
+	        state.backlog.push(convertToValue(state.prop));
+	    }
+	    state.prop = newProp;
+	}
+
+	function adaptValue (f) {
+	    return f ? function () { return f; } : null;
+	}
+
+	function adaptGet (f) {
+	    return f ? function () { return f.call(this).apply(this, arguments); } : null;
+	}
+
+	function convertToValue (prop) {
+	    if (prop.get || prop.set) {
+	        var newProp = cloneDescriptor(prop);
+	        delete newProp.get;
+	        delete newProp.set;
+	        newProp.value = adaptGet(prop.get);
+	        return newProp;
+	    }
+	    return prop;
+	}
+
+	function stubChain (chain) {
+	    // chain.length >= 2
+
+	    // switch (chain.length) {
+	    //     case 0:
+	    //         return null;
+	    //     case 1:
+	    //         return chain[0];
+	    // }
+
+	    var newProp = cloneDescriptor(chain[chain.length - 1]);
+
+	    // extract functions
+	    chain = chain.map(function (prop) {
+	        return prop.get || prop.set ? adaptGet(prop.get) : prop.value;
+	    });
+
+	    newProp.value = function chainStub () {
+	        for (var i = 0; i < chain.length; ++i) {
+	            chain[i].apply(this, arguments);
+	        }
+	    };
+	    return newProp;
+	}
+
+	function getAccessorSideAdvices (name, bases, propName) {
+	    var before = [], after = [];
+	    bases.forEach(function (base) {
+	        if (base[mname]) {
+	            var prop = base[mname].props[name];
+	            if (typeof prop == 'object') {
+	                if (prop.get || prop.set) {
+	                    var f = prop[propName];
+	                    if (isSuper(f)) {
+	                        f.spr.before && before.push(f.spr.before);
+	                        f.spr.after  && after .push(f.spr.after);
+	                    }
+	                }
+	            }
+	        }
+	    });
+		if (before.length > 1) { before.reverse(); }
+	    return {before: before, after: after};
+	}
+
+	function getDataSideAdvices (name, bases) {
+	    var before = [], after = [];
+	    bases.forEach(function (base) {
+	        if (base[mname]) {
+	            var prop = base[mname].props[name];
+	            if (typeof prop == 'object') {
+	                var f = prop.get || prop.set ? prop.get : prop.value;
+	                if (isSuper(f)) {
+	                    f.spr.before && before.push(f.spr.before);
+	                    f.spr.after  && after .push(f.spr.after);
+	                }
+	            }
+	        }
+	    });
+		if (before.length > 1) { before.reverse(); }
+		return {before: before, after: after};
+	}
+
+	function chainMethods (chain) {
+		switch (chain.length) {
+			case 0:
 				return null;
-			}
+			case 1:
+				return chain[0];
 		}
-		method = empty[name];
-		return typeof method == 'function' ? method : null;
-	}
-
-	function buildSuperStub (name, bases, from, propName) {
-		var aroundStub = buildAroundStub(name, bases, from, propName),
-			beforeStub = buildChainStub(collectChainAdvice(name, bases, from, propName, 'before').reverse()),
-			afterStub  = buildChainStub(collectChainAdvice(name, bases, from, propName, 'after'));
-		return createStub(aroundStub, beforeStub, afterStub);
+		return function stubMethodChain () {
+			for (var i = 0; i < chain.length; ++i) {
+				chain[i].apply(this, arguments);
+			}
+		};
 	}
 
 	function createStub (aroundStub, beforeStub, afterStub) {
@@ -415,6 +559,10 @@
 
 	// main function
 
+	var weaveBeforeChain = {name: 'beforeChain', weaver: weaveChain, reverse: true},
+		weaveAfterChain  = {name: 'afterChain',  weaver: weaveChain},
+		weaveAroundChain = {name: 'aroundChain', weaver: weaveSuper};
+
 	function dcl (superClass, props, options) {
 		// parse arguments
 		if (superClass instanceof Array) {
@@ -459,173 +607,74 @@
 		}
 
 		// add a stand-in for our future constructor
-		var faux = {};
-		faux[mname] = {bases: bases, props: props, before: {}, after: {}, advice: {}};
+		var faux = {}, special = {};
+		faux[mname] = {bases: bases, props: props, special: special};
+		dcl.chainAfter(faux, cname);
 		bases.push(faux);
 		mixins.push(faux);
 
 		// collect meta
-		var names = {beforeChain: {}, afterChain: {}, adviceChain: {}};
-		names.afterChain[cname] = 1;
+
 		// merge from bases
 		superClass.forEach(function (base) {
 			if (base[mname]) {
-				var meta = base[mname];
-				mixNames(names.beforeChain, meta.before);
-				mixNames(names.afterChain,  meta.after);
-				mixNames(names.adviceChain, meta.advice);
+				var baseSpecial = base[mname].special;
+				Object.keys(baseSpecial).forEach(function (name) {
+					dcl.chainWith(faux, name, baseSpecial[name]);
+				});
 			}
 		});
+
 		// inspect own props
 		Object.keys(props).forEach(function (name) {
-			var prop = props[name];
-			if (prop.get || prop.set) {
-				if (isSuper(prop.get) || isSuper(prop.set)) {
-					names.adviceChain[name] = 1;
-				}
-			} else {
-				if (isSuper(prop.value)) {
-					names.adviceChain[name] = 1;
+			if (!special.hasOwnProperty(name)) {
+				var prop = props[name];
+				if (prop.get || prop.set) {
+					if (isSuper(prop.get) || isSuper(prop.set)) {
+						dcl.chainWith(faux, name, weaveAroundChain);
+					}
+				} else {
+					if (isSuper(prop.value)) {
+						dcl.chainWith(faux, name, weaveAroundChain);
+					}
 				}
 			}
 		});
 
 		// update our meta information
-		faux[mname].before = names.beforeChain;
-		faux[mname].after  = names.afterChain;
-		faux[mname].advice = names.adviceChain;
-		dcl._verifyChains(faux[mname]);
+		faux[mname].special = special;
 
-		// collect simple properties (no chains, no super calls)
-		var finalProps = {};
-		mixins.forEach(function (base) {
-			if (base[mname]) {
-				var props = base[mname].props;
-				Object.keys(props).forEach(function (name) {
-					if (names.adviceChain[name] !== 1 &&
-							names.afterChain [name] !== 1 &&
-							names.beforeChain[name] !== 1) {
-						finalProps[name] = props[name];
-					}
-				});
+		// collect simple props, and a list of special props
+		var finalProps = {},
+			finalSpecial = populateProps(finalProps, mixins, special);
+		if (!finalSpecial.hasOwnProperty(cname)) {
+			finalSpecial[cname] = special.hasOwnProperty(cname) ? special[cname] : dcl.weaveAfterChain;
+		}
+
+		// process special props
+		var reversedBases;
+		Object.keys(finalSpecial).forEach(function (name) {
+			var baseList = bases;
+			if (finalSpecial[name].reverse) {
+				baseList = reversedBases = reversedBases || bases.slice(0).reverse();
+			}
+			var prop = weaveProp(name, baseList, finalSpecial[name].weaver);
+			if (!prop) {
+				prop = {configurable: true, enumerable: false, writable: true, value: function nop () {}};
+			}
+			var	newProp = cloneDescriptor(prop), advices;
+			if (prop.get || prop.set) {
+				// accessor descriptor
+				advices = getAccessorSideAdvices(name, bases, 'get');
+				newProp.get = createStub(prop.get, chainMethods(advices.before), chainMethods(advices.after));
+				advices = getAccessorSideAdvices(name, bases, 'set');
+				newProp.set = createStub(prop.set, chainMethods(advices.before), chainMethods(advices.after));
 			} else {
-				var proto = base[pname], recorded = {};
-				while (proto && proto !== Object) {
-					Object.getOwnPropertyNames(proto).forEach(function (name) {
-						if (recorded[name] !== 1 &&
-								names.adviceChain[name] !== 1 &&
-								names.afterChain [name] !== 1 &&
-								names.beforeChain[name] !== 1) {
-							finalProps[name] = Object.getOwnPropertyDescriptor(base[pname], name);
-							recorded[name] = 1;
-						}
-					});
-					proto = Object.getPrototypeOf(proto);
-				}
+				// data descriptor
+				advices = getDataSideAdvices(name, bases);
+				newProp.value = createStub(prop.value, chainMethods(advices.before), chainMethods(advices.after));
 			}
-		});
-
-		// build stubs for super calls
-		var stopAt = Math.max(0, baseIndex);
-		Object.getOwnPropertyNames(names.adviceChain).forEach(function (name) {
-			var base, i, props, prop, newGetter, newSetter, newProp;
-			// find first occurance
-			for (i = bases.length - 1; i >= stopAt; --i) {
-				base = bases[i];
-				if (base[mname]) {
-					props = base[mname].props;
-					if (props.hasOwnProperty(name)) {
-						prop = props[name];
-						if (prop.get || prop.set) {
-							newGetter = newSetter = null;
-							if (prop.get && isSuper(prop.get)) {
-								// build a super stub
-								newGetter = buildSuperStub(name, bases, i, 'get');
-							}
-							if (prop.set && isSuper(prop.set)) {
-								// build a super stub
-								newSetter = buildSuperStub(name, bases, i, 'set');
-							}
-							if (newGetter || newSetter) {
-								newProp = cloneDescriptor(prop);
-								if (newGetter) {
-									newProp.get = newGetter;
-								}
-								if (newSetter) {
-									newProp.set = newSetter;
-								}
-								finalProps[name] = newProp;
-								break;
-							}
-						} else {
-							if (prop.value && isSuper(prop.value)) {
-								newProp = cloneDescriptor(prop);
-								newProp.value = buildSuperStub(name, bases, i, 'value');
-								finalProps[name] = newProp;
-								break;
-							}
-						}
-						finalProps[name] = prop;
-						break;
-					}
-				}
-			}
-		});
-
-		// build stubs for after chains
-		Object.getOwnPropertyNames(names.afterChain).forEach(function (name) {
-			if (names.adviceChain[name] === 1) {
-				return;
-			}
-			var base, i, props, prop, newProp;
-			// find first occurance
-			for (i = bases.length - 1; i >= stopAt; --i) {
-				base = bases[i];
-				if (base[mname]) {
-					props = base[mname].props;
-					if (props.hasOwnProperty(name)) {
-						prop = props[name];
-						finalProps[name] = newProp = cloneDescriptor(prop);
-						newProp.value = buildChainStub(extractChain(name, bases, i)) || function nop () {};
-						delete newProp.get;
-						delete newProp.set;
-						break;
-					}
-				}
-			}
-			if (i < stopAt && name === cname) {
-				finalProps[name] = {
-					configurable: true,
-					enumerable: false,
-					writable: true,
-					value: baseClass ?
-						function proxy () { baseClass.apply(this, arguments); } :
-						function nop () {}
-				};
-			}
-		});
-
-		// build stubs for before chains
-		Object.getOwnPropertyNames(names.beforeChain).forEach(function (name) {
-			if (names.adviceChain[name] === 1) {
-				return;
-			}
-			var base, i, props, prop, newProp;
-			// find first occurance
-			for (i = bases.length - 1; i >= stopAt; --i) {
-				base = bases[i];
-				if (base[mname]) {
-					props = base[mname].props;
-					if (props.hasOwnProperty(name)) {
-						prop = props[name];
-						finalProps[name] = newProp = cloneDescriptor(prop);
-						newProp.value = buildChainStub(extractChain(name, bases, i).reverse()) || function nop () {};
-						delete newProp.get;
-						delete newProp.set;
-						break;
-					}
-				}
-			}
+			finalProps[name] = newProp;
 		});
 
 		// create new prototype
@@ -682,33 +731,33 @@
 
 	// chains
 
-	function chain (what, opposite) {
-		return function chain (ctr, name) {
-			if (ctr && ctr[mname]) {
-				if (ctr[mname][opposite][name] === 1) {
-					dcl._error('attempt to chain before and after');
+	function chainWith (ctr, name, chain) {
+		if (ctr && ctr[mname]) {
+			var special = ctr[mname].special;
+			if (special.hasOwnProperty(name)) {
+				var own = special[name];
+				if (own === chain ||
+						own.weaver === chain.weaver && !(!own.reverse ^ !chain.reverse) ||
+						chain.weaver === weaveSuper && !chain.reverse) {
+					return true;
 				}
-				ctr[mname][what][name] = 1;
-				return true;
+				if (own.weaver !== weaveSuper || own.reverse) {
+					dcl._error('different weavers: ' + name);
+				}
 			}
-			return false;
-		};
+			special[name] = chain;
+			return true;
+		}
+		return false;
 	}
 
-	function isChained (what) {
-		return function isChained (ctr, name) {
-			if (ctr && ctr[mname]) {
-				return ctr[mname][what][name] === 1;
-			}
-			return false;
-		};
-	}
+	dcl.weaveBeforeChain = weaveBeforeChain;
+	dcl.weaveAfterChain  = weaveAfterChain;
+	dcl.weaveAroundChain = weaveAroundChain;
 
-	dcl.chainBefore = chain('before', 'after');
-	dcl.chainBefore = chain('after',  'before');
-
-	dcl.isChainedBefore = isChained('before');
-	dcl.isChainedAfter  = isChained('after');
+	dcl.chainWith   = chainWith;
+	dcl.chainBefore = function (ctr, name) { return dcl. chainWith(ctr, name, dcl.weaveBeforeChain); };
+	dcl.chainAfter  = function (ctr, name) { return dcl. chainWith(ctr, name, dcl.weaveAfterChain); };
 
 	// AOP
 
