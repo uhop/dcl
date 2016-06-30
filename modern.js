@@ -6,6 +6,8 @@
 	var mname = '_meta', pname = 'prototype', cname = 'constructor';
 
 
+	// MODULE: restricted Map shim (used by C3 MRO)
+
 	var M; // our map implementation if not defined
 	if (typeof Map == 'undefined') {
 		// our fake, inefficient, incomplete, yet totally correct Map
@@ -39,7 +41,9 @@
 		M = Map;
 	}
 
-	// C3MRO implementation
+
+	// MODULE: C3 MRO
+
 	function c3mro (bases) {
 		// build a connectivity matrix
 		var connectivity = new M();
@@ -89,7 +93,7 @@
 	}
 
 
-	// handling properties
+	// MODULE: handling properties
 
 	function Prop (x) {
 		this.x = x;
@@ -110,19 +114,36 @@
 		return props;
 	}
 
+	var descriptorProperties = {configurable: 1, enumerable: 1, value: 1, writable: 1, get: 1, set: 1};
+
 	function toProperties(x, defaults) {
 		var props, descriptors;
 		if (x instanceof Prop) {
 			props = x.x;
 		} else {
 			Object.getOwnPropertyNames(x).forEach(function(key) {
-				var value = x[key];
-				if (value instanceof Prop) {
-					props = props || {};
-					props[key] = value.x;
-				} else {
+				var prop = Object.getOwnPropertyDescriptor(x, key);
+				if (prop.get || prop.set) {
+					// accessor descriptor
 					descriptors = descriptors || {};
-					descriptors[key] = Object.getOwnPropertyDescriptor(x, key);
+					descriptors[key] = prop;
+				} else {
+					// data descriptor
+					var value = prop.value;
+					if (value instanceof Prop) {
+						props = props || {};
+						props[key] = value.x;
+					} else {
+						if (defaults.detectProps && value && typeof value == 'object') {
+							if (Object.keys(value).every(function (name) { return descriptorProperties[name] === 1; })) {
+								props = props || {};
+								props[key] = value;
+								return;
+							}
+						}
+						descriptors = descriptors || {};
+						descriptors[key] = prop;
+					}
 				}
 			});
 		}
@@ -140,13 +161,10 @@
 		return descriptors || props || {};
 	}
 
-	var descriptorProperties = ['configurable', 'enumerable', 'value', 'writable', 'get', 'set'];
-	function cloneDescriptor (descriptor) {
+	function cloneDescriptor (descriptor) { // shallow copy
 		var newDescriptor = {};
-		descriptorProperties.forEach(function (name) {
-			if (name in descriptor) {
-				newDescriptor[name] = descriptor[name];
-			}
+		Object.keys(descriptor).forEach(function (name) {
+			newDescriptor[name] = descriptor[name];
 		});
 		return newDescriptor;
 	}
@@ -160,8 +178,8 @@
 	}
 
 	function augmentWritable(value) {
-		return typeof value == 'function' ? value(name) : function(descriptor) {
-			if (descriptor.hasOwnProperty('value') && !descriptor.hasOwnProperty('writable')) {
+		return typeof value == 'function' ? value : function(descriptor) {
+			if (!descriptor.get && !descriptor.set && !descriptor.hasOwnProperty('writable')) {
 				descriptor.writable = value;
 			}
 		};
@@ -174,7 +192,7 @@
 	}
 
 	function replaceWritable(value) {
-		return typeof value == 'function' ? value(name) : function(descriptor) {
+		return typeof value == 'function' ? value : function(descriptor) {
 			if (descriptor.hasOwnProperty('value')) {
 				descriptor.writable = value;
 			}
@@ -204,11 +222,7 @@
 	}
 
 
-	// build chains
-
-	// TODO: make sure to call primordial methods from supercalls
-	// TODO: make sure that before/after advices work with chains
-	// TODO: add error information for illegal situations
+	// MODULE: produce properties
 
 	// populate properties with simple properties
 	function populateProps (props, mixins, special) {
@@ -228,6 +242,9 @@
 	        }
 	        // copy properties for regular objects
 	        var recorded = {}, proto = base[pname];
+	        for (; proto && proto !== Object; proto = Object.getPrototypeOf(proto)) {
+	            Object.getOwnPropertyNames(proto).forEach(recordProp);
+	        }
 
 			function recordProp (name) {
 				if (recorded[name] !== 1) {
@@ -235,10 +252,6 @@
 					props[name] = Object.getOwnPropertyDescriptor(proto, name);
 				}
 			}
-
-	        for (; proto && proto !== Object; proto = Object.getPrototypeOf(proto)) {
-	            Object.getOwnPropertyNames(proto).forEach(recordProp);
-	        }
 	    });
 	    return newSpecial;
 	}
@@ -261,12 +274,6 @@
 	    weave(state);
 	    return state.prop;
 	}
-
-	// function weavePlain (state, prop, name) {
-	//     if (prop) {
-	//         state.prop = prop;
-	//     }
-	// }
 
 	function weaveSuper (state, prop, name) {
 	    if (!prop) {
@@ -377,15 +384,6 @@
 	}
 
 	function stubChain (chain) {
-	    // chain.length >= 2
-
-	    // switch (chain.length) {
-	    //     case 0:
-	    //         return null;
-	    //     case 1:
-	    //         return chain[0];
-	    // }
-
 	    var newProp = cloneDescriptor(chain[chain.length - 1]);
 
 	    // extract functions
@@ -398,6 +396,7 @@
 	            chain[i].apply(this, arguments);
 	        }
 	    };
+
 	    return newProp;
 	}
 
@@ -439,125 +438,41 @@
 		return {before: before, after: after};
 	}
 
-	function chainMethods (chain) {
-		switch (chain.length) {
-			case 0:
-				return null;
-			case 1:
-				return chain[0];
-		}
-		return function stubMethodChain () {
-			for (var i = 0; i < chain.length; ++i) {
-				chain[i].apply(this, arguments);
-			}
-		};
-	}
-
-	function createStub (aroundStub, beforeStub, afterStub) {
-		var stub;
-		// let's generate all 8 permutations for efficiency
-		if (aroundStub) {
-			if (beforeStub) {
-				if (afterStub) {
-					stub = function full () {
-						var result, thrown;
-						// running the before chain
-						beforeStub.apply(this, arguments);
-						// running the around chain
-						try {
-							result = aroundStub.apply(this, arguments);
-						} catch (error) {
-							result = error;
-							thrown = true;
-						}
-						// running the after chain
-						afterStub.call(this, arguments, result,
-							function makeReturn (value) { result = value; thrown = false; },
-							function makeThrow  (value) { result = value; thrown = true; }
-						);
-						if (thrown) {
-							throw result;
-						}
-						return result;
-					};
-				} else {
-					stub = function before_around () {
-						// running the before chain
-						beforeStub.apply(this, arguments);
-						// running the around chain
-						return aroundStub.apply(this, arguments);
-					};
+	function createStub (aroundStub, beforeChain, afterChain) {
+		var beforeLength = beforeChain.length, afterLength = afterChain.length,
+			stub = function () {
+				var result, thrown, i;
+				// running the before chain
+				for (i = 0; i < beforeLength; ++i) {
+					beforeChain[i].apply(this, arguments);
 				}
-			} else {
-				if (afterStub) {
-					stub = function around_after () {
-						var result, thrown;
-						// running the around chain
-						try {
-							result = aroundStub.apply(this, arguments);
-						} catch (error) {
-							result = error;
-							thrown = true;
-						}
-						// running the after chain
-						afterStub.call(this, arguments, result,
-							function makeReturn (value) { result = value; thrown = false; },
-							function makeThrow  (value) { result = value; thrown = true; }
-						);
-						if (thrown) {
-							throw result;
-						}
-						return result;
-					};
-				} else {
-					stub = aroundStub;
+				// running the around chain
+				if (aroundStub) {
+					try {
+						result = aroundStub.apply(this, arguments);
+					} catch (error) {
+						result = error;
+						thrown = true;
+					}
 				}
-			}
-		} else {
-			if (beforeStub) {
-				if (afterStub) {
-					stub = function before_after () {
-						// running the before chain
-						beforeStub.apply(this, arguments);
-						// running the after chain
-						var result, thrown;
-						afterStub.call(this, arguments, result,
-							function makeReturn (value) { result = value; thrown = false; },
-							function makeThrow  (value) { result = value; thrown = true; }
-						);
-						if (thrown) {
-							throw result;
-						}
-						return result;
-					};
-				} else {
-					stub = beforeStub;
+				// running the after chain
+				for (i = 0; i < afterLength; ++i) {
+					afterChain[i].call(this, arguments, result,	makeReturn, makeThrow);
 				}
-			} else {
-				if (afterStub) {
-					stub = function after () {
-						// running the after chain
-						var result, thrown;
-						afterStub.call(this, arguments, result,
-							function makeReturn (value) { result = value; thrown = false; },
-							function makeThrow  (value) { result = value; thrown = true; }
-						);
-						if (thrown) {
-							throw result;
-						}
-						return result;
-					};
-				} else {
-					stub = function nop () {};
+				if (thrown) {
+					throw result;
 				}
-			}
-		}
-		stub.advices = {around: aroundStub, before: beforeStub, after: afterStub};
+				return result;
+			};
+		stub.advices = {around: aroundStub, before: beforeChain, after: afterChain};
 		return stub;
+
+		function makeReturn (value) { result = value; thrown = false; }
+		function makeThrow  (value) { result = value; thrown = true; }
 	}
 
 
-	// main function
+	// MODULE: dcl (the main function)
 
 	var weaveBeforeChain = {name: 'beforeChain', weaver: weaveChain, reverse: true},
 		weaveAfterChain  = {name: 'afterChain',  weaver: weaveChain},
@@ -645,8 +560,7 @@
 		faux[mname].special = special;
 
 		// collect simple props, and a list of special props
-		var finalProps = {},
-			finalSpecial = populateProps(finalProps, mixins, special);
+		var finalProps = {}, finalSpecial = populateProps(finalProps, mixins, special);
 		if (!finalSpecial.hasOwnProperty(cname)) {
 			finalSpecial[cname] = special.hasOwnProperty(cname) ? special[cname] : dcl.weaveAfterChain;
 		}
@@ -666,26 +580,29 @@
 			if (prop.get || prop.set) {
 				// accessor descriptor
 				advices = getAccessorSideAdvices(name, bases, 'get');
-				newProp.get = createStub(prop.get, chainMethods(advices.before), chainMethods(advices.after));
+				newProp.get = createStub(prop.get, advices.before, advices.after);
 				advices = getAccessorSideAdvices(name, bases, 'set');
-				newProp.set = createStub(prop.set, chainMethods(advices.before), chainMethods(advices.after));
+				newProp.set = createStub(prop.set, advices.before, advices.after);
 			} else {
 				// data descriptor
 				advices = getDataSideAdvices(name, bases);
-				newProp.value = createStub(prop.value, chainMethods(advices.before), chainMethods(advices.after));
+				newProp.value = createStub(prop.value, advices.before, advices.after);
 			}
 			finalProps[name] = newProp;
 		});
 
-		// create new prototype
-		var proto = baseClass ? Object.create(baseClass[pname], finalProps) :
-				Object.defineProperties({}, finalProps);
+		return dcl._makeCtr(baseClass, finalProps, faux[mname]);
+	}
 
-		// create a constructor
-		var ctr = proto[cname];
-		ctr[mname] = faux[mname];
+	function makeCtr (baseClass, finalProps, meta) {
+		var proto = baseClass ?
+				Object.create(baseClass[pname], finalProps) :
+				Object.defineProperties({}, finalProps),
+			ctr = proto[cname];
+
+		ctr[mname] = meta;
 		ctr[pname] = proto;
-		bases[bases.length - 1] = ctr;
+		meta.bases[meta.bases.length - 1] = ctr;
 
 		return ctr;
 	}
@@ -699,7 +616,7 @@
 		throw new Error(msg);
 	};
 	dcl._makeSuper = makeSuper;
-	dcl._verifyChains = function (meta) {};
+	dcl._makeCtr   = makeCtr;
 
 	// meta
 
@@ -762,7 +679,7 @@
 	// AOP
 
 	var Advice = dcl(dcl.Super, {
-		//declaredClass: "dcl.Advice",
+		declaredClass: "dcl.Advice",
 		constructor: function () {
 			this.before = this.around.before;
 			this.after  = this.around.after;
