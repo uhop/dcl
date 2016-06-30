@@ -32,6 +32,6 @@ console.log(x.z(1));
 
 var y = new B;
 console.log(y);
-console.log(y instanceof A);
+console.log(y instanceof A, y instanceof B);
 console.log(y.z);
 console.log(y.z(1));

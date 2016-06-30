@@ -10,7 +10,6 @@ var x = new A;
 console.log(x);
 console.log(x instanceof A);
 console.log(x.a);
-console.log(x.constructor._meta);
 
 var B = dcl(null, {
 		constructor: function () {
@@ -23,7 +22,6 @@ var y = new B;
 console.log(y);
 console.log(y instanceof B);
 console.log(y.a, y.b);
-console.log(y.constructor._meta);
 
 var C = dcl(null, dcl.prop({
 		constructor: {
@@ -40,4 +38,3 @@ var z = new C;
 console.log(z);
 console.log(z instanceof C);
 console.log(z.a, z.b);
-console.log(z.constructor._meta);
