@@ -1,48 +1,45 @@
 /* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
-(["module", "heya-unit", "../dcl"], function(module, unit, dcl){
-
-	"use strict";
+(['module', 'heya-unit', '../dcl'], function (module, unit, dcl) {
+	'use strict';
 
 	// tests
 
 	unit.add(module, [
-		function test_chaining(t){
-			"use strict";
-
+		function test_chaining (t) {
 			var A = dcl(null, {});
-			dcl.chainBefore(A, "m1");
-			dcl.chainAfter(A, "m2");
+			dcl.chainBefore(A, 'm1');
+			dcl.chainAfter (A, 'm2');
 
 			var B = dcl(null, {
-				m1: function(){
-					if(!this.b){ this.b = ""; }
-					this.b += "B";
+				m1: function () {
+					if (!this.b) { this.b = ''; }
+					this.b += 'B';
 				},
-				m2: function(){
-					if(!this.c){ this.c = ""; }
-					this.c += "B";
+				m2: function () {
+					if (!this.c) { this.c = ''; }
+					this.c += 'B';
 				}
 			});
 
 			var C = dcl(null, {
-				m1: function(){
-					if(!this.b){ this.b = ""; }
-					this.b += "C";
+				m1: function () {
+					if (!this.b) { this.b = ''; }
+					this.b += 'C';
 				},
-				m2: function(){
-					if(!this.c){ this.c = ""; }
-					this.c += "C";
+				m2: function () {
+					if (!this.c) { this.c = ''; }
+					this.c += 'C';
 				}
 			});
 
 			var D = dcl(null, {
-				m1: function(){
-					if(!this.b){ this.b = ""; }
-					this.b += "D";
+				m1: function () {
+					if (!this.b) { this.b = ''; }
+					this.b += 'D';
 				},
-				m2: function(){
-					if(!this.c){ this.c = ""; }
-					this.c += "D";
+				m2: function () {
+					if (!this.c) { this.c = ''; }
+					this.c += 'D';
 				}
 			});
 
@@ -54,68 +51,71 @@
 			eval(t.TEST('x.b === "DCB"'));
 			eval(t.TEST('x.c === "BCD"'));
 		},
-		function test_chain_with_super(t){
-			"use strict";
-
+		function test_chain_with_super (t) {
 			var A = dcl(null, {
-				constructor: function(){
+				declaredClass: 'A',
+				constructor: function () {
 					this.reset();
 					this.flag = true;
 				},
-				reset: function(){
-					this.b = this.c = "";
+				reset: function () {
+					this.b = this.c = '';
 				},
-				m1: function(){
-					this.b += "A";
+				m1: function () {
+					this.b += 'A';
 				},
-				m2: function(){
-					this.c += "A";
+				m2: function () {
+					this.c += 'A';
 				}
 			});
-			dcl.chainBefore(A, "m1");
-			dcl.chainAfter(A, "m2");
+			dcl.chainBefore(A, 'm1');
+			dcl.chainAfter (A, 'm2');
 
 			var B = dcl(null, {
-				m1: function(){
-					this.b += "B";
+				declaredClass: 'B',
+				m1: function () {
+					this.b += 'B';
 				},
-				m2: function(){
-					this.c += "B";
+				m2: function () {
+					this.c += 'B';
 				}
 			});
 
 			var C = dcl(null, {
-				m1: dcl.superCall(function(sup){
-					return function(){
-						this.b += "Cb";
-						if(this.flag && sup){ sup.call(this); }
-						this.b += "Ca";
+				declaredClass: 'C',
+				m1: dcl.superCall(function (sup) {
+					return function () {
+						this.b += 'Cb';
+						if (this.flag && sup) { sup.call(this); }
+						this.b += 'Ca';
 					};
 				}),
-				m2: dcl.superCall(function(sup){
-					return function(){
-						this.c += "Cb";
-						if(this.flag && sup){ sup.call(this); }
-						this.c += "Ca";
+				m2: dcl.superCall(function (sup) {
+					return function () {
+						this.c += 'Cb';
+						if (this.flag && sup) { sup.call(this); }
+						this.c += 'Ca';
 					};
 				})
 			});
 
 			var D = dcl(null, {
-				m1: function(){
-					this.b += "D";
+				declaredClass: 'D',
+				m1: function () {
+					this.b += 'D';
 				},
-				m2: function(){
-					this.c += "D";
+				m2: function () {
+					this.c += 'D';
 				}
 			});
 
 			var E = dcl(null, {
-				m1: function(){
-					this.b += "E";
+				declaredClass: 'E',
+				m1: function () {
+					this.b += 'E';
 				},
-				m2: function(){
-					this.c += "E";
+				m2: function () {
+					this.c += 'E';
 				}
 			});
 
@@ -123,6 +123,7 @@
 			x.m1();
 			x.m2();
 
+			console.log(x.b, x.c);
 			eval(t.TEST('x.b === "EDCbBACa"'));
 			eval(t.TEST('x.c === "CbABCaDE"'));
 
@@ -131,12 +132,11 @@
 			x.m1();
 			x.m2();
 
+			console.log(x.b, x.c);
 			eval(t.TEST('x.b === "EDCbCa"'));
 			eval(t.TEST('x.c === "CbCaDE"'));
 		},
-		function test_isInstanceOf(t){
-			"use strict";
-
+		function test_isInstanceOf (t) {
 			var A = dcl(null, {});
 			var B = dcl(null, {});
 			var C = dcl(null, {});
@@ -157,41 +157,41 @@
 			eval(t.TEST('!dcl.isInstanceOf(y, C)'));
 			eval(t.TEST('dcl.isInstanceOf(y, D)'));
 		},
-		function test_postscript(t){
+		function test_postscript (t) {
 			var A = dcl(null, {
 				constructor: dcl.advise({
-					around: function(sup){
-						return function(){
-							if(!this.a){ this.a = ""; }
-							this.a += "A";
+					around: function (sup) {
+						return function () {
+							if (!this.a) { this.a = ''; }
+							this.a += 'A';
 						};
 					},
-					after: function(){
+					after: function () {
 						this.postscript();
 					}
 				}),
-				postscript: function(){
-					this.b = "A";
+				postscript: function () {
+					this.b = 'A';
 				}
 			});
 
 			var B = dcl(null, {
-				constructor: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "B";
+				constructor: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'B';
 				},
-				postscript: function(){
-					this.b = "B";
+				postscript: function () {
+					this.b = 'B';
 				}
 			});
 
 			var C = dcl(null, {
-				constructor: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "C";
+				constructor: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'C';
 				},
-				postscript: function(){
-					this.b = "C";
+				postscript: function () {
+					this.b = 'C';
 				}
 			});
 
@@ -207,38 +207,36 @@
 			eval(t.TEST('z.a === "ABC"'));
 			eval(t.TEST('z.b === "C"'));
 		},
-		function test_postscript2(t){
-			"use strict";
-
+		function test_postscript2 (t) {
 			var A = dcl(null, {
 				constructor: dcl.advise({
-					around: function(sup){
-						return function(){
-							if(!this.a){ this.a = ""; }
-							this.a += "A";
+					around: function (sup) {
+						return function () {
+							if (!this.a) { this.a = ''; }
+							this.a += 'A';
 						};
 					},
-					after: function(){
+					after: function () {
 						this.postscript();
 					}
 				}),
-				postscript: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "P";
+				postscript: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'P';
 				}
 			});
 
 			var B = dcl(null, {
-				constructor: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "B";
+				constructor: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'B';
 				}
 			});
 
 			var C = dcl(null, {
-				constructor: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "C";
+				constructor: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'C';
 				}
 			});
 
@@ -257,63 +255,61 @@
 			var n = new (dcl([C, A, B], {}));
 			eval(t.TEST('n.a === "ABP"'));
 		},
-		function test_advise(t){
-			"use strict";
-
+		function test_advise (t) {
 			var A = dcl(null, {
 				m1: dcl.advise({
-					after: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Aa";
+					after: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Aa';
 					}
 				})
 			});
 			var B = dcl(null, {
 				m1: dcl.advise({
-					before: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Bb";
+					before: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Bb';
 					}
 				})
 			});
 			var C = dcl(null, {
-				m1: dcl.superCall(function(sup){
-					return function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Cfb";
-						if(sup){
+				m1: dcl.superCall(function (sup) {
+					return function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Cfb';
+						if (sup) {
 							sup.apply(this, arguments);
 						}
-						this.a += "Cfa";
+						this.a += 'Cfa';
 					};
 				})
 			});
 			var D = dcl(null, {
 				m1: dcl.advise({
-					before: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Db";
+					before: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Db';
 					},
-					around: function(sup){
-						return function(){
-							if(!this.a){ this.a = ""; }
-							this.a += "Dfb";
-							if(sup){
+					around: function (sup) {
+						return function () {
+							if (!this.a) { this.a = ''; }
+							this.a += 'Dfb';
+							if (sup) {
 								sup.apply(this, arguments);
 							}
-							this.a += "Dfa";
+							this.a += 'Dfa';
 						};
 					},
-					after: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Da";
+					after: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Da';
 					}
 				})
 			});
 			var E = dcl(null, {
-				m1: function(){
-					if(!this.a){ this.a = ""; }
-					this.a += "E";
+				m1: function () {
+					if (!this.a) { this.a = ''; }
+					this.a += 'E';
 				}
 			});
 
@@ -325,30 +321,28 @@
 			y.m1();
 			eval(t.TEST('y.a === "DbBbEAaDa"'));
 		},
-		function test_advise2(t){
-			"use strict";
-
+		function test_advise2 (t) {
 			var A = dcl(null, {
 				m1: dcl.advise({
-					before: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Ab";
+					before: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Ab';
 					},
-					after: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Aa";
+					after: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Aa';
 					}
 				})
 			});
 			var B = dcl(null, {
 				m1: dcl.advise({
-					before: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Bb";
+					before: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Bb';
 					},
-					after: function(){
-						if(!this.a){ this.a = ""; }
-						this.a += "Ba";
+					after: function () {
+						if (!this.a) { this.a = ''; }
+						this.a += 'Ba';
 					}
 				})
 			});
