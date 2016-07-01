@@ -1,7 +1,25 @@
 {
   "name": "dcl",
-  "version": "1.1.3",
+  "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
   "main": "dcl.js",
+  "authors": [
+    "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://www.lazutkin.com/)"
+  ],
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "object-oriented",
+    "programming",
+    "aspect-oriented",
+    "OOP",
+    "AOP",
+    "OO"
+  ],
+  "homepage": "https://github.com/uhop/dcl",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
