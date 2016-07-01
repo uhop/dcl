@@ -123,7 +123,6 @@
 			x.m1();
 			x.m2();
 
-			console.log(x.b, x.c);
 			eval(t.TEST('x.b === "EDCbBACa"'));
 			eval(t.TEST('x.c === "CbABCaDE"'));
 
@@ -132,7 +131,6 @@
 			x.m1();
 			x.m2();
 
-			console.log(x.b, x.c);
 			eval(t.TEST('x.b === "EDCbCa"'));
 			eval(t.TEST('x.c === "CbCaDE"'));
 		},

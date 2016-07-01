@@ -284,6 +284,9 @@
 	        // accessor
 	        if (prop.get) {
 	            if (isSuper(prop.get)) {
+					if (!prop.get.spr.around) {
+						return; // skip the descriptor
+					}
 					if (state.prop) {
 		                newProp.get = prop.get.spr.around(
 		                    state.prop.get || state.prop.set ?
@@ -295,12 +298,18 @@
 	        }
 	        if (prop.set) {
 	            if (isSuper(prop.set)) {
+					if (!prop.set.spr.around) {
+						return; // skip the descriptor
+					}
 	                newProp.set = prop.set.spr.around(state.prop && state.prop.set || null);
 	            }
 	        }
 	    } else {
 	        // data
 	        if (isSuper(prop.value)) {
+				if (!prop.value.spr.around) {
+					return; // skip the descriptor
+				}
 				if (state.prop) {
 		            newProp.value = prop.value.spr.around(
 		                state.prop.get || state.prop.set ?
@@ -316,21 +325,16 @@
 	function weaveChain (state, prop, name) {
 	    state.backlog = state.backlog || [];
 	    if (!prop) {
-	        if (state.backlog.length) {
-	            state.backlog.push(convertToValue(state.prop));
-	            state.prop = stubChain(state.backlog);
-	        }
-	        return;
+			return state.backlog.length && processBacklog(state, this.reverse);
 	    }
 	    var newProp = cloneDescriptor(prop);
 	    if (prop.get || prop.set) {
 	        // accessor
 	        if (isSuper(prop.get)) {
-	            if (state.backlog.length) {
-	                state.backlog.push(convertToValue(state.prop));
-	                state.prop = stubChain(state.backlog);
-	                state.backlog = [];
-	            }
+				if (!prop.get.spr.around) {
+					return; // skip the descriptor
+				}
+				state.backlog.length && processBacklog(state, this.reverse);
 				if (state.prop) {
 		            newProp.get = prop.get.spr.around(
 		                state.prop.get || state.prop.set ?
@@ -343,11 +347,10 @@
 	    } else {
 	        // data
 	        if (isSuper(prop.value)) {
-	            if (state.backlog.length) {
-	                state.backlog.push(convertToValue(state.prop));
-	                state.prop = stubChain(state.backlog);
-	                state.backlog = [];
-	            }
+				if (!prop.value.spr.around) {
+					return; // skip the descriptor
+				}
+	            state.backlog.length && processBacklog(state, this.reverse);
 				if (state.prop) {
 		            newProp.value = prop.value.spr.around(
 		                state.prop.get || state.prop.set ?
@@ -362,6 +365,12 @@
 	        state.backlog.push(convertToValue(state.prop));
 	    }
 	    state.prop = newProp;
+	}
+
+	function processBacklog (state, reverse) {
+		state.backlog.push(convertToValue(state.prop));
+		state.prop = stubChain(reverse ? state.backlog.reverse() : state.backlog);
+		state.backlog = [];
 	}
 
 	function adaptValue (f) {
@@ -569,9 +578,9 @@
 		var reversedBases;
 		Object.keys(finalSpecial).forEach(function (name) {
 			var baseList = bases;
-			if (finalSpecial[name].reverse) {
-				baseList = reversedBases = reversedBases || bases.slice(0).reverse();
-			}
+			// if (finalSpecial[name].reverse) {
+			// 	baseList = reversedBases = reversedBases || bases.slice(0).reverse();
+			// }
 			var prop = weaveProp(name, baseList, finalSpecial[name]);
 			if (!prop) {
 				prop = {configurable: true, enumerable: false, writable: true, value: function nop () {}};
