@@ -96,8 +96,8 @@
 			node = new Node(instance, name);
 			if (f && f.advices) {
 				f = f.advices;
-				f.before.forEach(function (f) { node.add(f); });
-				f.after .forEach(function (f) { node.add(null, f); });
+				f.before.slice(0).reverse().forEach(function (f) { node.add(f); });
+				f.after.forEach(function (f) { node.add(null, f); });
 				node.add(null, null, f.around);
 			} else {
 				node.add(null, null, f);
