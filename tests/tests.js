@@ -2,14 +2,14 @@
 (['heya-unit',
 	'./test_mini',
 	'./test_dcl',
-	// './test_advise',
+	'./test_advise',
 	// './test_debug',
 	'./test_raw',
 	'./test_bases',
-	'./test_mixins'
-	// './test_advices'
+	'./test_mixins',
+	'./test_advices'
 ],
-function(unit){
+function (unit) {
 	'use strict';
 	unit.run();
 });

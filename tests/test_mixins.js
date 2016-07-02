@@ -1,5 +1,5 @@
 /* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
-(['module', 'heya-unit', '../dcl', '../mixins/Cleanup'], function(module, unit, dcl, Cleanup){
+(['module', 'heya-unit', '../dcl', '../mixins/Cleanup'], function (module, unit, dcl, Cleanup) {
 	'use strict';
 
 	// tests

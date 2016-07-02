@@ -1,7 +1,7 @@
 /* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
 (['module', 'heya-unit', '../dcl', '../advise', '../advices/counter', '../advices/flow',
 	'../advices/time', '../advices/memoize', '../advices/trace'],
-function(module, unit, dcl, advise, counter, flow, time, memoize, trace){
+function (module, unit, dcl, advise, counter, flow, time, memoize, trace) {
 	'use strict';
 
 	var Ackermann = dcl(null, {
