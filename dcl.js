@@ -486,12 +486,12 @@
 					throw result;
 				}
 				return result;
+
+				function makeReturn (value) { result = value; thrown = false; }
+				function makeThrow  (value) { result = value; thrown = true; }
 			};
 		stub.advices = {around: aroundStub, before: beforeChain, after: afterChain};
 		return stub;
-
-		function makeReturn (value) { result = value; thrown = false; }
-		function makeThrow  (value) { result = value; thrown = true; }
 	}
 
 
