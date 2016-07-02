@@ -1,29 +1,23 @@
-(function(factory){
-	if(typeof define != "undefined"){
-		define(["../dcl"], factory);
-	}else if(typeof module != "undefined"){
-		module.exports = factory(require("../dcl"));
-	}else{
-		dclAdvicesCounter = factory(dcl);
-	}
-})(function(dcl){
-	"use strict";
+/* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
+(['../dcl'], function (dcl) {
+	'use strict';
+
 	var Counter = new dcl(null, {
-		declaredClass: "dcl/advices/counter/Counter",
-		constructor: function(){
+		declaredClass: 'dcl/advices/counter/Counter',
+		constructor: function () {
 			this.reset();
 		},
-		reset: function(){
+		reset: function () {
 			this.calls = this.errors = 0;
 		},
-		advice: function(){
+		advice: function () {
 			var self = this;
 			return {
-				before: function(){
+				before: function () {
 					++self.calls;
 				},
-				after: function(args, result){
-					if(result instanceof Error){
+				after: function (args, result) {
+					if (result instanceof Error) {
 						++self.errors;
 					}
 				}

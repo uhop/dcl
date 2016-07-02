@@ -1,32 +1,29 @@
 /* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
-(["module", "heya-unit", "../dcl", "../mixins/Cleanup"], function(module, unit, dcl, Cleanup){
-
-	"use strict";
+(['module', 'heya-unit', '../dcl', '../mixins/Cleanup'], function(module, unit, dcl, Cleanup){
+	'use strict';
 
 	// tests
 
 	unit.add(module, [
-		function test_Cleanup(t){
-			"use strict";
-
+		function test_Cleanup (t) {
 			var msgs = [];
 
 			var A = dcl(null, {
-				constructor: function(n){
+				constructor: function (n) {
 					this.n = n;
 					msgs.push(this.n);
 				},
-				destroy: function(){
+				destroy: function () {
 					msgs.push(-this.n);
 				}
 			});
 
-			var cleanup = function(n){
+			var cleanup = function (n) {
 				msgs.push(-n);
 			};
 
 			var B = dcl(Cleanup, {
-				constructor: function(){
+				constructor: function () {
 					var  f1 = this.pushCleanup(new A(1));
 					this.f2 = this.pushCleanup(2, cleanup);
 					this.pushCleanup(new A(3));
@@ -35,13 +32,13 @@
 					f1();
 					this.popCleanup();
 				},
-				remove2: function(){
-					if(this.removeCleanup(this.f2)){
+				remove2: function () {
+					if (this.removeCleanup(this.f2)) {
 						this.f2();
 						this.f2 = null;
 					}
 				},
-				destroy: function(){
+				destroy: function () {
 					msgs.push(-99);
 				}
 			});

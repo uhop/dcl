@@ -3,11 +3,10 @@
 	'./test_mini',
 	'./test_dcl',
 	// './test_advise',
-	// './test_inherited',
 	// './test_debug',
-	'./test_raw'
+	'./test_raw',
 	// './test_bases',
-	// './test_mixins',
+	'./test_mixins'
 	// './test_advices'
 ],
 function(unit){
