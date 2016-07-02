@@ -2,18 +2,13 @@
 (['../dcl'], function (dcl) {
 	'use strict';
 
-	// TODO: implement allKeys()
-
 	return dcl(null, {
 		declaredClass: 'dcl/bases/Replacer',
 		constructor: function (x) {
-			var empty = {};
-			dcl.allKeys(x).forEach(function (name) {
+			var props = dcl.populatePropsNative({}, x);
+			Object.keys(props).forEach(function (name) {
 				if (name in this) {
-					var t = x[name], e = empty[name];
-					if (t !== e) {
-						this[name] = t;
-					}
+					Object.defineProperty(this, name, props[name]);
 				}
 			}, this);
 		}

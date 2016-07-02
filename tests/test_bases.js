@@ -1,18 +1,18 @@
-/* UMD.define */ (typeof define=="function"&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
-(["module", "heya-unit", "../dcl", "../bases/Mixer", "../bases/Replacer"],
+/* UMD.define */ (typeof define=='function'&&define||function(d,f,m){m={module:module,require:require};module.exports=f.apply(null,d.map(function(n){return m[n]||require(n)}))})
+(['module', 'heya-unit', '../dcl', '../bases/Mixer', '../bases/Replacer'],
 function(module, unit, dcl, Mixer, Replacer){
-	"use strict";
+	'use strict';
 
 	// tests
 
 	unit.add(module, [
-		function test_Mixer(t){
-			var f = function(){}
+		function test_Mixer (t) {
+			var f = function () {};
 
 			var A = dcl(Mixer, {
-				declaredClass: "A",
+				declaredClass: 'A',
 				a: 1,
-				b: "two",
+				b: 'two',
 				c: null,
 				d: f
 			});
@@ -29,13 +29,13 @@ function(module, unit, dcl, Mixer, Replacer){
 			eval(t.TEST('x.d === f'));
 			eval(t.TEST('x.f === f'));
 		},
-		function test_Replacer(t){
-			var f = function(){}
+		function test_Replacer (t) {
+			var f = function () {};
 
 			var A = dcl(Replacer, {
-				declaredClass: "A",
+				declaredClass: 'A',
 				a: 1,
-				b: "two",
+				b: 'two',
 				c: null,
 				d: f
 			});

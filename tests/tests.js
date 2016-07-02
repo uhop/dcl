@@ -5,7 +5,7 @@
 	// './test_advise',
 	// './test_debug',
 	'./test_raw',
-	// './test_bases',
+	'./test_bases',
 	'./test_mixins'
 	// './test_advices'
 ],

@@ -2,12 +2,10 @@
 (['../dcl'], function (dcl) {
 	'use strict';
 
-	// TODO: implement mix
-
 	return dcl(null, {
 		declaredClass: 'dcl/bases/Mixer',
 		constructor: function (x) {
-			dcl.mix(this, x);
+			Object.defineProperties(this, dcl.populatePropsNative({}, x));
 		}
 	});
 });

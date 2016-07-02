@@ -227,22 +227,23 @@
 
 	// MODULE: produce properties
 
-	function recordProp(props, proto, recorded) {
+	function recordProp(props, o, recorded) {
 		return function (name) {
 			if (recorded[name] !== 1) {
 				recorded[name] = 1;
-				props[name] = Object.getOwnPropertyDescriptor(proto, name);
+				props[name] = Object.getOwnPropertyDescriptor(o, name);
 			}
 		};
 	}
 
-	function populatePropsNative (props, ctr) {
-		var recorded = {}, proto = ctr[pname], next = Object.getPrototypeOf(proto);
-		if (proto) {
-			for (; next; proto = next, next = Object.getPrototypeOf(next)) {
-				Object.getOwnPropertyNames(proto).forEach(recordProp(props, proto, recorded));
+	function populatePropsNative (props, o) {
+		if (o) {
+			var recorded = {}, next = Object.getPrototypeOf(o);
+			for (; next; o = next, next = Object.getPrototypeOf(next)) {
+				Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
 			}
 		}
+		return props;
 	}
 
 	// populate properties with simple properties
@@ -262,7 +263,7 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-			populatePropsNative(props, base);
+			populatePropsNative(props, base[pname]);
 	    });
 	    return newSpecial;
 	}
@@ -635,6 +636,10 @@
 	};
 	dcl._makeSuper = makeSuper;
 	dcl._makeCtr   = makeCtr;
+
+	// utilities
+
+	dcl.populatePropsNative = populatePropsNative;
 
 	// meta
 
