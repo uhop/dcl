@@ -200,9 +200,12 @@
 	}
 
 	function getPropertyDescriptor (o, name) {
-		for (; o && o !== Object; o = Object.getPrototypeOf(o)) {
-			if (o.hasOwnProperty(name)) {
-				return Object.getOwnPropertyDescriptor(o, name);
+		if (o) {
+			var next = Object.getPrototypeOf(o);
+			for (; next; o = next, next = Object.getPrototypeOf(next)) {
+				if (o.hasOwnProperty(name)) {
+					return Object.getOwnPropertyDescriptor(o, name);
+				}
 			}
 		}
 		return null;
@@ -241,8 +244,9 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-	        var recorded = {}, proto = base[pname];
-	        for (; proto && proto !== Object; proto = Object.getPrototypeOf(proto)) {
+	        var recorded = {}, proto = base[pname],
+				nextProto = Object.getPrototypeOf(proto);
+	        for (; nextProto; proto = nextProto, nextProto = Object.getPrototypeOf(nextProto)) {
 	            Object.getOwnPropertyNames(proto).forEach(recordProp);
 	        }
 
@@ -262,14 +266,16 @@
 	        var prop;
 	        if (base[mname]) {
 	            var baseProps = base[mname].props;
-	            if (!baseProps.hasOwnProperty(name)) {
-	                return;
-	            }
-	            prop = baseProps[name];
+	            if (baseProps.hasOwnProperty(name)) {
+					prop = baseProps[name];
+				}
 	        } else {
 	            prop = getPropertyDescriptor(base[pname], name);
+				if (!prop && name == cname) {
+					prop = {configurable: true, enumerable: false, writable: true, value: base};
+				}
 	        }
-	        weaver.weave(state, prop, name);
+			prop && weaver.weave(state, prop, name);
 	    });
 	    weaver.weave(state);
 	    return state.prop;
@@ -577,11 +583,7 @@
 		// process special props
 		var reversedBases;
 		Object.keys(finalSpecial).forEach(function (name) {
-			var baseList = bases;
-			// if (finalSpecial[name].reverse) {
-			// 	baseList = reversedBases = reversedBases || bases.slice(0).reverse();
-			// }
-			var prop = weaveProp(name, baseList, finalSpecial[name]);
+			var prop = weaveProp(name, bases, finalSpecial[name]);
 			if (!prop) {
 				prop = {configurable: true, enumerable: false, writable: true, value: function nop () {}};
 			}
