@@ -227,6 +227,24 @@
 
 	// MODULE: produce properties
 
+	function recordProp(props, proto, recorded) {
+		return function (name) {
+			if (recorded[name] !== 1) {
+				recorded[name] = 1;
+				props[name] = Object.getOwnPropertyDescriptor(proto, name);
+			}
+		};
+	}
+
+	function populatePropsNative (props, ctr) {
+		var recorded = {}, proto = ctr[pname], next = Object.getPrototypeOf(proto);
+		if (proto) {
+			for (; next; proto = next, next = Object.getPrototypeOf(next)) {
+				Object.getOwnPropertyNames(proto).forEach(recordProp(props, proto, recorded));
+			}
+		}
+	}
+
 	// populate properties with simple properties
 	function populateProps (props, mixins, special) {
 	    var newSpecial = {};
@@ -244,18 +262,7 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-	        var recorded = {}, proto = base[pname],
-				nextProto = Object.getPrototypeOf(proto);
-	        for (; nextProto; proto = nextProto, nextProto = Object.getPrototypeOf(nextProto)) {
-	            Object.getOwnPropertyNames(proto).forEach(recordProp);
-	        }
-
-			function recordProp (name) {
-				if (recorded[name] !== 1) {
-					recorded[name] = 1;
-					props[name] = Object.getOwnPropertyDescriptor(proto, name);
-				}
-			}
+			populatePropsNative(props, base);
 	    });
 	    return newSpecial;
 	}
