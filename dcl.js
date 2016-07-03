@@ -200,13 +200,11 @@
 	}
 
 	function getPropertyDescriptor (o, name) {
-		if (o) {
-			var next = Object.getPrototypeOf(o);
-			for (; next; o = next, next = Object.getPrototypeOf(next)) {
-				if (o.hasOwnProperty(name)) {
-					return Object.getOwnPropertyDescriptor(o, name);
-				}
+		while (o && o !== Object.prototype) {
+			if (o.hasOwnProperty(name)) {
+				return Object.getOwnPropertyDescriptor(o, name);
 			}
+			o = Object.getPrototypeOf(o);
 		}
 		return null;
 	}
@@ -237,11 +235,10 @@
 	}
 
 	function populatePropsNative (props, o) {
-		if (o) {
-			var recorded = {}, next = Object.getPrototypeOf(o);
-			for (; next; o = next, next = Object.getPrototypeOf(next)) {
-				Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
-			}
+		var recorded = {};
+		while (o && o !== Object.prototype) {
+			Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
+			o = Object.getPrototypeOf(o);
 		}
 		return props;
 	}
@@ -640,6 +637,7 @@
 	// utilities
 
 	dcl.populatePropsNative = populatePropsNative;
+	dcl.getPropertyDescriptor = getPropertyDescriptor;
 
 	// meta
 
