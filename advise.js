@@ -56,59 +56,70 @@
 	};
 	p.unadvise = p.destroy;   // alias
 
-	function makeAOPStub (node) {
-		var stub = function () {
-			var result, thrown, p;
-			// running the before chain
-			for (p = node.prev_before; p !== node; p = p.prev_before) {
-				p.before.apply(this, arguments);
-			}
-			// running the around chain
-			if (node.prev_around !== node) {
-				try {
-					result = node.prev_around.around.apply(this, arguments);
-				} catch (error) {
-					result = error;
-					thrown = true;
+	function makeAOPStub (node, beforeChain, afterChain) {
+		var beforeLength = beforeChain.length, afterLength = afterChain.length,
+			stub = function () {
+				var result, thrown, p, i;
+				// running the before chain
+				for (p = node.prev_before; p !== node; p = p.prev_before) {
+					p.before.apply(this, arguments);
 				}
-			}
-			// running the after chain
-			for (p = node.next_after; p !== node; p = p.next_after) {
-				p.after.call(this, arguments, result, makeReturn, makeThrow);
-			}
-			if (thrown) {
-				throw result;
-			}
-			return result;
+				for (i = 0; i < beforeLength; ++i) {
+					beforeChain[i].apply(this, arguments);
+				}
+				// running the around chain
+				if (node.prev_around !== node) {
+					try {
+						result = node.prev_around.around.apply(this, arguments);
+					} catch (error) {
+						result = error;
+						thrown = true;
+					}
+				}
+				// running the after chain
+				for (i = 0; i < afterLength; ++i) {
+					afterChain[i].call(this, arguments, result,	makeReturn, makeThrow);
+				}
+				for (p = node.next_after; p !== node; p = p.next_after) {
+					p.after.call(this, arguments, result, makeReturn, makeThrow);
+				}
+				if (thrown) {
+					throw result;
+				}
+				return result;
 
-			function makeReturn (value) { result = value; thrown = false; }
-			function makeThrow  (value) { result = value; thrown = true; }
-		};
+				function makeReturn (value) { result = value; thrown = false; }
+				function makeThrow  (value) { result = value; thrown = true; }
+			};
 		stub.adviceNode = node;
 		return stub;
 	}
 
+	var emptyChain = [];
+
 	function advise (instance, name, advice) {
-		var f = instance[name], node;
+		var f = instance[name], node, beforeChain = emptyChain, afterChain = emptyChain;
 		if (f && f.adviceNode && f.adviceNode instanceof Node) {
 			node = f.adviceNode;
 		} else {
 			node = new Node(instance, name);
 			if (f && f.advices) {
 				f = f.advices;
-				f.before.slice(0).reverse().forEach(function (f) { node.add(f); });
-				f.after.forEach(function (f) { node.add(null, f); });
+				beforeChain = f.before;
+				afterChain  = f.after;
 				node.add(null, null, f.around);
 			} else {
 				node.add(null, null, f);
 			}
-			instance[name] = makeAOPStub(node);
+			instance[name] = makeAOPStub(node, beforeChain, afterChain);
 		}
 		if (typeof advice == 'function') {
 			advice = advice(name, instance);
 		}
 		return node.add(advice.before, advice.after, null, advice.around);
 	}
+
+	// export
 
 	advise.before = function(instance, name, f){ return advise(instance, name, {before: f}); };
 	advise.after  = function(instance, name, f){ return advise(instance, name, {after:  f}); };
@@ -118,4 +129,15 @@
 	advise._instantiate = function(advice, previous, node){ return advice(previous); };
 
 	return advise;
+
+	// copied from dcl.js so we can be independent
+	function getPropertyDescriptor (o, name) {
+		while (o && o !== Object.prototype) {
+			if (o.hasOwnProperty(name)) {
+				return Object.getOwnPropertyDescriptor(o, name);
+			}
+			o = Object.getPrototypeOf(o);
+		}
+		return null;
+	}
 });
