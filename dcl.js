@@ -586,7 +586,6 @@
 		}
 
 		// process special props
-		var reversedBases;
 		Object.keys(finalSpecial).forEach(function (name) {
 			var prop = weaveProp(name, bases, finalSpecial[name]);
 			if (!prop) {
@@ -602,7 +601,10 @@
 			} else {
 				// data descriptor
 				advices = getDataSideAdvices(name, bases);
-				newProp.value = createStub(prop.value, advices.before, advices.after);
+				var stub = createStub(prop.value, advices.before, advices.after);
+				advices = getAccessorSideAdvices(name, bases, 'set');
+				stub.advices.set = advices;
+				newProp.value = stub;
 			}
 			finalProps[name] = newProp;
 		});
