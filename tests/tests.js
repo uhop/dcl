@@ -7,7 +7,8 @@
 	'./test_raw',
 	'./test_bases',
 	'./test_mixins',
-	'./test_advices'
+	'./test_advices',
+	'./test_accessors'
 ],
 function (unit) {
 	'use strict';
