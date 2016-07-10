@@ -137,10 +137,11 @@
 						})
 					}),
 					C = dcl(B, {
-						get value () { return 42; },
+						get value () { return 42; }
 					});
 
 				var a = new A(), b = new B(), c = new C();
+
 				t.info('read a');
 				t.info(a.value + '');
 				t.info('read b');
@@ -195,10 +196,11 @@
 						})
 					}),
 					C = dcl(B, {
-						set value (x) { this.__value = 42; },
+						set value (x) { this.__value = 42; }
 					});
 
 				var a = new A(), b = new B(), c = new C();
+
 				t.info('write a');
 				a.value = 5;
 				t.info(a.__value + '');
@@ -225,6 +227,129 @@
 				'Ab',
 				'Aa',
 				'Ba',
+				'42'
+			]
+		},
+		{
+			test: function test_get_set_side_advices (t) {
+				var A = dcl({
+						constructor: function () {
+							this.__value = 0;
+						},
+						value: dcl.prop({
+							get: dcl.advise({
+								before: function () { t.info('Abg'); },
+								around: function (sup) {
+									return function () { return this.__value; };
+								},
+								after:  function () { t.info('Aag'); }
+							}),
+							set: dcl.advise({
+								before: function () { t.info('Ab'); },
+								around: function (sup) {
+									return function (x) { this.__value = x; };
+								},
+								after:  function () { t.info('Aa'); }
+							})
+						})
+					}),
+					B = dcl(A, {
+						value: dcl.prop({
+							get: dcl.advise({
+								before: function () { t.info('Bbg'); },
+								around: function (sup) {
+									return function () { return sup.call(this) + 1; };
+								},
+								after:  function () { t.info('Bag'); }
+							}),
+							set: dcl.advise({
+								before: function () { t.info('Bb'); },
+								around: function (sup) {
+									return function (x) { sup.call(this, x + 1); };
+								},
+								after:  function () { t.info('Ba'); }
+							})
+						})
+					}),
+					C = dcl(B, {
+						get value () { return 42; },
+						set value (x) { this.__value = 42; }
+					});
+
+				var a = new A(), b = new B(), c = new C();
+
+				t.info('read a');
+				t.info(a.value + '');
+				t.info(a.__value + '');
+				t.info('write a');
+				a.value = 5;
+				t.info(a.value + '');
+				t.info(a.__value + '');
+
+				t.info('read b');
+				t.info(b.value + '');
+				t.info(b.__value + '');
+				t.info('write b');
+				b.value = 5;
+				t.info(b.value + '');
+				t.info(b.__value + '');
+
+				t.info('read c');
+				t.info(c.value + '');
+				t.info(c.__value + '');
+				t.info('write c');
+				c.value = 5;
+				t.info(c.value + '');
+				t.info(c.__value + '');
+			},
+			logs: [
+				'read a',
+				'Abg',
+				'Aag',
+				'0',
+				'0',
+				'write a',
+				'Ab',
+				'Aa',
+				'Abg',
+				'Aag',
+				'5',
+				'5',
+				'read b',
+				'Bbg',
+				'Abg',
+				'Aag',
+				'Bag',
+				'1',
+				'0',
+				'write b',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'Bbg',
+				'Abg',
+				'Aag',
+				'Bag',
+				'7',
+				'6',
+				'read c',
+				'Bbg',
+				'Abg',
+				'Aag',
+				'Bag',
+				'42',
+				'0',
+				'write c',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'Bbg',
+				'Abg',
+				'Aag',
+				'Bag',
+				'42',
 				'42'
 			]
 		}
