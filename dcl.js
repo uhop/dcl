@@ -266,7 +266,8 @@
 	}
 
 	function weaveProp (name, bases, weaver) {
-	    var state = {prop: null};
+	    var state = {prop: null, backlog: []};
+		weaver.start && weaver.start(state);
 	    bases.forEach(function (base) {
 	        var prop;
 	        if (base[mname]) {
@@ -280,107 +281,61 @@
 					prop = {configurable: true, enumerable: false, writable: true, value: base};
 				}
 	        }
-			prop && weaver.weave(state, prop, name);
-	    });
-	    weaver.weave(state);
-	    return state.prop;
-	}
-
-	function weaveSuper (state, prop, name) {
-	    if (!prop) {
-	        return;
-	    }
-	    var newProp = cloneDescriptor(prop);
-	    if (prop.get || prop.set) {
-	        // accessor
-	        if (prop.get) {
-	            if (isSuper(prop.get)) {
-					if (!prop.get.spr.around) {
-						return; // skip the descriptor
-					}
+			if (!prop) {
+				return;
+			}
+			var newProp = cloneDescriptor(prop);
+		    if (prop.get || prop.set) {
+		        // accessor
+				if (isSuper(prop.get) && prop.get.spr.around) {
+					state.backlog.length && processBacklog(state, weaver);
 					if (state.prop) {
-		                newProp.get = prop.get.spr.around(
-		                    state.prop.get || state.prop.set ?
-		                        state.prop.get : adaptValue(state.prop.value));
+			            newProp.get = prop.get.spr.around(
+			                state.prop.get || state.prop.set ?
+			                    state.prop.get : adaptValue(state.prop.value));
 					} else {
 						newProp.get = prop.get.spr.around(null);
 					}
-	            }
-	        }
-	        if (prop.set) {
-	            if (isSuper(prop.set)) {
-					if (!prop.set.spr.around) {
-						return; // skip the descriptor
+		            state.prop = null;
+				}
+				if (isSuper(prop.set) && prop.set.spr.around) {
+		            newProp.set = prop.set.spr.around(state.prop && state.prop.set);
+		        }
+				if ((!prop.get || isSuper(prop.get) && !prop.get.spr.around) && (!prop.set || isSuper(prop.set) && !prop.set.spr.around)) {
+					return; // skip descriptor: no actionable value
+				}
+		    } else {
+		        // data
+		        if (isSuper(prop.value) && prop.value.spr.around) {
+		            state.backlog.length && processBacklog(state, weaver);
+					if (state.prop) {
+			            newProp.value = prop.value.spr.around(
+			                state.prop.get || state.prop.set ?
+			                    adaptGet(state.prop.get) : state.prop.value);
+					} else {
+						newProp.value = prop.value.spr.around(name !== cname && empty[name]);
 					}
-	                newProp.set = prop.set.spr.around(state.prop && state.prop.set || null);
-	            }
-	        }
-	    } else {
-	        // data
-	        if (isSuper(prop.value)) {
-				if (!prop.value.spr.around) {
-					return; // skip the descriptor
+		            state.prop = null;
+		        }
+				if (!prop.value || isSuper(prop.value) && !prop.value.spr.around) {
+					return; // skip descriptor: no actionable value
 				}
-				if (state.prop) {
-		            newProp.value = prop.value.spr.around(
-		                state.prop.get || state.prop.set ?
-		                    adaptGet(state.prop.get) : state.prop.value);
-				} else {
-					newProp.value = prop.value.spr.around(name !== cname && empty[name] || null);
-				}
-	        }
-	    }
-	    state.prop = newProp;
+		    }
+		    if (state.prop) {
+		        state.backlog.push(convertToValue(state.prop));
+		    }
+		    state.prop = newProp;
+	    });
+		state.backlog.length && processBacklog(state, weaver);
+	    return weaver.stop ? weaver.stop(state) : state.prop;
 	}
 
-	function weaveChain (state, prop, name) {
-	    state.backlog = state.backlog || [];
-	    if (!prop) {
-			return state.backlog.length && processBacklog(state, this.reverse);
-	    }
-	    var newProp = cloneDescriptor(prop);
-	    if (prop.get || prop.set) {
-	        // accessor
-	        if (isSuper(prop.get)) {
-				if (!prop.get.spr.around) {
-					return; // skip the descriptor
-				}
-				state.backlog.length && processBacklog(state, this.reverse);
-				if (state.prop) {
-		            newProp.get = prop.get.spr.around(
-		                state.prop.get || state.prop.set ?
-		                    state.prop.get : adaptValue(state.prop.value));
-				} else {
-					newProp.get = prop.get.spr.around(null);
-				}
-	            state.prop = null;
-	        }
-	    } else {
-	        // data
-	        if (isSuper(prop.value)) {
-				if (!prop.value.spr.around) {
-					return; // skip the descriptor
-				}
-	            state.backlog.length && processBacklog(state, this.reverse);
-				if (state.prop) {
-		            newProp.value = prop.value.spr.around(
-		                state.prop.get || state.prop.set ?
-		                    adaptGet(state.prop.get) : state.prop.value);
-				} else {
-					newProp.value = prop.value.spr.around(name !== cname && empty[name] || null);
-				}
-	            state.prop = null;
-	        }
-	    }
-	    if (state.prop) {
-	        state.backlog.push(convertToValue(state.prop));
-	    }
-	    state.prop = newProp;
-	}
+	var dclUtils = {adaptValue: adaptValue, adaptGet: adaptGet,
+			convertToValue: convertToValue, cloneDescriptor: cloneDescriptor};
 
-	function processBacklog (state, reverse) {
+	function processBacklog (state, weaver) {
 		state.backlog.push(convertToValue(state.prop));
-		state.prop = stubChain(reverse ? state.backlog.reverse() : state.backlog);
+		state.prop = weaver.weave(state.backlog, dclUtils);
 		state.backlog = [];
 	}
 
@@ -403,22 +358,8 @@
 	    return prop;
 	}
 
-	function stubChain (chain) {
-	    var newProp = cloneDescriptor(chain[chain.length - 1]);
 
-	    // extract functions
-	    chain = chain.map(function (prop) {
-	        return prop.get || prop.set ? adaptGet(prop.get) : prop.value;
-	    });
-
-	    newProp.value = function chainStub () {
-	        for (var i = 0; i < chain.length; ++i) {
-	            chain[i].apply(this, arguments);
-	        }
-	    };
-
-	    return newProp;
-	}
+	// dcl helpers
 
 	function getAccessorSideAdvices (name, bases, propName) {
 	    var before = [], after = [];
@@ -458,7 +399,7 @@
 		return {before: before, after: after};
 	}
 
-	function createStub (aroundStub, beforeChain, afterChain) {
+	function makeStub (aroundStub, beforeChain, afterChain) {
 		var beforeLength = beforeChain.length, afterLength = afterChain.length,
 			stub = function () {
 				var result, thrown, i;
@@ -491,12 +432,62 @@
 		return stub;
 	}
 
+	function makeCtr (baseClass, finalProps, meta) {
+		var proto = baseClass ?
+				Object.create(baseClass[pname], finalProps) :
+				Object.defineProperties({}, finalProps),
+			ctr = proto[cname];
+
+		ctr[mname] = meta;
+		ctr[pname] = proto;
+		meta.bases[meta.bases.length - 1] = ctr;
+
+		return ctr;
+	}
+
+
+	// weavers
+
+	function weaveSuper (chain, utils) {
+		var newProp = utils.cloneDescriptor(chain[chain.length - 1]);
+
+		if (newProp.get || newProp.set) {
+			// convert to value
+			newProp.value = utils.adaptGet(newProp.get);
+			delete newProp.get;
+			delete newProp.set;
+		}
+
+		return newProp;
+	}
+
+	function weaveChain (chain, utils) {
+		if (this.reverse) {
+			chain.reverse();
+		}
+
+		var newProp = utils.cloneDescriptor(chain[chain.length - 1]);
+
+		// extract functions
+		chain = chain.map(function (prop) {
+			return prop.get || prop.set ? utils.adaptGet(prop.get) : prop.value;
+		});
+
+		newProp.value = function () {
+			for (var i = 0; i < chain.length; ++i) {
+				chain[i].apply(this, arguments);
+			}
+		};
+
+		return newProp;
+	}
+
+	var weaveBefore = {name: 'before', weave: weaveChain, reverse: true},
+		weaveAfter  = {name: 'after',  weave: weaveChain},
+		weaveSuper  = {name: 'super',  weave: weaveSuper};
+
 
 	// MODULE: dcl (the main function)
-
-	var weaveBeforeChain = {name: 'beforeChain', weave: weaveChain, reverse: true},
-		weaveAfterChain  = {name: 'afterChain',  weave: weaveChain},
-		weaveAroundChain = {name: 'aroundChain', weave: weaveSuper};
 
 	function dcl (superClass, props, options) {
 		// parse arguments
@@ -566,11 +557,11 @@
 				var prop = props[name];
 				if (prop.get || prop.set) {
 					if (isSuper(prop.get) || isSuper(prop.set)) {
-						dcl.chainWith(faux, name, weaveAroundChain);
+						dcl.chainWith(faux, name, dcl.weaveSuper);
 					}
 				} else {
 					if (isSuper(prop.value)) {
-						dcl.chainWith(faux, name, weaveAroundChain);
+						dcl.chainWith(faux, name, dcl.weaveSuper);
 					}
 				}
 			}
@@ -582,7 +573,7 @@
 		// collect simple props, and a list of special props
 		var finalProps = {}, finalSpecial = populateProps(finalProps, mixins, special);
 		if (!finalSpecial.hasOwnProperty(cname)) {
-			finalSpecial[cname] = special.hasOwnProperty(cname) ? special[cname] : dcl.weaveAfterChain;
+			finalSpecial[cname] = special.hasOwnProperty(cname) ? special[cname] : dcl.weaveAfter;
 		}
 
 		// process special props
@@ -595,13 +586,13 @@
 			if (prop.get || prop.set) {
 				// accessor descriptor
 				advices = getAccessorSideAdvices(name, bases, 'get');
-				newProp.get = createStub(prop.get, advices.before, advices.after);
+				newProp.get = dcl._makeStub(prop.get, advices.before, advices.after);
 				advices = getAccessorSideAdvices(name, bases, 'set');
-				newProp.set = createStub(prop.set, advices.before, advices.after);
+				newProp.set = dcl._makeStub(prop.set, advices.before, advices.after);
 			} else {
 				// data descriptor
 				advices = getDataSideAdvices(name, bases);
-				var stub = createStub(prop.value, advices.before, advices.after);
+				var stub = dcl._makeStub(prop.value, advices.before, advices.after);
 				advices = getAccessorSideAdvices(name, bases, 'set');
 				stub.advices.set = advices;
 				newProp.value = stub;
@@ -610,19 +601,6 @@
 		});
 
 		return dcl._makeCtr(baseClass, finalProps, faux[mname]);
-	}
-
-	function makeCtr (baseClass, finalProps, meta) {
-		var proto = baseClass ?
-				Object.create(baseClass[pname], finalProps) :
-				Object.defineProperties({}, finalProps),
-			ctr = proto[cname];
-
-		ctr[mname] = meta;
-		ctr[pname] = proto;
-		meta.bases[meta.bases.length - 1] = ctr;
-
-		return ctr;
 	}
 
 
@@ -635,6 +613,7 @@
 	};
 	dcl._makeSuper = makeSuper;
 	dcl._makeCtr   = makeCtr;
+	dcl._makeStub  = makeStub;
 
 	// utilities
 
@@ -671,33 +650,31 @@
 
 	// chains
 
-	function chainWith (ctr, name, chain) {
+	function chainWith (ctr, name, weaver) {
 		if (ctr && ctr[mname]) {
 			var special = ctr[mname].special;
 			if (special.hasOwnProperty(name)) {
 				var own = special[name];
-				if (own === chain ||
-						own.weave === chain.weave && !(!own.reverse ^ !chain.reverse) ||
-						chain.weave === weaveSuper && !chain.reverse) {
+				if (own === weaver || own.name === weaver.name || weaver.name === 'super') {
 					return true;
 				}
-				if (own.weave !== weaveSuper || own.reverse) {
+				if (own.name !== 'super') {
 					dcl._error('different weavers: ' + name);
 				}
 			}
-			special[name] = chain;
+			special[name] = weaver;
 			return true;
 		}
 		return false;
 	}
 
-	dcl.weaveBeforeChain = weaveBeforeChain;
-	dcl.weaveAfterChain  = weaveAfterChain;
-	dcl.weaveAroundChain = weaveAroundChain;
+	dcl.weaveBefore = weaveBefore;
+	dcl.weaveAfter  = weaveAfter;
+	dcl.weaveSuper  = weaveSuper;
 
 	dcl.chainWith   = chainWith;
-	dcl.chainBefore = function (ctr, name) { return dcl. chainWith(ctr, name, dcl.weaveBeforeChain); };
-	dcl.chainAfter  = function (ctr, name) { return dcl. chainWith(ctr, name, dcl.weaveAfterChain); };
+	dcl.chainBefore = function (ctr, name) { return dcl.chainWith(ctr, name, dcl.weaveBefore); };
+	dcl.chainAfter  = function (ctr, name) { return dcl.chainWith(ctr, name, dcl.weaveAfter); };
 
 	// AOP
 
