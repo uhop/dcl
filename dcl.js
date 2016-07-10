@@ -95,12 +95,6 @@
 
 	// MODULE: handling properties
 
-	function Prop (x) {
-		this.x = x;
-	}
-
-	function prop(x) { return new Prop(x); }
-
 	function updateProps (props, defaults, augmentDescriptor, augmentWritable) {
 		if ('configurable' in defaults) {
 			props = props.map(augmentDescriptor('configurable', defaults.configurable));
@@ -118,7 +112,7 @@
 
 	function toProperties(x, defaults) {
 		var props, descriptors;
-		if (x instanceof Prop) {
+		if (x instanceof dcl.Prop) {
 			props = x.x;
 		} else {
 			Object.getOwnPropertyNames(x).forEach(function(key) {
@@ -130,7 +124,7 @@
 				} else {
 					// data descriptor
 					var value = prop.value;
-					if (value instanceof Prop) {
+					if (value instanceof dcl.Prop) {
 						props = props || {};
 						props[key] = value.x;
 					} else {
@@ -210,11 +204,6 @@
 	}
 
 
-	// common globals
-
-	var empty = {};
-
-
 	// MODULE: produce properties
 
 	function recordProp(props, o, recorded) {
@@ -256,6 +245,8 @@
 	    });
 	    return newSpecial;
 	}
+
+	var empty = {};
 
 	function weaveProp (name, bases, weaver) {
 	    var state = {prop: null, backlog: []};
@@ -440,7 +431,7 @@
 	}
 
 
-	// weavers
+	// MODULE: weavers
 
 	function weaveAround (chain, utils) {
 		var newProp = utils.cloneDescriptor(chain[chain.length - 1]);
@@ -475,10 +466,6 @@
 
 		return newProp;
 	}
-
-	var weaveBefore = {name: 'before', weave: weaveChain, reverse: true},
-		weaveAfter  = {name: 'after',  weave: weaveChain},
-		weaveSuper  = {name: 'super',  weave: weaveAround};
 
 
 	// MODULE: dcl (the main function)
@@ -616,10 +603,10 @@
 
 	// meta
 
-	dcl.Prop = Prop;
-	dcl.prop = prop;
+	dcl.Prop = function Prop (x) { this.x = x; };
+	dcl.prop = function prop(x) { return new dcl.Prop(x); };
 
-	function isInstanceOf (o, ctr) {
+	dcl.isInstanceOf = function isInstanceOf (o, ctr) {
 		if (o instanceof ctr) {
 			return true;
 		}
@@ -632,9 +619,7 @@
 			}
 		}
 		return false;
-	}
-
-	dcl.isInstanceOf = isInstanceOf;
+	};
 
 	// chains
 
@@ -656,9 +641,9 @@
 		return false;
 	}
 
-	dcl.weaveBefore = weaveBefore;
-	dcl.weaveAfter  = weaveAfter;
-	dcl.weaveSuper  = weaveSuper;
+	dcl.weaveBefore = {name: 'before', weave: weaveChain, reverse: true};
+	dcl.weaveAfter  = {name: 'after',  weave: weaveChain};
+	dcl.weaveSuper  = {name: 'super',  weave: weaveAround};
 
 	dcl.chainWith   = chainWith;
 	dcl.chainBefore = function (ctr, name) { return dcl.chainWith(ctr, name, dcl.weaveBefore); };
