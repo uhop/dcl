@@ -214,14 +214,6 @@
 
 	var empty = {};
 
-	function Super (f) { this.around = f; }
-	function isSuper (f) { return f && f.spr instanceof Super; }
-	function makeSuper (advice, S) {
-		var f = function superNop () {};
-		f.spr = new S(advice);
-		return f;
-	}
-
 
 	// MODULE: produce properties
 
@@ -644,12 +636,6 @@
 
 	dcl.isInstanceOf = isInstanceOf;
 
-	// super
-
-	dcl.Super = Super;
-	dcl.isSuper = isSuper;
-	dcl.superCall = function (f) { return dcl._makeSuper(f, Super); };
-
 	// chains
 
 	function chainWith (ctr, name, weaver) {
@@ -678,9 +664,20 @@
 	dcl.chainBefore = function (ctr, name) { return dcl.chainWith(ctr, name, dcl.weaveBefore); };
 	dcl.chainAfter  = function (ctr, name) { return dcl.chainWith(ctr, name, dcl.weaveAfter); };
 
-	// AOP
+	// super & AOP
 
-	var Advice = dcl(dcl.Super, {
+	function makeSuper (advice, S) {
+		var f = function superNop () {};
+		f.spr = new S(advice);
+		return f;
+	}
+
+	function isSuper (f) { return f && f.spr instanceof dcl.Super; }
+
+	dcl.Super   = function Super (f) { this.around = f; };
+	dcl.isSuper = isSuper;
+
+	dcl.Advice  = dcl(dcl.Super, {
 		declaredClass: "dcl.Advice",
 		constructor: function () {
 			this.before = this.around.before;
@@ -689,11 +686,11 @@
 		}
 	});
 
-	dcl.advise = function (advice) { return dcl._makeSuper(advice, Advice); };
+	dcl.advise = function (advice) { return dcl._makeSuper(advice, dcl.Advice); };
 
+	dcl.superCall = dcl.around = function (f) { return dcl._makeSuper(f, dcl.Super); };
 	dcl.before = function (f) { return dcl.advise({before: f}); };
 	dcl.after  = function (f) { return dcl.advise({after:  f}); };
-	dcl.around = dcl.superCall;
 
 	// export
 
