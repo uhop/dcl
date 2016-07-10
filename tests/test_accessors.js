@@ -108,6 +108,64 @@
 			eval(t.TEST('c.value === 42 && c.__value === 0'));
 			c.value = 5;
 			eval(t.TEST('c.value === 42 && c.__value === 42'));
+		},
+		{
+			test: function test_get_side_advices (t) {
+				var A = dcl({
+						constructor: function () {
+							this.__value = 0;
+						},
+						value: dcl.prop({
+							get: dcl.advise({
+								before: function () { t.info('Ab'); },
+								around: function (sup) {
+									return function () { return this.__value; };
+								},
+								after:  function () { t.info('Aa'); }
+							})
+						})
+					}),
+					B = dcl(A, {
+						value: dcl.prop({
+							get: dcl.advise({
+								before: function () { t.info('Bb'); },
+								around: function (sup) {
+									return function () { return sup.call(this) + 1; };
+								},
+								after:  function () { t.info('Ba'); }
+							})
+						})
+					}),
+					C = dcl(B, {
+						get value () { return 42; },
+					});
+
+				var a = new A(), b = new B(), c = new C();
+				t.info('read a');
+				t.info(a.value + '');
+				t.info('read b');
+				t.info(b.value + '');
+				t.info('read c');
+				t.info(c.value + '');
+			},
+			logs: [
+				'read a',
+				'Ab',
+				'Aa',
+				'0',
+				'read b',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'1',
+				'read c',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'42'
+			]
 		}
 	]);
 
