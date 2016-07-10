@@ -267,22 +267,28 @@
 			if (!prop) {
 				return;
 			}
-			var newProp = cloneDescriptor(prop);
+			var newProp = cloneDescriptor(prop), prevProp;
 		    if (prop.get || prop.set) {
 		        // accessor
-				if (isSuper(prop.get) && prop.get.spr.around) {
+				var superGet = isSuper(prop.get) && prop.get.spr.around,
+					superSet = isSuper(prop.set) && prop.set.spr.around;
+				if (superGet || superSet) {
 					processBacklog(state, weaver);
-					if (state.prop) {
+					prevProp = state.prop;
+				}
+				if (superGet) {
+					if (prevProp) {
 			            newProp.get = prop.get.spr.around(
-			                state.prop.get || state.prop.set ?
-			                    state.prop.get : adaptValue(state.prop.value));
+			                prevProp.get || prevProp.set ?
+			                    prevProp.get : adaptValue(prevProp.value));
 					} else {
 						newProp.get = prop.get.spr.around(null);
 					}
 		            state.prop = null;
 				}
-				if (isSuper(prop.set) && prop.set.spr.around) {
-		            newProp.set = prop.set.spr.around(state.prop && state.prop.set);
+				if (superSet) {
+		            newProp.set = prop.set.spr.around(prevProp && prevProp.set);
+					state.prop = null;
 		        }
 				if ((!prop.get || isSuper(prop.get) && !prop.get.spr.around) && (!prop.set || isSuper(prop.set) && !prop.set.spr.around)) {
 					return; // skip descriptor: no actionable value
@@ -291,10 +297,11 @@
 		        // data
 		        if (isSuper(prop.value) && prop.value.spr.around) {
 		            processBacklog(state, weaver);
-					if (state.prop) {
+					prevProp = state.prop;
+					if (prevProp) {
 			            newProp.value = prop.value.spr.around(
-			                state.prop.get || state.prop.set ?
-			                    adaptGet(state.prop.get) : state.prop.value);
+			                prevProp.get || prevProp.set ?
+			                    adaptGet(prevProp.get) : prevProp.value);
 					} else {
 						newProp.value = prop.value.spr.around(name !== cname && empty[name]);
 					}
