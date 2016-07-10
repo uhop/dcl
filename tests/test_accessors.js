@@ -150,22 +150,9 @@
 				t.info(c.value + '');
 			},
 			logs: [
-				'read a',
-				'Ab',
-				'Aa',
-				'0',
-				'read b',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'1',
-				'read c',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'42'
+				'read a', 'Ab', 'Aa', '0',
+				'read b', 'Bb', 'Ab', 'Aa', 'Ba', '1',
+				'read c', 'Bb', 'Ab', 'Aa', 'Ba', '42'
 			]
 		},
 		{
@@ -212,22 +199,9 @@
 				t.info(c.__value + '');
 			},
 			logs: [
-				'write a',
-				'Ab',
-				'Aa',
-				'5',
-				'write b',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'6',
-				'write c',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'42'
+				'write a', 'Ab', 'Aa', '5',
+				'write b', 'Bb', 'Ab', 'Aa', 'Ba', '6',
+				'write c', 'Bb', 'Ab', 'Aa', 'Ba', '42'
 			]
 		},
 		{
@@ -303,54 +277,12 @@
 				t.info(c.__value + '');
 			},
 			logs: [
-				'read a',
-				'Abg',
-				'Aag',
-				'0',
-				'0',
-				'write a',
-				'Ab',
-				'Aa',
-				'Abg',
-				'Aag',
-				'5',
-				'5',
-				'read b',
-				'Bbg',
-				'Abg',
-				'Aag',
-				'Bag',
-				'1',
-				'0',
-				'write b',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'Bbg',
-				'Abg',
-				'Aag',
-				'Bag',
-				'7',
-				'6',
-				'read c',
-				'Bbg',
-				'Abg',
-				'Aag',
-				'Bag',
-				'42',
-				'0',
-				'write c',
-				'Bb',
-				'Ab',
-				'Aa',
-				'Ba',
-				'Bbg',
-				'Abg',
-				'Aag',
-				'Bag',
-				'42',
-				'42'
+				'read a', 'Abg', 'Aag', '0', '0',
+				'write a', 'Ab', 'Aa', 'Abg', 'Aag', '5', '5',
+				'read b', 'Bbg', 'Abg', 'Aag', 'Bag', '1', '0',
+				'write b', 'Bb', 'Ab', 'Aa', 'Ba', 'Bbg', 'Abg', 'Aag', 'Bag', '7', '6',
+				'read c', 'Bbg', 'Abg', 'Aag', 'Bag', '42', '0',
+				'write c', 'Bb', 'Ab', 'Aa', 'Ba', 'Bbg', 'Abg', 'Aag', 'Bag', '42', '42'
 			]
 		}
 	]);
