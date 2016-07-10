@@ -166,6 +166,67 @@
 				'Ba',
 				'42'
 			]
+		},
+		{
+			test: function test_set_side_advices (t) {
+				var A = dcl({
+						constructor: function () {
+							this.__value = 0;
+						},
+						value: dcl.prop({
+							set: dcl.advise({
+								before: function () { t.info('Ab'); },
+								around: function (sup) {
+									return function (x) { this.__value = x; };
+								},
+								after:  function () { t.info('Aa'); }
+							})
+						})
+					}),
+					B = dcl(A, {
+						value: dcl.prop({
+							set: dcl.advise({
+								before: function () { t.info('Bb'); },
+								around: function (sup) {
+									return function (x) { sup.call(this, x + 1); };
+								},
+								after:  function () { t.info('Ba'); }
+							})
+						})
+					}),
+					C = dcl(B, {
+						set value (x) { this.__value = 42; },
+					});
+
+				var a = new A(), b = new B(), c = new C();
+				t.info('write a');
+				a.value = 5;
+				t.info(a.__value + '');
+				t.info('write b');
+				b.value = 5;
+				t.info(b.__value + '');
+				t.info('write c');
+				c.value = 5;
+				t.info(c.__value + '');
+			},
+			logs: [
+				'write a',
+				'Ab',
+				'Aa',
+				'5',
+				'write b',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'6',
+				'write c',
+				'Bb',
+				'Ab',
+				'Aa',
+				'Ba',
+				'42'
+			]
 		}
 	]);
 
