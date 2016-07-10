@@ -320,7 +320,10 @@
 	}
 
 	var dclUtils = {adaptValue: adaptValue, adaptGet: adaptGet,
-			convertToValue: convertToValue, cloneDescriptor: cloneDescriptor};
+			convertToValue: convertToValue, cloneDescriptor: cloneDescriptor,
+			augmentDescriptor: augmentDescriptor, augmentWritable: augmentWritable,
+			replaceDescriptor: replaceDescriptor, replaceWritable: replaceWritable
+		};
 
 	function processBacklog (state, weaver) {
 		if (state.backlog.length) {
