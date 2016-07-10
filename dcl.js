@@ -288,7 +288,7 @@
 		    if (prop.get || prop.set) {
 		        // accessor
 				if (isSuper(prop.get) && prop.get.spr.around) {
-					state.backlog.length && processBacklog(state, weaver);
+					processBacklog(state, weaver);
 					if (state.prop) {
 			            newProp.get = prop.get.spr.around(
 			                state.prop.get || state.prop.set ?
@@ -307,7 +307,7 @@
 		    } else {
 		        // data
 		        if (isSuper(prop.value) && prop.value.spr.around) {
-		            state.backlog.length && processBacklog(state, weaver);
+		            processBacklog(state, weaver);
 					if (state.prop) {
 			            newProp.value = prop.value.spr.around(
 			                state.prop.get || state.prop.set ?
@@ -326,7 +326,7 @@
 		    }
 		    state.prop = newProp;
 	    });
-		state.backlog.length && processBacklog(state, weaver);
+		processBacklog(state, weaver);
 	    return weaver.stop ? weaver.stop(state) : state.prop;
 	}
 
@@ -334,9 +334,11 @@
 			convertToValue: convertToValue, cloneDescriptor: cloneDescriptor};
 
 	function processBacklog (state, weaver) {
-		state.backlog.push(convertToValue(state.prop));
-		state.prop = weaver.weave(state.backlog, dclUtils);
-		state.backlog = [];
+		if (state.backlog.length) {
+			state.backlog.push(convertToValue(state.prop));
+			state.prop = weaver.weave(state.backlog, dclUtils);
+			state.backlog = [];
+		}
 	}
 
 	function adaptValue (f) {
