@@ -450,7 +450,7 @@
 
 	// weavers
 
-	function weaveSuper (chain, utils) {
+	function weaveAround (chain, utils) {
 		var newProp = utils.cloneDescriptor(chain[chain.length - 1]);
 
 		if (newProp.get || newProp.set) {
@@ -486,7 +486,7 @@
 
 	var weaveBefore = {name: 'before', weave: weaveChain, reverse: true},
 		weaveAfter  = {name: 'after',  weave: weaveChain},
-		weaveSuper  = {name: 'super',  weave: weaveSuper};
+		weaveSuper  = {name: 'super',  weave: weaveAround};
 
 
 	// MODULE: dcl (the main function)
