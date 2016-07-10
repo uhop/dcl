@@ -305,7 +305,13 @@
 				}
 		    }
 		    if (state.prop) {
-		        state.backlog.push(convertToValue(state.prop));
+				if (newProp.get || newProp.set) {
+					if (state.backlog.length) {
+						state.backlog = [];
+					}
+				} else {
+					state.backlog.push(convertToValue(state.prop));
+				}
 		    }
 		    state.prop = newProp;
 	    });
@@ -547,9 +553,6 @@
 				}
 			}
 		});
-
-		// update our meta information
-		faux[mname].special = special;
 
 		// collect simple props, and a list of special props
 		var finalProps = {}, finalSpecial = populateProps(finalProps, mixins, special);
