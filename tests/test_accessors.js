@@ -284,6 +284,41 @@
 				'read c', 'Bbg', 'Abg', 'Aag', 'Bag', '42', '0',
 				'write c', 'Bb', 'Ab', 'Aa', 'Ba', 'Bbg', 'Abg', 'Aag', 'Bag', '42', '42'
 			]
+		},
+		function test_get_in_super_chain (t) {
+			var A = dcl({
+					m: dcl.prop({
+						get: function () {
+							return this.up ? this.m3 : this.m2;
+						}
+					}),
+					m2: function (x) {
+						return 2 * x;
+					},
+					m3: function (x) {
+						return 3 * x;
+					}
+				}),
+				B = dcl(A, {
+					m: dcl.superCall(function (sup) {
+						return function (x) {
+							if (sup) {
+								return sup.call(this, x + 1);
+							}
+							return 0;
+						};
+					})
+				});
+
+			var a = new A(), b = new B();
+
+			eval(t.TEST('a.m(5) === 10'));
+			a.up = true;
+			eval(t.TEST('a.m(5) === 15'));
+
+			eval(t.TEST('b.m(5) === 12'));
+			b.up = true;
+			eval(t.TEST('b.m(5) === 18'));
 		}
 	]);
 
