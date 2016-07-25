@@ -319,6 +319,34 @@
 			eval(t.TEST('b.m(5) === 12'));
 			b.up = true;
 			eval(t.TEST('b.m(5) === 18'));
+		},
+		function test_super_in_get_chain (t) {
+			var A = dcl({
+					m: function (x) {
+						return x + 1;
+					}
+				}),
+				B = dcl(A, {
+					m: dcl.prop({
+						get: dcl.superCall(function (sup) {
+							return function () {
+								if (sup) {
+									return function (x) {
+										return sup.call(this).call(this, 2 * x);
+									};
+								}
+								return function (x) {
+									return x + 2;
+								};
+							}
+						})
+					})
+				});
+
+			var a = new A(), b = new B();
+
+			eval(t.TEST('a.m(5) === 6'));
+			eval(t.TEST('b.m(5) === 11'));
 		}
 	]);
 
