@@ -10,7 +10,7 @@
 				'use strict';
 
 				var A = dcl({
-					constructor () { this.__value = 0; },
+					constructor: function () { this.__value = 0; },
 					get m () { return this.__value; },
 					set m (v) { this.__value = v; }
 				});
@@ -65,7 +65,7 @@
 				'use strict';
 
 				var A = dcl({
-					constructor () { this.__value = 0; },
+					constructor: function () { this.__value = 0; },
 					get m () { return this.__value; },
 					set m (v) { this.__value = v; }
 				});
@@ -146,7 +146,7 @@
 				'use strict';
 
 				var A = dcl({
-					constructor () { this.__value = 0; },
+					constructor: function () { this.__value = 0; },
 					get m () { return this.__value; },
 					set m (v) { this.__value = v; }
 				});
@@ -241,7 +241,7 @@
 				'use strict';
 
 				var A = dcl({
-					constructor () { this.__value = 0; },
+					constructor: function () { this.__value = 0; },
 					get m () { return this.__value; },
 					set m (v) { this.__value = v; }
 				});
