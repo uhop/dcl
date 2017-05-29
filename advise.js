@@ -2,121 +2,171 @@
 ([], function () {
 	'use strict';
 
-	function Node (instance, name) {
-		this.next_before = this.prev_before =
-			this.next_after = this.prev_after =
-			this.next_around = this.prev_around = this;
-		this.instance = instance;
-		this.name = name;
+	function Node (parent) {
+		this.parent = parent || this;
 	}
-	var p = Node.prototype = {
-		add: function (before, after, around, original) {
-			var node = new Node(this.instance, this.name);
-			node.parent = this;
-			node.before = before;
-			this._add('before', node);
-			node.after = after;
-			this._add('after', node);
-			node.around = around;
-			this._add('around', node, original);
-			node.original = original;
-			if (original) {
-				node.around = advise._instantiate(original, node.prev_around.around, this);
+
+	Node.prototype = {
+		removeTopic: function (topic) {
+			var n = 'next_' + topic, p = 'prev_' + topic;
+			if (this[n] && this[p]) {
+				this[n][p] = this[p];
+				this[p][n] = this[n];
+			}
+		},
+		remove: function () {
+			this.removeTopic('before');
+			this.removeTopic('around');
+
+			// remove & recreate around advices
+			var parent = this.parent, next = this.next_around;
+			this.removeTopic('after');
+			for (; next && next !== parent; next = next.next_around) {
+				next.around = next.originalAround(next.prev_around.around);
+			}
+		},
+		addTopic: function (node, topic) {
+			var n = 'next_' + topic, p = 'prev_' + topic,
+				prev = node[p] = this[p] || this;
+			node[n] = this;
+			prev[n] = this[p] = node;
+		},
+		addAdvice: function (advice) {
+			var node = new Node(this);
+			if (advice.before) {
+				node.before = advice.before;
+				this.addTopic(node, 'before');
+			}
+			if (advice.around) {
+				node.originalAround = advice.around;
+				this.addTopic(node, 'around');
+				node.around = advice.around(node.prev_around.around || null);
+			}
+			if (advice.after) {
+				node.after = advice.after;
+				this.addTopic(node, 'after');
 			}
 			return node;
-		},
-		_add: function (topic, node, flag) {
-			if (node[topic] || flag) {
-				var n = 'next_' + topic, p = 'prev_' + topic;
-				(node[p] = this[p])[n] = (node[n] = this)[p] = node;
-			}
-		},
-		remove: function (node) {
-			this._remove('before', node);
-			this._remove('after',  node);
-			this._remove('around', node);
-		},
-		_remove: function (topic, node) {
-			var n = 'next_' + topic, p = 'prev_' + topic;
-			node[n][p] = node[p];
-			node[p][n] = node[n];
-		},
-		destroy: function () {
-			var around = this.prev_around.around, t = this.next_around, parent = this.parent;
-			this.remove(this);
-			if (t !== this) {
-				for (; t !== parent; around = t.around, t = t.next_around) {
-					if (t.original) {
-						t.around = advise._instantiate(t.original, around, this);
-					}
-				}
-			}
-			this.instance = 0;
 		}
 	};
-	p.unadvise = p.destroy;   // alias
 
-	function makeAOPStub (node, beforeChain, afterChain) {
-		var beforeLength = beforeChain.length, afterLength = afterChain.length,
-			stub = function () {
-				var result, thrown, p, i;
-				// running the before chain
-				for (p = node.prev_before; p !== node; p = p.prev_before) {
-					p.before.apply(this, arguments);
-				}
-				for (i = 0; i < beforeLength; ++i) {
-					beforeChain[i].apply(this, arguments);
-				}
-				// running the around chain
-				if (node.prev_around !== node) {
-					try {
-						result = node.prev_around.around.apply(this, arguments);
-					} catch (error) {
-						result = error;
-						thrown = true;
-					}
-				}
-				// running the after chain
-				for (i = 0; i < afterLength; ++i) {
-					afterChain[i].call(this, arguments, result,	makeReturn, makeThrow);
-				}
-				for (p = node.next_after; p !== node; p = p.next_after) {
-					p.after.call(this, arguments, result, makeReturn, makeThrow);
-				}
-				if (thrown) {
-					throw result;
-				}
-				return result;
+	Node.prototype.unadvise = Node.prototype.remove;
 
-				function makeReturn (value) { result = value; thrown = false; }
-				function makeThrow  (value) { result = value; thrown = true; }
-			};
-		stub.adviceNode = node;
+	function addNode (root, topic) {
+		return function (f) {
+			var node = new Node(root);
+			node[topic] = f;
+			root.addTopic(node, topic);
+		};
+	}
+
+	function makeStub (value) {
+		var root = new Node();
+		if (value) {
+			if (typeof value.advices == 'object') {
+				var advices = value.advices;
+				advices.before.forEach(addNode(root, 'before'));
+				advices.after. forEach(addNode(root, 'after'));
+				advices.around && addNode(root, 'around')(advices.around);
+			} else {
+				addNode(root, 'around')(value);
+			}
+		}
+		function stub () {
+			var result, thrown, p;
+			// running the before chain
+			for (p = root.prev_before; p && p !== root; p = p.prev_before) {
+				p.before.apply(this, arguments);
+			}
+			// running the around chain
+			if (root.prev_around && root.prev_around !== root) {
+				try {
+					result = root.prev_around.around.apply(this, arguments);
+				} catch (error) {
+					result = error;
+					thrown = true;
+				}
+			}
+			// running the after chain
+			for (p = root.next_after; p && p !== root; p = p.next_after) {
+				p.after.call(this, arguments, result, makeReturn, makeThrow);
+			}
+			if (thrown) {
+				throw result;
+			}
+			return result;
+
+			function makeReturn (value) { result = value; thrown = false; }
+			function makeThrow  (value) { result = value; thrown = true; }
+		};
+		stub.node = root;
 		return stub;
 	}
 
-	var emptyChain = [];
+	function convert (value, advice, instance, name, type) {
+		if (!value || !(value.node instanceof Node)) {
+			value = makeStub(value);
+			value.node.instance = instance;
+			value.node.name = name;
+			value.node.type = type;
+		}
+		var node = value.node.addAdvice(advice);
+		return {value: value, handle: node};
+	}
+
+	function combineHandles (handles) {
+		var handle = {
+			remove: function () {
+				handles.forEach(function (handle) { handle.remove(); });
+			}
+		}
+		handle.unadvise = handle.remove;
+		return handle;
+	}
 
 	function advise (instance, name, advice) {
-		var f = instance[name], node, beforeChain = emptyChain, afterChain = emptyChain;
-		if (f && f.adviceNode && f.adviceNode instanceof Node) {
-			node = f.adviceNode;
-		} else {
-			node = new Node(instance, name);
-			if (f && f.advices) {
-				f = f.advices;
-				beforeChain = f.before;
-				afterChain  = f.after;
-				node.add(null, null, f.around);
+		var prop = getPropertyDescriptor(instance, name), handles = [];
+		if (prop) {
+			if (prop.get || prop.set) {
+				var result;
+				if (prop.get && advice.get) {
+					result = convert(prop.get, advice.get, instance, name, 'get');
+					prop.get = result.value;
+					handles.push(result.handle);
+				}
+				if (prop.set && advice.set) {
+					result = convert(prop.set, advice.set, instance, name, 'set');
+					prop.set = result.value;
+					handles.push(result.handle);
+				}
 			} else {
-				node.add(null, null, f);
+				if (prop.value && advice) {
+					result = convert(prop.value, advice, instance, name, 'value');
+					prop.value = result.value;
+					handles.push(result.handle);
+				}
 			}
-			instance[name] = makeAOPStub(node, beforeChain, afterChain);
+		} else {
+			prop = {writable: true, configurable: true, enumerable: true};
+			if (advice.get || advice.set) {
+				if (advice.get) {
+					result = convert(null, advice.get, instance, name, 'get');
+					prop.get = result.value;
+					handles.push(result.handles);
+				}
+				if (advice.set) {
+					result = convert(null, advice.set, instance, name, 'set');
+					prop.set = result.value;
+					handles.push(result.handles);
+				}
+			} else {
+				result = convert(null, advice, instance, name, 'value');
+				prop.value = result.value;
+				handles.push(result.handles);
+			}
 		}
-		if (typeof advice == 'function') {
-			advice = advice(name, instance);
-		}
-		return node.add(advice.before, advice.after, null, advice.around);
+		Object.defineProperty(instance, name, prop);
+		return combineHandles(handles);
 	}
 
 	// export

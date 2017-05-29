@@ -6,6 +6,8 @@
 
 	unit.add(module, [
 		function test_dclAdvise_with_advise (t) {
+			'use strict';
+
 			var A = dcl(null, {
 				m1: dcl.advise({
 					before: function () {

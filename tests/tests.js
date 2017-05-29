@@ -8,7 +8,8 @@
 	'./test_bases',
 	'./test_mixins',
 	'./test_advices',
-	'./test_accessors'
+	'./test_accessors',
+	'./test_advise_accessors'
 ],
 function (unit) {
 	'use strict';
