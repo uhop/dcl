@@ -34,6 +34,7 @@
   ],
   "browserGlobals": {
     "!root": "dcl",
-    "./dcl": "dcl"
+    "./dcl": "dcl",
+    "./advise": "advise"
   }
 }
