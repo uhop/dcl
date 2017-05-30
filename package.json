@@ -35,6 +35,7 @@
   "browserGlobals": {
     "!root": "dcl",
     "./dcl": "dcl",
-    "./advise": "advise"
+    "./advise": "advise",
+    "./debug": "!dcl"
   }
 }

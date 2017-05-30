@@ -44,7 +44,7 @@
 
 	// MODULE: C3 MRO
 
-	function c3mro (bases) {
+	function c3mro (bases, props) {
 		// build a connectivity matrix
 		var connectivity = new M();
 		bases.forEach(function (base) {
@@ -80,7 +80,7 @@
 		}
 		// final checks and return
 		if (connectivity.size != output.length) {
-			dcl._error('cycle');
+			dcl._error('cycle', bases, props);
 		}
 		return output;
 
@@ -248,10 +248,10 @@
 
 	var empty = {};
 
-	function weaveProp (name, bases, weaver) {
+	function weaveProp (name, bases, weaver, props) {
 	    var state = {prop: null, backlog: []};
 		weaver.start && weaver.start(state);
-	    bases.forEach(function (base) {
+	    bases.forEach(function (base, index) {
 	        var prop;
 	        if (base[mname]) {
 	            var baseProps = base[mname].props;
@@ -267,7 +267,7 @@
 			if (!prop) {
 				return;
 			}
-			var newProp = cloneDescriptor(prop), prevProp;
+			var newProp = cloneDescriptor(prop), prevProp, superArg;
 		    if (prop.get || prop.set) {
 		        // accessor
 				var superGet = isSuper(prop.get) && prop.get.spr.around,
@@ -277,17 +277,35 @@
 					prevProp = state.prop;
 				}
 				if (superGet) {
+					if (typeof prop.get.spr.around != 'function') {
+						dcl._error('wrong super get call', base, name, index, props);
+					}
+					superArg = null;
 					if (prevProp) {
-			            newProp.get = prop.get.spr.around(
-			                prevProp.get || prevProp.set ?
-			                    prevProp.get : adaptValue(prevProp.value));
-					} else {
-						newProp.get = prop.get.spr.around(null);
+						superArg = prevProp.get || prevProp.set ?
+							prevProp.get : adaptValue(prevProp.value);
+					}
+					if (superArg && typeof superArg != 'function') {
+						dcl._error('wrong super get arg', base, name, index, props);
+					}
+					newProp.get = prop.get.spr.around(superArg);
+					if (typeof newProp.get != 'function') {
+						dcl._error('wrong super get result', base, name, index, props);
 					}
 		            state.prop = null;
 				}
 				if (superSet) {
-		            newProp.set = prop.set.spr.around(prevProp && prevProp.set);
+					if (typeof prop.set.spr.around != 'function') {
+						dcl._error('wrong super set call', base, name, index, props);
+					}
+					superArg = prevProp && prevProp.set;
+					if (superArg && typeof superArg != 'function') {
+						dcl._error('wrong super set arg', base, name, index, props);
+					}
+		            newProp.set = prop.set.spr.around(superArg);
+					if (typeof newProp.set != 'function') {
+						dcl._error('wrong super set result', base, name, index, props);
+					}
 					state.prop = null;
 		        }
 				if ((!prop.get || isSuper(prop.get) && !prop.get.spr.around) && (!prop.set || isSuper(prop.set) && !prop.set.spr.around)) {
@@ -298,12 +316,21 @@
 		        if (isSuper(prop.value) && prop.value.spr.around) {
 		            processBacklog(state, weaver);
 					prevProp = state.prop;
+					if (typeof prop.value.spr.around != 'function') {
+						dcl._error('wrong super value call', base, name, index, props);
+					}
 					if (prevProp) {
-			            newProp.value = prop.value.spr.around(
-			                prevProp.get || prevProp.set ?
-			                    adaptGet(prevProp.get) : prevProp.value);
+			            superArg = prevProp.get || prevProp.set ?
+			                    adaptGet(prevProp.get) : prevProp.value;
 					} else {
-						newProp.value = prop.value.spr.around(name !== cname && empty[name]);
+						superArg = name !== cname && empty[name];
+					}
+					if (superArg && typeof superArg != 'function') {
+						dcl._error('wrong super value arg', base, name, index, props);
+					}
+					newProp.value = prop.value.spr.around(superArg);
+					if (typeof newProp.value != 'function') {
+						dcl._error('wrong super value result', base, name, index, props);
 					}
 		            state.prop = null;
 		        }
@@ -505,7 +532,7 @@
 		var bases = [], baseClass = superClass[0], mixins = [], baseIndex = -1;
 		if (superClass.length) {
 			if (superClass.length > 1) {
-				bases = c3mro(superClass).reverse();
+				bases = c3mro(superClass, props).reverse();
 				if (baseClass[mname]) {
 					baseIndex = baseClass[mname].bases.length - 1;
 				} else {
@@ -572,7 +599,7 @@
 
 		// process special props
 		Object.keys(finalSpecial).forEach(function (name) {
-			var prop = weaveProp(name, bases, finalSpecial[name]);
+			var prop = weaveProp(name, bases, finalSpecial[name], props);
 			if (!prop) {
 				prop = {configurable: true, enumerable: false, writable: true, value: function nop () {}};
 			}
@@ -645,7 +672,7 @@
 					return true;
 				}
 				if (own.name !== 'super') {
-					dcl._error('different weavers: ' + name);
+					dcl._error('different weavers: ' + name, ctr, name, weaver, own);
 				}
 			}
 			special[name] = weaver;
@@ -674,9 +701,10 @@
 
 	dcl.Super   = function Super (f) { this.around = f; };
 	dcl.isSuper = isSuper;
+	dcl.Super[pname].declaredClass = 'dcl.Super';
 
 	dcl.Advice  = dcl(dcl.Super, {
-		declaredClass: "dcl.Advice",
+		declaredClass: 'dcl.Advice',
 		constructor: function () {
 			this.before = this.around.before;
 			this.after  = this.around.after;
