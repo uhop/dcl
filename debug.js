@@ -19,7 +19,7 @@
 
 	advise.around(dcl, '_error', function (/*sup*/) {
 		return function (reason) {
-			var name, ctr, mname, props;
+			var name, ctr, method, props;
 			if (reason === 'cycle') {
 				var bases = arguments[1],
 					names = bases.map(function (base, index) {
@@ -36,24 +36,27 @@
 			if (/^different weavers\b/.test(reason)) {
 				var weaver = arguments[3], own = arguments[4];
 				ctr = arguments[1];
-				mname = arguments[2];
-				name = ctr[pname].declaredClass || 'UNNAMED';
+				method = arguments[2];
+				name = ctr[mname].props.declaredClass && ctr[mname].props.declaredClass.value || 'UNNAMED';
 				throw new ChainingError('dcl: conflicting chain directives in ' +
-					name + ', was ' + own.name + ', set to ' + weaver.name);
+					name + ' for ' + method + ', was ' + own.name + ', set to ' + weaver.name);
 			}
 			if (/^wrong super\b/.test(reason)) {
 				var index = arguments[3];
 				ctr = arguments[1];
-				mname = arguments[2];
+				method = arguments[2];
 				props = arguments[4];
 				name = props.declaredClass && props.declaredClass.value;
 				if (!name || typeof name != 'string') {
 					name = 'UNNAMED';
 				}
-				var re = /^wrong super (\w+) (\w+)$/.exec(reason);
+				var re = /^wrong super (\w+) (\w+)$/.exec(reason),
+					baseName = ctr[mname].props.declaredClass &&
+						ctr[mname].props.declaredClass.value ||
+						('UNNAMED_' + index);
 				throw new SuperError('dcl: super call error in ' +
-					name + ', while weaving ' + (ctr[pname].declaredClass || ('UNNAMED_' + index)) +
-					', method ' + mname + ' (' + re[1] + ') wrong ' + re[2]);
+					name + ', while weaving ' + baseName + ', method ' + method +
+					' (' + re[1] + ') wrong ' + re[2]);
 			}
 		};
 	});
@@ -140,6 +143,7 @@
 	dcl.log = log;
 	dcl.DclError = DclError;
 	dcl.CycleError = CycleError;
+	dcl.ChainingError = ChainingError;
 	dcl.SuperError = SuperError;
 
 	return dcl;
