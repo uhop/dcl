@@ -2,11 +2,13 @@
 ([], function () {
 	'use strict';
 
+	var pname = 'prototype';
+
 	function Node (parent) {
 		this.parent = parent || this;
 	}
 
-	Node.prototype = {
+	Node[pname] = {
 		removeTopic: function (topic) {
 			var n = 'next_' + topic, p = 'prev_' + topic;
 			if (this[n] && this[p]) {
@@ -50,7 +52,7 @@
 		}
 	};
 
-	Node.prototype.unadvise = Node.prototype.remove;
+	Node[pname].destroy = Node[pname].unadvise = Node[pname].remove;
 
 	function addNode (root, topic) {
 		return function (f) {
@@ -182,7 +184,7 @@
 
 	// copied from dcl.js so we can be independent
 	function getPropertyDescriptor (o, name) {
-		while (o && o !== Object.prototype) {
+		while (o && o !== Object[pname]) {
 			if (o.hasOwnProperty(name)) {
 				return Object.getOwnPropertyDescriptor(o, name);
 			}
