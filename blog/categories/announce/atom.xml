@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2014-12-28T02:21:45-06:00</updated>
+  <updated>2017-05-30T23:32:36-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[1.1.3: micro update]]></title>
+    <link href="http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update/"/>
+    <updated>2015-04-06T23:25:57-05:00</updated>
+    <id>http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update</id>
+    <content type="html"><![CDATA[<p>1.1.3 introduces a check against a wrong type of super (e.g., making a super
+call for numeric property), adds new CI targets, and fixes a version for <code>bower</code>.</p>
+
+<p>This is a minor release, which can be safely skipped by most users.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[1.1.2: technical release]]></title>
@@ -77,30 +89,6 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 <p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Update: 1.0.3]]></title>
-    <link href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/"/>
-    <updated>2013-05-30T20:02:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3</id>
-    <content type="html"><![CDATA[<p>New update was pushed out. Changes:</p>
-
-<ul>
-<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
-it was not called when creating an object. This bug is fixed and relevant
-tests were added.</li>
-<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
-No more manual tests.</li>
-<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
-<li>Increased test coverage.</li>
-</ul>
-
-
-<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
-the fixed bug is quite exotic, this update can be skipped unless your code contains
-a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
 ]]></content>
   </entry>
   

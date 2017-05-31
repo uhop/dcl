@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Update: 1.0.3 - DCL</title>
+  <title>1.1.3: micro update - DCL</title>
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="New update was pushed out. Changes: Bugfix: in some cases when using a native constructor created without dcl
-it was not called when creating an &hellip;">
+  <meta name="description" content="1.1.3 introduces a check against a wrong type of super (e.g., making a super
+call for numeric property), adds new CI targets, and fixes a version for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ it was not called when creating an &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3">
+  <link rel="canonical" href="http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update">
   <link href="/favicon.ico" rel="icon">
   <link href="/fav144.png" rel="apple-touch-icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -86,7 +86,7 @@ it was not called when creating an &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Update: 1.0.3</h1>
+      <h1 class="entry-title">1.1.3: micro update</h1>
     
     
       <p class="meta">
@@ -95,29 +95,17 @@ it was not called when creating an &hellip;">
 
 
 
-<time class='entry-date' datetime='2013-05-30T20:02:00-05:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:02 pm</span></time>
+<time class='entry-date' datetime='2015-04-06T23:25:57-05:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:25 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>New update was pushed out. Changes:</p>
+<div class="entry-content"><p>1.1.3 introduces a check against a wrong type of super (e.g., making a super
+call for numeric property), adds new CI targets, and fixes a version for <code>bower</code>.</p>
 
-<ul>
-<li>Bugfix: in some cases when using a native constructor created without <code>dcl</code>
-it was not called when creating an object. This bug is fixed and relevant
-tests were added.</li>
-<li>All tests are consolidated using <a href="https://github.com/heya/unit">heya-unit</a>.
-No more manual tests.</li>
-<li>Added an automated testing in <a href="http://phantomjs.org/">PhantomJS</a> environment.</li>
-<li>Increased test coverage.</li>
-</ul>
-
-
-<p>This update is about maintenance. It doesn&rsquo;t introduce new features. Given that
-the fixed bug is quite exotic, this update can be skipped unless your code contains
-a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same constructor functions.</p>
+<p>This is a minor release, which can be safely skipped by most users.</p>
 </div>
 
 
@@ -133,7 +121,7 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
 
 
 
-<time class='entry-date' datetime='2013-05-30T20:02:00-05:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:02 pm</span></time>
+<time class='entry-date' datetime='2015-04-06T23:25:57-05:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:25 pm</span></time>
       
 
 <span class="categories">
@@ -147,7 +135,7 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2013/05/30/update-1-dot-0-3/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -160,10 +148,8 @@ a mix of <code>dcl</code> and non-<code>dcl</code> bases and mixins in the same 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/11/dcl-added-to-jam/" title="Previous Post: dcl added to jam">&laquo; dcl added to jam</a>
+        <a class="basic-alignment left" href="/blog/2014/12/28/1-dot-1-2-technical-release/" title="Previous Post: 1.1.2: technical release">&laquo; 1.1.2: technical release</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/07/24/1-dot-0-4-added-to-bower/" title="Next Post: 1.0.4: added to Bower">1.0.4: added to Bower &raquo;</a>
       
     </p>
   </footer>
