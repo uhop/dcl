@@ -5,6 +5,74 @@
 	// tests
 
 	unit.add(module, [
+		function test_defaults (t) {
+			var A = dcl({
+					life: 42,
+					answer: function () { return this.life; }
+				});
+
+			var a = new A();
+
+			eval(t.TEST('a.life === 42'));
+			eval(t.TEST('a.answer() === 42'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(A.prototype, "life").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(A.prototype, "answer").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(A.prototype, "constructor").writable'));
+
+			var B = dcl({
+					life: 42,
+					answer: function () { return this.life; }
+				}, {
+					writable: false
+				});
+
+			var b = new B();
+
+			eval(t.TEST('b.life === 42'));
+			eval(t.TEST('b.answer() === 42'));
+			eval(t.TEST('!Object.getOwnPropertyDescriptor(B.prototype, "life").writable'));
+			eval(t.TEST('!Object.getOwnPropertyDescriptor(B.prototype, "answer").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(B.prototype, "constructor").writable'));
+
+			var C = dcl({
+					life: {
+						value: 42,
+						writable: false,
+						configurable: true,
+						enumerable: true
+					},
+					answer: function () { return this.life; }
+				}, {
+					detectProps: true
+				});
+
+			var c = new C();
+
+			eval(t.TEST('c.life === 42'));
+			eval(t.TEST('c.answer() === 42'));
+			eval(t.TEST('!Object.getOwnPropertyDescriptor(C.prototype, "life").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(C.prototype, "answer").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(C.prototype, "constructor").writable'));
+
+			var D = dcl({
+					life: 42,
+					answer: function () { return this.life; }
+				}, {
+					writable: function (descriptor, name) {
+						if (name === 'life') {
+							descriptor.writable = false;
+						}
+					}
+				});
+
+			var d = new D();
+
+			eval(t.TEST('d.life === 42'));
+			eval(t.TEST('d.answer() === 42'));
+			eval(t.TEST('!Object.getOwnPropertyDescriptor(D.prototype, "life").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(D.prototype, "answer").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(D.prototype, "constructor").writable'));
+		},
 		function test_get_super (t) {
 			var A = dcl({
 					constructor: function () {
