@@ -96,14 +96,18 @@
 	// MODULE: handling properties
 
 	function updateProps (props, defaults, augmentDescriptor, augmentWritable) {
+		var augmenter;
 		if ('configurable' in defaults) {
-			props = props.map(augmentDescriptor('configurable', defaults.configurable));
+			augmenter = augmentDescriptor('configurable', defaults.configurable);
+			Object.keys(props).forEach(function (name) { augmenter(props[name], name); });
 		}
 		if ('enumerable' in defaults) {
-			props = props.map(augmentDescriptor('enumerable', defaults.enumerable));
+			augmenter = augmentDescriptor('enumerable', defaults.enumerable);
+			Object.keys(props).forEach(function (name) { augmenter(props[name], name); });
 		}
 		if ('writable' in defaults) {
-			props = props.map(augmentWritable(defaults.writable));
+			augmenter = augmentWritable(defaults.writable);
+			Object.keys(props).forEach(function (name) { augmenter(props[name], name); });
 		}
 		return props;
 	}
@@ -163,10 +167,10 @@
 		return newDescriptor;
 	}
 
-	function augmentDescriptor(name, value) {
-		return typeof value == 'function' ? value(name) : function(descriptor) {
-			if (!descriptor.hasOwnProperty(name)) {
-				descriptor[name] = value;
+	function augmentDescriptor(type, value) {
+		return typeof value == 'function' ? value : function(descriptor) {
+			if (!descriptor.hasOwnProperty(type)) {
+				descriptor[type] = value;
 			}
 		};
 	}
@@ -179,9 +183,9 @@
 		};
 	}
 
-	function replaceDescriptor(name, value) {
-		return typeof value == 'function' ? value(name) : function(descriptor) {
-			descriptor[name] = value;
+	function replaceDescriptor(type, value) {
+		return typeof value == 'function' ? value : function(descriptor) {
+			descriptor[type] = value;
 		};
 	}
 
@@ -215,7 +219,7 @@
 		};
 	}
 
-	function populatePropsNative (props, o) {
+	function collectProperties (props, o) {
 		var recorded = {};
 		while (o && o !== Object.prototype) {
 			Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
@@ -241,7 +245,7 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-			populatePropsNative(props, base[pname]);
+			collectProperties(props, base[pname]);
 	    });
 	    return newSpecial;
 	}
@@ -638,7 +642,7 @@
 
 	// utilities
 
-	dcl.populatePropsNative = populatePropsNative;
+	dcl.collectProperties = collectProperties;
 	dcl.getPropertyDescriptor = getPropertyDescriptor;
 
 	// meta
