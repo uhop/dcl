@@ -219,7 +219,7 @@
 		};
 	}
 
-	function populatePropsNative (props, o) {
+	function collectProperties (props, o) {
 		var recorded = {};
 		while (o && o !== Object.prototype) {
 			Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
@@ -245,7 +245,7 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-			populatePropsNative(props, base[pname]);
+			collectProperties(props, base[pname]);
 	    });
 	    return newSpecial;
 	}
@@ -642,7 +642,7 @@
 
 	// utilities
 
-	dcl.populatePropsNative = populatePropsNative;
+	dcl.collectProperties = collectProperties;
 	dcl.getPropertyDescriptor = getPropertyDescriptor;
 
 	// meta

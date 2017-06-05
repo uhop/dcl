@@ -5,7 +5,7 @@
 	return dcl(null, {
 		declaredClass: 'dcl/bases/Mixer',
 		constructor: function (x) {
-			Object.defineProperties(this, dcl.populatePropsNative({}, x));
+			Object.defineProperties(this, dcl.collectProperties({}, x));
 		}
 	});
 });
