@@ -178,8 +178,6 @@
 	advise.around = function(instance, name, f){ return advise(instance, name, {around: f}); };
 	advise.Node = Node;
 
-	advise._instantiate = function(advice, previous, node){ return advice(previous); };
-
 	return advise;
 
 	// copied from dcl.js so we can be independent
@@ -190,6 +188,6 @@
 			}
 			o = Object.getPrototypeOf(o);
 		}
-		return null;
+		return; // undefined
 	}
 });
