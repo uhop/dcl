@@ -204,7 +204,7 @@
 			}
 			o = Object.getPrototypeOf(o);
 		}
-		return null;
+		return; // undefined
 	}
 
 
@@ -219,7 +219,7 @@
 		};
 	}
 
-	function collectProperties (props, o) {
+	function collectPropertyDescriptors (props, o) {
 		var recorded = {};
 		while (o && o !== Object.prototype) {
 			Object.getOwnPropertyNames(o).forEach(recordProp(props, o, recorded));
@@ -245,7 +245,7 @@
 	            return;
 	        }
 	        // copy properties for regular objects
-			collectProperties(props, base[pname]);
+			collectPropertyDescriptors(props, base[pname]);
 	    });
 	    return newSpecial;
 	}
@@ -642,7 +642,7 @@
 
 	// utilities
 
-	dcl.collectProperties = collectProperties;
+	dcl.collectPropertyDescriptors = collectPropertyDescriptors;
 	dcl.getPropertyDescriptor = getPropertyDescriptor;
 
 	// meta
