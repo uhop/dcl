@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>dcl() - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="dcl() Jun 4th, 2017 1:53 pm Version 2.x dcl() is the &ldquo;class&rdquo; composition helper, which simplifies creating constructors for new classes &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/2.x/docs/dcl_js/dcl">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/docs">Docs</a></li>
+	<li><a href="/support">Support</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">dcl()</h1>
+    <p class="meta">
+
+
+
+
+<time class='entry-date' datetime='2017-06-04T13:53:00-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>1:53 pm</span></time></p>
+  </header>
+  
+  <p><em>Version 2.x</em></p>
+
+<p><code>dcl()</code> is the &ldquo;class&rdquo; composition helper, which simplifies creating constructors for new classes of objects:</p>
+
+<ul>
+<li>It reduces a boilerplate to set up a single inheritance.</li>
+<li>In case of mixin-based multiple inheritance it correctly linearizes all dependencies.</li>
+<li>While composing constructors, it can process advanced features:
+
+<ul>
+<li>Super calls, when you need to call a method of a super class (a base).</li>
+<li>Define property descriptors inline (getters/setters, non-enumerable methods, and so on).</li>
+<li>AOP advices.</li>
+<li>Automatic method chaining.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Of course, an experienced programmer can do all this stuff manually, but <code>dcl()</code> offers a less error-prone and more
+compact way to achieve what you need. But, just in case, it will play nice with hand-made constructors, so your
+constructors can inherit from them, or mix them in as mixins.</p>
+
+<p><code>dcl()</code> is a main function of the whole package.</p>
+
+<h2>Description</h2>
+
+<figure class='code'><figcaption><span>Signature </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Full signature:</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Ctr</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Supported signatures:</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">(</span><span class="nx">base</span><span class="p">);</span>           <span class="c1">// no own properties</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>    <span class="c1">// use default options</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>          <span class="c1">// based on Object</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span> <span class="c1">// based on Object with default options</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Arguments and the return value:</p>
+
+<ul>
+<li><code>base</code> - the base &ldquo;class&rdquo;. It can be one of three:
+
+<ul>
+<li><code>null</code> - no base &ldquo;class&rdquo; &rArr; base it directly on <code>Object</code>.</li>
+<li><strong>constructor function</strong> - function created with <code>dcl</code> or a generic JavaScript constructor function. New &ldquo;class&rdquo; will be based on it using a single inheritance.</li>
+<li><strong>array of constructors</strong> - <a href="http://en.wikipedia.org/wiki/C3_linearization">C3 superclass linearization</a> will be performed on this array, and the result will be used to create a new constructor using a single inheritance. This array should be non-empty.</li>
+</ul>
+</li>
+<li><code>props</code> - the object, whose properties are used to specify unique features of the &ldquo;class&rdquo; &mdash; methods, and
+class-level variables.
+<code>props</code> can be an instance of <a href="prop">dcl.Prop</a>. In this case, it specifies property descriptors directly, like for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">Object.defineProperties()</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object.create()</a>.
+Following properties have a special meaning for <code>dcl()</code>:
+
+<ul>
+<li><code>constructor</code> - the optional function, which will be called when an object is created. A base constructor (if any) is
+always called before a derived constructor. There is no restrictions on what arguments can be used for
+a constructor. A return value of constructor (if any) is ignored.</li>
+<li><code>declaredClass</code> - the optional human-readable string, which is used to identify the created class in error messages
+or logs. See <a href="../debug_js">debug.js</a> for more details.</li>
+</ul>
+</li>
+<li><code>options</code> - the optional object, which specifies defaults for a descriptor of  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty()</a>.
+
+<ul>
+<li>Following property names are recognized: <code>enumerable</code>, <code>configurable</code>, <code>writable</code>, <code>detectProps</code>.</li>
+<li>If <code>detectProps</code> is <code>true</code>:
+
+<ul>
+<li>All regular properties are checked to be an object.
+
+<ul>
+<li>If that object has only a valid subset of following properties: <code>get</code>, <code>set</code>, <code>value</code>, <code>enumerable</code>, <code>configurable</code>, <code>writable</code> &mdash; it is considered to be a property descriptor, which has the same effect as using <code>dcl.prop()</code> to wrap it.</li>
+</ul>
+</li>
+<li>More info on property descriptors can be found in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty()</a>.</li>
+</ul>
+</li>
+<li>If <code>enumerable</code>, <code>configurable</code>, or <code>writable</code> are Boolean values, they are added verbatim to all descriptors, which do not define those properties explicitly. It applies to property descriptors generated from regular properties by <code>dcl()</code>.</li>
+<li><code>enumerable</code>, <code>configurable</code>, or <code>writable</code> can be a procedure with two arguments:
+
+<ul>
+<li><code>descriptor</code> is a property descriptor object, which can be inspected and augmented/corrected, if needed.</li>
+<li><code>name</code> is a property name as a string.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>dcl()</code> returns the constructor created according to user&#8217; specifications.</li>
+</ul>
+
+
+<p><code>dcl()</code> hosts additional properties. Look at specific modules to learn what public properties are available.</p>
+
+<h2>Examples</h2>
+
+<h3>No base</h3>
+
+<p>In this case produced &ldquo;classes&rdquo; are derived directly from <code>Object</code>.</p>
+
+<figure class='code'><figcaption><span>No base </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Counter&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">initValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">acc</span> <span class="o">=</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">initValue</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">initValue</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">increment</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">acc</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Counter</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It will be the same as this:</p>
+
+<figure class='code'><figcaption><span>No base alternative </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Counter</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Counter&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">initValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">acc</span> <span class="o">=</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">initValue</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nx">initValue</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">increment</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">acc</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Counter</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Single inheritance</h3>
+
+<p>This is a familiar scenario for most programmers: we build on an existing &ldquo;class&rdquo; producing a new &ldquo;class&rdquo;.</p>
+
+<figure class='code'><figcaption><span>Single inheritance I </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A is constructed&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">hi</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from A!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">lo</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Lo from A!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>  <span class="c1">// A is constructed</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>           <span class="c1">// Hi from A!</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>           <span class="c1">// Lo from A!</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B is constructed&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">hi</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from B!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>  <span class="c1">// A is constructed</span>
+</span><span class='line'>                  <span class="c1">// B is constructed</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>           <span class="c1">// Hi from B!</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>           <span class="c1">// Lo from A!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="k">instanceof</span> <span class="nx">B</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;C is constructed&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">lo</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Lo from C!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>  <span class="c1">// A is constructed</span>
+</span><span class='line'>                  <span class="c1">// B is constructed</span>
+</span><span class='line'>                  <span class="c1">// C is constructed</span>
+</span><span class='line'><span class="nx">c</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>           <span class="c1">// Hi from B!</span>
+</span><span class='line'><span class="nx">c</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>           <span class="c1">// Lo from C!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span> <span class="k">instanceof</span> <span class="nx">B</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span> <span class="k">instanceof</span> <span class="nx">C</span><span class="p">);</span>  <span class="c1">// true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can base our classes on normal JavaScript constructors as well:</p>
+
+<figure class='code'><figcaption><span>Single inheritance II </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">A</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A is constructed manually&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">hi</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from manual land!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">lo</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Lo from manual land!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>  <span class="c1">// A is constructed manually</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>           <span class="c1">// Hi from manual land!</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>           <span class="c1">// Lo from manual land!</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B is constructed&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">hi</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hi from dcl()!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>  <span class="c1">// A is constructed manually</span>
+</span><span class='line'>                  <span class="c1">// B is constructed</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">hi</span><span class="p">();</span>           <span class="c1">// Hi from dcl()!</span>
+</span><span class='line'><span class="nx">b</span><span class="p">.</span><span class="nx">lo</span><span class="p">();</span>           <span class="c1">// Lo from manual land!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span> <span class="k">instanceof</span> <span class="nx">B</span><span class="p">);</span>  <span class="c1">// true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Multiple inheritance with mixins</h3>
+
+<p>The dreaded <a href="http://en.wikipedia.org/wiki/Diamond_problem">diamond</a> &mdash; the bane of multiple inheritance.
+<code>dcl()</code> deals with it with ease:</p>
+
+<figure class='code'><figcaption><span>Multiple inheritance: Diamond </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span>   <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span>      <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span>      <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">C</span><span class="p">],</span> <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">D</span><span class="p">();</span>  <span class="c1">// prints lines: A, B, C, D</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A triangle will be handled too:</p>
+
+<figure class='code'><figcaption><span>Multiple inheritance: Triangle </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span>   <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span>      <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">A</span><span class="p">],</span> <span class="p">{</span><span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">);</span> <span class="p">}});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>  <span class="c1">// prints lines: A, B, C</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Generally a &ldquo;class&rdquo;, which inherits from an array, tries to use the first item as its base. In some cases it is not
+possible due constraints on relative position of all bases. If that is the case, <code>Object</code> is used.</p>
+
+<figure class='code'><figcaption><span>Multiple inheritance base </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;B&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;C&quot;</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">A</span><span class="p">,</span> <span class="nx">B</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;D&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">E</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">C</span><span class="p">,</span> <span class="nx">B</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;E&quot;</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">F</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">D</span><span class="p">,</span> <span class="nx">E</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;F&quot;</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span> <span class="c1">// augments dcl</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s inspect D:</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">D</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// *** class D depends on 2 classes: A, B</span>
+</span><span class='line'><span class="c1">// *** class D has 1 weaver: constructor: after</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s inspect F:</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">F</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// *** class F depends on 5 classes: A, C, B, D, E</span>
+</span><span class='line'><span class="c1">// *** class F has 1 weaver: constructor: after</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If <code>F</code> can be based on <code>D</code>, our right-most list of dependencies should look like this: <code>D, B, A</code>, which is not the case.
+<code>dcl()</code> cannot preserve this list because <code>C</code> should go before <code>B</code> as defined in <code>E</code>. It forces <code>dcl()</code> to base <code>F</code>
+directly on <code>Object</code>.</p>
+
+<p>For available debugging facilities take a look at <a href="../debug_js/log">log()</a> method defined by <a href="../debug_js">debug.js</a>.</p>
+
+<p>If you want to test if an object is inherited directly (in JavaScript sense) or indirectly (e.g., as a mixin), consider
+using <a href="isinstanceof">isInstanceOf()</a>.</p>
+
+<h3>Make all properties read-only</h3>
+
+<figure class='code'><figcaption><span>All properties are read-only </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">life</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">answer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">life</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span>     <span class="kc">false</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Make specific property read-only</h3>
+
+<figure class='code'><figcaption><span>Specific property is read-only </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">life</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">answer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">life</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">descriptor</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;life&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">descriptor</span><span class="p">.</span><span class="nx">writable</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Define a property using a descriptor</h3>
+
+<p>For that, we will need <a href="prop">dcl.prop()</a>.</p>
+
+<figure class='code'><figcaption><span>Define a property </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">x</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">prop</span><span class="p">({</span>
+</span><span class='line'>        <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span>  <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>      <span class="p">})</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 0</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 6</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Detect a property descriptor automatically</h3>
+
+<p>This style is useful, when mixing seamlessly regular (pre-ES5) properties with fancy property descriptions.
+No <code>dcl.prop()</code> is required.</p>
+
+<figure class='code'><figcaption><span>Use a property descriptor </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">x</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span>  <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span> <span class="p">},</span>
+</span><span class='line'>        <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">},</span> <span class="p">{</span><span class="nx">detectProps</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 0</span>
+</span><span class='line'><span class="nx">a</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 6</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Define a &ldquo;class&rdquo; using descriptors</h3>
+
+<p>All properties can be described as an object that contains property descriptors.</p>
+
+<figure class='code'><figcaption><span>Use property descriptors </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">prop</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">life</span><span class="o">:</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="mi">42</span><span class="p">},</span>
+</span><span class='line'>    <span class="nx">answer</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">life</span><span class="p">;</span> <span class="p">},</span>
+</span><span class='line'>      <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Notes</h2>
+
+<ol>
+<li>Constructors are chained using &ldquo;after&rdquo; chaining, meaning that a derived constructor will be called only <em>after</em> its
+base constructor.</li>
+<li>Missing constructors are treated as empty constructors.</li>
+<li>All constructors are called with the same set of arguments.</li>
+<li>If a constructor returns a value, it will be ignored.</li>
+<li>All unchained methods (the default), and other properties, override properties with the same name in base classes.</li>
+<li>Always use <code>new</code> keyword when creating objects with a constructor produced by <code>dcl()</code>.</li>
+<li><code>dcl()</code> reuses property descriptors augmenting them, if needed.</li>
+</ol>
+
+
+<h2>FAQ</h2>
+
+<h3>How can I detect, if my class inherits directly or indirectly from <code>A</code>?</h3>
+
+<p>You can always use <a href="isinstanceof">isInstanceOf()</a>:</p>
+
+<figure class='code'><figcaption><span>isInstanceOf() </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;A&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;B&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;C&quot;</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">A</span><span class="p">,</span> <span class="nx">B</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;D&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">E</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">C</span><span class="p">,</span> <span class="nx">B</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;E&quot;</span><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">F</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">D</span><span class="p">,</span> <span class="nx">E</span><span class="p">],</span> <span class="p">{</span><span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;F&quot;</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">D</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">E</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">C</span><span class="p">);</span>  <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span> <span class="k">instanceof</span> <span class="nx">A</span><span class="p">);</span>  <span class="c1">// false</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span> <span class="k">instanceof</span> <span class="nx">C</span><span class="p">);</span>  <span class="c1">// false</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">A</span><span class="p">));</span>  <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">C</span><span class="p">));</span>  <span class="c1">// true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>How does <code>dcl()</code> linearize superclasses?</h3>
+
+<p><code>dcl()</code> uses the <a href="http://en.wikipedia.org/wiki/C3_linearization">C3 superclass linearization</a> algorithm. This is the
+same proven algorithm that powers Python (since 2.3), Perl 6, Parrot, and Dylan. The best discussion of this algorithm
+I know of is in this paper: <a href="http://www.python.org/download/releases/2.3/mro/">The Python 2.3 Method Resolution Order</a>.
+Effectively this algorithm is a topological sorting of an inheritance graph with complexity O(n).</p>
+
+<h3>Why do I need the linearization? I don&rsquo;t do no &ldquo;diamonds&rdquo; in my code.</h3>
+
+<p>Unfortunately dependency loops, and reversed dependencies can happen accidentally, especially in big projects, which are
+targeted by this OOP package. It is very difficult to keep track of all mixins, and their dependencies, especially when
+they are written by other programmers, or even 3rd-party shops. <code>dcl()</code> keeps track of all these matters for you
+linearizing bases, eliminating duplicates, and checking the overall consistency of your &ldquo;classes&rdquo;.</p>
+
+<p>Many JS OOP packages skip the correct linearization step hoping that everything will be right as is. Unfortunately it
+can be a source of extremely hard-to-find bugs. Besides mixins use inheritance routinely to indicate their relative
+dependencies so duplicates will occur naturally.</p>
+
+<h3>I write only small programs. I don&rsquo;t need no linearization, right?</h3>
+
+<p>If you write only small programs, chances are you don&rsquo;t need OOP. See discussion of the OOP applicability area in
+<a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a>, specifically &ldquo;fail #2&rdquo;.</p>
+
+<h3>Can I use hand-made constructors as bases or mixins with <code>dcl()</code>?</h3>
+
+<p>Yes, you can. It was demonstrated in the code example above. Obviously your hand-made classes cannot use <code>dcl()</code>-based
+facilities like super calls, or class-level advices, but other than that they can be used without restrictions.</p>
+
+<h3>Is it possible to chain methods other than constructor?</h3>
+
+<p>Yes. See <a href="chainbefore">chainBefore()</a> and <a href="chainafter">chainAfter()</a> directives.</p>
+
+<h3>Is it possible to use advices with constructors?</h3>
+
+<p>Yes. The full set of advices can be used with constructors.</p>
+
+<h3>Is it possible to &ldquo;break&rdquo; a chain of constructors or other chained methods?</h3>
+
+<p>While it is not advised due to possible violation of object invariants, and potential maintenance problems, you can do
+it with super calls &mdash; just define a super call and doesn&rsquo;t call a super.</p>
+
+<p>See <a href="supercall">superCall()</a> for more details.</p>
+
+<p>See discussion of object invariants in <a href="http://lazutkin.com/blog/2012/jan/18/oop-and-js/">OOP and JS</a> and in
+<a href="http://lazutkin.com/blog/2012/jul/17/oop-n-js-slides/">OOP in JS revisited</a>.</p>
+
+<h3>Can I use <code>[]</code> instead of <code>null</code> as my base?</h3>
+
+<p>No, it wouldn&rsquo;t work.</p>
+
+<p>In any case <code>null</code> is a constant, which is shared, while <code>[]</code> is a newly-created object. The latter comes with
+a penalty (it has to be created, and it will add a load to the garbage collector afterwards. <code>null</code> is cheaper, and
+clearly demonstrates programmer&rsquo;s intent.</p>
+
+<p>If you do not calculate bases, it is easier to skip them completely, rather than use <code>null</code>.</p>
+
+<h3>Can I use <code>[base]</code> instead of <code>base</code> as my base?</h3>
+
+<p>Yes, but why? The former will create an additional array object, which will be discarded right after the <code>dcl()</code> call
+increasing the load on the garbage collector. The latter is clearly cheaper, and more intentional.</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+<time class='entry-date' datetime='2017-06-04T13:53:00-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>1:53 pm</span></time>
+        
+      </p>
+      
+        
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Social</h1>
+  <p><code>dcl</code> on <a href="https://plus.google.com/+dcljs-oop-aop" rel="publisher">Google+</a>.<br>
+  <code>dcl</code> on <a href="https://twitter.com/dcl_js">Twitter</a>.</p>
+</section>
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109185893580826547067?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/06/1-dot-1-3-micro-update/">1.1.3: micro update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</body>
+</html>

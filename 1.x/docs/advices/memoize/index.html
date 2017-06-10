@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>memoize - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="memoize Jul 29th, 2012 1:55 pm Version 1.x memoize is a classic AOP helper, which caches a result value of a method helping
+to speed up calculations &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/1.x/docs/advices/memoize">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/docs">Docs</a></li>
+	<li><a href="/support">Support</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">memoize</h1>
+    <p class="meta">
+
+
+
+
+<time class='entry-date' datetime='2012-07-29T13:55:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>1:55 pm</span></time></p>
+  </header>
+  
+  <p><em>Version 1.x</em></p>
+
+<p><code>memoize</code> is a classic AOP helper, which caches a result value of a method helping
+to speed up calculations.</p>
+
+<p>It can be included with following commands:</p>
+
+<figure class='code'><figcaption><span>Include memoize </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// node.js</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">memoize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advices/memoize&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (code)</span>
+</span><span class='line'><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dcl/advices/memoize&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">memoize</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// AMD (definition)</span>
+</span><span class='line'><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dcl/advices/memoize&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">memoize</span><span class="p">){</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Description</h2>
+
+<p>The module provides two public functions described below. Those functions
+can defined a property on an instance called <code>__memoizerCache</code>.</p>
+
+<p>This is an API of the module:</p>
+
+<figure class='code'><figcaption><span>memoize </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">memoize</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">advice</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">keyMaker</span><span class="p">){...},</span>
+</span><span class='line'>  <span class="nx">guard</span><span class="o">:</span>  <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){...}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3><code>advice(name, keyMaker)</code></h3>
+
+<p>This method creates an advice object that can bypass the original method,
+if its result for a given combination of parameters is already cached.</p>
+
+<p><code>name</code> is a unique name identifying an object-level cache for the method.
+Usually it is a method name. If you reuse the same name for different methods
+of the same object, make sure that those methods are logically the same and
+return the same values.</p>
+
+<p><code>keyMaker</code> is an optional parameter. It is a function, which takes two arguments:</p>
+
+<ol>
+<li><code>instance</code>, which is an object we operate on.</li>
+<li><code>args</code>, which is an <code>arguments</code> object, which was used to call our method.</li>
+</ol>
+
+
+<p><code>keyMaker</code> should return a hashable object (usually a string) that uniquely
+identifies the combination of arguments in cache. If <code>keyMaker</code> is not present,
+the first arguments&#8217; string representation is used as a cache key.</p>
+
+<p>The return value of <code>advice()</code> is an advice object, which can be used directly
+with <a href="../dcl_js/advise">dcl.advise()</a> or <a href="../advise_js/advise">advise()</a>.</p>
+
+<h3><code>guard(name)</code></h3>
+
+<p>This method creates an advice object that clears the named cache.</p>
+
+<p><code>name</code> parameter indicates, which cache we want to clear on an object. This name
+is the same as used by <code>advice(name, keyMaker)</code>.</p>
+
+<p>It returns an advice object, which can be used directly with
+<a href="../dcl_js/advise">dcl.advise()</a> or <a href="../advise_js/advise">advise()</a>.</p>
+
+<h2>Examples</h2>
+
+<p>Class-level example:</p>
+
+<figure class='code'><figcaption><span>memoize class-level example </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Stack&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">stack</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">push</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">pop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sum</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">init</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// expensive, yet frequently called method</span>
+</span><span class='line'>    <span class="c1">// it has a linear complexity on stack size</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">acc</span> <span class="o">=</span> <span class="nx">init</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">acc</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">acc</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s speed it up!</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">InstrumentedStack</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Stack</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;InstrumentedStack&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="c1">// sum() should be cached</span>
+</span><span class='line'>  <span class="nx">sum</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)),</span>
+</span><span class='line'>  <span class="c1">// but it will change when more numbers</span>
+</span><span class='line'>  <span class="c1">// pushed and popped =&gt; reset cache</span>
+</span><span class='line'>  <span class="nx">push</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">guard</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nx">pop</span><span class="o">:</span>  <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">guard</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InstrumentedStack</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Object-level example:</p>
+
+<figure class='code'><figcaption><span>memoize object-level example </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;Stack&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">stack</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">push</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">pop</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">sum</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">init</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// expensive, yet frequently called method</span>
+</span><span class='line'>    <span class="c1">// it has a linear complexity on stack size</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">acc</span> <span class="o">=</span> <span class="nx">init</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">acc</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">acc</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// our instance</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stack</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s speed it up!</span>
+</span><span class='line'><span class="c1">// sum() should be cached</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="c1">// but it will change when more numbers</span>
+</span><span class='line'><span class="c1">// pushed and popped =&gt; reset cache</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="nx">memoize</span><span class="p">.</span><span class="nx">guard</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;pop&quot;</span><span class="p">,</span>  <span class="nx">memoize</span><span class="p">.</span><span class="nx">guard</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>More complex example with Ackermann function and <code>keyMaker</code>:</p>
+
+<figure class='code'><figcaption><span>memoize Ackermann example </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">Ackermann</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredName</span><span class="o">:</span> <span class="s2">&quot;Ackermann&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m0</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">n0</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="nx">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">a</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">m0</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">n0</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="nx">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">InstrumentedAckermann</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">Ackermann</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredName</span><span class="o">:</span> <span class="s2">&quot;InstrumentedAckermann&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m0</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;m0&quot;</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nx">n0</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;n0&quot;</span><span class="p">)),</span>
+</span><span class='line'>  <span class="nx">a</span><span class="o">:</span>  <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">(</span><span class="nx">memoize</span><span class="p">.</span><span class="nx">advice</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">args</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}))</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">InstrumentedAckermann</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+<time class='entry-date' datetime='2012-07-29T13:55:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>1:55 pm</span></time>
+        
+      </p>
+      
+        
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Social</h1>
+  <p><code>dcl</code> on <a href="https://plus.google.com/+dcljs-oop-aop" rel="publisher">Google+</a>.<br>
+  <code>dcl</code> on <a href="https://twitter.com/dcl_js">Twitter</a>.</p>
+</section>
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109185893580826547067?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/06/1-dot-1-3-micro-update/">1.1.3: micro update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-05-30T23:32:36-05:00</updated>
+  <updated>2017-06-09T20:55:25-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -14,12 +14,73 @@
 
   
   <entry>
+    <title type="html"><![CDATA[New major release: 2.0]]></title>
+    <link href="http://www.dcljs.org/blog/2017/06/09/new-major-release-2-dot-0/"/>
+    <updated>2017-06-09T20:34:57-05:00</updated>
+    <id>http://www.dcljs.org/blog/2017/06/09/new-major-release-2-dot-0</id>
+    <content type="html"><![CDATA[<p>New major release 2.0 for Node and ES5 browsers builds on 1.x branch, and adds following features:</p>
+
+<ul>
+<li>Simplified API.</li>
+<li>Supports ES5 features: getters, setters, generic property descriptors.
+
+<ul>
+<li>Internally all properties are defined using ES5 property descriptor API.</li>
+</ul>
+</li>
+<li>Properties can be defined using the classic object notation, and the list of property descriptors.</li>
+<li>New decorator: <code>dcl.prop()</code>.
+
+<ul>
+<li>Property descriptors can be specified directly.</li>
+<li>Getter and setters can be advised as easy as regular methods.</li>
+<li>Supports &ldquo;class&rdquo;-wide defaults for <code>configurable</code>, <code>enumerable</code>, and <code>writable</code>.</li>
+</ul>
+</li>
+<li><code>detectProps</code> mode can detect property descriptors in-line without decorators.</li>
+<li>Node&rsquo;s <code>require()</code> import, and AMD are supported out of box.</li>
+<li>For convenience a version based on browser globals is provided.</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>At the same time it continues to support successful familiar features:</p>
+
+<ul>
+<li>Mixin-style OOP.
+
+<ul>
+<li>The same trusted and proven C3 MRO linearization algorithm for inherited mixins.</li>
+</ul>
+</li>
+<li>Full set of AOP.
+
+<ul>
+<li>Supports &ldquo;class&rdquo; definitions.</li>
+<li>Regular objects can be advised dynamically.</li>
+</ul>
+</li>
+<li>The same library of useful advices, bases, and mixins.</li>
+<li>Special debugging facilities, which helped our users with tricky cases.</li>
+<li>Rigorously documented.</li>
+</ul>
+
+
+<p><a href="/1.x/docs">Version 1.x</a> is still supported and will continue to be available for legacy browsers.</p>
+
+<p>Check out the <a href="/2.x/docs">full documentation</a>. Use the <a href="/2.x/docs/installation">installation guide</a> to start using the new <code>dcl</code> in your projects.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[1.1.3: micro update]]></title>
     <link href="http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update/"/>
     <updated>2015-04-06T23:25:57-05:00</updated>
     <id>http://www.dcljs.org/blog/2015/04/06/1-dot-1-3-micro-update</id>
     <content type="html"><![CDATA[<p>1.1.3 introduces a check against a wrong type of super (e.g., making a super
-call for numeric property), adds new CI targets, and fixes a version for <code>bower</code>.</p>
+call for numeric property), adds new CI targets, and fixes a version for <a href="http://bower.io/">bower</a>.</p>
 
 <p>This is a minor release, which can be safely skipped by most users.</p>
 ]]></content>
@@ -47,7 +108,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 <ul>
 <li>Bugfix: a stray comma in a test file, which acted up in legacy browsers.</li>
-<li>Bugfix: <a href="/docs/mini_js/mix">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
+<li>Bugfix: <a href="/1.x/docs/mini_js/mix">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
 </ul>
 
 
@@ -62,7 +123,7 @@ because it will serve as a foundation for the upcoming major version.</p>
     <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
     <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
+<p><a href="/1.x/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 <!-- more -->
 
@@ -72,23 +133,9 @@ because it will serve as a foundation for the upcoming major version.</p>
 <ul>
 <li>Added metadata for an extended Dojo release.</li>
 <li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
-<li>Added <a href="/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="/docs/mini_js">mini.js</a> in legacy environments.</li>
+<li>Added <a href="/1.x/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="/1.x/docs/mini_js">mini.js</a> in legacy environments.</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[1.0.4: added to Bower]]></title>
-    <link href="http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower/"/>
-    <updated>2013-07-24T10:05:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/07/24/1-dot-0-4-added-to-bower</id>
-    <content type="html"><![CDATA[<p>This is a technical release, which doesn&rsquo;t change the functionality in any way. You can safely skip it.</p>
-
-<p>The version bump was required in order to add <code>dcl</code> to <a href="http://bower.io/">Bower</a> &mdash; a generic, unopinionated solution to the problem of front-end package management. If you use Bower to manage your project dependencies, you can install <code>dcl</code> like this:</p>
-
-<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bower install dcl</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   

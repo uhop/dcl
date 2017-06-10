@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>dcl.chainWith() - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="dcl.chainWith() Jun 4th, 2017 12:06 am Version 2.x This function declares how methods with a certain name should be chained. In most cases, end &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/2.x/docs/dcl_js/chainwith">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/docs">Docs</a></li>
+	<li><a href="/support">Support</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">dcl.chainWith()</h1>
+    <p class="meta">
+
+
+
+
+<time class='entry-date' datetime='2017-06-04T00:06:00-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>12:06 am</span></time></p>
+  </header>
+  
+  <p><em>Version 2.x</em></p>
+
+<p>This function declares how methods with a certain name should be chained. In most cases, end users do not use this function directly, opting for more declarative and easy to use alternatives: <a href="chainbefore">dcl.chainBefore()</a> and <a href="chainafter">dcl.chainAfter()</a>.</p>
+
+<h2>Description</h2>
+
+<p><code>dcl.chainWith()</code> sets a chaining rule for a method. It takes three parameters:</p>
+
+<ul>
+<li><code>Ctr</code> - the constructor function created by <a href="dcl">dcl()</a>.</li>
+<li><code>name</code> - the method name to be chained in <code>Ctr</code>&rsquo;s prototype.</li>
+<li><code>weaver</code> - the weaver object, which defines how chaining is done.</li>
+</ul>
+
+
+<p>Following rules should be followed:</p>
+
+<ul>
+<li>It is impossible to &ldquo;unchain&rdquo; a chained method.</li>
+<li>It is impossible to change a chained method once it was set from &ldquo;before&rdquo; to &ldquo;after&rdquo; or in the opposite direction.</li>
+<li>Chaining should be declared only for base-less &ldquo;classes&rdquo;.</li>
+<li>It is an error to mix &ldquo;classes&rdquo; with different chaining rules for the same method.</li>
+<li>It is possible to declare chaining for a method without actually declaring the method.</li>
+</ul>
+
+
+<p>The function returns <code>true</code>, if it was able to define a required chaining, <code>false</code>, if a constructor was not defined by <a href="dcl">dcl()</a>, and throws an error, if a chaining conflict was detected.</p>
+
+<p>A weaver object has at least two named properties:</p>
+
+<ul>
+<li><code>name</code> - the weaver&rsquo;s name.</li>
+<li><code>weave</code> - the weaver function.</li>
+</ul>
+
+
+<p>A weaver function is called in the context of a weaver object, and takes two parameters:</p>
+
+<ul>
+<li><code>chains</code> - the array of property descriptions that correspond to a given method chain.</li>
+<li><code>utils</code> - the object that defines numerous utilities to be used while weaving methods:
+
+<ul>
+<li><code>adaptValue(f)</code> - adapts a function value by returning a getter for that value, or <code>null</code>.</li>
+<li><code>adaptGet(f)</code> - adapts a function getter by returning a function, which uses the getter to call its value as a function, or <code>null</code>.</li>
+<li><code>convertToValue(descriptor)</code> - converts a property <code>descriptor</code> from a getter to a value descriptor, or returns the old value <code>descriptor</code>.</li>
+<li><code>cloneDescriptor(descriptor)</code> - returns a shallow copy of <code>descriptor</code> flattening any prototypal inheritance in the process.</li>
+<li><code>augmentDescriptor(type, value)</code> - returns a function that takes a property descriptor, and sets <code>type</code> property on it to <code>value</code>, if it is not defined. If <code>value</code> a function, it is returned instead.</li>
+<li><code>augmentWritable(value)</code> - returns a function that takes a property descriptor, and sets <code>writable</code> property on it to <code>value</code>, if it is not defined. If <code>value</code> a function, it is returned instead.</li>
+<li><code>replaceDescriptor()</code>- returns a function that takes a property descriptor, and sets <code>type</code> property on it to <code>value</code>. If <code>value</code> a function, it is returned instead.</li>
+<li><code>replaceWritable()</code>- returns a function that takes a property descriptor, and sets <code>writable</code> property on it to <code>value</code>. If <code>value</code> a function, it is returned instead.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>A weaver function should return a property descriptor, which will be defined for a given name on the final prototype.</p>
+
+<h2>Notes</h2>
+
+<p>In general, this is a mechanism to define custom weavers to extend <a href="dcl">dcl()</a>.</p>
+
+<p><code>dcl</code> defines following weaver objects:</p>
+
+<ul>
+<li><a href="weavebefore">dcl.weaveBefore</a> - weaves chains using <code>before</code> method (the last one is called first). It is used by <a href="chainbefore">dcl.chainBefore()</a>, and by <code>before</code> advices.</li>
+<li><a href="weaveafter">dcl.weaveAfter</a> - weaves chains using <code>after</code> method (the first one is called first). It is used by <a href="chainafter">dcl.chainAfter()</a>, and by <code>after</code> advices.</li>
+<li><a href="weavesuper">dcl.weaveSuper</a> - weaves chains using <code>around</code> method (the last one is called first, and has a chance to call the next one in chain explicitly). It is used by super calls and <code>around</code> advices automatically (no need to specify it explicitly).</li>
+</ul>
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+<time class='entry-date' datetime='2017-06-04T00:06:00-05:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>12:06 am</span></time>
+        
+      </p>
+      
+        
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Social</h1>
+  <p><code>dcl</code> on <a href="https://plus.google.com/+dcljs-oop-aop" rel="publisher">Google+</a>.<br>
+  <code>dcl</code> on <a href="https://twitter.com/dcl_js">Twitter</a>.</p>
+</section>
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109185893580826547067?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/06/1-dot-1-3-micro-update/">1.1.3: micro update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</body>
+</html>

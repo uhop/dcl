@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cheatsheet 1.x - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="Cheatsheet 1.x Jul 29th, 2012 12:01 am Version 1.x This file is written using a literate JavaScript. You can download
+this cheatsheet to use as a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/1.x/docs/cheatsheet">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body     class="collapse-sidebar" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/docs">Docs</a></li>
+	<li><a href="/support">Support</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Cheatsheet 1.x</h1>
+    <p class="meta">
+
+
+
+
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time></p>
+  </header>
+  
+  <div class="docco">
+  <p><em>Version 1.x</em></p>
+
+<p><em>This file is written using a literate JavaScript. You can download
+<a href="/1.x/downloads/code/cheatsheet.js">this cheatsheet</a> to use as a local reference
+or to run it locally.</em></p>
+
+<p><em>If you prefer to see text as inline comments, just click on a sidebar
+handle at the far right.</em></p>
+
+<p><em>While <code>dcl</code> works great in browsers using an AMD loader or
+even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
+<a href="http://nodejs.org">node.js</a>.</em></p>
+
+<p>For our examples we will need the main
+<a href="./dcl_js">dcl</a> module:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Declaring &ldquo;classes&rdquo;.</h2>
+
+<p>Declaring properties, constructors and methods
+with <a href="./mini_js/dcl">dcl()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;something&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>No base class:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Single inheritance:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Mixins:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">M</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">M</span><span class="p">],</span> <span class="p">{});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Disposable one-off &ldquo;class&rdquo;:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">dcl</span><span class="p">([</span><span class="nx">B</span><span class="p">,</span> <span class="nx">M</span><span class="p">],</span> <span class="p">{}))(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Supercalls</h2>
+
+<p>Make a super call passing through arguments
+with <a href="./mini_js/supercall">dcl/superCall()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">E</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Make a super call with different arguments:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">F</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Class-level AOP</h2>
+
+<p>Advise &ldquo;before&rdquo; with <a href="./dcl_js/before">dcl.before()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">H</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Called with arguments: &quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise &ldquo;after&rdquo; with <a href="./dcl_js/after">dcl.after()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">I</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Returned result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise &ldquo;around&rdquo; with <a href="./dcl_js/around">dcl.around()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">J</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Answered: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Exception: &quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Full-blown advising with <a href="./dcl_js/advise">dcl.advise()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">G</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Called with arguments: &quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Returned result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>          <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Answered: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Exception: &quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Chaining</h2>
+
+<p>Chain after with <a href="./dcl_js/chainafter">dcl.chainAfter()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainAfter</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="s2">&quot;method1&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Chain before <a href="./dcl_js/chainbefore">dcl.chainBefore()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainBefore</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="s2">&quot;method2&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Usually constructors are chained after, while destructors are chained before.
+<code>dcl</code> chains constructors automatically by default.</p>
+
+<h2>Object-level AOP</h2>
+
+<p>We need <a href="./advise_js">advise</a> module:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/advise&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">J</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise &ldquo;before&rdquo; with <a href="./advise_js/before">advise.before()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a1</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Called with arguments: &quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise &ldquo;after&rdquo; with <a href="./advise_js/after">advise.after()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a2</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Returned result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise &ldquo;around&rdquo; with <a href="./advise_js/around">advise.around()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a3</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Answered: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Exception: &quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Full-blown advising with <a href="./advise_js/advise">advise()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">a4</span> <span class="o">=</span> <span class="nx">advise</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Called with arguments: &quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Returned result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Got: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">try</span><span class="p">{</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Answered: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Exception: &quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Unadvise (in any order):</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">a2</span><span class="p">.</span><span class="nx">unadvise</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Inherited</h2>
+
+<p>We need <a href="./inherited_js">inherited</a>
+module (its value is actually not used):</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">inherited</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/inherited&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Make a super call passing through arguments
+with <a href="./inherited_js/inherited">inherited()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">K</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Make a super call with different arguments:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">L</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="p">[</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Make a super call (works in both strict and non-strict modes):</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">M</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">M</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Make a super call with <a href="./inherited_js/getinherited">getInherited()</a>
+(works in both strict and non-strict modes):</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">N</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">D</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">sup</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInherited</span><span class="p">(</span><span class="nx">N</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">sup</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Debugging</h2>
+
+<p>We need <a href="./debug_js">debug</a> module (its inclusion adds
+enhanced error reporting automatically):</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dclDebug</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl/debug&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">O</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s2">&quot;O&quot;</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">O</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Log a class with <a href="./debug_js/log">dclDebug.log()</a>:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">O</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Log an object:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dclDebug</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+</div>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+<time class='entry-date' datetime='2012-07-29T00:01:00-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:01 am</span></time>
+        
+      </p>
+      
+        
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Social</h1>
+  <p><code>dcl</code> on <a href="https://plus.google.com/+dcljs-oop-aop" rel="publisher">Google+</a>.<br>
+  <code>dcl</code> on <a href="https://twitter.com/dcl_js">Twitter</a>.</p>
+</section>
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109185893580826547067?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/06/1-dot-1-3-micro-update/">1.1.3: micro update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</body>
+</html>
