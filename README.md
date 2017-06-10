@@ -26,7 +26,7 @@ please consider `dcl 1.x`.
 The library includes a small library of useful base classes, mixins, and advices.
 
 The main hub of everything `dcl`-related is [dcljs.org](http://www.dcljs.org/),
-which hosts [extensive documentation](http://www.dcljs.org/docs/).
+which hosts [extensive documentation](http://www.dcljs.org/docs).
 
 # Examples
 
@@ -174,7 +174,7 @@ Additionally `dcl` provides a small library of predefined
 [mixins](http://www.dcljs.org/2.x/docs/mixins/),
 and [useful advices](http://www.dcljs.org/2.x/docs/advices/). Check them out too.
 
-For more examples, details, howtos, and why, please read [the docs](http://www.dcljs.org/docs/).
+For more examples, details, howtos, and why, please read [the docs](http://www.dcljs.org/docs).
 
 # How to install
 
@@ -236,7 +236,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 # Documentation
 
-`dcl` is extensively documented in [the docs](http://www.dcljs.org/docs/).
+`dcl` is extensively documented in [the docs](http://www.dcljs.org/docs).
 
 # Versions
 
