@@ -33,16 +33,25 @@
 			node[n] = this;
 			prev[n] = this[p] = node;
 		},
-		addAdvice: function (advice) {
+		addAdvice: function (advice, instance, name, type) {
 			var node = new Node(this);
 			if (advice.before) {
 				node.before = advice.before;
 				this.addTopic(node, 'before');
 			}
 			if (advice.around) {
+				if (typeof advice.around != 'function') {
+					advise._error('wrong super call', instance, name, type);
+				}
 				node.originalAround = advice.around;
 				this.addTopic(node, 'around');
+				if (node.prev_around.around && typeof node.prev_around.around != 'function') {
+					advise._error('wrong super arg', instance, name, type);
+				}
 				node.around = advice.around(node.prev_around.around || null);
+				if (typeof node.around != 'function') {
+					advise._error('wrong super result', instance, name, type);
+				}
 			}
 			if (advice.after) {
 				node.after = advice.after;
@@ -112,7 +121,7 @@
 			value.node.name = name;
 			value.node.type = type;
 		}
-		var node = value.node.addAdvice(advice);
+		var node = value.node.addAdvice(advice, instance, name, type);
 		return {value: value, handle: node};
 	}
 
@@ -173,12 +182,15 @@
 
 	// export
 
-	advise.before = function(instance, name, f){ return advise(instance, name, {before: f}); };
-	advise.after  = function(instance, name, f){ return advise(instance, name, {after:  f}); };
-	advise.around = function(instance, name, f){ return advise(instance, name, {around: f}); };
-	advise.Node = Node;
+	// guts, do not use them!
+	advise._error = function (msg) {
+		throw new Error(msg);
+	};
 
-	advise._instantiate = function(advice, previous, node){ return advice(previous); };
+	advise.before = function (instance, name, f) { return advise(instance, name, {before: f}); };
+	advise.after  = function (instance, name, f) { return advise(instance, name, {after:  f}); };
+	advise.around = function (instance, name, f) { return advise(instance, name, {around: f}); };
+	advise.Node = Node;
 
 	return advise;
 
@@ -190,6 +202,6 @@
 			}
 			o = Object.getPrototypeOf(o);
 		}
-		return null;
+		return; // undefined
 	}
 });
