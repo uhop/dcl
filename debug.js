@@ -17,7 +17,7 @@
 		ChainingError = dcl(DclError, {declaredClass: "dcl/debug/ChainingError"}),
 		SuperError = dcl(DclError, {declaredClass: "dcl/debug/SuperError"});
 
-	advise.around(dcl, '_error', function (/*sup*/) {
+	advise.around(dcl, '_error', function (sup) {
 		return function (reason) {
 			var name, ctr, method, props;
 			if (reason === 'cycle') {
@@ -58,6 +58,23 @@
 					name + ', while weaving ' + baseName + ', method ' + method +
 					' (' + re[1] + ') wrong ' + re[2]);
 			}
+			return sup.apply(this, arguments);
+		};
+	});
+
+	advise.around(advise, '_error', function (sup) {
+		return function (reason, instance, method, type) {
+			var re = /^wrong super (\w+)$/.exec(reason);
+			if (re) {
+				var baseName = instance.declaredClass;
+				if (!baseName || typeof baseName != 'string') {
+					baseName = 'UNNAMED';
+				}
+				throw new SuperError('dcl: super call error in object of ' +
+					baseName + ', while weaving method ' + method +
+					' (' + type + ') wrong ' + re[1]);
+			}
+			return sup.apply(this, arguments);
 		};
 	});
 
