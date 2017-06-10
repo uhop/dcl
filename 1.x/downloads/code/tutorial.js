@@ -11,7 +11,7 @@
 // even simple `<script>`, this tutorial is assumed to be run with
 // [node.js](http://nodejs.org).*
 
-// For our examples we will need the main [dcl](./dcl_js) module:
+// For our examples we will need the main [dcl](/1.x/docs/dcl_js/) module:
 var dcl = require("dcl");
 
 // ## Inheritance, and constructors
@@ -138,7 +138,7 @@ loudBob.speak("Anybody home?");
 // ## AOP
 
 // We can use aspect-oriented advices to create our "classes"
-// using [dcl.advise()](./dcl_js/advise).
+// using [dcl.advise()](/1.x/docs/dcl_js/advise/).
 
 // Let's create one more mixin:
 var Sick = dcl(Person, {
@@ -175,7 +175,7 @@ clara.speak("I want a glass of water!");
 // from a super class.
 
 // One more mixin, this time using a shortcut
-// [dcl.around()](./dcl_js/around):
+// [dcl.around()](/1.x/docs/dcl_js/around/):
 var Martian = dcl(Speaker, {
   speak: dcl.around(function(sup){
     return function(msg){
@@ -199,7 +199,7 @@ don.speak("Doctor? Nurse? Anybody?");
 
 // For convenience, `dcl` provides shortcuts for
 // all singular advices. Read all about it in
-// [the documentation](./dcl_js).
+// [the documentation](/1.x/docs/dcl_js/).
 
 // ## Chaining
 
@@ -263,7 +263,7 @@ ethel.sleep();
 // any method dynamically, and unadvise it at will.
 
 // Let's implement the previous example with object-level AOP.
-// For that we need to use a new module [dcl/advise](./advise_js):
+// For that we need to use a new module [dcl/advise](/1.x/docs/advise_js/):
 var advise = require("dcl/advise");
 
 // Let's use a one-off class this time:
@@ -317,7 +317,7 @@ fred.wakeUp();
 // `turn off lights`
 fred.sleep();
 
-// Again, for convenience, [dcl/advise](./advise_js)
+// Again, for convenience, [dcl/advise](/1.x/docs/advise_js/)
 // provides shortcuts for singular advices.
 
 // Naturally "around" advices use the same double function
@@ -325,7 +325,7 @@ fred.sleep();
 
 // ## Debugging helpers
 
-// There is a special module [dcl/debug](./debug_js)
+// There is a special module [dcl/debug](/1.x/docs/debug_js/)
 // that adds better error checking and reporting for
 // your "classes" and objects. All you need is to require it,
 // and it will plug right in:
@@ -422,7 +422,7 @@ dclDebug.log(george);
 
 // This tutorial just scratched the surface of what `dcl` can do.
 // You will find more examples, explanations, and new features
-// in [the documentation](../docs).
+// in [the documentation](/1.x/docs/).
 
 // Happy hacking! Go small and keep your code
 // [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)!

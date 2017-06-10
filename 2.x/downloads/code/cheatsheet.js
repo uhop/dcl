@@ -12,7 +12,7 @@
 // [node.js](http://nodejs.org).*
 
 // For our examples we will need the main
-// [dcl](./dcl_js) module:
+// [dcl](/2.x/docs/dcl_js/) module:
 var dcl = require("dcl");
 
 // TBD

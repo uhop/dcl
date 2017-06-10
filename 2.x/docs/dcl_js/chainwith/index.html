@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -94,14 +94,14 @@
   
   <p><em>Version 2.x</em></p>
 
-<p>This function declares how methods with a certain name should be chained. In most cases, end users do not use this function directly, opting for more declarative and easy to use alternatives: <a href="chainbefore">dcl.chainBefore()</a> and <a href="chainafter">dcl.chainAfter()</a>.</p>
+<p>This function declares how methods with a certain name should be chained. In most cases, end users do not use this function directly, opting for more declarative and easy to use alternatives: <a href="/2.x/docs/dcl_js/chainbefore/">dcl.chainBefore()</a> and <a href="/2.x/docs/dcl_js/chainafter/">dcl.chainAfter()</a>.</p>
 
 <h2>Description</h2>
 
 <p><code>dcl.chainWith()</code> sets a chaining rule for a method. It takes three parameters:</p>
 
 <ul>
-<li><code>Ctr</code> - the constructor function created by <a href="dcl">dcl()</a>.</li>
+<li><code>Ctr</code> - the constructor function created by <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>.</li>
 <li><code>name</code> - the method name to be chained in <code>Ctr</code>&rsquo;s prototype.</li>
 <li><code>weaver</code> - the weaver object, which defines how chaining is done.</li>
 </ul>
@@ -118,7 +118,7 @@
 </ul>
 
 
-<p>The function returns <code>true</code>, if it was able to define a required chaining, <code>false</code>, if a constructor was not defined by <a href="dcl">dcl()</a>, and throws an error, if a chaining conflict was detected.</p>
+<p>The function returns <code>true</code>, if it was able to define a required chaining, <code>false</code>, if a constructor was not defined by <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>, and throws an error, if a chaining conflict was detected.</p>
 
 <p>A weaver object has at least two named properties:</p>
 
@@ -152,14 +152,14 @@
 
 <h2>Notes</h2>
 
-<p>In general, this is a mechanism to define custom weavers to extend <a href="dcl">dcl()</a>.</p>
+<p>In general, this is a mechanism to define custom weavers to extend <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>.</p>
 
 <p><code>dcl</code> defines following weaver objects:</p>
 
 <ul>
-<li><a href="weavebefore">dcl.weaveBefore</a> - weaves chains using <code>before</code> method (the last one is called first). It is used by <a href="chainbefore">dcl.chainBefore()</a>, and by <code>before</code> advices.</li>
-<li><a href="weaveafter">dcl.weaveAfter</a> - weaves chains using <code>after</code> method (the first one is called first). It is used by <a href="chainafter">dcl.chainAfter()</a>, and by <code>after</code> advices.</li>
-<li><a href="weavesuper">dcl.weaveSuper</a> - weaves chains using <code>around</code> method (the last one is called first, and has a chance to call the next one in chain explicitly). It is used by super calls and <code>around</code> advices automatically (no need to specify it explicitly).</li>
+<li><a href="/2.x/docs/dcl_js/weavebefore/">dcl.weaveBefore</a> - weaves chains using <code>before</code> method (the last one is called first). It is used by <a href="/2.x/docs/dcl_js/chainbefore/">dcl.chainBefore()</a>, and by <code>before</code> advices.</li>
+<li><a href="/2.x/docs/dcl_js/weaveafter/">dcl.weaveAfter</a> - weaves chains using <code>after</code> method (the first one is called first). It is used by <a href="/2.x/docs/dcl_js/chainafter/">dcl.chainAfter()</a>, and by <code>after</code> advices.</li>
+<li><a href="/2.x/docs/dcl_js/weavesuper/">dcl.weaveSuper</a> - weaves chains using <code>around</code> method (the last one is called first, and has a chance to call the next one in chain explicitly). It is used by super calls and <code>around</code> advices automatically (no need to specify it explicitly).</li>
 </ul>
 
 

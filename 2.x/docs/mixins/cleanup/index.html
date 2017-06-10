@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -94,13 +94,13 @@
   
   <p><em>Version 2.x</em></p>
 
-<p><code>Cleanup</code> is an elaborate facility to handle cleanups for multiple dependent objects even in completely dynamic environments. It is built on <a href="destroyable">Destroyable</a>, and can consume other objects, which support <a href="destroyable">Destroyable</a> protocol: define <code>destroy()</code> method.</p>
+<p><code>Cleanup</code> is an elaborate facility to handle cleanups for multiple dependent objects even in completely dynamic environments. It is built on <a href="/2.x/docs/mixins/destroyable/">Destroyable</a>, and can consume other objects, which support <code>Destroyable</code> protocol: define <code>destroy()</code> method.</p>
 
 <p>It is defined in <code>dcl/mixins/Cleanup.js</code>.</p>
 
 <h2>Description</h2>
 
-<p>Read a background on destruction in <a href="../general/destructors">Destructors</a>.</p>
+<p>Read a background on destruction in <a href="/2.x/docs/general/destructors/">Destructors</a>.</p>
 
 <p><code>Cleanup</code> defines following API:</p>
 
@@ -142,7 +142,7 @@
 
 <ol>
 <li>If <code>cleanup</code> was present, it is called passing <code>resource</code> as the only parameter.</li>
-<li>If <code>cleanup</code> was not present, it is assumed that <code>resource</code> supports <a href="destroyable">Destroyable</a> protocol, and its <code>destroy()</code> method will be called.</li>
+<li>If <code>cleanup</code> was not present, it is assumed that <code>resource</code> supports <a href="/2.x/docs/dcl_js/destroyable/">Destroyable</a> protocol, and its <code>destroy()</code> method will be called.</li>
 </ol>
 
 
@@ -172,7 +172,7 @@
 
 <h3><code>destroy()</code></h3>
 
-<p>A required method for <a href="destroyable">Destroyable</a> protocol. It simply calls <code>cleanup()</code>.</p>
+<p>A required method for <a href="/2.x/docs/dcl_js/destroyable/">Destroyable</a> protocol. It simply calls <code>cleanup()</code>.</p>
 
 <h2>Examples</h2>
 

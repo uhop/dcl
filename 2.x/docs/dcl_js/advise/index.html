@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -101,7 +101,7 @@
 <p><code>dcl.advise()</code> is a decorator function, which takes the advice object with properties <code>before</code>, <code>around</code>, and/or <code>after</code> and
 combines an existing method with supplied advices.</p>
 
-<p>Alternatively it can take <a href="prop">dcl.Prop</a> object, and advise its <code>get</code>, <code>set</code>, or <code>value</code> properties. For more info on property descriptors see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">Object.defineProperties()</a>.</p>
+<p>Alternatively it can take <a href="/2.x/docs/dcl_js/prop/">dcl.Prop</a> object, and advise its <code>get</code>, <code>set</code>, or <code>value</code> properties. For more info on property descriptors see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">Object.defineProperties()</a>.</p>
 
 <figure class='code'><figcaption><span>dcl.advise() </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -267,7 +267,7 @@ result values would be easily distinguished.</p>
 
 <h3>Around</h3>
 
-<p>Essentially it is the same as <a href="supercall">dcl.superCall()</a>. It uses the same double function pattern,
+<p>Essentially it is the same as <a href="/2.x/docs/dcl_js/supercall/">dcl.superCall()</a>. It uses the same double function pattern,
 and its behavior is the same.</p>
 
 <h3>Order of advices</h3>
@@ -584,8 +584,8 @@ is called only if its previous <code>around</code> advice yielded control explic
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can find those methods documented respectively in <a href="before">dcl.before()</a>,
-<a href="after">dcl.after()</a>, and <a href="around">dcl.around()</a>.</p>
+<p>You can find those methods documented respectively in <a href="/2.x/docs/dcl_js/before/">dcl.before()</a>,
+<a href="/2.x/docs/dcl_js/after/">dcl.after()</a>, and <a href="/2.x/docs/dcl_js/around/">dcl.around()</a>.</p>
 
 <h3>More on order of advices</h3>
 
@@ -716,7 +716,7 @@ It doesn&rsquo;t matter in what order advices were declared.</p>
 
 <p>In general the relative order of different wrapper-based advices will depend on their definition order, while in true AOP it is rigid. In our faux-AOP example, if our around advice doesn&rsquo;t call its super for any reason, <code>before</code> and/or <code>after</code> advices, depending on their order of wrapping, are never called, which is incorrect, and breaks the invariant.</p>
 
-<p>While the order difference looks harmless, it prevents from using some important AOP techniques. For example, it prevents setting up a hook function (an after advice) that runs after all &ldquo;normal&rdquo; methods. See <a href="../general/multi-stage-construction">multi-stage construction</a> for an interesting use case.</p>
+<p>While the order difference looks harmless, it prevents from using some important AOP techniques. For example, it prevents setting up a hook function (an after advice) that runs after all &ldquo;normal&rdquo; methods. See <a href="/2.x/docs/general/multi-stage-construction/">multi-stage construction</a> for an interesting use case.</p>
 
   
     <footer>

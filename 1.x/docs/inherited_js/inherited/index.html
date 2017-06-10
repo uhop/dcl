@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -97,7 +97,7 @@
 <p>This function calls a super method dynamically.</p>
 
 <p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
-<a href="../mini_js/supercall">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
+<a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
 a method according to the double function pattern, and can be applied to
 undecorated methods, which makes it suitable for fast prototyping, and
 transitioning legacy code.</p>
@@ -109,7 +109,7 @@ newly created objects, so you don&rsquo;t need to use the result of the module d
 
 <h2>Description</h2>
 
-<p>Unlike the decorator <a href="../mini_js/supercall">dcl.superCall()</a>, which supplies
+<p>Unlike the decorator <a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a>, which supplies
 a supercall method statically, <code>inherited()</code> does the same dynamically at some
 run-time expense. While doing so, it doesn&rsquo;t require to decorate a method, and
 can be used to add a supercall to any arbitrary method, which makes it suitable
@@ -235,7 +235,7 @@ not its super method. It cannot name a method different from a current method!</
 <p><code>inherited()</code> returns a result returned by a super method, whatever it may be.
 If there is no super method, the call is essentially a no-op and returns <code>undefined</code>.
 If you want to check for an existance of a super method,
-use <a href="../inherited_js/getinherited">getInherited()</a>.</p>
+use <a href="/1.x/docs/inherited_js/getinherited/">getInherited()</a>.</p>
 
 <h2>Notes</h2>
 

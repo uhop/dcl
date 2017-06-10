@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -96,7 +96,7 @@
 
 <p>Debuggability is one of the main concerns for any public library. It should provide a concise picture of produced, yet it should not affect size nor performance of said library.</p>
 
-<p><code>debug.js</code> is a debug helper for <code>dcl</code>. It augments <a href="./dcl_js/dcl">dcl()</a> with enhanced error reporting, and provides debugging helpers. This module was designed primarily to be used during development.</p>
+<p><code>debug.js</code> is a debug helper for <code>dcl</code>. It augments <a href="/2.x/docs/dcl_js/dcl/">dcl()</a> with enhanced error reporting, and provides debugging helpers. This module was designed primarily to be used during development.</p>
 
 <p>It is defined in <code>dcl/debug.js</code>. It adds properties to the main <code>dcl</code> module, which it returns.</p>
 
@@ -105,17 +105,17 @@
 <p>Main property:</p>
 
 <ul>
-<li><a href="./debug_js/log">dcl.log()</a> - <em>logs class and/or object metainformation to <code>console.log</code></em></li>
+<li><a href="/2.x/docs/debug_js/log/">dcl.log()</a> - <em>logs class and/or object metainformation to <code>console.log</code></em></li>
 </ul>
 
 
 <p>Error object:</p>
 
 <ul>
-<li><a href="./debug_js/dclerror">dcl.DclError</a> - <em>the base for all errors</em></li>
-<li><a href="./debug_js/cycleerror">dcl.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of declared bases</em></li>
-<li><a href="./debug_js/supererror">dcl.SuperError</a> - <em>thrown when the next-in-line property is not a function, and a super call cannot be made</em></li>
-<li><a href="./debug_js/chainingerror">dcl.ChainingError</a> - <em>thrown when composing a class with different chaining directives for the same method</em></li>
+<li><a href="/2.x/docs/debug_js/dclerror/">dcl.DclError</a> - <em>the base for all errors</em></li>
+<li><a href="/2.x/docs/debug_js/cycleerror/">dcl.CycleError</a> - <em>thrown when there is an unresolvable cycle in list of declared bases</em></li>
+<li><a href="/2.x/docs/debug_js/supererror/">dcl.SuperError</a> - <em>thrown when the next-in-line property is not a function, and a super call cannot be made</em></li>
+<li><a href="/2.x/docs/debug_js/chainingerror/">dcl.ChainingError</a> - <em>thrown when composing a class with different chaining directives for the same method</em></li>
 </ul>
 
 

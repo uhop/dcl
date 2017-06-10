@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -102,7 +102,7 @@
 <p><code>dcl.chainAfter()</code> sets the <code>after</code> chaining rule for a method. It takes two parameters:</p>
 
 <ul>
-<li><code>Ctr</code> - the constructor function created by <a href="dcl">dcl()</a>.</li>
+<li><code>Ctr</code> - the constructor function created by <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>.</li>
 <li><code>name</code> - the method name to be chained in <code>Ctr</code>&rsquo;s prototype.</li>
 </ul>
 
@@ -118,7 +118,7 @@
 </ul>
 
 
-<p>The function returns <code>true</code>, if it was able to define a required chaining, <code>false</code>, if a constructor was not defined by <a href="dcl">dcl()</a>, and throws an error, if a chaining conflict was detected.</p>
+<p>The function returns <code>true</code>, if it was able to define a required chaining, <code>false</code>, if a constructor was not defined by <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>, and throws an error, if a chaining conflict was detected.</p>
 
 <figure class='code'><figcaption><span>dcl.chainAfter() </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -142,7 +142,7 @@
 
 <h3>Implementation</h3>
 
-<p>It is implemented in terms of <a href="chainwith">dcl.chainWith()</a> and <a href="weaveafter">dcl.weaveAfter</a>:</p>
+<p>It is implemented in terms of <a href="/2.x/docs/dcl_js/chainwith/">dcl.chainWith()</a> and <a href="/2.x/docs/dcl_js/weaveafter/">dcl.weaveAfter</a>:</p>
 
 <figure class='code'><figcaption><span>Implementation of dcl.chainAfter() </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

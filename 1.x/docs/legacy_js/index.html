@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -94,11 +94,11 @@
   
   <p><em>Version 1.x</em></p>
 
-<p><code>legacy.js</code> is a drop-in replacement for <a href="./mini_js">mini.js</a> (added in <code>dcl</code> 1.1.0), which supports legacy browsers (tested with IE8). It has the same API, and the same functionality.</p>
+<p><code>legacy.js</code> is a drop-in replacement for <a href="/1.x/docs/mini_js/">mini.js</a> (added in <code>dcl</code> 1.1.0), which supports legacy browsers (tested with IE8). It has the same API, and the same functionality.</p>
 
-<p>While it is possible to use <code>legacy.js</code> instead of <a href="./mini_js">mini.js</a> with <code>node.js</code> and modern browsers, it is not advised, because <code>legacy.js</code> is slower than <a href="./mini_js">mini.js</a>.</p>
+<p>While it is possible to use <code>legacy.js</code> instead of <a href="/1.x/docs/mini_js/">mini.js</a> with <code>node.js</code> and modern browsers, it is not advised, because <code>legacy.js</code> is slower than <a href="/1.x/docs/mini_js/">mini.js</a>.</p>
 
-<p>This module is meant to be used as a substitute for <a href="./mini_js">mini.js</a>. But there is one scenario when it can be used on its own: as the only <code>dcl</code> module in a small project. In this case, when no other <code>dcl</code> modules are used, it can be included directly from JavaScript:</p>
+<p>This module is meant to be used as a substitute for <a href="/1.x/docs/mini_js/">mini.js</a>. But there is one scenario when it can be used on its own: as the only <code>dcl</code> module in a small project. In this case, when no other <code>dcl</code> modules are used, it can be included directly from JavaScript:</p>
 
 <figure class='code'><figcaption><span>Include legacy </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -182,7 +182,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Obviously such approximation is inexact, and more expensive space-wise, and processor-wise. This is why it was rejected initially. Later on a legacy version of <a href="./mini_js">mini.js</a> was designed as a replacement, keeping the canonical version of <code>dcl</code> small and fast, yet providing an option for legacy environments (older version of IE).</p>
+<p>Obviously such approximation is inexact, and more expensive space-wise, and processor-wise. This is why it was rejected initially. Later on a legacy version of <a href="/1.x/docs/mini_js/">mini.js</a> was designed as a replacement, keeping the canonical version of <code>dcl</code> small and fast, yet providing an option for legacy environments (older version of IE).</p>
 
 <h2>FAQ</h2>
 
@@ -246,7 +246,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can see how the script manipulates <code>paths</code> of <code>require.config</code> to load <code>legacy.js</code> instead of <a href="./mini_js">mini.js</a> on IE &lt; 9.</p>
+<p>You can see how the script manipulates <code>paths</code> of <code>require.config</code> to load <code>legacy.js</code> instead of <a href="/1.x/docs/mini_js/">mini.js</a> on IE &lt; 9.</p>
 
 <p>Read more about this technique in <a href="http://msdn.microsoft.com/en-us/library/ie/8ka90k2e(v=vs.94).aspx">MSDN: @cc_on</a>.</p>
 

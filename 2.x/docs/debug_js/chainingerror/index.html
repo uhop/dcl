@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="dcl.ChainingError Jun 9th, 2017 12:12 am Version 2.x dcl.ChainingError is present only when dcl/debug is required. It is thrown, when dcl is used to &hellip;">
+  <meta name="description" content="dcl.ChainingError Jun 9th, 2017 12:12 am Version 2.x dcl.ChainingError is present only when dcl/debug is imported. Otherwise, Error will be thrown. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -94,7 +94,11 @@
   
   <p><em>Version 2.x</em></p>
 
-<p><code>dcl.ChainingError</code> is present only when <code>dcl/debug</code> is required. It is thrown, when <code>dcl</code> is used to mix bases with different chaining orders for the same method.</p>
+<p><code>dcl.ChainingError</code> is present only when <code>dcl/debug</code> is imported. Otherwise, <code>Error</code> will be thrown.</p>
+
+<p>It is thrown, when <code>dcl</code> is used to mix bases with different chaining orders for the same method.</p>
+
+<p><code>dcl.ChainingError</code> is based on <a href="/2.x/docs/debug_js/dclerror/">dcl.DclError</a>.</p>
 
 <h2>Examples</h2>
 

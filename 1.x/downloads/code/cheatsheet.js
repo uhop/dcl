@@ -12,13 +12,13 @@
 // [node.js](http://nodejs.org).*
 
 // For our examples we will need the main
-// [dcl](./dcl_js) module:
+// [dcl](/1.x/docs/dcl_js/) module:
 var dcl = require("dcl");
 
 // ## Declaring "classes".
 
 // Declaring properties, constructors and methods
-// with [dcl()](./mini_js/dcl):
+// with [dcl()](/1.x/docs/mini_js/dcl/):
 var D = dcl(null, {
   declaredClass: "D",
   constructor: function(a, b, c){
@@ -45,7 +45,7 @@ var x = new (dcl([B, M], {}))(1, 2, 3);
 // ## Supercalls
 
 // Make a super call passing through arguments
-// with [dcl/superCall()](./mini_js/supercall):
+// with [dcl/superCall()](/1.x/docs/mini_js/supercall/):
 var E = dcl(D, {
   method: dcl.superCall(function(sup){
     return function(x, y){
@@ -71,21 +71,21 @@ var F = dcl(D, {
 
 // ## Class-level AOP
 
-// Advise "before" with [dcl.before()](./dcl_js/before):
+// Advise "before" with [dcl.before()](/1.x/docs/dcl_js/before/):
 var H = dcl(D, {
   method: dcl.before(function(){
     console.log("Called with arguments: ", arguments);
   })
 });
 
-// Advise "after" with [dcl.after()](./dcl_js/after):
+// Advise "after" with [dcl.after()](/1.x/docs/dcl_js/after/):
 var I = dcl(D, {
   method: dcl.after(function(args, result){
     console.log("Returned result: ", result);
   })
 });
 
-// Advise "around" with [dcl.around()](./dcl_js/around):
+// Advise "around" with [dcl.around()](/1.x/docs/dcl_js/around/):
 var J = dcl(D, {
   method: dcl.around(function(sup){
     return function(x, y){
@@ -104,7 +104,7 @@ var J = dcl(D, {
   })
 });
 
-// Full-blown advising with [dcl.advise()](./dcl_js/advise):
+// Full-blown advising with [dcl.advise()](/1.x/docs/dcl_js/advise/):
 var G = dcl(D, {
   method: dcl.advise({
     before: function(){
@@ -133,10 +133,10 @@ var G = dcl(D, {
 
 // ## Chaining
 
-// Chain after with [dcl.chainAfter()](./dcl_js/chainafter):
+// Chain after with [dcl.chainAfter()](/1.x/docs/dcl_js/chainafter/):
 dcl.chainAfter(D, "method1");
 
-// Chain before [dcl.chainBefore()](./dcl_js/chainbefore):
+// Chain before [dcl.chainBefore()](/1.x/docs/dcl_js/chainbefore/):
 dcl.chainBefore(D, "method2");
 
 // Usually constructors are chained after, while destructors are chained before.
@@ -144,22 +144,22 @@ dcl.chainBefore(D, "method2");
 
 // ## Object-level AOP
 
-// We need [advise](./advise_js) module:
+// We need [advise](/1.x/docs/advise_js/) module:
 var advise = require("dcl/advise");
 
 var x = new J;
 
-// Advise "before" with [advise.before()](./advise_js/before):
+// Advise "before" with [advise.before()](/1.x/docs/advise_js/before/):
 var a1 = advise.before(x, "method", function(){
   console.log("Called with arguments: ", arguments);
 });
 
-// Advise "after" with [advise.after()](./advise_js/after):
+// Advise "after" with [advise.after()](/1.x/docs/advise_js/after/):
 var a2 = advise.before(x, "method", function(args, result){
   console.log("Returned result: ", result);
 });
 
-// Advise "around" with [advise.around()](./advise_js/around):
+// Advise "around" with [advise.around()](/1.x/docs/advise_js/around/):
 var a3 = advise.around(x, "method", function(sup){
   return function(x, y){
     console.log("Got: ", x, " and ", y);
@@ -176,7 +176,7 @@ var a3 = advise.around(x, "method", function(sup){
   };
 });
 
-// Full-blown advising with [advise()](./advise_js/advise):
+// Full-blown advising with [advise()](/1.x/docs/advise_js/advise/):
 var a4 = advise(x, "method", {
   before: function(){
     console.log("Called with arguments: ", arguments);
@@ -206,12 +206,12 @@ a2.unadvise();
 
 // ## Inherited
 
-// We need [inherited](./inherited_js)
+// We need [inherited](/1.x/docs/inherited_js/)
 // module (its value is actually not used):
 var inherited = require("dcl/inherited");
 
 // Make a super call passing through arguments
-// with [inherited()](./inherited_js/inherited):
+// with [inherited()](/1.x/docs/inherited_js/inherited/):
 var K = dcl(D, {
   method: function(x, y){
     return this.inherited(arguments);
@@ -232,7 +232,7 @@ var M = dcl(D, {
   }
 });
 
-// Make a super call with [getInherited()](./inherited_js/getinherited)
+// Make a super call with [getInherited()](/1.x/docs/inherited_js/getinherited/)
 // (works in both strict and non-strict modes):
 var N = dcl(D, {
   method: function(x, y){
@@ -246,7 +246,7 @@ var N = dcl(D, {
 
 // ## Debugging
 
-// We need [debug](./debug_js) module (its inclusion adds
+// We need [debug](/1.x/docs/debug_js/) module (its inclusion adds
 // enhanced error reporting automatically):
 var dclDebug = require("dcl/debug");
 
@@ -255,7 +255,7 @@ var O = dcl(null, {
 });
 var x = new O();
 
-// Log a class with [dclDebug.log()](./debug_js/log):
+// Log a class with [dclDebug.log()](/1.x/docs/debug_js/log/):
 dclDebug.log(O);
 
 // Log an object:

@@ -71,10 +71,10 @@ it works on objects, rather &hellip;">
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -95,7 +95,7 @@ it works on objects, rather &hellip;">
   
   <p><em>Version 1.x</em></p>
 
-<p>This is a function that weaves AOP advices dynamically. Unlike <a href="../dcl_js/advise">dcl.advise()</a>
+<p>This is a function that weaves AOP advices dynamically. Unlike <a href="/1.x/docs/dcl_js/advise/">dcl.advise()</a>
 it works on objects, rather than &ldquo;classes&rdquo;. All advices can be &ldquo;unadvised&rdquo; at any moment.</p>
 
 <h2>Description</h2>
@@ -177,7 +177,7 @@ result values would be distinct.</p>
 
 <h3>Around</h3>
 
-<p>Essentially this advice is the same as <a href="../mini_js/supercall">dcl.superCall()</a>. It uses the same double
+<p>Essentially this advice is the same as <a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a>. It uses the same double
 function pattern, and its behavior is the same.</p>
 
 <h3>Order of advices</h3>
@@ -185,7 +185,7 @@ function pattern, and its behavior is the same.</p>
 <p>Advices are always applied in the following order regardless of their declaration order:</p>
 
 <ol>
-<li>Advices created with [dcl.advise()][/docs/dcl_js/advise] and <code>advise()</code> are equivalent in all respects.</li>
+<li>Advices created with <a href="/1.x/docs/dcl_js/advise/">dcl.advise()</a> and <code>advise()</code> are equivalent in all respects.</li>
 <li>All <code>before</code> advices go first in the reverse chronological order (the last one goes first).</li>
 <li>All <code>around</code> advices go next in the reverse chronological order (the last one goes first). The next <code>around</code> advice
 is called only if its previous <code>around</code> advice yielded control explicitly by calling its super method.</li>
@@ -281,8 +281,8 @@ an alias to <code>unadvise()</code>.</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can find those methods documented respectively in <a href="../advise_js/before">advise.before()</a>,
-<a href="../advise_js/after">advise.after()</a>, and <a href="../advise_js/around">advise.around()</a>.</p>
+<p>You can find those methods documented respectively in <a href="/1.x/docs/advise_js/before/">advise.before()</a>,
+<a href="/1.x/docs/advise_js/after/">advise.after()</a>, and <a href="/1.x/docs/advise_js/around/">advise.around()</a>.</p>
 
   
     <footer>

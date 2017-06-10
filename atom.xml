@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-06-09T21:15:57-05:00</updated>
+  <updated>2017-06-09T23:08:02-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -68,9 +68,9 @@
 </ul>
 
 
-<p><a href="http://www.dcljs.org/1.x/docs">Version 1.x</a> is still supported and will continue to be available for legacy browsers.</p>
+<p><a href="http://www.dcljs.org/1.x/docs/">Version 1.x</a> is still supported and will continue to be available for legacy browsers.</p>
 
-<p>Check out the <a href="http://www.dcljs.org/2.x/docs">full documentation</a>. Use the <a href="http://www.dcljs.org/2.x/docs/installation">installation guide</a> to start using the new <code>dcl</code> in your projects.</p>
+<p>Check out the <a href="http://www.dcljs.org/2.x/docs/">full documentation</a>. Use the <a href="http://www.dcljs.org/2.x/docs/installation/">installation guide</a> to start using the new <code>dcl</code> in your projects.</p>
 ]]></content>
   </entry>
   
@@ -108,7 +108,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 
 <ul>
 <li>Bugfix: a stray comma in a test file, which acted up in legacy browsers.</li>
-<li>Bugfix: <a href="http://www.dcljs.org/1.x/docs/mini_js/mix">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
+<li>Bugfix: <a href="http://www.dcljs.org/1.x/docs/mini_js/mix/">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
 </ul>
 
 
@@ -123,7 +123,7 @@ because it will serve as a foundation for the upcoming major version.</p>
     <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
     <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
 
-<p><a href="http://www.dcljs.org/1.x/docs/legacy_js">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
+<p><a href="http://www.dcljs.org/1.x/docs/legacy_js/">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
 
 <!-- more -->
 
@@ -133,7 +133,7 @@ because it will serve as a foundation for the upcoming major version.</p>
 <ul>
 <li>Added metadata for an extended Dojo release.</li>
 <li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
-<li>Added <a href="http://www.dcljs.org/1.x/docs/legacy_js">legacy.js</a> module, which is a substitute for <a href="http://www.dcljs.org/1.x/docs/mini_js">mini.js</a> in legacy environments.</li>
+<li>Added <a href="http://www.dcljs.org/1.x/docs/legacy_js/">legacy.js</a> module, which is a substitute for <a href="http://www.dcljs.org/1.x/docs/mini_js/">mini.js</a> in legacy environments.</li>
 </ul>
 
 ]]></content>
@@ -238,8 +238,8 @@ demos, and in-depth articles. Get yourself in the know.</p>
     <content type="html"><![CDATA[<p>1.0.1 is a minor update. This version has following changes:</p>
 
 <ul>
-<li>Added <a href="http://www.dcljs.org/1.x/docs/inherited_js/getinherited">getInherited()</a> as an alias for
-<a href="http://www.dcljs.org/1.x/docs/inherited_js/get">inherited.get()</a> to simplify its use. Now
+<li>Added <a href="http://www.dcljs.org/1.x/docs/inherited_js/getinherited/">getInherited()</a> as an alias for
+<a href="http://www.dcljs.org/1.x/docs/inherited_js/get/">inherited.get()</a> to simplify its use. Now
 there is no need to use <code>call()</code> or <code>apply()</code> to specify its instance.</li>
 <li>Added tests for <code>dcl</code> exceptions.</li>
 <li>Added tests for canned advices and mixins.</li>
@@ -291,8 +291,8 @@ like this:</p>
 are legally clean and covered by CLA, so you can use it not only
 for pet projects, but at work too.</p>
 
-<p>For more information hop on <a href="http://www.dcljs.org/about">what is dcl?</a> and learn more.
-Do not forget to look at extensive <a href="http://www.dcljs.org/1.x/docs">documentation</a>, or
+<p>For more information hop on <a href="http://www.dcljs.org/about/">what is dcl?</a> and learn more.
+Do not forget to look at extensive <a href="http://www.dcljs.org/1.x/docs/">documentation</a>, or
 <a href="mailto:eugene@dcljs.org">shoot me an email</a>, if you still have
 more questions.</p>
 ]]></content>

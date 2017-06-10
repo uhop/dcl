@@ -70,10 +70,10 @@
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -95,11 +95,11 @@
   <p><em>Version 1.x</em></p>
 
 <p>This function determines a super method dynamically. It returns it as result, but unlike
-<a href="../inherited_js/inherited">inherited()</a> it doesn&rsquo;t call it immediately. If there is
+<a href="/1.x/docs/inherited_js/inherited/">inherited()</a> it doesn&rsquo;t call it immediately. If there is
 no super method, a falsy value is returned.</p>
 
 <p>While it is slower than the normal way to do supercalls with <code>dcl</code> (see the decorator
-<a href="../mini_js/supercall">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
+<a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a> for details), it doesn&rsquo;t require to modify
 a method according to the double function pattern, and can be applied to
 undecorated methods, which makes it suitable for fast prototyping, and
 transitioning legacy code.</p>
@@ -111,8 +111,8 @@ newly created objects, so you don&rsquo;t need to use the result of the module d
 
 <h2>Description</h2>
 
-<p>This is a companion method for <a href="../inherited_js/inherited">inherited()</a>. In fact,
-it is used in its implementation. Just like <a href="../inherited_js/inherited">inherited()</a>,
+<p>This is a companion method for <a href="/1.x/docs/inherited_js/inherited/">inherited()</a>. In fact,
+it is used in its implementation. Just like <a href="/1.x/docs/inherited_js/inherited/">inherited()</a>,
 it doesn&rsquo;t require to decorate a method, and can be used to add a supercall to any
 arbitrary method, which makes it suitable for transitioning legacy code or fast
 prototyping:</p>
@@ -197,16 +197,16 @@ prototyping:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>As you can see both <code>getInherited()</code> and <a href="../mini_js/supercall">dcl.superCall()</a> look
+<p>As you can see both <code>getInherited()</code> and <a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a> look
 almost identical. The difference is:</p>
 
 <ul>
-<li><a href="../mini_js/supercall">dcl.superCall()</a> works statically and does not incur run-time penalties.</li>
-<li><a href="../mini_js/supercall">dcl.superCall()</a> requires a double function pattern described in <a href="../general/supercalls">Supercalls in JS</a>.</li>
+<li><a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a> works statically and does not incur run-time penalties.</li>
+<li><a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a> requires a double function pattern described in <a href="/1.x/docs/general/supercalls/">Supercalls in JS</a>.</li>
 </ul>
 
 
-<p>For more details please take a look <a href="../inherited_js/inherited">inherited()</a>.</p>
+<p>For more details please take a look <a href="/1.x/docs/inherited_js/inherited/">inherited()</a>.</p>
 
 <h2>FAQ</h2>
 
@@ -217,10 +217,10 @@ almost identical. The difference is:</p>
 <ol>
 <li>A method should make several calls to its super method. By using <code>getInherited()</code>
 and reusing its result, you save CPU ticks making the whole method faster. For even
-faster results consider using <a href="../mini_js/supercall">dcl.superCall()</a>.</li>
+faster results consider using <a href="/1.x/docs/mini_js/supercall/">dcl.superCall()</a>.</li>
 <li>Your code behaves differently when there is no super method, and the default
-provided by <a href="../inherited_js/inherited">inherited()</a> just doesn&rsquo;t work for you.</li>
-<li>While debugging, you don&rsquo;t want to go inside <a href="../inherited_js/inherited">inherited()</a>
+provided by <a href="/1.x/docs/inherited_js/inherited/">inherited()</a> just doesn&rsquo;t work for you.</li>
+<li>While debugging, you don&rsquo;t want to go inside <a href="/1.x/docs/inherited_js/inherited/">inherited()</a>
 (it is debugging-friendly, yet you may want to skip it completely while debugging).
 In this case you step over calls to <code>getInherited()</code> and debug your super methods
 directly.</li>

@@ -71,10 +71,10 @@ it works on objects, rather &hellip;">
   
 <ul class="main-navigation">
   <li><a href="/">Home</a></li>
-  <li><a href="/docs">Docs</a></li>
-	<li><a href="/support">Support</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/about">About</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
 </ul>
 
 </nav>
@@ -95,7 +95,7 @@ it works on objects, rather &hellip;">
   
   <p><em>Version 2.x</em></p>
 
-<p>This is a function that weaves AOP advices dynamically. Unlike <a href="../dcl_js/advise">dcl.advise()</a>
+<p>This is a function that weaves AOP advices dynamically. Unlike <a href="/2.x/docs/dcl_js/advise/">dcl.advise()</a>
 it works on objects, rather than when defining &ldquo;classes&rdquo;. All advices can be &ldquo;unadvised&rdquo; at any moment.</p>
 
 <h2>Description</h2>
@@ -104,15 +104,15 @@ it works on objects, rather than when defining &ldquo;classes&rdquo;. All advice
 
 <ul>
 <li><code>obj</code> - the object to advise. Any object would do, including objects produced without <code>dcl</code>-made constructors.</li>
-<li><code>name</code> - the method name. If the method had AOP advices defined by <a href="../dcl_js/dcl">dcl()</a>, and/or previous calls
+<li><code>name</code> - the method name. If the method had AOP advices defined by <a href="/2.x/docs/dcl_js/dcl/">dcl()</a>, and/or previous calls
 to <code>advise()</code>, they will be properly combined.</li>
-<li><code>advice</code> - the object with properties <code>before</code>, <code>around</code>, and/or <code>after</code>. See <a href="../dcl_js/advise">dcl.advise()</a> for more details.</li>
+<li><code>advice</code> - the object with properties <code>before</code>, <code>around</code>, and/or <code>after</code>. See <a href="/2.x/docs/dcl_js/advise/">dcl.advise()</a> for more details.</li>
 </ul>
 
 
 <p>It returns the object, which defines the method <code>unadvise()</code>. When called without parameters, it removes the corresponding advice from the object, no matter when it was defined. For convenience, this method is aliased as <code>remove()</code>, and <code>destroy()</code>.</p>
 
-<p>How to use advices is described in details in <a href="../dcl_js/advise">dcl.advise()</a>.</p>
+<p>How to use advices is described in details in <a href="/2.x/docs/dcl_js/advise/">dcl.advise()</a>.</p>
 
 <figure class='code'><figcaption><span>advise() </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -170,7 +170,7 @@ to <code>advise()</code>, they will be properly combined.</li>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Like <a href="../dcl_js/advise">dcl.advise()</a>, <code>advise()</code> can be used to advise getters and setters. Unlike <a href="../dcl_js/advise">dcl.advise()</a>, it cannot dynamically convert values to getters, and getters to values. So if you want to advise a getter (or a setter), they should be already defined.</p>
+<p>Like <a href="/2.x/docs/dcl_js/advise/">dcl.advise()</a>, <code>advise()</code> can be used to advise getters and setters. Unlike <a href="/2.x/docs/dcl_js/advise/">dcl.advise()</a>, it cannot dynamically convert values to getters, and getters to values. So if you want to advise a getter (or a setter), they should be already defined.</p>
 
 <figure class='code'><figcaption><span>advise() with getters/setters </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -348,8 +348,8 @@ to <code>advise()</code>, they will be properly combined.</li>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can find those methods documented respectively in <a href="before">advise.before()</a>,
-<a href="after">advise.after()</a>, and <a href="around">advise.around()</a>.</p>
+<p>You can find those methods documented respectively in <a href="/2.x/docs/advise_js/before/">advise.before()</a>,
+<a href="/2.x/docs/advise_js/after/">advise.after()</a>, and <a href="/2.x/docs/advise_js/around/">advise.around()</a>.</p>
 
   
     <footer>

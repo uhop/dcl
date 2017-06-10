@@ -11,7 +11,7 @@
 // even simple `<script>`, this tutorial is assumed to be run with
 // [node.js](http://nodejs.org).*
 
-// For our examples we will need the main [dcl](./dcl_js) module:
+// For our examples we will need the main [dcl](/2.x/docs/dcl_js/) module:
 var dcl = require("dcl");
 
 // TBD
