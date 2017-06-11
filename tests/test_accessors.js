@@ -72,6 +72,27 @@
 			eval(t.TEST('!Object.getOwnPropertyDescriptor(D.prototype, "life").writable'));
 			eval(t.TEST('Object.getOwnPropertyDescriptor(D.prototype, "answer").writable'));
 			eval(t.TEST('Object.getOwnPropertyDescriptor(D.prototype, "constructor").writable'));
+
+			var E = dcl(dcl.prop({
+					life: {
+						value: 42,
+						writable: false,
+						configurable: true,
+						enumerable: true
+					},
+					answer: {
+						value: function () { return this.life; },
+						writable: true
+					}
+				}));
+
+			var e = new E();
+
+			eval(t.TEST('e.life === 42'));
+			eval(t.TEST('e.answer() === 42'));
+			eval(t.TEST('!Object.getOwnPropertyDescriptor(E.prototype, "life").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(E.prototype, "answer").writable'));
+			eval(t.TEST('Object.getOwnPropertyDescriptor(E.prototype, "constructor").writable'));
 		},
 		function test_get_super (t) {
 			var A = dcl({
