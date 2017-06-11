@@ -51,6 +51,17 @@ function (module, unit, dcl, Mixer, Replacer) {
 			eval(t.TEST('x.c === null'));
 			eval(t.TEST('x.d === f'));
 			eval(t.TEST('!("f" in x)'));
+		},
+		function test_Replacer_with_mixins (t) {
+			var A = dcl(Replacer, {a: 0}),
+				B = dcl(Replacer, {b: 0}),
+				C = dcl([Replacer, A, B]);
+
+			var x = new C({a: 1, b: 2, c: 3});
+
+			eval(t.TEST('x.a === 1'));
+			eval(t.TEST('x.b === 2'));
+			eval(t.TEST('!("c" in x)'));
 		}
 	]);
 
