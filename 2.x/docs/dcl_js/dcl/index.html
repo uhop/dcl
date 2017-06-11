@@ -754,7 +754,7 @@ it with super calls &mdash; just define a super call and doesn&rsquo;t call a su
 
 <h3>Can I use <code>[]</code> instead of <code>null</code> as my base?</h3>
 
-<p>No, it wouldn&rsquo;t work.</p>
+<p>Yes, but it is not recommended.</p>
 
 <p>In any case <code>null</code> is a constant, which is shared, while <code>[]</code> is a newly-created object. The latter comes with
 a penalty (it has to be created, and it will add a load to the garbage collector afterwards. <code>null</code> is cheaper, and

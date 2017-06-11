@@ -62,697 +62,697 @@
   </url>
   <url>
     <loc>http://www.dcljs.org/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/blog/archives/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mixins/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mixins/cleanup/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mixins/destroyable/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/tutorial/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/delegate/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/super/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/dcl/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/supercall/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/mini_js/mix/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/node/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/after/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/advise/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/around/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advise_js/before/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/inherited_js/getinherited/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/inherited_js/get/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/inherited_js/inherited/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/inherited_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/around/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/advise/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/advice/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/isinstanceof/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/before/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/chainafter/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/after/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/dcl_js/chainbefore/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/installation/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/legacy_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/general/destructors/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/general/decorator/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/general/multi-stage-construction/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/general/supercalls/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/general/constructors/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/changelog/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/time/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/trace/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/counter/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/flow/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/advices/memoize/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/cheatsheet/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/dclerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/chainingerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/superresulterror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/supercallerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/supererror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/setchainingerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/log/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/debug_js/cycleerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/docs/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/tutorial/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/installation/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/flow/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/counter/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/time/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/trace/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advices/memoize/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/cheatsheet/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/general/constructors/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/general/multi-stage-construction/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/general/decorator/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/general/supercalls/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/general/destructors/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/changelog/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/mixins/destroyable/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/mixins/cleanup/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/mixins/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/before/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/around/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/advise/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/after/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/advise_js/node/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/log/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/bases/mixer/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/bases/replacer/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/support/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/dclerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/supercall/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/collectpropertydescriptors/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/chainwith/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/getpropertydescriptor/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/issuper/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/after/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/weaveafter/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/weavebefore/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/isinstanceof/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/before/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/prop/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/around/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/advise/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/chainafter/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/advice/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/chainbefore/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/weavesuper/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/super/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/dcl_js/dcl/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/bases/replacer/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/bases/mixer/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/bases/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/about/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/cycleerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/supererror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/2.x/docs/debug_js/chainingerror/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://www.dcljs.org/1.x/docs/bases/</loc>
-    <lastmod>2017-06-09T23:08:02-05:00</lastmod>
+    <lastmod>2017-06-10T23:08:48-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
