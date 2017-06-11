@@ -2,7 +2,7 @@
 (['../dcl'], function (dcl) {
 	'use strict';
 
-	return dcl(null, {
+	return dcl({
 		declaredClass: 'dcl/bases/Replacer',
 		constructor: function (x) {
 			var props = dcl.collectPropertyDescriptors({}, x);

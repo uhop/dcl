@@ -2,7 +2,7 @@
 (['../dcl'], function (dcl) {
 	'use strict';
 
-	var Counter = new dcl(null, {
+	var Counter = new dcl({
 		declaredClass: 'dcl/advices/counter/Counter',
 		constructor: function () {
 			this.reset();
