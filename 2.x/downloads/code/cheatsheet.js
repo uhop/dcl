@@ -12,7 +12,7 @@
 // [node.js](http://nodejs.org).*
 
 // For our examples we will need the main [dcl](/2.x/docs/dcl_js/) module:
-var dcl = require("dcl");
+var dcl = require('dcl');
 
 // ## Declaring "classes"
 
@@ -127,12 +127,14 @@ console.log(dcl.isInstanceOf(l, LinearCalculator));  // true
 // Let's attach all possible advices:
 
 var C = dcl({
+  declaredClass: 'C',
   targetForBefore: function () {},
   targetForAfter:  function () {},
   targetForAll:    function () {}
 });
 
 var D = dcl(C, {
+  declaredClass: 'D',
   targetForBefore: dcl.before(function (x) {
     console.log(x);
   }),
@@ -161,4 +163,219 @@ d.targetForBefore(1); // 1
 d.targetForAfter(1);  // undefined
 d.targetForAll(1);    // 1, -1
 
-// To be continued&hellip;
+// ### Chaining
+
+// See [dcl.chainBefore()](/2.x/docs/dcl_js/before/) and
+// [dcl.chainAfter()](/2.x/docs/dcl_js/after/).
+
+var E = dcl({
+  declaredClass: 'E',
+  b: function (x) { console.log('Eb' + x); },
+  a: function (x) { console.log('Ea' + x); }
+});
+dcl.chainBefore(E, 'b');
+dcl.chainAfter (E, 'a');
+
+var F = dcl({
+  declaredClass: 'F',
+  b: function (x) { console.log('Fb' + x); },
+  a: function (x) { console.log('Fa' + x); }
+});
+
+var G = dcl([E, F], {
+  declaredClass: 'G',
+  b: function (x) { console.log('Gb' + x); },
+  a: function (x) { console.log('Ga' + x); }
+});
+
+var g = new G;
+g.b(1); // Gb1, Fb1, Eb1
+g.a(2); // Ea2, Fa2, Ga2
+
+// ### Property descriptors
+
+// See [dcl.prop()](/2.x/docs/dcl_js/prop/).
+
+// Define a read-only property:
+
+var H = dcl({
+  declaredClass: 'H',
+  m1: function () {},
+  m2: dcl.prop({
+    value: function () {},
+    writable: false
+  })
+});
+
+console.log(
+  Object.getOwnPropertyDescriptor(
+    H.prototype, 'm1').writable); // true
+console.log(
+  Object.getOwnPropertyDescriptor(
+    H.prototype, 'm2').writable); // false
+
+// Detect property descriptors:
+
+var I = dcl({
+  declaredClass: 'I',
+  m1: function () {},
+  m2: {
+    value: function () {},
+    writable: false
+  }
+}, {detectProps: true});
+
+console.log(
+  Object.getOwnPropertyDescriptor(
+    I.prototype, 'm1').writable); // true
+console.log(
+  Object.getOwnPropertyDescriptor(
+    I.prototype, 'm2').writable); // false
+
+// Define all "class" properties with property descriptors:
+
+var J = dcl(dcl.prop({
+  declaredClass: {
+    value: 'J'
+  },
+  m1: {
+    value: function () {},
+    writable: true
+  },
+  m2: {
+    value: function () {},
+    writable: false
+  }
+}));
+
+console.log(
+  Object.getOwnPropertyDescriptor(
+    J.prototype, 'm1').writable); // true
+console.log(
+  Object.getOwnPropertyDescriptor(
+    J.prototype, 'm2').writable); // false
+
+// Set defaults for "classic" properties:
+
+var K = dcl({
+  declaredClass: 'K',
+  m1: function () {}
+}, {writable: false});
+
+console.log(
+  Object.getOwnPropertyDescriptor(
+    K.prototype, 'm1').writable); // false
+
+// Advise properties:
+
+var L = dcl(dcl.prop({
+  declaredClass: {
+    value: 'L'
+  },
+  m: {
+    get: dcl.superCall(function (sup) {
+      return function () {
+        return sup ? sup.call(this) : null;
+      };
+    })
+  },
+  p: {
+    get: dcl.advise({
+      before: function () { console.log('getting p'); },
+      around: function (sup) {
+        return function () {
+          return sup ? sup.apply(this, arguments) : null;
+        }
+      }
+    })
+  }
+}));
+
+// ## AOP for objects
+
+// For our examples we will need [advise](/2.x/docs/advise_js/) module:
+var advise = require('dcl/advise');
+
+// See [advise()](/2.x/docs/advise_js/advise/),
+// [advise.before()](/2.x/docs/advise_js/before/),
+// [advise.around()](/2.x/docs/advise_js/around/), and
+// [advise.after()](/2.x/docs/advise_js/after/).
+
+// Let's attach all possible advices:
+
+var m = {
+  targetForBefore: function () {},
+  targetForAround: function () {},
+  targetForAfter:  function () {},
+  targetForAll:    function () {}
+};
+
+advise.before(m, 'targetForBefore', function (x) {
+  console.log(x);
+});
+
+// Don't forget the double function pattern for supercalls and around advices
+// explained in [Supercalls](/2.x/docs/general/supercalls/)!
+advise.around(m, 'targetForAround', function (sup) {
+  return function (x) {
+    var result = sup && sup.call(this, x) ? 1 : -1;
+    console.log(result);
+    return result;
+  };
+});
+
+advise.after(m, 'targetForAfter', function (args, result) {
+  console.log(result);
+});
+
+advise(m, 'targetForAll', {
+  before: function (x) {
+    console.log(x);
+  },
+  // Don't forget the double function pattern for supercalls and around advices
+  // explained in [Supercalls](/2.x/docs/general/supercalls/)!
+  around: function (sup) {
+    return function (x) {
+      return sup && sup.call(this, x) ? 1 : -1;
+    };
+  },
+  after: function (args, result) {
+    console.log(result);
+  }
+});
+
+m.targetForBefore(1); // 1
+m.targetForAround(1); // -1
+m.targetForAfter(1);  // undefined
+m.targetForAll(1);    // 1, -1
+
+// ## Debugging helpers
+
+// For our examples we will need [debug](/2.x/docs/debug_js/) module.
+// We don't store its value, because it augments and returns `dcl`.
+require('dcl/debug');
+
+// See [dcl.log()](/2.x/docs/debug_js/log/).
+
+// Inspect an object:
+dcl.log(m);
+; // *** class does not have meta information compatible with dcl
+; //     targetForBefore: object-level advice (before 1, after 0)
+; //     targetForAround: object-level advice (before 0, after 0)
+; //     targetForAfter: object-level advice (before 0, after 1)
+; //     targetForAll: object-level advice (before 1, after 1)
+
+// Inspect a constructor:
+dcl.log(L);
+; // *** class L depends on 0 classes
+; // *** class L has 3 weavers:
+; //     constructor: after, m: super, p: super
+
+// Inspect an instance:
+dcl.log(g);
+; // *** object of class G
+; // *** class G depends on 2 classes: E, F
+; // *** class G has 3 weavers:
+; //     constructor: after, b: before, a: after
+; //     b: class-level advice (before 0, after 0)
+; //     a: class-level advice (before 0, after 0)

@@ -100,9 +100,14 @@
 
 <p>Working with non-trivial inheritance chains can be puzzling. While the C3 MRO algorithm used by <code>dcl</code> takes care of duplicates and ordering of mixins, in some cases programmer needs to know the exact details of such linearization.</p>
 
-<p>Even more puzzling can be ordering of call chains and/or advices, both static and dynamic.</p>
+<p>When <code>dcl.log()</code> prints what weaver was used for a given property, it uses names of weavers explained in <a href="/2.x/docs/dcl_js/chainwith/">dcl.chainWith()</a>. Specifically, if a property has a weaver named:</p>
 
-<p><code>dcl.log()</code> provides both types of information, and inspects what constructor was used to create an object.</p>
+<ul>
+<li>&ldquo;before&rdquo; &ndash; it was chained with <a href="/2.x/docs/dcl_js/chainBefore/">dcl.chainBefore()</a>, which uses <a href="/2.x/docs/dcl_js/weaverbefore/">dcl.weaverBefore</a>.</li>
+<li>&ldquo;after&rdquo; &ndash; it was chained with <a href="/2.x/docs/dcl_js/chainAfter/">dcl.chainAfter()</a>, which uses <a href="/2.x/docs/dcl_js/weaverafter/">dcl.weaverAfter</a>.</li>
+<li>&ldquo;super&rdquo; &ndash; somewhere in its chain, an AOP advise (or a supercall) was used, which requires using <a href="/2.x/docs/dcl_js/weaversuper/">dcl.weaverSuper</a>.</li>
+</ul>
+
 
 <h2>Examples</h2>
 

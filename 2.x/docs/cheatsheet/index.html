@@ -111,7 +111,7 @@ even simple <code>&lt;script&gt;</code>, this tutorial is assumed to be run with
 
 <figure class='code'><figcaption><span>file.js </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dcl&quot;</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dcl&#39;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -367,13 +367,17 @@ explained in <a href="/2.x/docs/general/supercalls/">Supercalls</a>!</p>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">C</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span>
 </span><span class='line'>  <span class="nx">targetForBefore</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
 </span><span class='line'>  <span class="nx">targetForAfter</span><span class="o">:</span>  <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
 </span><span class='line'>  <span class="nx">targetForAll</span><span class="o">:</span>    <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
 </span><span class='line'><span class="p">});</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">D</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">C</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span>
 </span><span class='line'>  <span class="nx">targetForBefore</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">}),</span>
@@ -430,7 +434,476 @@ explained in <a href="/2.x/docs/general/supercalls/">Supercalls</a>!</p>
 <div class='docco-section-end'></div>
 
 
-<p>To be continued&hellip;</p>
+<h3>Chaining</h3>
+
+<p>See <a href="/2.x/docs/dcl_js/before/">dcl.chainBefore()</a> and
+<a href="/2.x/docs/dcl_js/after/">dcl.chainAfter()</a>.</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">E</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">b</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Eb&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">a</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Ea&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainBefore</span><span class="p">(</span><span class="nx">E</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">chainAfter</span> <span class="p">(</span><span class="nx">E</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">F</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">b</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Fb&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">a</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Fa&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">G</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">([</span><span class="nx">E</span><span class="p">,</span> <span class="nx">F</span><span class="p">],</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">b</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Gb&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>  <span class="nx">a</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Ga&#39;</span> <span class="o">+</span> <span class="nx">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">G</span><span class="p">;</span>
+</span><span class='line'><span class="nx">g</span><span class="p">.</span><span class="nx">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// Gb1, Fb1, Eb1</span>
+</span><span class='line'><span class="nx">g</span><span class="p">.</span><span class="nx">a</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// Ea2, Fa2, Ga2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h3>Property descriptors</h3>
+
+<p>See <a href="/2.x/docs/dcl_js/prop/">dcl.prop()</a>.</p>
+
+<p>Define a read-only property:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">H</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m1</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">m2</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">prop</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">H</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">H</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Detect property descriptors:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">I</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m1</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">m2</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">},</span> <span class="p">{</span><span class="nx">detectProps</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">I</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">I</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Define all &ldquo;class&rdquo; properties with property descriptors:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">J</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">prop</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;J&#39;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">m1</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kc">true</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">m2</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">writable</span><span class="o">:</span> <span class="kc">false</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}));</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">J</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// true</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">J</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Set defaults for &ldquo;classic&rdquo; properties:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">K</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">m1</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+</span><span class='line'><span class="p">},</span> <span class="p">{</span><span class="nx">writable</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+</span><span class='line'>  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">K</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">).</span><span class="nx">writable</span><span class="p">);</span> <span class="c1">// false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Advise properties:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">L</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">dcl</span><span class="p">.</span><span class="nx">prop</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">declaredClass</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;L&#39;</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">m</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">get</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">superCall</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">sup</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">sup</span> <span class="o">?</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">};</span>
+</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">p</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">get</span><span class="o">:</span> <span class="nx">dcl</span><span class="p">.</span><span class="nx">advise</span><span class="p">({</span>
+</span><span class='line'>      <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;getting p&#39;</span><span class="p">);</span> <span class="p">},</span>
+</span><span class='line'>      <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">sup</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>          <span class="k">return</span> <span class="nx">sup</span> <span class="o">?</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">)</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">})</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>AOP for objects</h2>
+
+<p>For our examples we will need <a href="/2.x/docs/advise_js/">advise</a> module:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">advise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dcl/advise&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>See <a href="/2.x/docs/advise_js/advise/">advise()</a>,
+<a href="/2.x/docs/advise_js/before/">advise.before()</a>,
+<a href="/2.x/docs/advise_js/around/">advise.around()</a>, and
+<a href="/2.x/docs/advise_js/after/">advise.after()</a>.</p>
+
+<p>Let&rsquo;s attach all possible advices:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">targetForBefore</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">targetForAround</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">targetForAfter</span><span class="o">:</span>  <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+</span><span class='line'>  <span class="nx">targetForAll</span><span class="o">:</span>    <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">before</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s1">&#39;targetForBefore&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Don&rsquo;t forget the double function pattern for supercalls and around advices
+explained in <a href="/2.x/docs/general/supercalls/">Supercalls</a>!</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">around</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s1">&#39;targetForAround&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">sup</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sup</span> <span class="o">&amp;&amp;</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s1">&#39;targetForAfter&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">advise</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s1">&#39;targetForAll&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">before</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Don&rsquo;t forget the double function pattern for supercalls and around advices
+explained in <a href="/2.x/docs/general/supercalls/">Supercalls</a>!</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'>  <span class="nx">around</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">sup</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">sup</span> <span class="o">&amp;&amp;</span> <span class="nx">sup</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="nx">after</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">m</span><span class="p">.</span><span class="nx">targetForBefore</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 1</span>
+</span><span class='line'><span class="nx">m</span><span class="p">.</span><span class="nx">targetForAround</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// -1</span>
+</span><span class='line'><span class="nx">m</span><span class="p">.</span><span class="nx">targetForAfter</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// undefined</span>
+</span><span class='line'><span class="nx">m</span><span class="p">.</span><span class="nx">targetForAll</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>    <span class="c1">// 1, -1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<h2>Debugging helpers</h2>
+
+<p>For our examples we will need <a href="/2.x/docs/debug_js/">debug</a> module.
+We don&rsquo;t store its value, because it augments and returns <code>dcl</code>.</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dcl/debug&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>See <a href="/2.x/docs/debug_js/log/">dcl.log()</a>.</p>
+
+<p>Inspect an object:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** class does not have meta information compatible with dcl</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     targetForBefore: object-level advice (before 1, after 0)</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     targetForAround: object-level advice (before 0, after 0)</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     targetForAfter: object-level advice (before 0, after 1)</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     targetForAll: object-level advice (before 1, after 1)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Inspect a constructor:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">L</span><span class="p">);</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** class L depends on 0 classes</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** class L has 3 weavers:</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     constructor: after, m: super, p: super</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
+
+<p>Inspect an instance:</p>
+
+<figure class='code'><figcaption><span>file.js </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">dcl</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">g</span><span class="p">);</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** object of class G</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** class G depends on 2 classes: E, F</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">// *** class G has 3 weavers:</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     constructor: after, b: before, a: after</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     b: class-level advice (before 0, after 0)</span>
+</span><span class='line'><span class="p">;</span> <span class="c1">//     a: class-level advice (before 0, after 0)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<div class='docco-section-end'></div>
+
 
 </div>
 
