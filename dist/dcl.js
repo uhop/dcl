@@ -199,7 +199,7 @@
 
 	function getPropertyDescriptor (o, name) {
 		while (o && o !== Object.prototype) {
-			if (o.hasOwnProperty(name)) {
+			if (Object.prototype.hasOwnProperty.call(o, name)) {
 				return Object.getOwnPropertyDescriptor(o, name);
 			}
 			o = Object.getPrototypeOf(o);
@@ -236,7 +236,7 @@
 	        if (base[mname]) {
 	            var baseProps = base[mname].props;
 	            Object.keys(baseProps).forEach(function (name) {
-	                if (special.hasOwnProperty(name)) {
+	                if (Object.prototype.hasOwnProperty.call(special, name)) {
 	                    newSpecial[name] = special[name];
 	                } else {
 	                    props[name] = baseProps[name];
@@ -259,7 +259,7 @@
 	        var prop;
 	        if (base[mname]) {
 	            var baseProps = base[mname].props;
-	            if (baseProps.hasOwnProperty(name)) {
+	            if (Object.prototype.hasOwnProperty.call(baseProps, name)) {
 					prop = baseProps[name];
 				}
 	        } else {
@@ -581,7 +581,7 @@
 
 		// inspect own props
 		Object.keys(props).forEach(function (name) {
-			if (!special.hasOwnProperty(name)) {
+			if (!Object.prototype.hasOwnProperty.call(special, name)) {
 				var prop = props[name];
 				if (prop.get || prop.set) {
 					if (isSuper(prop.get) || isSuper(prop.set)) {
@@ -597,8 +597,8 @@
 
 		// collect simple props, and a list of special props
 		var finalProps = {}, finalSpecial = populateProps(finalProps, mixins, special);
-		if (!finalSpecial.hasOwnProperty(cname)) {
-			finalSpecial[cname] = special.hasOwnProperty(cname) ? special[cname] : dcl.weaveAfter;
+		if (!Object.prototype.hasOwnProperty.call(finalSpecial, cname)) {
+			finalSpecial[cname] = Object.prototype.hasOwnProperty.call(special, cname) ? special[cname] : dcl.weaveAfter;
 		}
 
 		// process special props
@@ -670,7 +670,7 @@
 	function chainWith (ctr, name, weaver) {
 		if (ctr && ctr[mname]) {
 			var special = ctr[mname].special;
-			if (special.hasOwnProperty(name)) {
+			if (Object.prototype.hasOwnProperty.call(special, name)) {
 				var own = special[name];
 				if (own === weaver || own.name === weaver.name || weaver.name === 'super') {
 					return true;
