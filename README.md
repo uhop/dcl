@@ -242,6 +242,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.2 &mdash; *Small stability fix + new utility: registry*
 - 2.0.1 &mdash; *Small corrections to README*
 - 2.0.0 &mdash; *The initial release of 2.x*
 
