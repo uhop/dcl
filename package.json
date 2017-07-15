@@ -13,7 +13,7 @@
   "dependencies": {},
   "devDependencies": {
     "heya-unit": ">=0.1",
-    "heya-globalize": "^1.0.3"
+    "heya-globalize": "^1.1.0"
   },
   "scripts": {
     "test": "node tests/tests.js",
