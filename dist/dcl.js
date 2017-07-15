@@ -204,7 +204,7 @@
 			}
 			o = Object.getPrototypeOf(o);
 		}
-		return; // undefined
+		// otherwise: undefined
 	}
 
 
