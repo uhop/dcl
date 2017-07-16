@@ -208,6 +208,16 @@ var dcl = require('dcl');
 var advise = require('dcl/advise');
 ```
 
+[Babel](https://babeljs.io/) can have problems while compiling UMD modules, because it appears to generate calls to `require()` dynamically. Specifically for that `dcl` comes with a special ES6 distribution located in `"/es6/"` directory:
+
+```js
+// ES6 FTW!
+import dcl from 'dcl/es6/dcl';
+import advise from 'dcl/es6/advise';
+```
+
+*Warning:* make sure that when you use Babel you include `dcl/es6` sources into the compilation set usually by adding `node_modules/dcl/es6` directory.
+
 It can be used with AMD out of box:
 
 ```js
@@ -242,6 +252,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.3 &mdash; *Added ES6 distro*
 - 2.0.2 &mdash; *Small stability fix + new utility: registry*
 - 2.0.1 &mdash; *Small corrections to README*
 - 2.0.0 &mdash; *The initial release of 2.x*
