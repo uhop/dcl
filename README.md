@@ -252,6 +252,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.5 &mdash; *Regenerated ES6 distro.*
 - 2.0.4 &mdash; *Refreshed dev dependencies, fixed ES6 distro.*
 - 2.0.3 &mdash; *Added ES6 distro.*
 - 2.0.2 &mdash; *Small stability fix + new utility: registry.*
