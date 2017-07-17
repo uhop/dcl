@@ -32,9 +32,9 @@ glob@^7.0.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-heya-globalize@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/heya-globalize/-/heya-globalize-1.2.0.tgz#3a4ebf841572961d8215c712594cb882d6191dcd"
+heya-globalize@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/heya-globalize/-/heya-globalize-1.2.1.tgz#03ed1c99c02c849a0de46a4246baf8f4d681eedd"
   dependencies:
     glob "^7.0.0"
     minimist "^1.2.0"
