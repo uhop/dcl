@@ -1,4 +1,4 @@
-import m0 from "../dcl";import m1 from "../advise";export default ((_,f)=>f(m0,m1))
+import m0 from "../dcl";import m1 from "../advise";export default (function(_,f){return f(m0,m1);})
 (['../dcl', '../advise'], function (dcl, advise) {
 	'use strict';
 

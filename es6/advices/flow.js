@@ -1,4 +1,4 @@
-export default ((_,f)=>f())
+export default (function(_,f){return f();})
 ([], function () {
 	'use strict';
 

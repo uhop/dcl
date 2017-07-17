@@ -1,4 +1,4 @@
-import m0 from "../dcl";import m1 from "./Destroyable";export default ((_,f)=>f(m0,m1))
+import m0 from "../dcl";import m1 from "./Destroyable";export default (function(_,f){return f(m0,m1);})
 (['../dcl', './Destroyable'], function (dcl, Destroyable) {
 	'use strict';
 
