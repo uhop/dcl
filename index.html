@@ -9,8 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="New major release 2.0 for Node and ES5 browsers builds on 1.x branch, and adds following features: Simplified API.
-Supports ES5 features: getters, &hellip;">
+  <meta name="description" content="dcl can be used with projects based on ES6. Unfortunately some tools had problems with dcl in a certain configuration: For Node-based projects the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +81,92 @@ Supports ES5 features: getters, &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-07-19T23:25:35-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:25 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>dcl</code> can be used with projects based on ES6. Unfortunately some tools had problems with <code>dcl</code> in a certain configuration:</p>
+
+<ul>
+<li>For Node-based projects the browser globals distribution (see <a href="/2.x/docs/installation/">Installation</a>) cannot be used.</li>
+<li>Tools like <a href="https://webpack.github.io/">webpack</a> are difficult to configure to bypass certain modules from totally unnecessary compilation step.
+
+<ul>
+<li><a href="https://babeljs.io/">Babel</a> is used to compile from ES6 to ES5 all modules regardless of the fact that <code>dcl</code> uses strict ES5 subset.</li>
+<li>Babel has problems with UMD unable to decipher static dependencies from it.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>To make <code>dcl</code> more Babel-friendly so it can be easily used in <a href="https://facebook.github.io/react/">React</a>-based projects, or any projects, where tooling is based on webpack, new distribution was introduced: <code>/es6/</code>.</p>
+
+<p>Starting with version 2.0.3 <code>dcl</code> has a special directory <code>/es6/</code>, which contains processed modules with dependencies done in the ES6 style with <code>import</code> statements. They expose their APIs with <code>export default</code>.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/07/19/using-dcl-with-es6/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-07-19T23:07:07-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:07 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>New utility was added to <code>dcl</code> in 2.0.2: <a href="/2.x/docs/utils/registry/">registry</a>.</p>
+
+<p>Registry automatically collects all newly-declared constructors, if they define <code>declaredClass</code> property. Later they can be accessed by names. This feature is useful to decouple a declaration of a constructor from places that use it, and for debugging purposes. It provides a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>-like API, so users can inspect and manipulate the registry.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/07/19/new-addition-registry/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -391,84 +476,6 @@ for front-end projects. If you use jam to manage your project dependencies, you 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-30T14:20:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:20 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>New update was pushed out. Changes:</p>
-
-<ul>
-<li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
-to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
-because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
-(???), and forces to allow <code>eval</code> globally.</li>
-</ul>
-
-
-<p>This update doesn&rsquo;t affect any functionality, and can be safely skipped, if you
-don&rsquo;t work with security-constrained environments.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/21/inroduction-to-dcl/">Inroduction to dcl</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-21T01:05:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>1:05 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://davidwalsh.name/about-david-walsh">David Walsh</a> has asked me
-to do a guest blog post. When I offered him to write about <code>dcl</code>,
-he agreed, and here we go:
-<a href="http://davidwalsh.name/intro-dcl">Introduction to dcl</a>.</p>
-
-<p>If you don&rsquo;t read <a href="http://davidwalsh.name/">David&rsquo;s blog</a> regularly,
-and you are serious about web applications, you are missing out.
-He frequently publishes very interesting articles on JavaScript, CSS,
-new development in browsers, and so on. Check out his tutorials,
-demos, and in-depth articles. Get yourself in the know.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -500,6 +507,14 @@ demos, and in-depth articles. Get yourself in the know.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
       </li>
     
@@ -509,14 +524,6 @@ demos, and in-depth articles. Get yourself in the know.</p>
     
       <li class="post">
         <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
   </ul>

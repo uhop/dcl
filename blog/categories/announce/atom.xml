@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-06-12T22:53:09-05:00</updated>
+  <updated>2017-07-19T23:43:17-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -12,6 +12,126 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using dcl with ES6]]></title>
+    <link href="http://www.dcljs.org/blog/2017/07/19/using-dcl-with-es6/"/>
+    <updated>2017-07-19T23:25:35-05:00</updated>
+    <id>http://www.dcljs.org/blog/2017/07/19/using-dcl-with-es6</id>
+    <content type="html"><![CDATA[<p><code>dcl</code> can be used with projects based on ES6. Unfortunately some tools had problems with <code>dcl</code> in a certain configuration:</p>
+
+<ul>
+<li>For Node-based projects the browser globals distribution (see <a href="/2.x/docs/installation/">Installation</a>) cannot be used.</li>
+<li>Tools like <a href="https://webpack.github.io/">webpack</a> are difficult to configure to bypass certain modules from totally unnecessary compilation step.
+
+<ul>
+<li><a href="https://babeljs.io/">Babel</a> is used to compile from ES6 to ES5 all modules regardless of the fact that <code>dcl</code> uses strict ES5 subset.</li>
+<li>Babel has problems with UMD unable to decipher static dependencies from it.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>To make <code>dcl</code> more Babel-friendly so it can be easily used in <a href="https://facebook.github.io/react/">React</a>-based projects, or any projects, where tooling is based on webpack, new distribution was introduced: <code>/es6/</code>.</p>
+
+<p>Starting with version 2.0.3 <code>dcl</code> has a special directory <code>/es6/</code>, which contains processed modules with dependencies done in the ES6 style with <code>import</code> statements. They expose their APIs with <code>export default</code>.</p>
+
+<!-- more -->
+
+
+<p>This feature is modeled after <code>/dist/</code> directory, which hosts processed modules with browser global-based dependencies ready to be included with <code>&lt;script&gt;</code> or concatenated with other browser-ready files.</p>
+
+<p>In order to use <code>dcl</code> in your ES6-based project just import its modules like that:</p>
+
+<pre><code class="js">import dcl from `dcl/es6/dcl`;
+import advise from `dcl/es6/advise`;
+
+// more examples
+import registry from `dcl/es6/utils/registry`;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New addition: registry]]></title>
+    <link href="http://www.dcljs.org/blog/2017/07/19/new-addition-registry/"/>
+    <updated>2017-07-19T23:07:07-05:00</updated>
+    <id>http://www.dcljs.org/blog/2017/07/19/new-addition-registry</id>
+    <content type="html"><![CDATA[<p>New utility was added to <code>dcl</code> in 2.0.2: <a href="/2.x/docs/utils/registry/">registry</a>.</p>
+
+<p>Registry automatically collects all newly-declared constructors, if they define <code>declaredClass</code> property. Later they can be accessed by names. This feature is useful to decouple a declaration of a constructor from places that use it, and for debugging purposes. It provides a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>-like API, so users can inspect and manipulate the registry.</p>
+
+<!-- more -->
+
+
+<p><figure class='code'><figcaption><span>Examples of using registry </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">registry</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">utils</span><span class="o">/</span><span class="nx">registry</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="c1">// next constructor will be registered automatically</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">A</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// &amp;hellip;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">A</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;));</span>    <span class="c1">// true&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">A2</span> <span class="o">=</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">A</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">A</span> <span class="o">===</span> <span class="nx">A2</span><span class="p">);</span>             <span class="c1">// true&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="c1">// let&amp;rsquo;s register more</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">B</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// &amp;hellip;</span>
+</span><span class='line'>  <span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="c1">// let&amp;rsquo;s inspect the registry</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">We</span> <span class="nx">have</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">registered</span> <span class="nx">classes</span><span class="o">:&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'><span class="nx">keys</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">B</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;))();</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="c1">// let&amp;rsquo;s unregister A</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">A</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;));</span> <span class="c1">// true&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="c1">// let&amp;rsquo;s unregister all constructors</span>
+</span><span class='line'><span class="nx">registry</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[New major release: 2.0]]></title>
@@ -96,46 +216,6 @@ internals were refactored, and updated to improve their readability and maintain
 
 <p>This update can be safely skipped by most users, yet I advise to test it against your codebase,
 because it will serve as a foundation for the upcoming major version.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Micro update: 1.1.1]]></title>
-    <link href="http://www.dcljs.org/blog/2013/11/05/micro-update-1-dot-1-1/"/>
-    <updated>2013-11-05T16:31:00-06:00</updated>
-    <id>http://www.dcljs.org/blog/2013/11/05/micro-update-1-dot-1-1</id>
-    <content type="html"><![CDATA[<p>New release of <code>dcl</code> (1.1.1) includes two minor bug fixes:</p>
-
-<ul>
-<li>Bugfix: a stray comma in a test file, which acted up in legacy browsers.</li>
-<li>Bugfix: <a href="/1.x/docs/mini_js/mix/">dcl.mix()</a> was called directly in the base modules preventing it from being monkey-patched.</li>
-</ul>
-
-
-<p>Most users can safely skip this update, unless they are directly affected by the monkey-patch bug.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[1.1: legacy]]></title>
-    <link href="http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy/"/>
-    <updated>2013-10-04T23:11:00-05:00</updated>
-    <id>http://www.dcljs.org/blog/2013/10/04/1-dot-1-legacy</id>
-    <content type="html"><![CDATA[<p>This is a major update, which includes support for legacy browsers (IE &lt; 9). It doesn&rsquo;t affect existing users, because it doesn&rsquo;t change the API or its semantics, but provides an option for legacy applications. It is considered &ldquo;major&rdquo; because it changes some internal plumbing.</p>
-
-<p><a href="/1.x/docs/legacy_js/">legacy.js</a> documentation contains all necessary background information for the change, and recommendations on how to use it in real projects.</p>
-
-<!-- more -->
-
-
-<p>Changes:</p>
-
-<ul>
-<li>Added metadata for an extended Dojo release.</li>
-<li>Internal code is better formatted, better documented, variables are renamed to use more suggestive names.</li>
-<li>Added <a href="/1.x/docs/legacy_js/">legacy.js</a> module, which is a substitute for <a href="/1.x/docs/mini_js/">mini.js</a> in legacy environments.</li>
-</ul>
-
 ]]></content>
   </entry>
   

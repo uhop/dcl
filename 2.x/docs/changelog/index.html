@@ -9,7 +9,7 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="ChangeLog Jun 4th, 2017 10:46 pm Version 2.x Major version: 2.0 2.0.1 Updated links on the web site and in README of the project. No need to upgrade &hellip;">
+  <meta name="description" content="ChangeLog Jun 4th, 2017 10:46 pm Version 2.x Major version: 2.0 2.0.5 es6 distribution was regenerated to update corresponding modules. The final &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,37 @@
 
 <h2>Major version: 2.0</h2>
 
+<h3>2.0.5</h3>
+
+<p><code>es6</code> distribution was regenerated to update corresponding modules. The final version was successfully used in a real React project to verify the correctness.</p>
+
+<p>No need to upgrade for most users.</p>
+
+<h3>2.0.4</h3>
+
+<p>It turned out that depending on settings Babel may have a problem with an arrow function in ES6 prologue. It was downgraded to a regular function, fixed upstream, and propagated to <code>dcl</code>.</p>
+
+<p>No need to upgrade for most users.</p>
+
+<h3>2.0.3</h3>
+
+<p>Added new specialized distribution similar to <code>dist</code>: <code>es6</code>. While modules in <code>dist</code> are based on browser globals, and ready to be added with <code>&lt;script&gt;</code>, files in <code>es6</code> follow the ES6 module conventions, and <a href="https://babeljs.io/">Babel</a>-friendly. Use them right away with <a href="https://facebook.github.io/react/">React</a> projects, practically any <a href="https://webpack.github.io/">webpack</a>-based projects, and anything based on Babel.</p>
+
+<p>No need to upgrade for most users.</p>
+
+<h3>2.0.2</h3>
+
+<p>Stability fix: some objects can have <code>hasOwnProperty()</code> method overwritten preventing <code>dcl</code> from working properly. In those cases all calls like <code>o.hasOwnProperty(name)</code> were replaced with more stable version:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Additionally a new utility was introduced: <code>utils/registry.js</code>. The <a href="/2.x/docs/utils/registry/">registry</a> plugs in <code>dcl</code>, and returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>-like API, so a user can interrogate what constructors are registered, and retrieve them by their <code>declaredClass</code> names. Very useful for development, and to access constructors indirectly using names.</p>
+
+<p>No need to upgrade for most users.</p>
+
 <h3>2.0.1</h3>
 
 <p>Updated links on the web site and in README of the project. No need to upgrade for most users.</p>
@@ -151,6 +182,14 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
       </li>
     
@@ -160,14 +199,6 @@
     
       <li class="post">
         <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
   </ul>

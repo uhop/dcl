@@ -9,9 +9,8 @@
   <meta name="author" content="Eugene Lazutkin">
 
   
-  <meta name="description" content="1.0.1 is a minor update. This version has following changes: Added getInherited() as an alias for
-inherited.get() to simplify its use. Now
-there is &hellip;">
+  <meta name="description" content="New update was pushed out. Changes: Some instances of new Function were replaced with function(){}
+to bypass Content Security Policy restrictions, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +82,84 @@ there is &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/30/micro-update-1-dot-0-2/">Micro update: 1.0.2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-12-30T14:20:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:20 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>New update was pushed out. Changes:</p>
+
+<ul>
+<li>Some instances of <code>new Function</code> were replaced with <code>function(){}</code>
+to bypass <a href="https://dvcs.w3.org/hg/content-security-policy/raw-file/bcf1c45f312f/csp-unofficial-draft-20110303.html">Content Security Policy</a> restrictions,
+because <code>new Function</code> even without any parameters is considered to be <code>eval</code>
+(???), and forces to allow <code>eval</code> globally.</li>
+</ul>
+
+
+<p>This update doesn&rsquo;t affect any functionality, and can be safely skipped, if you
+don&rsquo;t work with security-constrained environments.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/21/inroduction-to-dcl/">Inroduction to dcl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-12-21T01:05:00-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>1:05 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://davidwalsh.name/about-david-walsh">David Walsh</a> has asked me
+to do a guest blog post. When I offered him to write about <code>dcl</code>,
+he agreed, and here we go:
+<a href="http://davidwalsh.name/intro-dcl">Introduction to dcl</a>.</p>
+
+<p>If you don&rsquo;t read <a href="http://davidwalsh.name/">David&rsquo;s blog</a> regularly,
+and you are serious about web applications, you are missing out.
+He frequently publishes very interesting articles on JavaScript, CSS,
+new development in browsers, and so on. Check out his tutorials,
+demos, and in-depth articles. Get yourself in the know.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -203,6 +280,14 @@ in the open.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
       </li>
     
@@ -212,14 +297,6 @@ in the open.</p>
     
       <li class="post">
         <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
   </ul>

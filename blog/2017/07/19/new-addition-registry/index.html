@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>New addition: registry - DCL</title>
+  <meta name="author" content="Eugene Lazutkin">
+
+  
+  <meta name="description" content="New utility was added to dcl in 2.0.2: registry. Registry automatically collects all newly-declared constructors, if they define declaredClass &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.dcljs.org/blog/2017/07/19/new-addition-registry">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/fav144.png" rel="apple-touch-icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="DCL" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-33552109-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body    >
+  <header role="banner"><hgroup>
+  <h1><a href="/">DCL</a></h1>
+  
+    <h2>An elegant OOP with mixins + AOP for JavaScript.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="www.dcljs.org">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/docs/">Docs</a></li>
+	<li><a href="/support/">Support</a></li>
+	<li><a href="/blog/archives/">Archives</a></li>
+	<li><a href="/about/">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">New addition: registry</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-07-19T23:07:07-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:07 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>New utility was added to <code>dcl</code> in 2.0.2: <a href="/2.x/docs/utils/registry/">registry</a>.</p>
+
+<p>Registry automatically collects all newly-declared constructors, if they define <code>declaredClass</code> property. Later they can be accessed by names. This feature is useful to decouple a declaration of a constructor from places that use it, and for debugging purposes. It provides a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>-like API, so users can inspect and manipulate the registry.</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>Examples of using registry </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">registry</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dcl/utils/registry&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// next constructor will be registered automatically</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;A&#39;</span>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">));</span>    <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">A2</span> <span class="o">=</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">A</span> <span class="o">===</span> <span class="nx">A2</span><span class="p">);</span>             <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s register more</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dcl</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">declaredClass</span><span class="o">:</span> <span class="s1">&#39;B&#39;</span>
+</span><span class='line'>    <span class="c1">// ...</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s inspect the registry</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;We have&#39;</span><span class="p">,</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s1">&#39;registered classes:&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nx">keys</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">))();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s unregister A</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">));</span> <span class="c1">// true</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// let&#39;s unregister all constructors</span>
+</span><span class='line'><span class="nx">registry</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Eugene Lazutkin</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2017-07-19T23:07:07-05:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:07 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/announce/'>announce</a>
+  
+</span>
+
+
+    </p>
+    
+      
+<div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://www.dcljs.org/blog/2017/07/19/new-addition-registry/" data-via="uhop" data-counturl="http://www.dcljs.org/blog/2017/07/19/new-addition-registry/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2017/06/09/new-major-release-2-dot-0/" title="Previous Post: New major release: 2.0">&laquo; New major release: 2.0</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2017/07/19/using-dcl-with-es6/" title="Next Post: Using dcl with ES6">Using dcl with ES6 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Social</h1>
+  <p><code>dcl</code> on <a href="https://plus.google.com/+dcljs-oop-aop" rel="publisher">Google+</a>.<br>
+  <code>dcl</code> on <a href="https://twitter.com/dcl_js">Twitter</a>.</p>
+</section>
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109185893580826547067?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/06/1-dot-1-3-micro-update/">1.1.3: micro update</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Eugene Lazutkin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">var sc_project=8158109, sc_invisible= 1, sc_security="13e920e4";</script>
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+	<div class="statcounter">
+		<a title="tumblr hit tracking tool" href="http://statcounter.com/tumblr/" target="_blank">
+			<img class="statcounter" src="http://c.statcounter.com/8158109/0/13e920e4/1/" alt="tumblr hit tracking tool">
+		</a>
+	</div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+</body>
+</html>

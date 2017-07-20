@@ -117,6 +117,15 @@ yarn add dcl@2 &hellip;">
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>For ES6-based projects, especially ones using <a href="https://babeljs.io/">Babel</a> (e.g, <a href="https://facebook.github.io/react/">React</a>, or anything <a href="https://webpack.github.io/">webpack</a>-based), starting with 2.0.3 the special distribution is generated in <code>/es6/</code> directory, which can be used like that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kr">import</span> <span class="nx">dcl</span> <span class="nx">from</span> <span class="err">`</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">es6</span><span class="o">/</span><span class="nx">dcl</span><span class="err">`</span><span class="p">;</span>
+</span><span class='line'><span class="kr">import</span> <span class="nx">advise</span> <span class="nx">from</span> <span class="err">`</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">es6</span><span class="o">/</span><span class="nx">advise</span><span class="err">`</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 <p>Alternatively, you can use <a href="https://unpkg.com/">https://unpkg.com/</a> with AMD:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -131,8 +140,7 @@ yarn add dcl@2 &hellip;">
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can always find the latest code in <a href="https://github.com/uhop/dcl">github.com/uhop/dcl</a>,
-and copy necessary files manually, or clone the whole project, if you wish.</p>
+<p>You can always find the latest code in <a href="https://github.com/uhop/dcl">github.com/uhop/dcl</a>, and copy necessary files manually, or clone the whole project, if you wish.</p>
 
 <h2>Globals</h2>
 
@@ -210,6 +218,11 @@ and copy necessary files manually, or clone the whole project, if you wish.</p>
 <td> mixin                   </td>
 <td> <code>dcl.mixins.Destroyable</code> </td>
 </tr>
+<tr>
+<td> <code>utils/registry.js</code>     </td>
+<td> utility                 </td>
+<td> <code>dcl.utils.registry</code>     </td>
+</tr>
 </tbody>
 </table>
 
@@ -259,6 +272,14 @@ and copy necessary files manually, or clone the whole project, if you wish.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/19/using-dcl-with-es6/">Using dcl with ES6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/19/new-addition-registry/">New addition: registry</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/06/09/new-major-release-2-dot-0/">New major release: 2.0</a>
       </li>
     
@@ -268,14 +289,6 @@ and copy necessary files manually, or clone the whole project, if you wish.</p>
     
       <li class="post">
         <a href="/blog/2014/12/28/1-dot-1-2-technical-release/">1.1.2: technical release</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/11/05/micro-update-1-dot-1-1/">Micro update: 1.1.1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/04/1-dot-1-legacy/">1.1: legacy</a>
       </li>
     
   </ul>
