@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-07-19T23:49:20-05:00</updated>
+  <updated>2017-07-19T23:52:18-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -103,8 +103,6 @@
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
 </pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">registry</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dcl/utils/registry&#39;</span><span class="p">);</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// next constructor will be registered automatically</span>
@@ -125,10 +123,8 @@
 </span><span class='line'>
 </span><span class='line'><span class="c1">// let&#39;s inspect the registry</span>
 </span><span class='line'><span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nx">registry</span><span class="p">.</span><span class="nx">keys</span><span class="p">();</span>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;We have&#39;</span><span class="p">,</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s1">&#39;registered classes:&#39;</span><span class="p">);</span>
-</span><span class='line'><span class="nx">keys</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
-</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;We have&#39;</span><span class="p">,</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;registered classes:&#39;</span><span class="p">,</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">));</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">registry</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">))();</span>
 </span><span class='line'>
