@@ -4,7 +4,7 @@
   <title><![CDATA[DCL]]></title>
   <link href="http://www.dcljs.org/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-07-19T23:43:17-05:00</updated>
+  <updated>2017-07-19T23:49:20-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -48,11 +48,11 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kr">import</span> <span class="nx">dcl</span> <span class="nx">from</span> <span class="err">`</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">es6</span><span class="o">/</span><span class="nx">dcl</span><span class="err">`</span><span class="p">;</span>
-</span><span class='line'><span class="kr">import</span> <span class="nx">advise</span> <span class="nx">from</span> <span class="err">`</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">es6</span><span class="o">/</span><span class="nx">advise</span><span class="err">`</span><span class="p">;</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kr">import</span> <span class="nx">dcl</span> <span class="nx">from</span> <span class="s1">&#39;dcl/es6/dcl&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="kr">import</span> <span class="nx">advise</span> <span class="nx">from</span> <span class="s1">&#39;dcl/es6/advise&#39;</span><span class="p">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="c1">// more examples</span>
-</span><span class='line'><span class="kr">import</span> <span class="nx">registry</span> <span class="nx">from</span> <span class="err">`</span><span class="nx">dcl</span><span class="o">/</span><span class="nx">es6</span><span class="o">/</span><span class="nx">utils</span><span class="o">/</span><span class="nx">registry</span><span class="err">`</span><span class="p">;</span>
+</span><span class='line'><span class="kr">import</span> <span class="nx">registry</span> <span class="nx">from</span> <span class="s1">&#39;dcl/es6/utils/registry&#39;</span><span class="p">;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>

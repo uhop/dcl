@@ -4,7 +4,7 @@
   <title><![CDATA[Category: announce | DCL]]></title>
   <link href="http://www.dcljs.org/blog/categories/announce/atom.xml" rel="self"/>
   <link href="http://www.dcljs.org/"/>
-  <updated>2017-07-19T23:43:17-05:00</updated>
+  <updated>2017-07-19T23:49:20-05:00</updated>
   <id>http://www.dcljs.org/</id>
   <author>
     <name><![CDATA[Eugene Lazutkin]]></name>
@@ -43,11 +43,11 @@
 
 <p>In order to use <code>dcl</code> in your ES6-based project just import its modules like that:</p>
 
-<pre><code class="js">import dcl from `dcl/es6/dcl`;
-import advise from `dcl/es6/advise`;
+<pre><code class="js">import dcl from 'dcl/es6/dcl';
+import advise from 'dcl/es6/advise';
 
 // more examples
-import registry from `dcl/es6/utils/registry`;
+import registry from 'dcl/es6/utils/registry';
 </code></pre>
 ]]></content>
   </entry>
