@@ -11,7 +11,7 @@
 	// tests
 
 	unit.add(module, [
-		function test_si (t) {
+		function test_simple (t) {
 			var A = dcl(null, {declaredClass: 'A'});
 			var B = dcl(A, {declaredClass: 'B'});
 			var C = dcl(B, {declaredClass: 'C'});
