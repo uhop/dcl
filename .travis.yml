@@ -1,4 +1,7 @@
-sudo: false
+sudo: required
+
+addon:
+  chrome: stable
 
 language: node_js
 
@@ -18,6 +21,6 @@ matrix:
     - node_js: "8"
       env: PHANTOM=true
 
-before_script: if [ "$PHANTOM" == "true" ]; then export RUN_TEST="phantomjs tests/phantom.js"; else export RUN_TEST="npm test"; fi
+before_script: if [ "$PHANTOM" == "true" ]; then export RUN_TEST="npm run test-browser"; else export RUN_TEST="npm test"; fi
 
 script: $RUN_TEST

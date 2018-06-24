@@ -12,12 +12,15 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "heya-unit": ">=0.1",
-    "heya-globalize": "^1.2.1"
+    "heya-globalize": "^1.2.1",
+    "heya-unit": "^0.3.0",
+    "puppeteer": "^1.5.0"
   },
   "scripts": {
     "test": "node tests/tests.js",
-    "dist": "node node_modules/heya-globalize/index.js && node node_modules/heya-globalize/index.js --es6 --target=es6"
+    "test-browser": "node tests/puppeteer.js",
+    "dist": "node node_modules/heya-globalize/index.js && node node_modules/heya-globalize/index.js --es6 --target=es6",
+    "prepublishOnly": "npm run dist"
   },
   "github": "http://github.com/uhop/dcl",
   "repository": {
