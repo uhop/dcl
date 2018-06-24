@@ -131,7 +131,7 @@
 				handles.forEach(function (handle) { handle.remove(); });
 			}
 		}
-		handle.unadvise = handle.remove;
+		handle.destroy = handle.unadvise = handle.remove;
 		return handle;
 	}
 
