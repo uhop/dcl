@@ -11,16 +11,16 @@ node_js:
   - "10"
 
 env:
-  - PHANTOM=true
-  - PHANTOM=false
+  - BROWSER=true
+  - BROWSER=false
 
 matrix:
   exclude:
     - node_js: "6"
-      env: PHANTOM=true
+      env: BROWSER=true
     - node_js: "8"
-      env: PHANTOM=true
+      env: BROWSER=true
 
-before_script: if [ "$PHANTOM" == "true" ]; then export RUN_TEST="npm run test-browser"; else export RUN_TEST="npm test"; fi
+before_script: if [ "$BROWSER" == "true" ]; then export RUN_TEST="npm run test-browser"; else export RUN_TEST="npm test"; fi
 
 script: $RUN_TEST
