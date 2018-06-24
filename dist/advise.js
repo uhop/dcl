@@ -131,7 +131,7 @@
 				handles.forEach(function (handle) { handle.remove(); });
 			}
 		}
-		handle.unadvise = handle.remove;
+		handle.destroy = handle.unadvise = handle.remove;
 		return handle;
 	}
 
@@ -163,17 +163,17 @@
 				if (advice.get) {
 					result = convert(null, advice.get, instance, name, 'get');
 					prop.get = result.value;
-					handles.push(result.handles);
+					handles.push(result.handle);
 				}
 				if (advice.set) {
 					result = convert(null, advice.set, instance, name, 'set');
 					prop.set = result.value;
-					handles.push(result.handles);
+					handles.push(result.handle);
 				}
 			} else {
 				result = convert(null, advice, instance, name, 'value');
 				prop.value = result.value;
-				handles.push(result.handles);
+				handles.push(result.handle);
 			}
 		}
 		Object.defineProperty(instance, name, prop);
