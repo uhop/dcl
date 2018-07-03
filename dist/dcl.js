@@ -51,7 +51,7 @@
 			(base[mname] ? base[mname].bases : [base]).forEach(function (base, index, array) {
 				if (connectivity.has(base)) {
 					var value = connectivity.get(base);
-					++value.counter;
+					index + 1 != array.length && ++value.counter;
 					if (index) {
 						value.links.push(array[index - 1]);
 					}
