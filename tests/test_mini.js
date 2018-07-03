@@ -191,6 +191,21 @@
 			} finally {
 				eval(t.TEST('failed'));
 			}
+		},
+		function test_four_classes (t) {
+			var A = dcl(null, {declaredClass: 'A'});
+			var B = dcl(null, {declaredClass: 'B'});
+			var C = dcl(A, {declaredClass: 'C'});
+			var D = dcl([B, C], {declaredClass: 'D'});
+
+			eval(t.TEST('getNames(A) === "A"'));
+			eval(t.TEST('getNames(B) === "B"'));
+			eval(t.TEST('getNames(C) === "A,C"'));
+			eval(t.TEST('getNames(D) === "B,A,C,D"'));
+
+			var E = dcl([D, A], {declaredClass: 'E'});
+
+			eval(t.TEST('getNames(E) === "B,A,C,D,E"'));
 		}
 	]);
 
