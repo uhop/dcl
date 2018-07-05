@@ -252,6 +252,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.8 &mdash; *Added AMD distro.*
 - 2.0.7 &mdash; *A bugfix. Thx [Bill Keese](https://github.com/wkeese)!*
 - 2.0.6 &mdash; *Bugfixes. Thx [Bill Keese](https://github.com/wkeese)!*
 - 2.0.5 &mdash; *Regenerated ES6 distro.*
