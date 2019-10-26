@@ -6,9 +6,10 @@ addon:
 language: node_js
 
 node_js:
-  - "6"
   - "8"
   - "10"
+  - "12"
+  - "13"
 
 env:
   - BROWSER=true
@@ -16,9 +17,11 @@ env:
 
 matrix:
   exclude:
-    - node_js: "6"
-      env: BROWSER=true
     - node_js: "8"
+      env: BROWSER=true
+    - node_js: "10"
+      env: BROWSER=true
+    - node_js: "12"
       env: BROWSER=true
 
 before_script: if [ "$BROWSER" == "true" ]; then export RUN_TEST="npm run test-browser"; else export RUN_TEST="npm test"; fi

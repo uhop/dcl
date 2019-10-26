@@ -1,11 +1,12 @@
 # `dcl`
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/uhop/dcl.svg)](https://greenkeeper.io/)
 
 [![Build status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
+
+[![Greenkeeper][greenkeeper-image]][greenkeeper-url]
 [![Dependencies][deps-image]][deps-url]
 [![devDependencies][dev-deps-image]][dev-deps-url]
-[![NPM version][npm-image]][npm-url]
 
 A minimalistic yet complete JavaScript package for [node.js](http://nodejs.org)
 and modern browsers that implements OOP with mixins + AOP at both "class" and
@@ -254,6 +255,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.9 &mdash; *Refreshed dev dependencies, removed `yarn.lock`.*
 - 2.0.8 &mdash; *Added AMD distro.*
 - 2.0.7 &mdash; *A bugfix. Thx [Bill Keese](https://github.com/wkeese)!*
 - 2.0.6 &mdash; *Bugfixes. Thx [Bill Keese](https://github.com/wkeese)!*
@@ -272,11 +274,13 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 BSD or AFL &mdash; your choice.
 
-[npm-image]:      https://img.shields.io/npm/v/dcl.svg
-[npm-url]:        https://npmjs.org/package/dcl
-[deps-image]:     https://img.shields.io/david/uhop/dcl.svg
-[deps-url]:       https://david-dm.org/uhop/dcl
-[dev-deps-image]: https://img.shields.io/david/dev/uhop/dcl.svg
-[dev-deps-url]:   https://david-dm.org/uhop/dcl?type=dev
-[travis-image]:   https://img.shields.io/travis/uhop/dcl.svg
-[travis-url]:     https://travis-ci.org/uhop/dcl
+[npm-image]:         https://img.shields.io/npm/v/dcl.svg
+[npm-url]:           https://npmjs.org/package/dcl
+[deps-image]:        https://img.shields.io/david/uhop/dcl.svg
+[deps-url]:          https://david-dm.org/uhop/dcl
+[dev-deps-image]:    https://img.shields.io/david/dev/uhop/dcl.svg
+[dev-deps-url]:      https://david-dm.org/uhop/dcl?type=dev
+[travis-image]:      https://img.shields.io/travis/uhop/dcl.svg
+[travis-url]:        https://travis-ci.org/uhop/dcl
+[greenkeeper-image]: https://badges.greenkeeper.io/uhop/dcl.svg
+[greenkeeper-url]:   https://greenkeeper.io/
