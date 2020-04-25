@@ -27,6 +27,7 @@
     "test",
     "tests",
     "dist",
-    "es6"
+    "es6",
+    "amd"
   ]
 }
