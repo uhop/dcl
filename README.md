@@ -255,6 +255,7 @@ Alternatively, you can use https://unpkg.com/ with AMD or globals. For example:
 
 ## 2.x
 
+- 2.0.10 &mdash; *Refreshed dev dependencies.*
 - 2.0.9 &mdash; *Refreshed dev dependencies, removed `yarn.lock`.*
 - 2.0.8 &mdash; *Added AMD distro.*
 - 2.0.7 &mdash; *A bugfix. Thx [Bill Keese](https://github.com/wkeese)!*
