@@ -1,6 +1,6 @@
 {
   "name": "dcl",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Elegant minimalistic implementation of OOP with mixins + AOP.",
   "author": "Eugene Lazutkin <eugene.lazutkin@gmail.com> (http://lazutkin.com/)",
   "license": "BSD-3-Clause",
