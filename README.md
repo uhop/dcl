@@ -1,6 +1,8 @@
 # `dcl`
 
 
+[![Join the chat at https://gitter.im/uhop/dcl](https://badges.gitter.im/uhop/dcl.svg)](https://gitter.im/uhop/dcl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build status][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 
