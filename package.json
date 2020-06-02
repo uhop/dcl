@@ -14,7 +14,7 @@
   "devDependencies": {
     "heya-globalize": "^1.2.1",
     "heya-unit": "^0.3.0",
-    "puppeteer": "^3.0.1"
+    "puppeteer": "^3.3.0"
   },
   "scripts": {
     "test": "node tests/tests.js",
